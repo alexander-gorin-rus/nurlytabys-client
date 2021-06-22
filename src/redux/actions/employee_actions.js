@@ -1,0 +1,89 @@
+import axios from 'axios';
+import { 
+    REGISTER_SUCCESS, 
+    REGISTER_FAIL, 
+    LOGIN_SUCCESS, 
+    LOGIN_FAIL, 
+    EMPLOYEE_LOADED,
+    LOGOUT,
+    ACCOUNT_DELETED,
+    AUTH_ERROR, 
+    CLEAR_PROFILE
+} from '../types';
+import setAuthToken from '../../utils/setAuthToken';
+
+export const loadEmployee = () => async dispatch => {
+    if(localStorage.token){
+        setAuthToken(localStorage.token)
+    }
+    try {
+       const res = await axios.get(`${process.env.REACT_APP_API}/get-employee`);
+       
+       dispatch({
+           type: EMPLOYEE_LOADED,
+           payload: res.data
+       });
+    } catch (err) {
+        dispatch({
+            type: AUTH_ERROR
+          });
+    }
+}
+
+export const registerEmployee = ({ name, lastName, password, phone, email }) => async dispatch => {
+    const config = {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }
+
+    const body =  JSON.stringify({ name, lastName, email, phone, password });
+
+    try {
+        const res = await axios.post(`${process.env.REACT_APP_API}/register`, body, config);
+        dispatch({
+            type: REGISTER_SUCCESS,
+            payload: res.data
+        })
+        dispatch(loadEmployee())
+    } catch (error) {
+        console.log(error);
+        dispatch({
+            type: REGISTER_FAIL
+        });
+    }
+} 
+
+export const loginEmployee = ( email, password ) => async dispatch => {
+    const config = {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }
+
+    const body =  JSON.stringify({ email, password });
+
+    try {
+        const res = await axios.post(`${process.env.REACT_APP_API}/login`, body, config);
+        dispatch({
+            type: LOGIN_SUCCESS,
+            payload: res.data
+        })
+        dispatch(loadEmployee())
+    } catch (error) {
+        console.log(error);
+        dispatch({
+            type: REGISTER_FAIL
+        });
+    }
+} 
+
+export const logout = () => dispatch => {
+    dispatch({
+      type: CLEAR_PROFILE
+    });
+    dispatch({
+      type: LOGOUT
+    });
+  };
+  

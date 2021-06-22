@@ -1,38 +1,44 @@
-.App {
-  text-align: center;
+.div-navbar{
+  width: 100%;
+  height: 10vh;
+  transition: 1s ease;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.div-navbar:hover{
+  background-color: rgba(33, 57, 121, 0.918);
+  transition: 1s ease;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.navbar-custom{
+  text-decoration: none;
+  width: 100vw !important;
+  height: 10vh;
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.li-custom{
+  display: inline;
+  text-decoration: none;
+  padding-top: 20px !important;
+  font-size: 0.9rem;
+  transition: 1s ease;
 }
-
-.App-link {
-  color: #61dafb;
+.div-navbar:hover .li-custom{
+  font-size: 1.1rem;
+  transition: 1s ease;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.li-main{
+  float:left;
+  margin-left: 20px;
+}
+.li-login{
+  float: right;
+  margin-right: 40px;
+}
+.li-register{
+  float: right;
+  margin-right: 30px;
+}
+/* .link{
+  text-decoration: none !important;
+  color: rgb(62, 16, 190);
+} */
+.div-navbar:hover .link{
+  color: white !important;
 }
