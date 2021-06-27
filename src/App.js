@@ -13,12 +13,14 @@ import Alert from './components/forms/alert-forms/Alert';
 
 //PROTECTED ROUTES
 import Register from './components/Register';
-import  RegisterForm  from './components/staffs/RegisterForm';
+import RegisterForm  from './components/staffs/RegisterForm';
 import LoginForm from './components/staffs/LoginForm';
 import StaffDashboard from './components/staffs/StaffDashboard';
 import CompanyManagement from './components/boss/company-management/CompanyManagement';
 import SiteManagenet from './components/boss/site-management/SiteManagement';
 import HomePageVideo from './components/boss/site-management/HomePageVideo';
+import EmployeePrivateRoutes from './components/routing/EmployeePrivateRoutes';
+import BossPrivateRoutes from './components/routing/BossPrivateRoutes';
 
 //REDUX
 import { Provider } from 'react-redux';
@@ -69,10 +71,10 @@ const App = () => {
               <Route exact path="/register" component={Register}/>
               <Route exact path="/register-form" component={RegisterForm}/>
               <Route exact path="/login" component={LoginForm}/>
-              <Route exact path="/employee-dashboard" component={StaffDashboard}/>
-              <Route exact path='/company-management' component={CompanyManagement} />
-              <Route exact path='/site-management' component={SiteManagenet} />
-              <Route exact path='/home-page-video' component={HomePageVideo} />
+              <EmployeePrivateRoutes exact path="/employee-dashboard" component={StaffDashboard}/>
+              <BossPrivateRoutes exact path='/company-management' component={CompanyManagement} />
+              <BossPrivateRoutes exact path='/site-management' component={SiteManagenet} />
+              <BossPrivateRoutes exact path='/home-page-video' component={HomePageVideo} />
             </Switch>
         </Fragment>
       </Router>

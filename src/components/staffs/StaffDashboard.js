@@ -3,26 +3,22 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 
-const StaffDashboard = ({employee}) => {
-
+const StaffDashboard = () => {
     return (
-        <div>
-            <h5 className='text-center bg-primary'>Персональная станица сотрудника</h5>
-            <div>{employee.name}</div>
-        </div>
+        <h3>Loading</h3>
     )
 }
 
 StaffDashboard.propTypes = {
-    
+    employee_reducer: PropTypes.object.isRequired,
 }
 
-const mapStateToProps = state => ({
-    employee: state.employee_reducer.employee
-})
+// const mapStateToProps = state => ({
+//     employee: state.employee_reducer.employee
+// })
 
 export default connect(
-    mapStateToProps, 
+    null, 
     {}
 )(StaffDashboard)
 
