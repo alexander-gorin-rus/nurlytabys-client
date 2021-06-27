@@ -2,8 +2,9 @@ import React, {Fragment, useState} from 'react'
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { registerEmployee } from '../../redux/actions/employee_actions';
+import { setAlert } from '../../redux/actions/alert'
 
-const RegisterForm = ({registerEmployee, isAuthenticated}) => {
+const RegisterForm = ({registerEmployee, isAuthenticated, setAlert}) => {
 
     const [values, setValues] = useState({
         name: "",
@@ -23,7 +24,7 @@ const RegisterForm = ({registerEmployee, isAuthenticated}) => {
     const onSubmit = async (e) => {
         e.preventDefault()
         if(password !== password2){
-            window.alert('Пароли не совпадают')
+            setAlert('Пароли не совпадают, повторите пароль правильно', 'danger')
         }else{
             registerEmployee({
                 name,
@@ -143,10 +144,11 @@ RegisterForm.propTypes = {
 }
 
 const mapStateToProps = state => ({
-    isAuthenticated: state.employee_reducer.isAuthenticated
+    isAuthenticated: state.employee_reducer.isAuthenticated,
+    setAlert: PropTypes.func.isRequired
 })
 
 export default connect(
     mapStateToProps,
-    {registerEmployee}
+    {registerEmployee, setAlert}
 )(RegisterForm)

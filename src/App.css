@@ -42,3 +42,37 @@
 .div-navbar:hover .link{
   color: white !important;
 }
+   
+.alert {
+  padding: 0.8rem;
+  margin: 1rem 0;
+  opacity: 0.9;
+  background: #e01822;
+  
+}
+
+.alert-danger{
+  margin: auto;
+  margin-top: 20px;
+  background: #e01822;
+  width: 70vw;
+  text-align: center;
+  color: aliceblue;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.alert-success{
+  margin: auto;
+  margin-top: 20px;
+  background: #02610a;
+  width: 70vw;
+  text-align: center;
+  color: aliceblue;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.link-text-color{
+  color: black !important;
+}

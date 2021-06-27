@@ -13,8 +13,9 @@ import {
 const initialState = {
     token: localStorage.getItem('token'),
     isAuthenticated: null,
+    loading: true,
     employee: null,
-    loading: true
+    role: null
 }
 
 export default function (state = initialState, action){
@@ -22,12 +23,12 @@ export default function (state = initialState, action){
 
     switch(type){
         case EMPLOYEE_LOADED: 
-            localStorage.setItem('token', payload.token)
             return {
                 ...state,
                 isAuthenticated: true,
+                loading: false,
                 employee: payload,
-                loading: false
+                role: payload.role
             };
         case REGISTER_SUCCESS:
         case LOGIN_SUCCESS:
@@ -36,7 +37,8 @@ export default function (state = initialState, action){
                ...state,
                ...payload,
                isAuthenticated: true,
-               loading: false
+               loading: false,
+               role: payload.role
            };
         case REGISTER_FAIL:
         case LOGIN_FAIL:
@@ -44,14 +46,15 @@ export default function (state = initialState, action){
         case ACCOUNT_DELETED:
         case AUTH_ERROR:
         case CLEAR_PROFILE:
-            localStorage.removeItem('token')
+            localStorage.removeItem('token');
+            localStorage.removeItem('entry_token');
             return {
                 ...state,
                 token: null,
-                employee: null,
                 isAuthenticated: false,
-                loading: false
-            }
+                loading: false,
+                role: null
+            };
         default:
             return state; 
     }

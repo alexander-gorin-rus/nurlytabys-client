@@ -10,6 +10,8 @@ import {
     AUTH_ERROR, 
     CLEAR_PROFILE
 } from '../types';
+import { setAlert} from './alert';
+
 import setAuthToken from '../../utils/setAuthToken';
 
 export const loadEmployee = () => async dispatch => {
@@ -17,7 +19,7 @@ export const loadEmployee = () => async dispatch => {
         setAuthToken(localStorage.token)
     }
     try {
-       const res = await axios.get(`${process.env.REACT_APP_API}/get-employee`);
+       const res = await axios.get(`${process.env.REACT_APP_API}/auth-employee`);
        
        dispatch({
            type: EMPLOYEE_LOADED,
@@ -44,10 +46,14 @@ export const registerEmployee = ({ name, lastName, password, phone, email }) => 
         dispatch({
             type: REGISTER_SUCCESS,
             payload: res.data
-        })
+        });
         dispatch(loadEmployee())
-    } catch (error) {
-        console.log(error);
+    } catch (err) {
+        const errors = err.response.data.errors;
+
+        if(errors){
+            errors.forEach(error => dispatch(setAlert(error.msg, 'danger')))
+        }
         dispatch({
             type: REGISTER_FAIL
         });
@@ -70,8 +76,12 @@ export const loginEmployee = ( email, password ) => async dispatch => {
             payload: res.data
         })
         dispatch(loadEmployee())
-    } catch (error) {
-        console.log(error);
+    } catch (err) {
+        const errors = err.response.data.errors;
+
+        if(errors){
+            errors.forEach(error => dispatch(setAlert(error.msg, 'danger')))
+        }
         dispatch({
             type: REGISTER_FAIL
         });

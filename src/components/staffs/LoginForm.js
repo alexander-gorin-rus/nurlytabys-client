@@ -2,9 +2,12 @@ import React, { Fragment, useState } from 'react'
 import PropTypes from 'prop-types';
 import { loginEmployee } from '../../redux/actions/employee_actions';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 
-const LoginForm = ({ loginEmployee, isAuthenticated }) => {
+const LoginForm = ( { loginEmployee }) => {
+
+    const history = useHistory();
+
     const [values, setValues] = useState({
         email: "",
         password: ""
@@ -22,12 +25,10 @@ const LoginForm = ({ loginEmployee, isAuthenticated }) => {
         setValues({
             email: "",
             password: ""
-        })
+        });
+        history.push('/')
     }
 
-    if(isAuthenticated){
-        return <Redirect to="/employee-dashboard" />;
-    }
     return (
         <Fragment>
             <h4 className="text-center mt-4">Вход для сотрудников компании</h4>
@@ -70,11 +71,13 @@ const LoginForm = ({ loginEmployee, isAuthenticated }) => {
 
 LoginForm.propTypes = {
     loginEmployee: PropTypes.func.isRequired,
-    isAuthenticated: PropTypes.bool,
+    role: PropTypes.string,
+    //employee_reducer: PropTypes.object.isRequired,
 }
 
 const mapStateToProps = state => ({
-    isAuthenticated: state.employee_reducer.isAuthenticated
+    role: state.employee_reducer.role,
+    //employee_reducer: state.employee_reducer.employee
 })
 export default connect(
     mapStateToProps,
