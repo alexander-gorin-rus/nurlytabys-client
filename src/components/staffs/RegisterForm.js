@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { registerEmployee } from '../../redux/actions/employee_actions';
 import { setAlert } from '../../redux/actions/alert'
 
-const RegisterForm = ({registerEmployee, isAuthenticated, setAlert}) => {
+const RegisterForm = ({registerEmploye, setAlert}) => {
 
     const [values, setValues] = useState({
         name: "",
@@ -139,12 +139,10 @@ const RegisterForm = ({registerEmployee, isAuthenticated, setAlert}) => {
 }
 
 RegisterForm.propTypes = {
-    registerEmployee: PropTypes.func.isRequired,
-    isAuthenticated: PropTypes.bool
+    registerEmployee: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
-    isAuthenticated: state.employee_reducer.isAuthenticated,
     setAlert: PropTypes.func.isRequired
 })
 

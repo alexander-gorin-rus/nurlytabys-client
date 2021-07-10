@@ -7,7 +7,7 @@ const SiteManagement = props => {
         <div className='container mt-5 bg-info'>
             <div className='row pt-5'>
                 <div className='col-6'>
-                    <Link className='link-text-color' to='/home-page-video'>Создать видео для главной страницы</Link>
+                    <Link className='link-text-color' to='/upload-video'>Создать видео</Link>
                 </div>
                 <div className='col-6'>
                 <Link className='link-text-color' to='/create-home-video'>Создать информацию для главной страницы</Link>
@@ -15,7 +15,7 @@ const SiteManagement = props => {
             </div>
             <div className='row pt-5 pb-5'>
                 <div className='col-6'>
-                    <Link className='link-text-color' to='/create-category'>Создать категории</Link>
+                    <Link className='link-text-color' to='/categories'>Создать категории</Link>
                 </div>
                 <div className='col-6'>
                 <Link className='link-text-color' to='/create-contacts'>Создать контакты</Link>

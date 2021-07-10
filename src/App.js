@@ -18,7 +18,7 @@ import LoginForm from './components/staffs/LoginForm';
 import StaffDashboard from './components/staffs/StaffDashboard';
 import CompanyManagement from './components/boss/company-management/CompanyManagement';
 import SiteManagenet from './components/boss/site-management/SiteManagement';
-import HomePageVideo from './components/boss/site-management/HomePageVideo';
+import UploadVideo from './components/boss/site-management/UploadVideo';
 import EmployeePrivateRoutes from './components/routing/EmployeePrivateRoutes';
 import BossPrivateRoutes from './components/routing/BossPrivateRoutes';
 
@@ -39,6 +39,8 @@ import M from 'materialize-css/dist/js/materialize.min.js';
 //REACT APPLICATION MIDDLEWARES
 import setAuthToken from './utils/setAuthToken';
 import materializeMin from 'materialize-css/dist/js/materialize.min.js';
+import Categories from './components/boss/site-management/Categories';
+import UpdateCategory from './components/boss/site-management/UpdateCategory';
 
 
 if(localStorage.token){
@@ -74,7 +76,9 @@ const App = () => {
               <EmployeePrivateRoutes exact path="/employee-dashboard" component={StaffDashboard}/>
               <BossPrivateRoutes exact path='/company-management' component={CompanyManagement} />
               <BossPrivateRoutes exact path='/site-management' component={SiteManagenet} />
-              <BossPrivateRoutes exact path='/home-page-video' component={HomePageVideo} />
+              <BossPrivateRoutes exact path='/upload-video' component={UploadVideo} />
+              <BossPrivateRoutes exact path='/categories' component={Categories} />
+              <BossPrivateRoutes exact path='/category/:slug' component={UpdateCategory} />
             </Switch>
         </Fragment>
       </Router>

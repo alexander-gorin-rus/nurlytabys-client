@@ -76,3 +76,92 @@
 .link-text-color{
   color: black !important;
 }
+
+.homePageDiv{
+  width: 100vw;
+  height: 100vh;
+  border: 1px solid red;
+}
+.homePageVideo{
+  width: 100vw;
+  height: 100vh;
+  border: 1px solid green;
+}
+
+.delete-custom{
+  color: aliceblue;
+  cursor: pointer;
+}
+
+
+
+.custom_navigation_abs{
+  position: absolute;
+  top: 30%;
+  height: 30%;
+  /* border: 3px solid green; */
+}
+
+.custom_navigation_rel{
+  position: relative;
+  /* border: 1px solid red; */
+  height: 100% !important;
+}
+
+.ul_navigation{
+  position: absolute;
+  top: 0%;
+  left: -200px;
+  /* border: 2px solid black; */
+  width: 200px !important;
+  vertical-align: middle !important;
+  transition: 1s ease;
+   
+}
+
+.li_navigation{
+  top: 0px !important;
+  margin-top: 10px;
+  background-color: white;
+  padding: 3px;
+  border-radius: 10px;
+}
+
+.main_page_navigation{
+  position: relative;
+  left: -15px !important;
+  writing-mode: vertical-lr;
+  background-color: black;
+  color: aliceblue;
+  text-orientation:upright;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  padding-right: 15px;
+  display: inline-block;
+  transition: 1s ease;
+}
+
+.custom_navigation_abs:hover .ul_navigation{
+  transition: 1s ease;
+  left: 20px;
+}
+
+.custom_navigation_abs:hover .main_page_navigation{
+  opacity: 0;
+  transition: 1s ease;
+}
+
+.div_cover{ 
+  position: absolute;
+  top: -20%;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgb(122, 118, 118);
+  opacity: 0;
+  transition: 1s ease;
+}
+
+.custom_navigation_abs:hover .div_cover{
+  opacity: 1;
+}
