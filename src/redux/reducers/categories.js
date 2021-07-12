@@ -6,7 +6,9 @@ import {
     UPDATE_CATEGORY, 
     GET_CATEGORIES_FAIL,
     DELETE_CATEGORY_SUCCESS,
-    DELETE_CATEGORY_FAIL
+    DELETE_CATEGORY_FAIL,
+    LOAD_CATEGORY_SUCCESS,
+    LOAD_CATEGORY_FAIL
 } from '../types';
 
 const initialState = {
@@ -14,6 +16,7 @@ const initialState = {
     category: null,
     categories: [],
     category_deleted: false,
+    load_category: null,
     loading: true
 }
 
@@ -46,6 +49,18 @@ export default function(state = initialState, action){
                 ...state,
                 category: null,
                 categories: payload,
+                loading: false
+            }
+        case LOAD_CATEGORY_SUCCESS:
+            return {
+                ...state,
+                load_category: payload,
+                loading: false
+            }
+        case LOAD_CATEGORY_FAIL:
+            return {
+                ...state,
+                load_category: null,
                 loading: false
             }
         case DELETE_CATEGORY_SUCCESS: 

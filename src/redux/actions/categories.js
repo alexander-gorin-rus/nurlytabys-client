@@ -6,19 +6,21 @@ import {
     UPDATE_CATEGORY, 
     GET_CATEGORIES_FAIL,
     DELETE_CATEGORY_FAIL,
-    DELETE_CATEGORY_SUCCESS
+    DELETE_CATEGORY_SUCCESS,
+    LOAD_CATEGORY_SUCCESS,
+    LOAD_CATEGORY_FAIL
 } from '../types';
 import axios from 'axios';
 import { setAlert } from './alert';
 
-export const CreateCategory = (name) => async dispatch => {
+export const CreateCategory = (name, description) => async dispatch => {
     const config = {
         headers: {
             'Content-Type': 'application/json'
         }
     }
 
-    const body = JSON.stringify({name});
+    const body = JSON.stringify({name, description});
 
     try {
         const res = await axios.post(`${process.env.REACT_APP_API}/category-create`, body, config);
@@ -65,6 +67,20 @@ export const GetCategories = () => async dispatch => {
             GET_CATEGORIES_FAIL
         })
     }
+}
+
+export const GetOneCategory = (slug) => async dispatch => {
+    try {
+        var res = await axios.get(`${process.env.REACT_APP_API}/category/${slug}`);
+        dispatch({
+            type: LOAD_CATEGORY_SUCCESS,
+            payload: res.data
+        })
+    } catch (error) {
+        dispatch({
+            type: LOAD_CATEGORY_FAIL
+        })
+    }        
 }
 
 export const CategoryUpdate = (slug) => async dispatch => {

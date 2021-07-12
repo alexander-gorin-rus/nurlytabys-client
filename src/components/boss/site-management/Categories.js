@@ -18,10 +18,11 @@ const Categories = ({
         GetCategories();
 
     const [values, setValues] = useState({
-        name: ""
+        name: "",
+        description: ""
     });
 
-    const { name } = values;
+    const { name, description } = values;
 
     const onChange = e => {
         setValues({...values, [e.target.name]: e.target.value})
@@ -29,9 +30,10 @@ const Categories = ({
 
     const onSubmit = (e) => {
         e.preventDefault();
-        CreateCategory(name);
+        CreateCategory(name, description);
         setValues({
-            name: ""
+            name: "",
+            description: ""
         });
         setTimeout(() => {
             loadCategories();
@@ -54,7 +56,7 @@ const Categories = ({
                 <div className="row">
                     <form className="col s12" onSubmit={e => onSubmit(e)}>
                         <div className="row">
-                            <div className="input-field col s12">
+                            <div className="input-field col s6">
                                 <i className="material-icons prefix">add_box</i>
                                 <input 
                                     id="icon_prefix" 
@@ -65,6 +67,18 @@ const Categories = ({
                                     onChange={e => onChange(e)}    
                                 />
                                 <label htmlFor="icon_prefix">Название категории</label>
+                            </div> 
+                            <div className="input-field col s6">
+                                <i className="material-icons prefix">add_box</i>
+                                <input 
+                                    id="icon_prefix" 
+                                    type="text" 
+                                    className="validate"
+                                    name='description'
+                                    value={description}
+                                    onChange={e => onChange(e)}    
+                                />
+                                <label htmlFor="icon_prefix">Описание категории</label>
                             </div> 
                         </div>
                         <input type='submit' className='btn btn-primary' value='Отправить' />

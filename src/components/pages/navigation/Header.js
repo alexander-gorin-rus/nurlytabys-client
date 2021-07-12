@@ -2,14 +2,13 @@ import React, {Fragment} from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { logout } from '../redux/actions/employee_actions';
+import { logout } from '../../../redux/actions/employee_actions';
 
-export const Navbar = ( { logout, role} ) => {
+export const Header = ( { logout, role} ) => {
     return (
         <Fragment>
-            <div className="div-navbar">
-                <ul className="navbar-custom">
-                    <li className="li-main li-custom"><Link className="link" to="/">Главная</Link></li>
+            <div className="div-header">
+                <ul className="header-custom">
                         {role === null && (
                             <Fragment>
                                 <li className="li-register li-custom"><Link className="link" to="/register">Зарегистрироваться</Link></li>
@@ -40,7 +39,7 @@ export const Navbar = ( { logout, role} ) => {
     )
 }
 
-Navbar.propTypes = {
+Header.propTypes = {
     logout: PropTypes.func.isRequired,
     //employee_reducer: PropTypes.object.isRequired,
     role: PropTypes.string
@@ -54,4 +53,4 @@ Navbar.propTypes = {
   export default connect(
     mapStateToProps,
     { logout }
-  )(Navbar);
+  )(Header);

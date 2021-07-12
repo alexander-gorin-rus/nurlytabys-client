@@ -2,9 +2,12 @@ import React, {Fragment, useState} from 'react'
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { registerEmployee } from '../../redux/actions/employee_actions';
-import { setAlert } from '../../redux/actions/alert'
+import { setAlert } from '../../redux/actions/alert';
+import { useHistory } from 'react-router-dom';
 
-const RegisterForm = ({registerEmploye, setAlert}) => {
+const RegisterForm = ({registerEmployee, setAlert}) => {
+
+    const history = useHistory();
 
     const [values, setValues] = useState({
         name: "",
@@ -22,7 +25,7 @@ const RegisterForm = ({registerEmploye, setAlert}) => {
     }
 
     const onSubmit = async (e) => {
-        e.preventDefault()
+        e.preventDefault();
         if(password !== password2){
             setAlert('Пароли не совпадают, повторите пароль правильно', 'danger')
         }else{
@@ -42,6 +45,7 @@ const RegisterForm = ({registerEmploye, setAlert}) => {
                 password: '',
                 password2: ''
             });
+            history.push('/');
         }
     }
 

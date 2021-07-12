@@ -1,13 +1,19 @@
-.div-navbar{
+.main_app_container{
+  position: relative;
+  left: 8%;
+  /* border: 1px solid red */
+}
+
+.div-header{
   width: 100%;
   height: 10vh;
   transition: 1s ease;
 }
-.div-navbar:hover{
+.div-header:hover{
   background-color: rgba(33, 57, 121, 0.918);
   transition: 1s ease;
 }
-.navbar-custom{
+.header-custom{
   text-decoration: none;
   width: 100vw !important;
   height: 10vh;
@@ -18,15 +24,13 @@
   padding-top: 20px !important;
   font-size: 0.9rem;
   transition: 1s ease;
+  opacity: 0;
 }
-.div-navbar:hover .li-custom{
-  font-size: 1.1rem;
+.div-header:hover .li-custom{
+  opacity: 1;
   transition: 1s ease;
 }
-.li-main{
-  float:left;
-  margin-left: 20px;
-}
+
 .li-login{
   float: right;
   margin-right: 40px;
@@ -39,7 +43,7 @@
   text-decoration: none !important;
   color: rgb(62, 16, 190);
 } */
-.div-navbar:hover .link{
+.div-header:hover .link{
   color: white !important;
 }
    
@@ -97,8 +101,9 @@
 
 .custom_navigation_abs{
   position: absolute;
-  top: 30%;
-  height: 30%;
+  top: 10%;
+  height: 100%;
+  width: 20%;
   /* border: 3px solid green; */
 }
 
@@ -106,17 +111,19 @@
   position: relative;
   /* border: 1px solid red; */
   height: 100% !important;
+  width: 100%;
+  /* border: 4px dashed yellow; */
 }
 
 .ul_navigation{
   position: absolute;
-  top: 0%;
-  left: -200px;
+  top: 25%;
+  left: -220px;
   /* border: 2px solid black; */
   width: 200px !important;
   vertical-align: middle !important;
   transition: 1s ease;
-   
+  z-index: 10;
 }
 
 .li_navigation{
@@ -129,13 +136,14 @@
 
 .main_page_navigation{
   position: relative;
+  top: 0%;
   left: -15px !important;
   writing-mode: vertical-lr;
-  background-color: black;
+  background-color: rgba(33, 57, 121, 0.918);
   color: aliceblue;
   text-orientation:upright;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 33vh;
+  padding-bottom: 42vh;
   padding-left: 20px;
   padding-right: 15px;
   display: inline-block;

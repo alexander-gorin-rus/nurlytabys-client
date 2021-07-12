@@ -47,7 +47,8 @@ export const registerEmployee = ({ name, lastName, password, phone, email }) => 
             type: REGISTER_SUCCESS,
             payload: res.data
         });
-        dispatch(loadEmployee())
+        dispatch(loadEmployee());
+        dispatch(setAlert(`Вы успешно зарегистрировались`, 'success'));
     } catch (err) {
         const errors = err.response.data.errors;
 
@@ -75,7 +76,8 @@ export const loginEmployee = ( email, password ) => async dispatch => {
             type: LOGIN_SUCCESS,
             payload: res.data
         })
-        dispatch(loadEmployee())
+        dispatch(loadEmployee());
+        dispatch(setAlert(`Вы успешно вошли в свой профиль`, 'success'));
     } catch (err) {
         const errors = err.response.data.errors;
 

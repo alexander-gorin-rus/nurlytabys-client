@@ -5,8 +5,10 @@ import {Fragment, useEffect} from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 //REACT APPLICATION COMPONENTS
-import Navbar from './components/Navbar';
-import Main from './components/pages/Main'
+import Header from './components/pages/navigation/Header';
+import Navbar from './components/pages/navigation/Navbar';
+import Main from './components/pages/Main';
+import Category from './components/pages/categories/Category';
 
 //MODAL COMPONENTS
 import Alert from './components/forms/alert-forms/Alert';
@@ -43,6 +45,7 @@ import Categories from './components/boss/site-management/Categories';
 import UpdateCategory from './components/boss/site-management/UpdateCategory';
 
 
+
 if(localStorage.token){
   setAuthToken(localStorage.token)
 }
@@ -66,20 +69,24 @@ const App = () => {
     <Provider store={store}>
       <Router>
         <Fragment>
-          <Navbar/>
+          <Header/>
+          <Navbar />
           <Alert />
+          <div className='main_app_container'>
             <Switch>
-              <Route exact path="/" component={Main}/>
-              <Route exact path="/register" component={Register}/>
-              <Route exact path="/register-form" component={RegisterForm}/>
-              <Route exact path="/login" component={LoginForm}/>
-              <EmployeePrivateRoutes exact path="/employee-dashboard" component={StaffDashboard}/>
-              <BossPrivateRoutes exact path='/company-management' component={CompanyManagement} />
-              <BossPrivateRoutes exact path='/site-management' component={SiteManagenet} />
-              <BossPrivateRoutes exact path='/upload-video' component={UploadVideo} />
-              <BossPrivateRoutes exact path='/categories' component={Categories} />
-              <BossPrivateRoutes exact path='/category/:slug' component={UpdateCategory} />
+                <Route exact path="/" component={Main}/>
+                <Route exact path="/register" component={Register}/>
+                <Route exact path="/register-form" component={RegisterForm}/>
+                <Route exact path="/login" component={LoginForm}/>
+                <Route path="/category/:slug" exact component={Category} />
+                <EmployeePrivateRoutes exact path="/employee-dashboard" component={StaffDashboard}/>
+                <BossPrivateRoutes exact path='/company-management' component={CompanyManagement} />
+                <BossPrivateRoutes exact path='/site-management' component={SiteManagenet} />
+                <BossPrivateRoutes exact path='/upload-video' component={UploadVideo} />
+                <BossPrivateRoutes exact path='/categories' component={Categories} />
+                {/* <BossPrivateRoutes exact path='/category/:slug' component={UpdateCategory} /> */}
             </Switch>
+            </div>
         </Fragment>
       </Router>
     </Provider>
