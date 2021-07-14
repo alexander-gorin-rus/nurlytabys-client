@@ -3,10 +3,12 @@ import employee_reducer from './employee_reducer';
 import alert from './alert';
 import register_entry from "./register_entry";
 import categories from "./categories";
+import videos from './videos';
 
 export default combineReducers({
     employee_reducer,
     alert,
     register_entry,
-    categories
+    categories,
+    videos
 });

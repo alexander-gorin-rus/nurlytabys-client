@@ -23,6 +23,7 @@ import SiteManagenet from './components/boss/site-management/SiteManagement';
 import UploadVideo from './components/boss/site-management/UploadVideo';
 import EmployeePrivateRoutes from './components/routing/EmployeePrivateRoutes';
 import BossPrivateRoutes from './components/routing/BossPrivateRoutes';
+import DetailedVideo from './components/pages/videos/DetailedVideo';
 
 //REDUX
 import { Provider } from 'react-redux';
@@ -42,7 +43,7 @@ import M from 'materialize-css/dist/js/materialize.min.js';
 import setAuthToken from './utils/setAuthToken';
 import materializeMin from 'materialize-css/dist/js/materialize.min.js';
 import Categories from './components/boss/site-management/Categories';
-import UpdateCategory from './components/boss/site-management/UpdateCategory';
+//import UpdateCategory from './components/boss/site-management/UpdateCategory';
 
 
 
@@ -79,6 +80,7 @@ const App = () => {
                 <Route exact path="/register-form" component={RegisterForm}/>
                 <Route exact path="/login" component={LoginForm}/>
                 <Route path="/category/:slug" exact component={Category} />
+                <Route exact path="/video/:slug" component={DetailedVideo} />
                 <EmployeePrivateRoutes exact path="/employee-dashboard" component={StaffDashboard}/>
                 <BossPrivateRoutes exact path='/company-management' component={CompanyManagement} />
                 <BossPrivateRoutes exact path='/site-management' component={SiteManagenet} />

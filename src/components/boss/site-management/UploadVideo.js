@@ -1,21 +1,32 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, Fragment } from 'react'
 import PropTypes from 'prop-types';
-import { Typography, Button, Form, Input, } from 'antd';
+import { Typography } from 'antd';
 import Dropzone from 'react-dropzone';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { GetCategories } from '../../../redux/actions/categories';
+import { LoadVideos, UploadVideoFunction } from '../../../redux/actions/videos';
+import VideoCart from './VideoCart';
 
 const { Title } = Typography;
 
 
 
-const UploadVideo = ({categories: {categories}, GetCategories}) => {
+const UploadVideo = ({
+    categories: {categories}, 
+    GetCategories,
+    videos: { videos: {videos}},
+    LoadVideos,
+    UploadVideoFunction
+}) => {
 
     useEffect(() => {
-        GetCategories()
+        GetCategories();
+        LoadVideos();
     },[GetCategories]);
+
+    
 
     const history = useHistory();
     const [FilePath, setFilePath] = useState("");
@@ -63,15 +74,8 @@ const UploadVideo = ({categories: {categories}, GetCategories}) => {
             category
         }
 
-        axios.post(`${process.env.REACT_APP_API}/save-video`,  variables)
-            .then(res => {
-                if(res.data.success){
-                    alert('Video was uploaded')
-                    history.push('/')
-                }else{
-                    alert('Unable to upload video')
-                }
-            })
+        UploadVideoFunction(variables);
+        history.push('/');
     }
 
     const onDrop = ( files ) => {
@@ -109,7 +113,9 @@ const UploadVideo = ({categories: {categories}, GetCategories}) => {
                 }
             })
     }
+
     return (
+        <Fragment>
         <div style={{ maxWidth: '700px', margin: '2rem auto' }}>
         <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
             <Title level={5} >Загрузить видео для главной страницы</Title>
@@ -183,17 +189,26 @@ const UploadVideo = ({categories: {categories}, GetCategories}) => {
 
         </form>
     </div>
+    <h4 className='text-center'>Созданные видео</h4>
+        <VideoCart videos={videos} />
+    </Fragment>
     )
 }
 
 UploadVideo.propTypes = {
     GetCategories: PropTypes.func.isRequired,
+    LoadVideos: PropTypes.func.isRequired,
+    UploadVideoFunction: PropTypes.func.isRequired,
+    videos: PropTypes.array.isRequired,
 }
 
 const mapStateToProps = state => ({
-    categories: state.categories
+    categories: state.categories,
+    videos: state.videos
 })
 
 export default connect(mapStateToProps, {
-    GetCategories
+    GetCategories,
+    LoadVideos,
+    UploadVideoFunction
 })(UploadVideo)

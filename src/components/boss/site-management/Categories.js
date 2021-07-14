@@ -8,11 +8,13 @@ const Categories = ({
     CreateCategory, 
     GetCategories, 
     DeleteCategory,
-    categories: {categories}}) => {
+    categories: {categories}
+}) => {
 
     useEffect(() => {
         GetCategories()
     },[GetCategories]);
+
 
     const loadCategories = () =>
         GetCategories();
@@ -104,6 +106,7 @@ Categories.propTypes = {
     CreateCategory: PropTypes.func.isRequired,
     GetCategories: PropTypes.func.isRequired,
     DeleteCategory: PropTypes.func.isRequired,
+    LoadVideos: PropTypes.func.isRequired,
     categories: PropTypes.object.isRequired
 }
 

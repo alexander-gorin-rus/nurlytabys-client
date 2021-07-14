@@ -1,6 +1,10 @@
+@import '~antd/dist/antd.css';
+
+
 .main_app_container{
   position: relative;
   left: 8%;
+  width: 92%;
   /* border: 1px solid red */
 }
 
@@ -100,11 +104,12 @@
 
 
 .custom_navigation_abs{
-  position: absolute;
+  position: fixed;
   top: 10%;
   height: 100%;
-  width: 20%;
+  width: 5%;
   /* border: 3px solid green; */
+  z-index: 100;
 }
 
 .custom_navigation_rel{
@@ -172,4 +177,12 @@
 
 .custom_navigation_abs:hover .div_cover{
   opacity: 1;
+}
+
+.video-container {
+  position: relative;
+  top:20%;
+  width: 80%;
+  height: auto;
+  
 }

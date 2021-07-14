@@ -1,23 +1,23 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const Category = ({ match }) => {
 
     const [category, setCategory] = useState({});
     const [Videos, setVideos] = useState([]);
-    const [loading, setLoading] = useState(false)
 
     const {slug} = match.params
 
     const getOneCategory = (slug) => {
-        setLoading(true)
+        
         axios.get(`${process.env.REACT_APP_API}/category/${slug}`)
             .then(res => {
                 setCategory(res.data.category);
                 setVideos(res.data.videos)
                 console.log(res.data.videos)
             });
-            setLoading(false)
+           
     }
 
     useEffect(() => {
@@ -28,7 +28,9 @@ const Category = ({ match }) => {
     const renderCart = Videos.map((video, index) => {
         return(
             <div>
-                <img key={index} className='my-3' src={`http://localhost:5003/${video.thumbnail}`} alt='construction' />
+                <Link to={`/video/${video.slug}`}>
+                    <img key={index} className='my-3' src={`http://localhost:5003/${video.thumbnail}`} alt='construction' />
+                </Link>
             </div>
         )})
 
