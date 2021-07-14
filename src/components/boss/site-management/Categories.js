@@ -94,7 +94,7 @@ const Categories = ({
                     <p className='delete-custom' onClick={() => onDelete(category.slug)}>
                         Удалить категорию
                     </p>
-                    <Link to={`/category/${category.slug}`}>Изменить категорию</Link>
+                    <Link to={`get-category-to-update/${category.slug}`}>Изменить категорию</Link>
                 </p>
                 
                 ) )}</div>

@@ -1,7 +1,8 @@
 import { 
     LOAD_ALL_VIDEOS,
     UPLOAD_VIDEO_SUCCESS,
-    UPLOAD_VIDEO_FAIL
+    UPLOAD_VIDEO_FAIL,
+    DELETE_VIDEO_SUCCESS
 } from '../types';
 
 const initialState = {
@@ -19,20 +20,24 @@ export default function(state = initialState, action){
                 videos: payload,
                 loading: false
             }
-        case UPLOAD_VIDEO_SUCCESS: {
+        case UPLOAD_VIDEO_SUCCESS: 
             return {
                 ...state,
                 video: payload,
                 loading: false
             }
-        }
-        case UPLOAD_VIDEO_FAIL: {
+        case UPLOAD_VIDEO_FAIL:
             return {
                 ...state,
                 video: null,
                 loading: false
             }
-        }
+        case DELETE_VIDEO_SUCCESS:
+            return {
+                ...state,
+                video: payload,
+                loading: false
+            }
         default: 
             return state
     }

@@ -41,19 +41,19 @@ export const CreateCategory = (name, description) => async dispatch => {
     }
 }
 
-export const GetCurrentCategory = (slug) => async dispatch => {
-    try {
-        const res = await axios.get(`${process.env.REACT_APP_API}/category/${slug}`);
-        dispatch({
-            type: GET_CATEGORY,
-            payload: res.data
-        })
-    } catch (err) {
-        dispatch({
-            GET_CATEGORIES_FAIL
-        })
-    }
-}
+// export const GetCurrentCategory = (slug) => async dispatch => {
+//     try {
+//         const res = await axios.get(`${process.env.REACT_APP_API}/category/${slug}`);
+//         dispatch({
+//             type: GET_CATEGORY,
+//             payload: res.data
+//         })
+//     } catch (err) {
+//         dispatch({
+//             GET_CATEGORIES_FAIL
+//         })
+//     }
+// }
 
 export const GetCategories = () => async dispatch => {
     try {
@@ -81,6 +81,20 @@ export const GetOneCategory = (slug) => async dispatch => {
             type: LOAD_CATEGORY_FAIL
         })
     }        
+}
+
+export const GetOneCategoryToUpdate = (slug) => async dispatch => {
+    try {
+        const res = await axios.get(`${process.env.REACT_APP_API}/get-category-to-update/${slug}`);
+        dispatch({
+            type: GET_CATEGORY,
+            payload: res.data
+        })
+    } catch (err) {
+        dispatch({
+            type: LOAD_CATEGORY_FAIL
+        })
+    }
 }
 
 export const CategoryUpdate = (slug) => async dispatch => {

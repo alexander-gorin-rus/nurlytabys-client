@@ -1,74 +1,93 @@
 import React, {useState, useEffect, Fragment} from 'react'
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { GetCurrentCategory, CategoryUpdate } from '../../../redux/actions/categories';
+import { GetOneCategoryToUpdate, CategoryUpdate } from '../../../redux/actions/categories';
 import { Link } from 'react-router-dom';
 
 const UpdateCategory = ({
-    GetCurrentCategory,
+    GetOneCategoryToUpdate,
     CategoryUpdate,
     match, 
     categories: {category} 
 }) => {
 
-    const [loading, setLoading] = useState(false)
+    const [values, setValues] = useState({
+        name: '',
+        description: ''
+    });
 
-    const [name, setName] = useState("");
+    const { name, description } = values
+
+    const {slug} = match.params
 
     useEffect(() => {
-       //loadCategory()
-        GetCurrentCategory(match.params.slug)
-    }, []);
+       GetOneCategoryToUpdate(slug);  
+        getCategory()
+    },[]]);
 
-    const loadCategory = () => {
-        setLoading(true)
-        GetCurrentCategory(match.params.slug).then( () => {
-            setName(category.name)
-            setLoading(false)
-        })
+    const getCategory = () => {
+       if(category){
+           return setValues({
+               name: category.category.name,
+               description: category.category.description
+           })
+       } 
     }
 
 
     const onChange = e => {
-        setName({[e.target.name]: e.target.value})
+        setValues({...values, [e.target.name]: e.target.value})
     }
 
     const onSubmit = e => {
         e.preventDefault();
-        
+        CategoryUpdate(slug)
     }
 
     return (
         <Fragment>
            <h4 className="text-center mt-4">Изменить категорию</h4>
                 <div className='mt-5'>
-                    <div className="row">
-                        <form className="col s12" onSubmit={e => onSubmit(e)}>
-                            <div className="row">
-                                <div className="input-field col s12">
-                                    <i className="material-icons prefix">add_box</i>
-                                    <input 
-                                            id="icon_prefix" 
-                                            type="text" 
-                                            className="validate"
-                                            name='name'
-                                            value={name}
-                                            onChange={e => onChange(e)}    
-                                    />
-                                </div> 
-                            </div>
-                            <input type='submit' className='btn btn-primary' value='Отправить' />
-                        </form>
-                            <Link className='p-3 m-2' to='/categories'>Вернуться</Link>
-                    </div>
-                        {/* {JSON.stringify(category.name)} */}
+                <div className="row">
+                    <form className="col s12" onSubmit={e => onSubmit(e)}>
+                        <div className="row">
+                            <div className="input-field col s6">
+                                <i className="material-icons prefix">add_box</i>
+                                <input 
+                                    id="icon_prefix" 
+                                    type="text" 
+                                    className="validate"
+                                    name='name'
+                                    value={name}
+                                    onChange={e => onChange(e)}    
+                                />
+                                
+                            </div> 
+                            <div className="input-field col s6">
+                                <i className="material-icons prefix">add_box</i>
+                                <input 
+                                    id="icon_prefix" 
+                                    type="text" 
+                                    className="validate"
+                                    name='description'
+                                    value={description}
+                                    onChange={e => onChange(e)}    
+                                />
+                            
+                            </div> 
+                        </div>
+                        <input type='submit' className='btn btn-primary' value='Отправить' />
+                    </form>
+                    <Link className='p-3 m-2' to='/categories'>Вернуться</Link>
+                </div>
+                        {category && JSON.stringify(category.category.name)}
                 </div>    
         </Fragment>   
     )
 }
 
 UpdateCategory.propTypes = {
-    GetCurrentCategory: PropTypes.func.isRequired,
+    GetOneCategoryToUpdate: PropTypes.func.isRequired,
     CategoryUpdate: PropTypes.func.isRequired,
     categories: PropTypes.object.isRequired,
 }
@@ -78,6 +97,6 @@ const mapStateToProps = state => ({
   });
   
   export default connect(mapStateToProps, { 
-    GetCurrentCategory,
+    GetOneCategoryToUpdate,
     CategoryUpdate
 })(UpdateCategory);

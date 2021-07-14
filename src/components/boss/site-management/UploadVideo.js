@@ -3,11 +3,9 @@ import PropTypes from 'prop-types';
 import { Typography } from 'antd';
 import Dropzone from 'react-dropzone';
 import axios from 'axios';
-import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { GetCategories } from '../../../redux/actions/categories';
-import { LoadVideos, UploadVideoFunction } from '../../../redux/actions/videos';
-import VideoCart from './VideoCart';
+import { LoadVideos, UploadVideoFunction, DeleteVideo } from '../../../redux/actions/videos';
 
 const { Title } = Typography;
 
@@ -18,17 +16,20 @@ const UploadVideo = ({
     GetCategories,
     videos: { videos: {videos}},
     LoadVideos,
+    DeleteVideo,
     UploadVideoFunction
 }) => {
 
     useEffect(() => {
         GetCategories();
-        LoadVideos();
+        loadAllVideos()
     },[GetCategories]);
 
-    
+    const loadAllVideos = () => {
+        LoadVideos();
+    }    
 
-    const history = useHistory();
+    
     const [FilePath, setFilePath] = useState("");
     const [Duration, setDuration] = useState("");
     const [Thumbnail, setThumbnail] = useState("");
@@ -75,7 +76,21 @@ const UploadVideo = ({
         }
 
         UploadVideoFunction(variables);
-        history.push('/');
+        //history.push('/')
+        
+        setValues({
+            title: "", 
+            filePath: "",
+            description: "",
+            duration: "",
+            categories: [], 
+            thumbnail: "",
+            category: "",
+        });
+        setTimeout(() => {
+            loadAllVideos()
+        },300);
+        
     }
 
     const onDrop = ( files ) => {
@@ -112,6 +127,15 @@ const UploadVideo = ({
                     alert('unable to save video')
                 }
             })
+    }
+
+    const clickDelete = (slug) => {
+        if(window.confirm('Вы точно желаете удалить это видео?')){
+            DeleteVideo(slug)
+        }
+        setTimeout(() => {
+            loadAllVideos()
+        },300);
     }
 
     return (
@@ -190,7 +214,24 @@ const UploadVideo = ({
         </form>
     </div>
     <h4 className='text-center'>Созданные видео</h4>
-        <VideoCart videos={videos} />
+    <div>
+        {videos &&
+            videos.map((c, index) =>
+                <div key={index} className='container'>
+                    <div className='row'>
+                        <div className='col'>
+                            <div >
+                                <img alt='construction' src={`http://localhost:5003/${c.thumbnail}`} />
+                                <p>{c.title}</p>
+                                <span className="text-danger delete-custom" onClick={() => clickDelete(c.slug)}>Удалить видео</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                )
+            }
+        </div>
+        {/* <VideoCart videos={videos} /> */}
     </Fragment>
     )
 }
@@ -199,6 +240,7 @@ UploadVideo.propTypes = {
     GetCategories: PropTypes.func.isRequired,
     LoadVideos: PropTypes.func.isRequired,
     UploadVideoFunction: PropTypes.func.isRequired,
+    DeleteVideo: PropTypes.func.isRequired,
     videos: PropTypes.array.isRequired,
 }
 
@@ -210,5 +252,6 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps, {
     GetCategories,
     LoadVideos,
-    UploadVideoFunction
+    UploadVideoFunction,
+    DeleteVideo
 })(UploadVideo)

@@ -3,15 +3,19 @@
 
 .main_app_container{
   position: relative;
+  top: 10vh !important; 
   left: 8%;
   width: 92%;
   /* border: 1px solid red */
 }
 
 .div-header{
+  position: fixed;
+  top: 0;
   width: 100%;
   height: 10vh;
   transition: 1s ease;
+  z-index: 102;
 }
 .div-header:hover{
   background-color: rgba(33, 57, 121, 0.918);
@@ -62,23 +66,29 @@
 .alert-danger{
   margin: auto;
   margin-top: 20px;
+  left: 20%;
   background: #e01822;
   width: 70vw;
   text-align: center;
   color: aliceblue;
   padding-top: 20px;
+  position: fixed;
   padding-bottom: 20px;
+  z-index: 101;
 }
 
 .alert-success{
   margin: auto;
   margin-top: 20px;
+  left: 20%;
   background: #02610a;
   width: 70vw;
   text-align: center;
   color: aliceblue;
   padding-top: 20px;
   padding-bottom: 20px;
+  z-index: 101;
+  position: fixed;
 }
 
 .link-text-color{
