@@ -5,7 +5,8 @@ import Dropzone from 'react-dropzone';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { GetCategories } from '../../../redux/actions/categories';
-import { LoadVideos, UploadVideoFunction, DeleteVideo } from '../../../redux/actions/videos';
+import { LoadVideos, SaveVideoFunction, DeleteVideo } from '../../../redux/actions/videos';
+import { Link } from 'react-router-dom';
 
 const { Title } = Typography;
 
@@ -17,7 +18,7 @@ const UploadVideo = ({
     videos: { videos: {videos}},
     LoadVideos,
     DeleteVideo,
-    UploadVideoFunction
+    SaveVideoFunction
 }) => {
 
     useEffect(() => {
@@ -75,7 +76,7 @@ const UploadVideo = ({
             category
         }
 
-        UploadVideoFunction(variables);
+        SaveVideoFunction(variables);
         //history.push('/')
         
         setValues({
@@ -90,7 +91,9 @@ const UploadVideo = ({
         setTimeout(() => {
             loadAllVideos()
         },300);
-        
+        // setTimeout(() => {
+        //     window.location.reload();
+        // },500)
     }
 
     const onDrop = ( files ) => {
@@ -142,7 +145,7 @@ const UploadVideo = ({
         <Fragment>
         <div style={{ maxWidth: '700px', margin: '2rem auto' }}>
         <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-            <Title level={5} >Загрузить видео для главной страницы</Title>
+            <Title level={5} >Загрузить видео</Title>
         </div>
 
         <form onSubmit={handleSubmit}>
@@ -210,27 +213,30 @@ const UploadVideo = ({
             </select>
 
             <button className="btn btn-outline-info mt-4">Отправить</button>
-
+            <Link className='d-block p-3 mt-4 bg-warning ' to='/site-management'>Вернуться на страницу управления сайтом</Link>
         </form>
     </div>
-    <h4 className='text-center'>Созданные видео</h4>
-    <div>
-        {videos &&
-            videos.map((c, index) =>
-                <div key={index} className='container'>
-                    <div className='row'>
-                        <div className='col'>
-                            <div >
-                                <img alt='construction' src={`http://localhost:5003/${c.thumbnail}`} />
-                                <p>{c.title}</p>
-                                <span className="text-danger delete-custom" onClick={() => clickDelete(c.slug)}>Удалить видео</span>
-                            </div>
+    { videos && videos.length === 0 ? (<h4 className="text-center pb-5">Вы пока не создали видео</h4>) : (
+      <>  
+        <h4 className='text-center mb-5'>Созданные видео</h4>
+        <div className='mb-5'>
+        {videos && videos.map((c, index) =>
+            <div key={index} className='container'>
+                <div className='row'>
+                    <div className='col'>
+                        <div >
+                            <img alt='construction' src={`http://localhost:5003/${c.thumbnail}`} />
+                            <p>{c.title}</p>
+                            <span className="text-danger delete-custom pb-5" onClick={() => clickDelete(c.slug)}>Удалить видео</span>
                         </div>
                     </div>
                 </div>
-                )
-            }
+            </div>
+            )}
         </div>
+    </>
+    ) }
+    
         {/* <VideoCart videos={videos} /> */}
     </Fragment>
     )
@@ -239,7 +245,7 @@ const UploadVideo = ({
 UploadVideo.propTypes = {
     GetCategories: PropTypes.func.isRequired,
     LoadVideos: PropTypes.func.isRequired,
-    UploadVideoFunction: PropTypes.func.isRequired,
+    SaveVideoFunction: PropTypes.func.isRequired,
     DeleteVideo: PropTypes.func.isRequired,
     videos: PropTypes.array.isRequired,
 }
@@ -252,6 +258,6 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps, {
     GetCategories,
     LoadVideos,
-    UploadVideoFunction,
+    SaveVideoFunction,
     DeleteVideo
 })(UploadVideo)

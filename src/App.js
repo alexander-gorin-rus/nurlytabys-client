@@ -41,7 +41,7 @@ import M from 'materialize-css/dist/js/materialize.min.js';
 
 //REACT APPLICATION MIDDLEWARES
 import setAuthToken from './utils/setAuthToken';
-import materializeMin from 'materialize-css/dist/js/materialize.min.js';
+//import materializeMin from 'materialize-css/dist/js/materialize.min.js';
 import Categories from './components/boss/site-management/Categories';
 import UpdateCategory from './components/boss/site-management/UpdateCategory';
 
@@ -86,7 +86,7 @@ const App = () => {
                 <BossPrivateRoutes exact path='/site-management' component={SiteManagenet} />
                 <BossPrivateRoutes exact path='/upload-video' component={UploadVideo} />
                 <BossPrivateRoutes exact path='/categories' component={Categories} />
-                <BossPrivateRoutes exact path='/get-category-to-update/:slug' component={UpdateCategory} />
+                <BossPrivateRoutes exact path='/get-category-to-update/:id' component={UpdateCategory} />
             </Switch>
             </div>
         </Fragment>

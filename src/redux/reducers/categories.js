@@ -13,7 +13,7 @@ import {
 
 const initialState = {
     create_category: null,
-    category: null,
+    category: {},
     categories: [],
     category_deleted: false,
     load_category: null,
@@ -47,7 +47,6 @@ export default function(state = initialState, action){
         case GET_CATEGORIES:
             return {
                 ...state,
-                category: null,
                 categories: payload,
                 loading: false
             }
@@ -66,7 +65,7 @@ export default function(state = initialState, action){
         case DELETE_CATEGORY_SUCCESS: 
             return {
                 ...state,
-                category: payload,
+                category: null,
                 category_deleted: true,
                 loading: false
             }

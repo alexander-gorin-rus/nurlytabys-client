@@ -21,7 +21,7 @@ export const LoadVideos = () => async dispatch => {
     }
 } 
 
-export const UploadVideoFunction = (variables) => async dispatch => {
+export const SaveVideoFunction = (variables) => async dispatch => {
     try {
         const res = await axios.post(`${process.env.REACT_APP_API}/save-video`, variables)
         dispatch({

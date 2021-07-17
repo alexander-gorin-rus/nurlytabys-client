@@ -27,15 +27,16 @@ const Category = ({ match }) => {
     
     const renderCart = Videos.map((video, index) => {
         return(
-            <div>
+            <div key={index}>
                 <Link to={`/video/${video.slug}`}>
-                    <img key={index} className='my-3' src={`http://localhost:5003/${video.thumbnail}`} alt='construction' />
+                    <img  className='my-3' src={`http://localhost:5003/${video.thumbnail}`} alt='construction' />
+                    <p className='text-center'>{video.title}</p>
                 </Link>
             </div>
         )})
 
     return (
-        <div>
+        <div key={category.id}>
             <h4 className="text-center text-primary">{category.name}</h4>
             <div className='container'>
                 <div className="row">

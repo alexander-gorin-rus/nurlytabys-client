@@ -1,52 +1,59 @@
-import React, {useState, useEffect, Fragment} from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import PropTypes from 'prop-types';
+import { useParams, Link, useHistory } from 'react-router-dom'
+import { 
+    GetOneCategoryToUpdate,
+    CategoryUpdate
+} from '../../../redux/actions/categories';
 import { connect } from 'react-redux';
-import { GetOneCategoryToUpdate, CategoryUpdate } from '../../../redux/actions/categories';
-import { Link } from 'react-router-dom';
+import Spinner from '../../../layout/Spin-1.gif'
 
 const UpdateCategory = ({
-    GetOneCategoryToUpdate,
+    GetOneCategoryToUpdate, 
     CategoryUpdate,
-    match, 
-    categories: {category} 
+    categories: {category}
 }) => {
+    const { id } = useParams();
 
-    const [values, setValues] = useState({
-        name: '',
-        description: ''
-    });
-
-    const { name, description } = values
-
-    const {slug} = match.params
+    const history = useHistory();
+    
+    useEffect(() => {
+        GetOneCategoryToUpdate(id)
+    },[]);
 
     useEffect(() => {
-       GetOneCategoryToUpdate(slug);  
-        getCategory()
-    },[]]);
+        if(category.category){
+            setValues({
+                name: category.category.name,
+                description: category.category.description
+            })
+        }
+    },[category.category])
 
-    const getCategory = () => {
-       if(category){
-           return setValues({
-               name: category.category.name,
-               description: category.category.description
-           })
-       } 
-    }
+    const [values, setValues] = useState({
+        name: "",
+        description: ""
+    });
 
+    const { name, description } = values;
 
-    const onChange = e => {
+    const onChange = (e) => {
         setValues({...values, [e.target.name]: e.target.value})
     }
 
     const onSubmit = e => {
         e.preventDefault();
-        CategoryUpdate(slug)
+        CategoryUpdate(id, values);
+        setTimeout(() => {
+            history.push('/categories');
+        },300)
     }
-
     return (
-        <Fragment>
-           <h4 className="text-center mt-4">Изменить категорию</h4>
+        <div>
+            {category && category.category ? 
+            (
+                <Fragment>
+                <h4 className="text-center mt-4">Изменить категорию</h4>
                 <div className='mt-5'>
                 <div className="row">
                     <form className="col s12" onSubmit={e => onSubmit(e)}>
@@ -61,7 +68,6 @@ const UpdateCategory = ({
                                     value={name}
                                     onChange={e => onChange(e)}    
                                 />
-                                
                             </div> 
                             <div className="input-field col s6">
                                 <i className="material-icons prefix">add_box</i>
@@ -69,20 +75,23 @@ const UpdateCategory = ({
                                     id="icon_prefix" 
                                     type="text" 
                                     className="validate"
-                                    name='description'
+                                    name="description"
                                     value={description}
                                     onChange={e => onChange(e)}    
                                 />
-                            
                             </div> 
                         </div>
                         <input type='submit' className='btn btn-primary' value='Отправить' />
+                        <Link className='d-block p-3 mt-4 bg-warning ' to='/categories'>Вернуться на страницу управления категориями</Link>
                     </form>
-                    <Link className='p-3 m-2' to='/categories'>Вернуться</Link>
                 </div>
-                        {category && JSON.stringify(category.category.name)}
-                </div>    
-        </Fragment>   
+                {/* {category && JSON.stringify(category.category.name)} */}
+            </div>
+            </Fragment>
+            ) 
+            : 
+            (<h1 className="text-center text-warning">Загружаю</h1>)}
+        </div>
     )
 }
 

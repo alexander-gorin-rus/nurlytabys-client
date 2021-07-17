@@ -51,6 +51,7 @@ const Categories = ({
             loadCategories();
         }, 300);
     }
+
     return (
         <Fragment>
             <h4 className="text-center mt-4">Создать категорию</h4>
@@ -84,20 +85,32 @@ const Categories = ({
                             </div> 
                         </div>
                         <input type='submit' className='btn btn-primary' value='Отправить' />
+                        <Link className='d-block p-3 mt-4 bg-warning ' to='/site-management'>Вернуться на страницу управления сайтом</Link>
                     </form>
                 </div>
             </div>
-            <h4 className="text-center mt-4">Список созданных категорий</h4>
-            <div className='mx-5'>{categories.map((category, index) => (
-                <p className='bg-danger p-3 text-center' key={index}>
-                 {category.name}
-                    <p className='delete-custom' onClick={() => onDelete(category.slug)}>
-                        Удалить категорию
-                    </p>
-                    <Link to={`get-category-to-update/${category.slug}`}>Изменить категорию</Link>
-                </p>
-                
-                ) )}</div>
+            
+            {categories && categories.length === 0 ? (<h3 className="text-center">Вы пока не создали категории</h3>) : 
+            (
+                <div>
+                    <h4 className='text-center mb-5'>Созданные категории</h4>
+                {
+                categories.map((category) => (
+                    <Fragment>
+                            <div className="category-cart" key={category.id}>
+                                <h4 className='text-center bg-primary'> {category.name}</h4>
+                                <div className='bg-danger p-3 text-center'>
+                                    <span className='delete-custom px-3' onClick={() => onDelete(category.slug)}>
+                                        Удалить категорию
+                                    </span>
+                                    <Link to={`get-category-to-update/${category.id}`}>Изменить категорию</Link>
+                                </div>
+                            </div>
+                    </Fragment>
+                    ))
+                }
+                </div>   
+            )}
         </Fragment>
     )
 }
@@ -106,8 +119,7 @@ Categories.propTypes = {
     CreateCategory: PropTypes.func.isRequired,
     GetCategories: PropTypes.func.isRequired,
     DeleteCategory: PropTypes.func.isRequired,
-    LoadVideos: PropTypes.func.isRequired,
-    categories: PropTypes.object.isRequired
+    categories: PropTypes.array.isRequired
 }
 
 const mapStateToProps = state => ({

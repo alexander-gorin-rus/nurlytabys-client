@@ -57,21 +57,21 @@ export const CreateCategory = (name, description) => async dispatch => {
 
 export const GetCategories = () => async dispatch => {
     try {
-        let res = await axios.get(`${process.env.REACT_APP_API}/categories`);
+        const res = await axios.get(`${process.env.REACT_APP_API}/categories`);
         dispatch({
             type: GET_CATEGORIES,
             payload: res.data
         })
     } catch (err) {
         dispatch({
-            GET_CATEGORIES_FAIL
+            type: GET_CATEGORIES_FAIL
         })
     }
 }
 
 export const GetOneCategory = (slug) => async dispatch => {
     try {
-        var res = await axios.get(`${process.env.REACT_APP_API}/category/${slug}`);
+        const res = await axios.get(`${process.env.REACT_APP_API}/category/${slug}`);
         dispatch({
             type: LOAD_CATEGORY_SUCCESS,
             payload: res.data
@@ -83,9 +83,9 @@ export const GetOneCategory = (slug) => async dispatch => {
     }        
 }
 
-export const GetOneCategoryToUpdate = (slug) => async dispatch => {
+export const GetOneCategoryToUpdate = (id) => async dispatch => {
     try {
-        const res = await axios.get(`${process.env.REACT_APP_API}/get-category-to-update/${slug}`);
+        const res = await axios.get(`${process.env.REACT_APP_API}/get-category-to-update/${id}`);
         dispatch({
             type: GET_CATEGORY,
             payload: res.data
@@ -97,29 +97,32 @@ export const GetOneCategoryToUpdate = (slug) => async dispatch => {
     }
 }
 
-export const CategoryUpdate = (slug) => async dispatch => {
+export const CategoryUpdate = (id, values) => async dispatch => {
     try {
-        const res = await axios.put(`${process.env.REACT_APP_API}/category-update/${slug}`);
+        const res = await axios.put(`${process.env.REACT_APP_API}/category-update/${id}`, values);
         dispatch({
             type: UPDATE_CATEGORY,
             payload: res.data
-        })
+        });
+        dispatch(setAlert(`Категория успешно изменена`, 'success'))
     } catch (err) {
         dispatch({
-            GET_CATEGORIES_FAIL
+            type: GET_CATEGORIES_FAIL
         })
     }
 }
 
 export const DeleteCategory = (slug) => async dispatch => {
     try {
-        const res =  await axios.delete(`${process.env.REACT_APP_API}/category-delete/${slug}`);
+        await axios.delete(`${process.env.REACT_APP_API}/category-delete/${slug}`);
 
         dispatch({
-            type: DELETE_CATEGORY_SUCCESS,
-            payload: res.data
+            type: DELETE_CATEGORY_SUCCESS
         });
-        dispatch(setAlert(`Категория успешно удалена`, 'success'))
+        dispatch(setAlert(`Категория успешно удалена`, 'success'));
+        // dispatch({
+        //     type: GET_CATEGORIES
+        // })
     } catch (err) {
         dispatch({type: DELETE_CATEGORY_FAIL})
     }
