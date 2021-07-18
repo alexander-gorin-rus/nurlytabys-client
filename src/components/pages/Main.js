@@ -1,14 +1,51 @@
-import React from 'react';
-import Video from '../../video/Advertisement.mp4'
+import React, { useState, useEffect, Fragment } from 'react'
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import {MainPageInfoShow} from '../../redux/actions/main_page_info';
 
-const Main = () => {
+const Main = ({
+    MainPageInfoShow,
+    main_page_info: {main_page_info, loading}
+}) => {
+
+    useEffect(() => {
+        MainPageInfoShow()
+    },[])
     return (
-        <div className="main-page-video-div">
-            <video className="main-page-video-video" autoPlay loop muted>
-                <source className="main-page-video-source" src={Video} type="video/mp4" />
-            </video>
+        <div>
+            {loading ? (
+                <Fragment>
+                    <div>sdfsdfsdfsdfsgfhfghdfghdfghdfghdfghdfghdfghdf</div>
+                </Fragment>
+            ) : (
+                <Fragment>
+                    {main_page_info && main_page_info.video.map((v, index) => 
+                        <div key={index} className="main-page-video-div">
+                        <video className="main-page-video-video" autoPlay loop muted 
+                        
+                        src={`http://localhost:5003/${v.filePath}`}>     
+                        </video>
+                    </div>
+                )}
+                </Fragment>
+            )}
+            
         </div>
     )
 }
 
-export default Main
+Main.propTypes = {
+    MainPageInfoShow: PropTypes.func.isRequired,
+    main_page_info: PropTypes.array.isRequired,
+}
+
+const mapStateToProps = state => ({
+    main_page_info: state.main_page_info
+})
+
+export default connect(mapStateToProps, {
+    MainPageInfoShow
+})(Main)
+
+
+

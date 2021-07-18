@@ -4,29 +4,28 @@ import { Typography } from 'antd';
 import Dropzone from 'react-dropzone';
 import axios from 'axios';
 import { connect } from 'react-redux';
-//import { LoadVideos, SaveVideoFunction, DeleteVideo } from '../../../redux/actions/videos';
-import { Link } from 'react-router-dom';
+import { 
+    MainPageInfoUpload, 
+    MainPageInfoShow,
+    MainPageInfoDelete
+} from '../../../redux/actions/main_page_info'
+import { Link, useHistory } from 'react-router-dom';
 
 const { Title } = Typography;
 
 
 
 const MainPageVideo = ({
-    // videos: { videos: {videos}},
-    // LoadVideos,
-    // DeleteVideo,
-    // SaveVideoFunction
+    main_page_info: {main_page_info},
+    MainPageInfoShow,
+    MainPageInfoDelete,
+    MainPageInfoUpload
 }) => {
 
     useEffect(() => {
-        //loadAllVideos()
-    },[]);
+        MainPageInfoShow()
+    },[MainPageInfoShow]); 
 
-    const loadAllVideos = () => {
-        //LoadVideos();
-    }    
-
-    
     const [FilePath, setFilePath] = useState("");
     const [Duration, setDuration] = useState("");
     const [Thumbnail, setThumbnail] = useState("");
@@ -43,13 +42,16 @@ const MainPageVideo = ({
 
     const { 
         title,
-        filePath,
         companyInfo,
         description,
         contacts,
+        filePath,
         duration,
         thumbnail,
     } = values;
+
+    const history = useHistory();
+    const { slug } = useHistory
 
     const handleChange = e => {
         setValues({...values, [e.target.name]: e.target.value})
@@ -60,16 +62,16 @@ const MainPageVideo = ({
 
         const variables = {
             title,
-            filePath: FilePath,
             companyInfo,
             description,
             contacts,
+            filePath: FilePath,
             duration: Duration,
             thumbnail: Thumbnail,
         }
 
-        //SaveVideoFunction(variables);
-        //history.push('/')
+        MainPageInfoUpload(variables);
+        history.push('/')
         
         setValues({
             title: "", 
@@ -78,12 +80,8 @@ const MainPageVideo = ({
             description: "",
             contacts: "",
             duration: "",
-            categories: [], 
             thumbnail: "",
         });
-        // setTimeout(() => {
-        //     loadAllVideos()
-        // },300);
     }
 
     const onDrop = ( files ) => {
@@ -91,7 +89,7 @@ const MainPageVideo = ({
         const config = {
             header: {'content-type': 'multipart/form-data'}
         }
-        console.log(files)
+        console.log('Сохраненный файл:', files)
         formData.append('file', files[0]);
 
         axios.post(`${process.env.REACT_APP_API}/main-page-video-upload`, formData, config)
@@ -106,7 +104,7 @@ const MainPageVideo = ({
                     setFilePath(res.data.filePath);
 
                     //generate thumbnail with this file
-                    axios.post(`${process.env.REACT_APP_API}/main-page-thumbnail`, variable)
+                    axios.post(`${process.env.REACT_APP_API}/thumbnail`, variable)
                         .then(res => {
                             if(res.data.success) {
                                 setDuration(res.data.fileDuration)
@@ -116,25 +114,24 @@ const MainPageVideo = ({
                             }
                         })
                 }else{
-                    alert('unable to save video')
+                    alert('Не удалось сохранить видео')
                 }
             })
     }
 
     const clickDelete = (slug) => {
-        // if(window.confirm('Вы точно желаете удалить это видео?')){
-        //     DeleteVideo(slug)
-        // }
-        // setTimeout(() => {
-        //     loadAllVideos()
-        // },300);
+        if(window.confirm('Вы точно желаете удалить это видео?')){
+            MainPageInfoDelete(slug)
+            history.push('/site-management')
+        }
     }
 
     return (
         <Fragment>
-        <h3 className="text-center">Управление информацией для главной страницы</h3>
-        
-        <div style={{ maxWidth: '700px', margin: '2rem auto' }}>
+        <h4 className="text-center">Управление информацией для главной страницы</h4>
+        {main_page_info && main_page_info.length === 0 ? (
+            <Fragment>
+                <div style={{ maxWidth: '700px', margin: '2rem auto' }}>
         <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
             <Title level={5} >Загрузить видео</Title>
         </div>
@@ -212,27 +209,47 @@ const MainPageVideo = ({
             <Link className='d-block p-3 mt-4 bg-warning ' to='/site-management'>Вернуться на страницу управления сайтом</Link>
         </form>
     </div>
-    
+            </Fragment>
+            ) : (
+            <Fragment>
+                <p className="text-center bg-info p-3">Вы уже создали информацию для главной страницы</p>
+                <div className='mb-5'>
+                    {main_page_info.video && main_page_info.video.map((c, index) =>
+                        <div key={index} className='container'>
+                            <div className='row'>
+                                <div className='col'>
+                                    <div >
+                                        <img alt='construction' src={`http://localhost:5003/${c.thumbnail}`} />
+                                        <p>{c.title}</p>
+                                        <span className="text-danger delete-custom pb-5" onClick={() => clickDelete(c.slug)}>Удалить видео</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        )}
+                </div>
+                <Link className='d-block p-3 mt-4 bg-warning ' to='/site-management'>Вернуться на страницу управления сайтом</Link>
+            </Fragment>)}
     </Fragment>
     )
 }
 
 MainPageVideo.propTypes = {
-    // GetCategories: PropTypes.func.isRequired,
-    // LoadVideos: PropTypes.func.isRequired,
-    // SaveVideoFunction: PropTypes.func.isRequired,
-    // DeleteVideo: PropTypes.func.isRequired,
-    // videos: PropTypes.array.isRequired,
+    MainPageInfoUpload: PropTypes.func.isRequired,
+    MainPageInfoShow: PropTypes.func.isRequired,
+    MainPageInfoDelete: PropTypes.func.isRequired,
+    main_page_info: PropTypes.array.isRequired,
 }
 
 const mapStateToProps = state => ({
-    // categories: state.categories,
-    // videos: state.videos
+    main_page_info: state.main_page_info
 })
 
 export default connect(mapStateToProps, {
-    // GetCategories,
-    // LoadVideos,
-    // SaveVideoFunction,
-    // DeleteVideo
+    MainPageInfoUpload,
+    MainPageInfoShow,
+    MainPageInfoDelete
 })(MainPageVideo)
+
+
+

@@ -36,7 +36,7 @@ export default function(state = initialState, action){
         case GET_MAIN_PAGE_INFO_FAIL:
             return {
                 ...state,
-                main_page_info: null,
+                main_page_info_upload: null,
                 loading: false
             }
         default:
