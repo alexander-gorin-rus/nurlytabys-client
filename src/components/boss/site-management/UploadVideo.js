@@ -143,6 +143,7 @@ const UploadVideo = ({
 
     return (
         <Fragment>
+        <h3 className="text-center">Страница управления видео материалами</h3>
         <div style={{ maxWidth: '700px', margin: '2rem auto' }}>
         <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
             <Title level={5} >Загрузить видео</Title>

@@ -44,6 +44,7 @@ import setAuthToken from './utils/setAuthToken';
 //import materializeMin from 'materialize-css/dist/js/materialize.min.js';
 import Categories from './components/boss/site-management/Categories';
 import UpdateCategory from './components/boss/site-management/UpdateCategory';
+import MainPageInfo from './components/boss/site-management/MainPageInfo';
 
 
 
@@ -85,6 +86,7 @@ const App = () => {
                 <BossPrivateRoutes exact path='/company-management' component={CompanyManagement} />
                 <BossPrivateRoutes exact path='/site-management' component={SiteManagenet} />
                 <BossPrivateRoutes exact path='/upload-video' component={UploadVideo} />
+                <BossPrivateRoutes exact path='/main-page-info' component={MainPageInfo} />
                 <BossPrivateRoutes exact path='/categories' component={Categories} />
                 <BossPrivateRoutes exact path='/get-category-to-update/:id' component={UpdateCategory} />
             </Switch>

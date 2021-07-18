@@ -10,7 +10,7 @@ const SiteManagement = props => {
                     <Link className='link-text-color' to='/upload-video'>Управление видео материалами</Link>
                 </div>
                 <div className='col-6'>
-                <Link className='link-text-color' to='/create-home-video'>Управление информацией для главной страницы</Link>
+                <Link className='link-text-color' to='/main-page-info'>Управление информацией для главной страницы</Link>
                 </div>
             </div>
             <div className='row pt-5 pb-5'>
