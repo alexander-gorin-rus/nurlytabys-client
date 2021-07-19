@@ -9,17 +9,80 @@
   border: 2px solid red;
 } */
 
+.parallax{
+  z-index: 120;
+  width: 100vw;
+}
+
 .main-page-video-video{
   position: fixed;
-  width: auto;
+  width: 100vw;
   height: 120% !important;
-  left: 50%;
-  top: 50%;
+  top: 0%;
   object-fit: cover;
-  transform: translate(-50%, -50%);
+  
 
 }
 
+.main-page-content-div-absolute{
+  position: absolute !important;
+  top: 75vh !important;
+  width: 100vw;
+  border: 2px solid yellow;
+}
+
+.main-page-title{
+  position: relative;
+  left: 10vw;
+  width: 80%;
+  color: azure;
+  background: rgb(145, 54, 230);
+}
+
+.main-page-companyInfo{
+  position: relative;
+  left: 4vw;
+  width: 60%;
+  margin-top: 25vh;
+  padding: 40px;
+  color: rgb(15, 15, 26);
+  background: rgb(227, 230, 80);
+  border: 1px solid black;
+}
+
+.main-page-description{
+  position: relative;
+  left: 40%;
+  width: 50vw;
+  margin-top: 40vh;
+  padding: 40px;
+  background: rgb(9, 9, 172);
+  border: 2px solid green;
+  color: aliceblue;
+}
+
+
+.main-page-contacts{
+  position: relative;
+  left: 22%;
+  width: 40vw;
+  margin-top: 40vh;
+  padding: 40px;
+  background: rgb(26, 202, 41);
+  border: 2px solid green;
+  color: rgb(9, 12, 15);
+}
+
+.main-page-categories{
+  position: relative;
+  left: 22%;
+  width: 40vw;
+  margin-top: 15vh;
+  padding: 20px;
+  background: rgb(26, 202, 41);
+  border: 2px solid green;
+  color: rgb(9, 12, 15);
+}
 /* .main-page-video-source{
   position: fixed;
   top: 0%;
@@ -32,9 +95,9 @@
 
 .main_app_container{
   position: relative;
-  top: 10vh !important; 
-  left: 8%;
-  width: 92%;
+  top: 0% !important; 
+  left: 0%;
+  width: 100%;
   /* border: 1px solid red */
 }
 
@@ -172,12 +235,16 @@
 
 .li_navigation{
   top: 0px !important;
-  margin-top: 10px;
-  background-color: rgb(240, 155, 155);
-  padding: 6px;
-  border-radius: 10px;
-  border: 1px solid red;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 12px;
+  margin-top: 20px;
+  margin-bottom: 5px;
+  background-color: rgb(192, 188, 188);
 }
+/* .li_navigation a{
+  color: white !important;
+} */
 
 a{
   color: black !important;
@@ -189,7 +256,7 @@ a{
   height: 100vh;
   left: -15px !important;
   writing-mode: vertical-lr;
-  background-color: rgba(33, 57, 121, 0.918);
+  background-color: rgba(31, 31, 153, 0.918);
   color: aliceblue;
   text-orientation:upright;
   padding-top: 33vh;
