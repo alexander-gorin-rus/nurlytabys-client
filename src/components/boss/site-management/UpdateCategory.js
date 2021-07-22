@@ -53,8 +53,8 @@ const UpdateCategory = ({
             {category && category.category ? 
             (
                 <Fragment>
-                <h4 className="text-center mt-4">Изменить категорию</h4>
-                <div className='mt-5'>
+                <h4 className="text-center" style={{marginTop: "15vh"}}>Изменить категорию</h4>
+                <div className='mt-5' style={{position: "relative", left: "10vw", width: "90vw"}}>
                 <div className="row">
                     <form className="col s12" onSubmit={e => onSubmit(e)}>
                         <div className="row">

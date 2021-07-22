@@ -1,10 +1,8 @@
-import React, {Fragment, useState} from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { grantAccessToRegister } from '../redux/actions/register_entry';
-import { Redirect, useHistory } from 'react-router-dom';
+import React, { useState, Fragment } from 'react'
+import PropTypes from 'prop-types'
+import { useHistory } from 'react-router';
 
-export const Register = ({ grantAccessToRegister, access_granted }) => {
+const ExcessToRegister = props => {
 
     const history = useHistory();
     const [values, setValues] = useState({
@@ -20,23 +18,18 @@ export const Register = ({ grantAccessToRegister, access_granted }) => {
 
     const onSubmit = async (e) => {
         e.preventDefault();
-        grantAccessToRegister(name, password); 
+        //grantAccessToRegister(name, password); 
         setValues({
             name: "",
             password: ""
         });
         history.push('/')
     }
-    
-    //Redirect if logged in
-    if(access_granted){
-        return <Redirect to="register-form" />
-    }
-
     return (
         <Fragment>
-            <h4 className="text-center mt-4 text-danger">Внимание! Зарегистрироваться могут только сотрудники компании</h4>
-            <div className='mt-5' style={{position: "relative", left: "10vw", width: "90vw"}}>
+            
+            <div style={{position: "relative", left: "10vw", width: "90vw", marginTop: "15vh"}}>
+            <h4 className="text-center">Форма создания пароля для регистрации сотрудников</h4>
                 <div className="row">
                     <form className="col s12" onSubmit={e => onSubmit(e)}>
                         <div className="row">
@@ -73,13 +66,10 @@ export const Register = ({ grantAccessToRegister, access_granted }) => {
     )
 }
 
-Register.propTypes = {
-    grantAccessToRegister: PropTypes.func.isRequired,
-    access_granted: PropTypes.bool
+ExcessToRegister
+.propTypes = {
+
 }
 
-const mapStateToProps = state => ({
-    access_granted: state.register_entry.access_granted
-})
+export default ExcessToRegister
 
-export default connect(mapStateToProps, {grantAccessToRegister})(Register);

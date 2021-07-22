@@ -26,28 +26,26 @@
 
 .main-page-content-div-absolute{
   position: absolute !important;
-  top: 75vh !important;
+  top: 100vh !important;
   width: 100vw;
-  border: 2px solid yellow;
+  padding-bottom: 100px;
+  /* border: 2px solid yellow; */
 }
 
 .main-page-title{
-  position: relative;
-  left: 10vw;
-  width: 80%;
-  color: azure;
-  background: rgb(145, 54, 230);
+  background: rgb(233, 225, 240);
+  
 }
 
 .main-page-companyInfo{
   position: relative;
-  left: 4vw;
+  left: 9vw;
   width: 60%;
   margin-top: 25vh;
   padding: 40px;
   color: rgb(15, 15, 26);
   background: rgb(227, 230, 80);
-  border: 1px solid black;
+  /* border: 1px solid black; */
 }
 
 .main-page-description{
@@ -57,31 +55,35 @@
   margin-top: 40vh;
   padding: 40px;
   background: rgb(9, 9, 172);
-  border: 2px solid green;
   color: aliceblue;
+  /* border: 2px solid green; */
 }
 
 
 .main-page-contacts{
   position: relative;
-  left: 22%;
+  left: 12%;
   width: 40vw;
   margin-top: 40vh;
   padding: 40px;
   background: rgb(26, 202, 41);
-  border: 2px solid green;
   color: rgb(9, 12, 15);
+  margin-bottom: 250px;
+  /* border: 2px solid green; */
 }
 
 .main-page-categories{
   position: relative;
-  left: 22%;
+  left: 50%;
   width: 40vw;
   margin-top: 15vh;
   padding: 20px;
-  background: rgb(26, 202, 41);
-  border: 2px solid green;
-  color: rgb(9, 12, 15);
+  background: rgb(12, 43, 85);
+  
+  /* border: 2px solid green; */
+}
+.main-page-categories a{
+  color: rgb(237, 241, 221) !important;
 }
 /* .main-page-video-source{
   position: fixed;

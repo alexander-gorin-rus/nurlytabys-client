@@ -143,7 +143,7 @@ const UploadVideo = ({
 
     return (
         <Fragment>
-        <h3 className="text-center">Страница управления видео материалами</h3>
+        <h3 className="text-center" style={{marginTop: "15vh"}}>Страница управления видео материалами</h3>
         <div style={{ maxWidth: '700px', margin: '2rem auto' }}>
         <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
             <Title level={5} >Загрузить видео</Title>
@@ -218,9 +218,9 @@ const UploadVideo = ({
         </form>
     </div>
     { videos && videos.length === 0 ? (<h4 className="text-center pb-5">Вы пока не создали видео</h4>) : (
-      <>  
-        <h4 className='text-center mb-5'>Созданные видео</h4>
-        <div className='mb-5'>
+      <>
+        <div className='mb-5' style={{marginTop: "15vh"}}>
+        <h4 className='text-center'>Созданные видео</h4>
         {videos && videos.map((c, index) =>
             <div key={index} className='container'>
                 <div className='row'>

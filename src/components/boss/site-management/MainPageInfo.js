@@ -22,6 +22,7 @@ const MainPageVideo = ({
     MainPageInfoUpload
 }) => {
 
+
     useEffect(() => {
         MainPageInfoShow()
     },[MainPageInfoShow]); 
@@ -128,107 +129,110 @@ const MainPageVideo = ({
 
     return (
         <Fragment>
-        <h4 className="text-center">Управление информацией для главной страницы</h4>
+        <h4 className="text-center" style={{marginTop: "15vh"}}>Управление информацией для главной страницы</h4>
         {main_page_info && main_page_info.length === 0 ? (
             <Fragment>
                 <div style={{ maxWidth: '700px', margin: '2rem auto' }}>
-        <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-            <Title level={5} >Загрузить видео</Title>
-        </div>
+                <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+                    <Title level={5} >Загрузить видео</Title>
+                </div>
 
-        <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit}>
 
-        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <Dropzone
-                    onDrop={onDrop} 
-                    multiple={false}
-                    maxSize={800000000}>
-                    {({ getRootProps, getInputProps }) => (
-                        <div style={{ width: '300px', height: '240px', border: '1px solid lightgray', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-                            {...getRootProps()}
-                        >
-                            <input {...getInputProps()} />
-                            <h4>Выбрать видео</h4>
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                        <Dropzone
+                            onDrop={onDrop} 
+                            multiple={false}
+                            maxSize={800000000}>
+                            {({ getRootProps, getInputProps }) => (
+                                <div style={{ width: '300px', height: '240px', border: '1px solid lightgray', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                                    {...getRootProps()}
+                                >
+                                    <input {...getInputProps()} />
+                                    <h4>Выбрать видео</h4>
 
-                        </div>
-                    )}
-                </Dropzone>
+                                </div>
+                            )}
+                        </Dropzone>
 
-                {Thumbnail !== "" &&
-                    <div>
-                        <img src={`http://localhost:5003/${Thumbnail}`} alt="main page" />
+                        {Thumbnail !== "" &&
+                            <div>
+                                <img src={`http://localhost:5003/${Thumbnail}`} alt="main page" />
+                            </div>
+                        }
                     </div>
-                }
-            </div>
 
-            <div className="form-group">
-                <input
-                    type="text"
-                    name="title"
-                    className="form-control"
-                    value={title}
-                    onChange={handleChange}
-                    placeholder="Название видео"
-                />
-            </div>
+                        <div className="form-group">
+                            <input
+                                type="text"
+                                name="title"
+                                className="form-control"
+                                value={title}
+                                onChange={handleChange}
+                                placeholder="Название компании"
+                            />
+                        </div>
 
-            <div className="form-group">
-                <input
-                    type="text"
-                    name="companyInfo"
-                    className="form-control"
-                    value={companyInfo}
-                    onChange={handleChange}
-                    placeholder="Краткая информация о компании"
-                />
-            </div>
+                        <div className="form-group">
+                            <input
+                                type="text"
+                                name="companyInfo"
+                                className="form-control"
+                                value={companyInfo}
+                                onChange={handleChange}
+                                placeholder="Краткая информация о компании"
+                            />
+                        </div>
 
-            <div className="form-group">
-                <input
-                    type="text"
-                    name="description"
-                    className="form-control"
-                    value={description}
-                    onChange={handleChange}
-                    placeholder="Подробная информация о компании"
-                />
-            </div>
+                        <div className="form-group">
+                            <input
+                                type="text"
+                                name="description"
+                                className="form-control"
+                                value={description}
+                                onChange={handleChange}
+                                placeholder="Подробная информация о компании"
+                            />
+                        </div>
 
-            <div className="form-group">
-                <input
-                    type="text"
-                    name="contacts"
-                    className="form-control"
-                    value={contacts}
-                    onChange={handleChange}
-                    placeholder="Контактная информация"
-                />
-            </div>
+                        <div className="form-group">
+                            <input
+                                type="text"
+                                name="contacts"
+                                className="form-control"
+                                value={contacts}
+                                onChange={handleChange}
+                                placeholder="Контактная информация"
+                            />
+                        </div>
 
-            <button className="btn btn-outline-info mt-4">Отправить</button>
-            <Link className='d-block p-3 mt-4 bg-warning ' to='/site-management'>Вернуться на страницу управления сайтом</Link>
-        </form>
-    </div>
+                        <button className="btn btn-outline-info mt-4">Отправить</button>
+                        <Link className='d-block p-3 mt-4 bg-warning ' to='/site-management'>Вернуться на страницу управления сайтом</Link>
+                    </form>
+                </div>
             </Fragment>
             ) : (
             <Fragment>
-                <p className="text-center bg-info p-3">Вы уже создали информацию для главной страницы</p>
-                <div className='mb-5'>
-                    {main_page_info.video && main_page_info.video.map((c, index) =>
-                        <div key={index} className='container'>
+                <p className="text-center bg-info p-3" style={{ position: "relative", left: "15vw", width: "80vw"}}>Вы уже создали информацию для главной страницы</p>
+                <div className='mb-5' style={{position: "relative", left: "10vw", width: "80vw"}}>
+                    {main_page_info.video && main_page_info.video.map((c) =>
+                        <div key={c.id} className='container'>
                             <div className='row'>
                                 <div className='col'>
                                     <div >
                                         <img alt='construction' src={`http://localhost:5003/${c.thumbnail}`} />
                                         <p>{c.title}</p>
-                                        <span className="text-danger delete-custom pb-5" onClick={() => clickDelete(c.slug)}>Удалить видео</span>
+                                        <Link className="text-warning delete-custom p-1 mb-3 bg-info " to={`/main-page-info-update/${c._id}`}>Изменить информацию главной страницы</Link>
+                                        <br />
+                                        <span className="text-danger delete-custom pb-5" onClick={() => clickDelete(c.slug)}>Удалить информацию главной страницы</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         )}
+                        <Link className='d-block p-3 mt-4 bg-warning ' to='/site-management'>Вернуться на страницу управления сайтом</Link>
                 </div>
-                <Link className='d-block p-3 mt-4 bg-warning ' to='/site-management'>Вернуться на страницу управления сайтом</Link>
+                
             </Fragment>)}
     </Fragment>
     )

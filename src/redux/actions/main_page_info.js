@@ -3,6 +3,7 @@ import {
     MAIN_PAGE_INFO_UPLOAD_SUCCESS,
     GET_MAIN_PAGE_INFO_FAIL,
     GET_MAIN_PAGE_INFO_SUCCESS,
+    GET_MAIN_PAGE_INFO_BY_ID
 } from '../types'
 import axios from 'axios';
 import { setAlert } from './alert';
@@ -49,5 +50,27 @@ export const MainPageInfoDelete = (slug) => async dispatch => {
             type: GET_MAIN_PAGE_INFO_FAIL
         });
         dispatch(setAlert('Не удалось удалить информацию для главной страницы', 'danger'));
+    }
+}
+
+export const GetMainPageInfoById = (id) => async dispatch => {
+    try {
+        const res = await axios.get(`${process.env.REACT_APP_API}/main-page-get-info/${id}`);
+        dispatch({
+            type: GET_MAIN_PAGE_INFO_BY_ID,
+            payload: res.data
+        })
+    } catch (err) {
+        dispatch({
+            type: GET_MAIN_PAGE_INFO_FAIL
+        })
+    }
+}
+
+export const UpdateMainPageInfo = () => async dispatch => {
+    try {
+        
+    } catch (err) {
+        
     }
 }

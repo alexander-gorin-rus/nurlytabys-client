@@ -54,8 +54,8 @@ const Categories = ({
 
     return (
         <Fragment>
-            <h4 className="text-center mt-4">Создать категорию</h4>
-            <div className='mt-5'>
+            <h4 className="text-center" style={{marginTop: "15vh"}}>Создать категорию</h4>
+            <div className='mt-5' style={{position: "relative", left: "10vw", width: "90vw"}}>
                 <div className="row">
                     <form className="col s12" onSubmit={e => onSubmit(e)}>
                         <div className="row">
@@ -97,7 +97,7 @@ const Categories = ({
                 {
                 categories.map((category) => (
                     <Fragment>
-                            <div className="category-cart" key={category.id}>
+                            <div className="category-cart" key={category.id} style={{position: "relative", left: "10vw", width: "80vw"}}>
                                 <h4 className='text-center bg-primary'> {category.name}</h4>
                                 <div className='bg-danger p-3 text-center'>
                                     <span className='delete-custom px-3' onClick={() => onDelete(category.slug)}>

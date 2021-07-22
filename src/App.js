@@ -45,6 +45,8 @@ import setAuthToken from './utils/setAuthToken';
 import Categories from './components/boss/site-management/Categories';
 import UpdateCategory from './components/boss/site-management/UpdateCategory';
 import MainPageInfo from './components/boss/site-management/MainPageInfo';
+import MainPageInfoUpdate from './components/boss/site-management/MainPageInfoUpdate';
+import ExcessToRegister from './components/staffs/ExcessToRegister';
 
 
 
@@ -83,10 +85,12 @@ const App = () => {
                 <Route path="/category/:slug" exact component={Category} />
                 <Route exact path="/video/:slug" component={DetailedVideo} />
                 <EmployeePrivateRoutes exact path="/employee-dashboard" component={StaffDashboard}/>
+                <BossPrivateRoutes exact path='/excess-to-register' component={ExcessToRegister} />
                 <BossPrivateRoutes exact path='/company-management' component={CompanyManagement} />
                 <BossPrivateRoutes exact path='/site-management' component={SiteManagenet} />
                 <BossPrivateRoutes exact path='/upload-video' component={UploadVideo} />
                 <BossPrivateRoutes exact path='/main-page-info' component={MainPageInfo} />
+                <BossPrivateRoutes exact path='/main-page-info-update/:id' component={MainPageInfoUpdate} />
                 <BossPrivateRoutes exact path='/categories' component={Categories} />
                 <BossPrivateRoutes exact path='/get-category-to-update/:id' component={UpdateCategory} />
             </Switch>

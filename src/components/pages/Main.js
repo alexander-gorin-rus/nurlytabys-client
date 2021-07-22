@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {MainPageInfoShow} from '../../redux/actions/main_page_info';
+import Aos from 'aos';
+import "aos/dist/aos.css";
 import { GetCategories } from '../../redux/actions/categories';
 
 const Main = ({
@@ -19,6 +21,9 @@ const Main = ({
         GetCategories()
     },[GetCategories]);
     
+    useEffect(() => {
+        Aos.init({duration: 2000});
+    },[]);
     return (
         <div style={{position: "absolute", top: "0%", left: "0%"}}>
             {loading ? (
@@ -34,18 +39,20 @@ const Main = ({
                             >     
                             </video>
                             <div className="main-page-content-div-absolute">
-                                <div className="main-page-title">
+
+                                <div data-aos="fade-zoom-in" className="main-page-title d-flex justify-content-center">
                                     <h4 className="text-center p-5">{v.title}</h4>
                                 </div>
-                                <div className="main-page-companyInfo">
+                                
+                                <div data-aos="flip-left" className="main-page-companyInfo">
                                     <p>{v.companyInfo}</p>
                                 </div>
-                                <p className="main-page-description">{v.description}</p>
+                                <p  data-aos="flip-right" className="main-page-description">{v.description}</p>
 
-                                <p className="main-page-contacts">{v.contacts}</p> 
+                                <p data-aos="fade-up-left" className="main-page-contacts">{v.contacts}</p> 
 
                                 {categories && categories.map((category, index) =>
-                                    <div className="main-page-categories" key={index}>
+                                    <div data-aos="fade-down-right" className="main-page-categories d-flex" key={index}>
                                         <Link to={`/category/${category.slug}`}>{category.name}</Link>
                                     </div>
                                 )}

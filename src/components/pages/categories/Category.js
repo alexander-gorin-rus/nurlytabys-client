@@ -36,7 +36,7 @@ const Category = ({ match }) => {
         )})
 
     return (
-        <div key={category.id}>
+        <div key={category.id} style={{marginTop: "15vh"}}>
             <h4 className="text-center text-primary">{category.name}</h4>
             <div className='container'>
                 <div className="row">
