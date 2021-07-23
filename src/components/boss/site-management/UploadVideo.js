@@ -90,10 +90,7 @@ const UploadVideo = ({
         });
         setTimeout(() => {
             loadAllVideos()
-        },300);
-        // setTimeout(() => {
-        //     window.location.reload();
-        // },500)
+        },300)
     }
 
     const onDrop = ( files ) => {
@@ -221,24 +218,21 @@ const UploadVideo = ({
       <>
         <div className='mb-5' style={{marginTop: "15vh"}}>
         <h4 className='text-center'>Созданные видео</h4>
-        {videos && videos.map((c, index) =>
-            <div key={index} className='container'>
-                <div className='row'>
-                    <div className='col'>
-                        <div >
-                            <img alt='construction' src={`http://localhost:5003/${c.thumbnail}`} />
-                            <p>{c.title}</p>
-                            <span className="text-danger delete-custom pb-5" onClick={() => clickDelete(c.slug)}>Удалить видео</span>
-                        </div>
-                    </div>
+        {videos && videos.map((c) =>
+            <div className="category-cart" key={c.id} style={{position: "relative", left: "10vw", width: "80vw"}}>
+                <div className='bg-danger p-3 text-center'>
+                <img alt='construction' src={`http://localhost:5003/${c.thumbnail}`} />
+                                <p>{c.title}</p>
+                    <span className='delete-custom px-3' onClick={() => clickDelete(c.slug)}>
+                        Удалить видео
+                    </span>
+                    <Link to={`update-video/${c._id}`}>Изменить видео</Link>
                 </div>
             </div>
-            )}
+        )}
         </div>
     </>
     ) }
-    
-        {/* <VideoCart videos={videos} /> */}
     </Fragment>
     )
 }

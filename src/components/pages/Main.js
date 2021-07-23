@@ -32,7 +32,7 @@ const Main = ({
                 </Fragment>
             ) : (
                 <Fragment>
-                    {main_page_info && main_page_info.video.map((v, index) =>
+                    {main_page_info.video && main_page_info.video.map((v, index) =>
                         <div key={index} className="main-page-video-div">
                             <video className="main-page-video-video" autoPlay loop muted 
                                 src={`http://localhost:5003/${v.filePath}`}

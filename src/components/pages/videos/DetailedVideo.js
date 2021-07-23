@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useParams } from 'react-router';
 
 
 const DetailedVideo = ({ match }) => {
 
     const {slug} = match.params;
-
-   
+    const { id } = useParams()
 
     const [Video, setVideo] = useState([])
     useEffect(() => {
-        axios.get(`${process.env.REACT_APP_API}/getVideo/${slug}`)
+        axios.get(`${process.env.REACT_APP_API}/get-video/${id}`)
             .then(res => {
                 if(res.data.success){
                     console.log(res.data.video)

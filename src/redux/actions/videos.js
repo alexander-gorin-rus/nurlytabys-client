@@ -3,7 +3,10 @@ import {
     UPLOAD_VIDEO_SUCCESS,
     UPLOAD_VIDEO_FAIL,
     DELETE_VIDEO_SUCCESS,
-    UPDATE_VIDEO_SUCCESS
+    GET_SINGLE_VIDEO_FAIL,
+    GET_SINGLE_VIDEO_SUCCESS,
+    UPDATE_SINGLE_VIDEO_FAIL,
+    UPDATE_SINGLE_VIDEO_SUCCESS
 } from "../types";
 import axios from 'axios';
 import { setAlert } from './alert';
@@ -18,6 +21,21 @@ export const LoadVideos = () => async dispatch => {
         })
     } catch (error) {
         console.log(error);
+    }
+} 
+
+export const GetSingleVideo = (id) => async dispatch => {
+    
+    try {
+        const res = await axios.get(`${process.env.REACT_APP_API}/get-video/${id}`);
+        dispatch({
+            type: GET_SINGLE_VIDEO_SUCCESS,
+            payload: res.data
+        })
+    } catch (error) {
+        dispatch({
+            type: GET_SINGLE_VIDEO_FAIL
+        })
     }
 } 
 
@@ -58,14 +76,14 @@ export const DeleteVideo = (slug) => async dispatch => {
     }
 }
 
-export const UpdateVideo = (slug) => async dispatch => {
+export const UpdateSingleVideo = (id, variables) => async dispatch => {
     try {
-        const res = await axios.put(`${process.env.REACT_APP_API}/update-video/${slug}`);
+        const res = await axios.put(`${process.env.REACT_APP_API}/update-video/${id}`, variables);
         dispatch({
-            type: UPDATE_VIDEO_SUCCESS,
+            type: UPDATE_SINGLE_VIDEO_SUCCESS,
             payload: res.data
         })
-        dispatch(setAlert(`Видео успешно удалено`, 'success'))
+        dispatch(setAlert(`Видео успешно изменено`, 'success'))
     } catch (err) {
         const errors = err.response.data.errors;
 
