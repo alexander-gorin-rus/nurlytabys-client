@@ -6,7 +6,6 @@ import {
     CategoryUpdate
 } from '../../../redux/actions/categories';
 import { connect } from 'react-redux';
-import Spinner from '../../../layout/Spin-1.gif'
 
 const UpdateCategory = ({
     GetOneCategoryToUpdate, 

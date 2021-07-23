@@ -30,12 +30,12 @@ export const Register = ({ grantAccessToRegister, access_granted }) => {
     
     //Redirect if logged in
     if(access_granted){
-        return <Redirect to="register-form" />
+        return <Redirect to="/register-form" />
     }
 
     return (
         <Fragment>
-            <h4 className="text-center mt-4 text-danger">Внимание! Зарегистрироваться могут только сотрудники компании</h4>
+            <h4 className="text-center text-danger" style={{position: "relative", marginTop: "15vh", left: "14vw", width: "80vw"}}>Внимание! Зарегистрироваться могут только сотрудники компании</h4>
             <div className='mt-5' style={{position: "relative", left: "10vw", width: "90vw"}}>
                 <div className="row">
                     <form className="col s12" onSubmit={e => onSubmit(e)}>

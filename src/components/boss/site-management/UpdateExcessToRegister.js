@@ -1,8 +1,34 @@
-import React, { useState, Fragment } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
+import { 
+    getSingleRegisterToUpdate,
+    UpdateRegister
+} from '../../../redux/actions/register_entry';
+import { connect } from 'react-redux';
+import { useParams } from 'react-router';
 import { useHistory } from 'react-router';
+import { Link } from 'react-router-dom'
 
-const ExcessToRegister = props => {
+const UpdateExcessToRegister = ({
+    getSingleRegisterToUpdate,
+    UpdateRegister,
+    register_entry: {single_register}
+}) => {
+
+    const { id } = useParams()
+
+    useEffect(() => {
+        getSingleRegisterToUpdate(id)
+    },[]);
+
+    useEffect(() => {
+        if(single_register && single_register){
+            setValues({
+                name: single_register.name,
+                password: single_register.password
+            })
+        }
+    },[single_register])
 
     const history = useHistory();
     const [values, setValues] = useState({
@@ -18,18 +44,13 @@ const ExcessToRegister = props => {
 
     const onSubmit = async (e) => {
         e.preventDefault();
-        //grantAccessToRegister(name, password); 
-        setValues({
-            name: "",
-            password: ""
-        });
-        history.push('/')
+        UpdateRegister(id, values); 
+        history.push('/site-management')
     }
     return (
         <Fragment>
-            
             <div style={{position: "relative", left: "10vw", width: "90vw", marginTop: "15vh"}}>
-            <h4 className="text-center">Форма создания пароля для регистрации сотрудников</h4>
+            <h4 className="text-center">Изменить пароль для регистрации сотрудников</h4>
                 <div className="row">
                     <form className="col s12" onSubmit={e => onSubmit(e)}>
                         <div className="row">
@@ -43,7 +64,7 @@ const ExcessToRegister = props => {
                                     value={name}
                                     onChange={e => onChange(e)}    
                                 />
-                                <label>Имя пароля</label>
+                                
                             </div>
                             <div className="input-field col s6">
                                 <i className="material-icons prefix">password</i>
@@ -55,10 +76,10 @@ const ExcessToRegister = props => {
                                     value={password}
                                     onChange={e => onChange(e)}        
                                 />
-                                <label>Пароль</label>
                             </div>    
                         </div>
-                        <input type='submit' className='btn btn-primary' value='Войти' />
+                        <input type='submit' className='btn btn-primary' value='Отправить' />
+                        <Link className='d-block p-3 mt-4 bg-warning ' to='/excess-to-register'>Вернуться на страницу управления паролем</Link>
                     </form>
                 </div>
             </div>
@@ -66,10 +87,16 @@ const ExcessToRegister = props => {
     )
 }
 
-ExcessToRegister
-.propTypes = {
-
+UpdateExcessToRegister.propTypes = {
+    getSingleRegisterToUpdate: PropTypes.func.isRequired,
+    UpdateRegister: PropTypes.func.isRequired,
+    register_entry: PropTypes.object
 }
+const mapStateToProps = state => ({
+    register_entry: state.register_entry
+}) 
 
-export default ExcessToRegister
-
+export default connect(mapStateToProps, {
+    getSingleRegisterToUpdate,
+    UpdateRegister
+})(UpdateExcessToRegister)

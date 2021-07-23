@@ -46,7 +46,8 @@ import Categories from './components/boss/site-management/Categories';
 import UpdateCategory from './components/boss/site-management/UpdateCategory';
 import MainPageInfo from './components/boss/site-management/MainPageInfo';
 import MainPageInfoUpdate from './components/boss/site-management/MainPageInfoUpdate';
-import ExcessToRegister from './components/staffs/ExcessToRegister';
+import ExcessToRegister from './components/boss/site-management/ExcessToRegister';
+import UpdateExcessToRegister from './components/boss/site-management/UpdateExcessToRegister';
 
 
 
@@ -86,6 +87,7 @@ const App = () => {
                 <Route exact path="/video/:slug" component={DetailedVideo} />
                 <EmployeePrivateRoutes exact path="/employee-dashboard" component={StaffDashboard}/>
                 <BossPrivateRoutes exact path='/excess-to-register' component={ExcessToRegister} />
+                <BossPrivateRoutes exact path='/update-excess-to-register/:id' component={UpdateExcessToRegister} />
                 <BossPrivateRoutes exact path='/company-management' component={CompanyManagement} />
                 <BossPrivateRoutes exact path='/site-management' component={SiteManagenet} />
                 <BossPrivateRoutes exact path='/upload-video' component={UploadVideo} />
