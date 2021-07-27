@@ -25,7 +25,7 @@ const MainPageVideo = ({
 
     useEffect(() => {
         MainPageInfoShow()
-    },[MainPageInfoShow]); 
+    },[]); 
 
     const [FilePath, setFilePath] = useState("");
     const [Duration, setDuration] = useState("");
@@ -74,15 +74,15 @@ const MainPageVideo = ({
         MainPageInfoUpload(variables);
         history.push('/')
         
-        setValues({
-            title: "", 
-            filePath: "",
-            companyInfo: "",
-            description: "",
-            contacts: "",
-            duration: "",
-            thumbnail: "",
-        });
+        // setValues({
+        //     title: "", 
+        //     filePath: "",
+        //     companyInfo: "",
+        //     description: "",
+        //     contacts: "",
+        //     duration: "",
+        //     thumbnail: "",
+        // });
     }
 
     const onDrop = ( files ) => {
@@ -105,7 +105,7 @@ const MainPageVideo = ({
                     setFilePath(res.data.filePath);
 
                     //generate thumbnail with this file
-                    axios.post(`${process.env.REACT_APP_API}/thumbnail`, variable)
+                    axios.post(`${process.env.REACT_APP_API}/main-page-thumbnail`, variable)
                         .then(res => {
                             if(res.data.success) {
                                 setDuration(res.data.fileDuration)
@@ -216,19 +216,29 @@ const MainPageVideo = ({
                 <p className="text-center bg-info p-3" style={{ position: "relative", left: "15vw", width: "80vw"}}>Вы уже создали информацию для главной страницы</p>
                 <div className='mb-5' style={{position: "relative", left: "10vw", width: "80vw"}}>
                     {main_page_info.video && main_page_info.video.map((c) =>
-                        <div key={c.id} className='container'>
-                            <div className='row'>
-                                <div className='col'>
-                                    <div >
-                                        <img alt='construction' src={`http://localhost:5003/${c.thumbnail}`} />
-                                        <p>{c.title}</p>
-                                        <Link className="text-warning delete-custom p-1 mb-3 bg-info " to={`/main-page-info-update/${c._id}`}>Изменить информацию главной страницы</Link>
-                                        <br />
-                                        <span className="text-danger delete-custom pb-5" onClick={() => clickDelete(c.slug)}>Удалить информацию главной страницы</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div className="category-cart" key={c.id} style={{position: "relative", left: "10vw", width: "80vw"}}>
+                    <div className='bg-danger p-3 text-center'>
+                    <img alt='construction' src={`http://localhost:5003/${c.thumbnail}`} />
+                                    <p>{c.title}</p>
+                        <span className='delete-custom px-3' onClick={() => clickDelete(c.slug)}>
+                            Удалить видео
+                        </span>
+                        <Link to={`main-page-info-update/${c._id}`}>Изменить видео</Link>
+                    </div>
+                </div>
+                        // <div key={c.id} className='container'>
+                        //     <div className='row'>
+                        //         <div className='col'>
+                        //             <div >
+                        //                 <img alt='construction' src={`http://localhost:5003/${c.thumbnail}`} />
+                        //                 <p>{c.title}</p>
+                        //                 <Link className="text-warning delete-custom p-1 mb-3 bg-info " to={`/main-page-info-update/${c._id}`}>Изменить информацию главной страницы</Link>
+                        //                 <br />
+                        //                 <span className="text-danger delete-custom pb-5" onClick={() => clickDelete(c.slug)}>Удалить информацию главной страницы</span>
+                        //             </div>
+                        //         </div>
+                        //     </div>
+                        // </div>
                         )}
                         <Link className='d-block p-3 mt-4 bg-warning ' to='/site-management'>Вернуться на страницу управления сайтом</Link>
                 </div>

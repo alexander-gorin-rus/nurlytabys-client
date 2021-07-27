@@ -9,6 +9,7 @@
   border: 2px solid red;
 } */
 
+
 .parallax{
   z-index: 120;
   width: 100vw;
@@ -17,7 +18,7 @@
 .main-page-video-video{
   position: fixed;
   width: 100vw;
-  height: 120% !important;
+  height: 100% !important;
   top: 0%;
   object-fit: cover;
   
@@ -26,14 +27,16 @@
 
 .main-page-content-div-absolute{
   position: absolute !important;
-  top: 100vh !important;
+  top: 60vh !important;
   width: 100vw;
   padding-bottom: 100px;
   /* border: 2px solid yellow; */
 }
 
 .main-page-title{
-  background: rgb(233, 225, 240);
+  font-size: 3rem;
+  color: aliceblue;
+  text-shadow: 4px 2px rgb(7, 11, 17);
   
 }
 

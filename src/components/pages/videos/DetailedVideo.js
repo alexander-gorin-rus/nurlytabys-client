@@ -10,7 +10,7 @@ const DetailedVideo = ({ match }) => {
 
     const [Video, setVideo] = useState([])
     useEffect(() => {
-        axios.get(`${process.env.REACT_APP_API}/get-video/${id}`)
+        axios.get(`${process.env.REACT_APP_API}/getVideo/${slug}`)
             .then(res => {
                 if(res.data.success){
                     console.log(res.data.video)
@@ -22,7 +22,7 @@ const DetailedVideo = ({ match }) => {
     },[]);
 
     return (
-        <div className="container-fluid">
+        <div style={{position: 'relative', left: "15vw", marginTop: "15vh", width: "80vw"}}>
             <div className='row'>
                 <div col='col'>
                     <video style={{width: '80vw'}}  

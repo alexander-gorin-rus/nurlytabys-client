@@ -27,9 +27,9 @@ const Main = ({
     return (
         <div style={{position: "absolute", top: "0%", left: "0%"}}>
             {loading ? (
-                <Fragment>
-                    <h3 className="text-center">Строительная компания "Нурлы Табыс"</h3>
-                </Fragment>
+                <div style={{position: "relative", marginTop: "20vh", left: "20vw", width: "60vw"}}>
+                    <h4 className="text-center">Строительная компания "Нурлы Табыс"</h4>
+                </div>
             ) : (
                 <Fragment>
                     {main_page_info.video && main_page_info.video.map((v, index) =>
@@ -40,8 +40,8 @@ const Main = ({
                             </video>
                             <div className="main-page-content-div-absolute">
 
-                                <div data-aos="fade-zoom-in" className="main-page-title d-flex justify-content-center">
-                                    <h4 className="text-center p-5">{v.title}</h4>
+                                <div data-aos="fade-zoom-in" className=" d-flex justify-content-center">
+                                    <h4 className="text-center p-5 main-page-title">{v.title}</h4>
                                 </div>
                                 
                                 <div data-aos="flip-left" className="main-page-companyInfo">

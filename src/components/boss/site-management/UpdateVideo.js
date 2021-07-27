@@ -54,7 +54,7 @@ const UpdateVideo = ({
     } = values;
 
     useEffect(() => {
-        if(single_video && single_video.video){
+        if(single_video.video && single_video.video){
             setValues({
                 thumbnail: single_video.video.thumbnail,
                 title: single_video.video.title,

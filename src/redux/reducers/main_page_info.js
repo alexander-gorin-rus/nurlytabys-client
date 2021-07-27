@@ -3,13 +3,16 @@ import {
     MAIN_PAGE_INFO_UPLOAD_FAIL,
     GET_MAIN_PAGE_INFO_FAIL,
     GET_MAIN_PAGE_INFO_SUCCESS,
-    GET_MAIN_PAGE_INFO_BY_ID
+    GET_MAIN_PAGE_INFO_BY_ID,
+    MAIN_PAGE_INFO_UPDATE_SUCCESS,
+    MAIN_PAGE_INFO_UPDATE_FAIL
 } from '../types';
 
 const initialState = {
     main_page_info_upload: null,
     main_page_info: {},
     main_page_info_by_id: null,
+    main_page_info_updated: {},
     loading: true
 }
 
@@ -46,6 +49,18 @@ export default function(state = initialState, action){
                 main_page_info_upload: null,
                 main_page_info: {},
                 main_page_info_by_id: payload,
+                loading: false
+            }
+        case MAIN_PAGE_INFO_UPDATE_SUCCESS: 
+            return {
+                ...state,
+                main_page_info_updated: payload,
+                loading: false
+            }
+        case MAIN_PAGE_INFO_UPDATE_FAIL: 
+            return {
+                ...state,
+                main_page_info_updated: {},
                 loading: false
             }
         default:

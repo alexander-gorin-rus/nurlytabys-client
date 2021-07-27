@@ -21,32 +21,23 @@ const MainPageInfoUpdate = ({
 }) => {
 
     const {id} = useParams();
+    const history = useHistory();
 
     useEffect(() => {
         GetMainPageInfoById(id)
-    },[]); 
+    },[GetMainPageInfoById]); 
 
-    useEffect(() => {
-        if(main_page_info_by_id && main_page_info_by_id.info){
-            setValues({
-                title: main_page_info_by_id.info.title,
-                companyInfo: main_page_info_by_id.info.companyInfo,
-                description: main_page_info_by_id.info.description,
-                contacts: main_page_info_by_id.info.contacts
-            })
-        }
-    },[main_page_info_by_id])
 
     const [FilePath, setFilePath] = useState("");
     const [Duration, setDuration] = useState("");
     const [Thumbnail, setThumbnail] = useState("");
 
     const [values, setValues] = useState({
-        title: "", 
-        filePath: FilePath,
+        title: "",
         companyInfo: "",
         description: "",
         contacts: "",
+        filePath: FilePath,
         duration: Duration,
         thumbnail: Thumbnail,
     });
@@ -61,8 +52,29 @@ const MainPageInfoUpdate = ({
         thumbnail,
     } = values;
 
-    const history = useHistory();
-    const { slug } = useHistory
+    useEffect(() => {
+        // setValues({
+        //     title: main_page_info_by_id.info.title,
+        //     companyInfo: main_page_info_by_id.info.companyInfo,
+        //     description: main_page_info_by_id.info.description,
+        //     contacts: main_page_info_by_id.info.contacts,
+        //     filePath: main_page_info_by_id.filePath,
+        //     duration: main_page_info_by_id.duration,
+        //     thumbnail: main_page_info_by_id.thumbnail
+        // })
+        if(main_page_info_by_id && main_page_info_by_id.info){
+            setValues({
+                title: main_page_info_by_id.info.title,
+                companyInfo: main_page_info_by_id.info.companyInfo,
+                description: main_page_info_by_id.info.description,
+                contacts: main_page_info_by_id.info.contacts,
+                filePath: main_page_info_by_id.info.filePath,
+                duration: main_page_info_by_id.info.duration,
+                thumbnail: main_page_info_by_id.info.thumbnail
+            })
+            //console.log(values)
+        }
+    },[main_page_info_by_id.info])
 
     const handleChange = e => {
         setValues({...values, [e.target.name]: e.target.value})
@@ -81,18 +93,9 @@ const MainPageInfoUpdate = ({
             thumbnail: Thumbnail,
         }
 
-        UpdateMainPageInfo(variables);
-        history.push('/')
+        UpdateMainPageInfo(id, variables);
+        history.push('/main-page-info')
         
-        setValues({
-            title: "", 
-            filePath: "",
-            companyInfo: "",
-            description: "",
-            contacts: "",
-            duration: "",
-            thumbnail: "",
-        });
     }
 
     const onDrop = ( files ) => {

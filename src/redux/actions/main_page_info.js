@@ -3,7 +3,9 @@ import {
     MAIN_PAGE_INFO_UPLOAD_SUCCESS,
     GET_MAIN_PAGE_INFO_FAIL,
     GET_MAIN_PAGE_INFO_SUCCESS,
-    GET_MAIN_PAGE_INFO_BY_ID
+    GET_MAIN_PAGE_INFO_BY_ID,
+    MAIN_PAGE_INFO_UPDATE_SUCCESS,
+    MAIN_PAGE_INFO_UPDATE_FAIL
 } from '../types'
 import axios from 'axios';
 import { setAlert } from './alert';
@@ -67,10 +69,18 @@ export const GetMainPageInfoById = (id) => async dispatch => {
     }
 }
 
-export const UpdateMainPageInfo = () => async dispatch => {
+export const UpdateMainPageInfo = (id, values) => async dispatch => {
     try {
-        
+        const res = await axios.put(`${process.env.REACT_APP_API}/main-page-update-video/${id}`, values);
+        dispatch({
+            type: MAIN_PAGE_INFO_UPDATE_SUCCESS,
+            payload: res.data
+        });
+        dispatch(setAlert('Информация главной страницы успешно изменена', 'success'));
     } catch (err) {
-        
+        dispatch({
+            type: MAIN_PAGE_INFO_UPDATE_FAIL
+        });
+        dispatch(setAlert('Не удалось изменить информацию главной страница', 'danger'))        
     }
 }
