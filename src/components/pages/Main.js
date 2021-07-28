@@ -10,7 +10,8 @@ import { GetCategories } from '../../redux/actions/categories';
 const Main = ({
     MainPageInfoShow,
     main_page_info: {main_page_info, loading},
-    categories: {categories}, GetCategories
+    categories: {categories}, 
+    GetCategories
 }) => {
 
     useEffect(() => {

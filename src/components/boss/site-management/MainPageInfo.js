@@ -206,7 +206,7 @@ const MainPageVideo = ({
                 <p className="text-center bg-info p-3" style={{ position: "relative", left: "15vw", width: "80vw"}}>Вы уже создали информацию для главной страницы</p>
                 <div className='mb-5' style={{position: "relative", left: "10vw", width: "80vw"}}>
                     {main_page_info.video && main_page_info.video.map((c) =>
-                    <div className="category-cart" key={c.id} style={{position: "relative", left: "10vw", width: "80vw"}}>
+                    <div className="category-cart" key={c.id} >
                     <div className='bg-danger p-3 text-center'>
                     <img alt='construction' src={`http://localhost:5003/${c.thumbnail}`} />
                                     <p>{c.title}</p>

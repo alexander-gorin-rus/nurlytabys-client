@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router';
+import { Link } from 'react-router-dom';
 
 
 const DetailedVideo = ({ match }) => {
@@ -22,7 +23,7 @@ const DetailedVideo = ({ match }) => {
     },[]);
 
     return (
-        <div style={{position: 'relative', left: "15vw", marginTop: "15vh", width: "80vw"}}>
+        <div style={{position: 'relative', left: "10vw", marginTop: "15vh", width: "80vw"}}>
             <div className='row'>
                 <div col='col'>
                     <video style={{width: '80vw'}}  
