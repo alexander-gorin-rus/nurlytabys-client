@@ -5,6 +5,8 @@ import {
     GetOneCategoryToUpdate,
     CategoryUpdate
 } from '../../../redux/actions/categories';
+import Dropzone from 'react-dropzone';
+import axios from 'axios';
 import { connect } from 'react-redux';
 
 const UpdateCategory = ({
@@ -27,14 +29,24 @@ const UpdateCategory = ({
                 description: category.category.description
             })
         }
-    },[category.category])
+    },[category.category]);
+
+    const [FilePath, setFilePath] = useState("");
+    const [Duration, setDuration] = useState("");
+    const [Thumbnail, setThumbnail] = useState("");
 
     const [values, setValues] = useState({
         name: "",
-        description: ""
+        description: "",
+        filePath: FilePath,
+        duration: Duration,
+        thumbnail: Thumbnail
     });
 
-    const { name, description } = values;
+    const { 
+        name, 
+        description 
+    } = values;
 
     const onChange = (e) => {
         setValues({...values, [e.target.name]: e.target.value})
@@ -42,11 +54,56 @@ const UpdateCategory = ({
 
     const onSubmit = e => {
         e.preventDefault();
-        CategoryUpdate(id, values);
+
+        const varibles = {
+            name,
+            description,
+            filePath: FilePath,
+            duration: Duration,
+            thumbnail: Thumbnail
+        }
+        CategoryUpdate(id, varibles);
         setTimeout(() => {
             history.push('/categories');
         },300)
     }
+
+    const onDrop = ( files ) => {
+        let formData = new FormData();
+        const config = {
+            header: {'content-type': 'multipart/form-data'}
+        }
+        console.log('Сохраненный файл:', files)
+        formData.append('file', files[0]);
+
+        axios.post(`${process.env.REACT_APP_API}/category-video-upload`, formData, config)
+            .then(res => {
+                if(res.data.success){
+                    console.log(res)
+
+                    let variable = {
+                        filePath: res.data.filePath,
+                        fileName: res.data.fileName
+                    }
+                    setFilePath(res.data.filePath);
+
+                    //generate thumbnail with this file
+                    axios.post(`${process.env.REACT_APP_API}/category-thumbnail`, variable)
+                        .then(res => {
+                            if(res.data.success) {
+                                setDuration(res.data.fileDuration)
+                                setThumbnail(res.data.thumbsFilePath)
+                            }else{
+                                alert('Unable to make thumbnails')
+                            }
+                        })
+                }else{
+                    alert('Не удалось сохранить видео')
+                }
+            })
+    }
+
+
     return (
         <div>
             {category && category.category ? 
@@ -56,6 +113,28 @@ const UpdateCategory = ({
                 <div className='mt-5' style={{position: "relative", left: "10vw", width: "90vw"}}>
                 <div className="row">
                     <form className="col s12" onSubmit={e => onSubmit(e)}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                            <Dropzone
+                                onDrop={onDrop} 
+                                multiple={false}
+                                maxSize={800000000}>
+                                {({ getRootProps, getInputProps }) => (
+                                    <div style={{ width: '300px', height: '240px', border: '1px solid lightgray', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                                        {...getRootProps()}
+                                    >
+                                        <input {...getInputProps()} />
+                                        <h4>Выбрать видео</h4>
+
+                                    </div>
+                                )}
+                            </Dropzone>
+
+                            {Thumbnail !== "" &&
+                                <div>
+                                    <img src={`http://localhost:5003/${Thumbnail}`} alt="construction" />
+                                </div>
+                            }
+                        </div>
                         <div className="row">
                             <div className="input-field col s6">
                                 <i className="material-icons prefix">add_box</i>

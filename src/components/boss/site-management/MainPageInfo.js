@@ -72,17 +72,7 @@ const MainPageVideo = ({
         }
 
         MainPageInfoUpload(variables);
-        history.push('/')
-        
-        // setValues({
-        //     title: "", 
-        //     filePath: "",
-        //     companyInfo: "",
-        //     description: "",
-        //     contacts: "",
-        //     duration: "",
-        //     thumbnail: "",
-        // });
+        history.push('/');
     }
 
     const onDrop = ( files ) => {
@@ -160,7 +150,7 @@ const MainPageVideo = ({
                                 <img src={`http://localhost:5003/${Thumbnail}`} alt="main page" />
                             </div>
                         }
-                    </div>
+                </div>
 
                         <div className="form-group">
                             <input
@@ -226,19 +216,6 @@ const MainPageVideo = ({
                         <Link to={`main-page-info-update/${c._id}`}>Изменить видео</Link>
                     </div>
                 </div>
-                        // <div key={c.id} className='container'>
-                        //     <div className='row'>
-                        //         <div className='col'>
-                        //             <div >
-                        //                 <img alt='construction' src={`http://localhost:5003/${c.thumbnail}`} />
-                        //                 <p>{c.title}</p>
-                        //                 <Link className="text-warning delete-custom p-1 mb-3 bg-info " to={`/main-page-info-update/${c._id}`}>Изменить информацию главной страницы</Link>
-                        //                 <br />
-                        //                 <span className="text-danger delete-custom pb-5" onClick={() => clickDelete(c.slug)}>Удалить информацию главной страницы</span>
-                        //             </div>
-                        //         </div>
-                        //     </div>
-                        // </div>
                         )}
                         <Link className='d-block p-3 mt-4 bg-warning ' to='/site-management'>Вернуться на страницу управления сайтом</Link>
                 </div>
@@ -252,7 +229,7 @@ MainPageVideo.propTypes = {
     MainPageInfoUpload: PropTypes.func.isRequired,
     MainPageInfoShow: PropTypes.func.isRequired,
     MainPageInfoDelete: PropTypes.func.isRequired,
-    main_page_info: PropTypes.array.isRequired,
+    main_page_info: PropTypes.object.isRequired,
 }
 
 const mapStateToProps = state => ({

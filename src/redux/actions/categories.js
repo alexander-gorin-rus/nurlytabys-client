@@ -13,44 +13,47 @@ import {
 import axios from 'axios';
 import { setAlert } from './alert';
 
-export const CreateCategory = (name, description) => async dispatch => {
-    const config = {
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    }
-
-    const body = JSON.stringify({name, description});
-
+export const CreateCategory = (variables) => async dispatch => {
+        
     try {
-        const res = await axios.post(`${process.env.REACT_APP_API}/category-create`, body, config);
+        const res = await axios.post(`${process.env.REACT_APP_API}/category-create`, variables);
         dispatch({
             type: CREATE_CATEGORY_SUCCESS,
             payload: res.data
         });
-        dispatch(setAlert(`Категория успешно создана`, 'success'))
+        dispatch(setAlert('Категория успешно сохранена', 'success'))
     } catch (err) {
-        const errors = err.response.data.errors;
-
-        if(errors){
-            errors.forEach(error => dispatch(setAlert(error.msg, 'danger')))
-        }
         dispatch({
             type: CREATE_CATEGORY_FAIL
-        })
+        });
+        dispatch(setAlert('Катерогию не удалось сохранить', 'danger'))
     }
 }
 
-// export const GetCurrentCategory = (slug) => async dispatch => {
+// export const CreateCategory = (name, description) => async dispatch => {
+//     const config = {
+//         headers: {
+//             'Content-Type': 'application/json'
+//         }
+//     }
+
+//     const body = JSON.stringify({name, description});
+
 //     try {
-//         const res = await axios.get(`${process.env.REACT_APP_API}/category/${slug}`);
+//         const res = await axios.post(`${process.env.REACT_APP_API}/category-create`, body, config);
 //         dispatch({
-//             type: GET_CATEGORY,
+//             type: CREATE_CATEGORY_SUCCESS,
 //             payload: res.data
-//         })
+//         });
+//         dispatch(setAlert(`Категория успешно создана`, 'success'))
 //     } catch (err) {
+//         const errors = err.response.data.errors;
+
+//         if(errors){
+//             errors.forEach(error => dispatch(setAlert(error.msg, 'danger')))
+//         }
 //         dispatch({
-//             GET_CATEGORIES_FAIL
+//             type: CREATE_CATEGORY_FAIL
 //         })
 //     }
 // }

@@ -157,7 +157,7 @@ const UpdateVideo = ({
                                 <img src={`http://localhost:5003/${Thumbnail}`} alt="construction" />
                             </div>
                         }
-                    </div>
+                </div>
 
                     <div className="form-group">
                         <input

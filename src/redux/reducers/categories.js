@@ -27,7 +27,7 @@ export default function(state = initialState, action){
         case CREATE_CATEGORY_SUCCESS: 
             return {
                 ...state,
-                ...payload,
+                create_category: payload,
                 loading: false
             }
         case GET_CATEGORIES_FAIL:

@@ -5,7 +5,11 @@ import Dropzone from 'react-dropzone';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { GetCategories } from '../../../redux/actions/categories';
-import { LoadVideos, SaveVideoFunction, DeleteVideo } from '../../../redux/actions/videos';
+import { 
+    LoadVideos, 
+    SaveVideoFunction, 
+    DeleteVideo 
+} from '../../../redux/actions/videos';
 import { Link } from 'react-router-dom';
 
 const { Title } = Typography;
@@ -218,8 +222,8 @@ const UploadVideo = ({
       <>
         <div className='mb-5' style={{marginTop: "15vh"}}>
         <h4 className='text-center'>Созданные видео</h4>
-        {videos && videos.map((c) =>
-            <div className="category-cart" key={c.id} style={{position: "relative", left: "10vw", width: "80vw"}}>
+        {videos && videos.map((c, index) =>
+            <div className="category-cart" key={index} style={{position: "relative", left: "10vw", width: "80vw"}}>
                 <div className='bg-danger p-3 text-center'>
                 <img alt='construction' src={`http://localhost:5003/${c.thumbnail}`} />
                                 <p>{c.title}</p>
