@@ -1,6 +1,5 @@
 import React, { useState, useEffect, Fragment } from 'react'
 import PropTypes from 'prop-types';
-import { Typography } from 'antd';
 import Dropzone from 'react-dropzone';
 import axios from 'axios';
 import { connect } from 'react-redux';
@@ -11,9 +10,7 @@ import {
     DeleteVideo 
 } from '../../../redux/actions/videos';
 import { Link } from 'react-router-dom';
-
-const { Title } = Typography;
-
+import ImagesUpload from './ImagesUpload';
 
 
 const UploadVideo = ({
@@ -144,13 +141,13 @@ const UploadVideo = ({
 
     return (
         <Fragment>
-        <h3 className="text-center" style={{marginTop: "15vh"}}>Страница управления видео материалами</h3>
+            
+        <p className="text-center bg-info p-3" style={{position: "relative", marginTop: "15vh", fontSize: "1.4rem", left: "15vw", width: "70vw"}}>Страница управления видео материалами и изображениями</p>
         <div style={{ maxWidth: '700px', margin: '2rem auto' }}>
-        <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-            <Title level={5} >Загрузить видео</Title>
-        </div>
+        
 
         <form onSubmit={handleSubmit}>
+        <ImagesUpload/>
 
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <Dropzone
@@ -246,7 +243,7 @@ UploadVideo.propTypes = {
     LoadVideos: PropTypes.func.isRequired,
     SaveVideoFunction: PropTypes.func.isRequired,
     DeleteVideo: PropTypes.func.isRequired,
-    videos: PropTypes.array.isRequired,
+    videos: PropTypes.object.isRequired,
 }
 
 const mapStateToProps = state => ({
