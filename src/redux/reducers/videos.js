@@ -6,7 +6,9 @@ import {
     GET_SINGLE_VIDEO_FAIL,
     GET_SINGLE_VIDEO_SUCCESS,
     UPDATE_SINGLE_VIDEO_SUCCESS,
-    UPDATE_SINGLE_VIDEO_FAIL
+    UPDATE_SINGLE_VIDEO_FAIL,
+    GET_DETAILED_INFO_SUCCESS,
+    GET_DETAILED_INFO_FAIL
 } from '../types';
 
 const initialState = {
@@ -14,6 +16,7 @@ const initialState = {
     videos: [],
     single_video: {},
     updated_video: {},
+    detailed_info: {},
     loading: true
 }
 
@@ -66,6 +69,18 @@ export default function(state = initialState, action){
             return {
                 ...state,
                 video: payload,
+                loading: false
+            }
+        case GET_DETAILED_INFO_SUCCESS:
+            return {
+                ...state,
+                detailed_info: payload,
+                loading: false
+            }
+        case GET_DETAILED_INFO_FAIL:
+            return {
+                ...state,
+                detailed_info: {},
                 loading: false
             }
         default: 

@@ -6,7 +6,9 @@ import {
     GET_SINGLE_VIDEO_FAIL,
     GET_SINGLE_VIDEO_SUCCESS,
     UPDATE_SINGLE_VIDEO_FAIL,
-    UPDATE_SINGLE_VIDEO_SUCCESS
+    UPDATE_SINGLE_VIDEO_SUCCESS,
+    GET_DETAILED_INFO_FAIL,
+    GET_DETAILED_INFO_SUCCESS
 } from "../types";
 import axios from 'axios';
 import { setAlert } from './alert';
@@ -55,6 +57,20 @@ export const SaveVideoFunction = (variables) => async dispatch => {
         }
         dispatch({
             type: UPLOAD_VIDEO_FAIL
+        })
+    }
+}
+
+export const GetDetailedVideo = (slug) => async dispatch => {
+    try {
+        const res = await axios.get(`${process.env.REACT_APP_API}/getVideo/${slug}`);
+        dispatch({
+            type: GET_DETAILED_INFO_SUCCESS,
+            payload: res.data
+        })
+    } catch (err) {
+        dispatch({
+            type: GET_DETAILED_INFO_FAIL
         })
     }
 }

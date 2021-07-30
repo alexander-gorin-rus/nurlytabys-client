@@ -10,6 +10,8 @@ import {
     DeleteCategory 
 } from '../../../redux/actions/categories';
 import { Link } from 'react-router-dom';
+import ImagesUpload from './ImagesUpload';
+
 
 const { Title } = Typography;
 
@@ -33,13 +35,15 @@ const Categories = ({
     const [FilePath, setFilePath] = useState("");
     const [Duration, setDuration] = useState("");
     const [Thumbnail, setThumbnail] = useState("");
+    const [Images, setImages] = useState([])
 
     const [values, setValues] = useState({
         name: "",
         description: "",
         filePath: FilePath,
         duration: Duration,
-        thumbnail: Thumbnail
+        thumbnail: Thumbnail,
+        images: Images
     });
 
     const { 
@@ -57,12 +61,17 @@ const Categories = ({
     const handleSubmit = (e) => {
         e.preventDefault();
 
+        if(!name || !description){
+            alert('Все поля должны быть заполнены')
+        }
+
         const variables = {
             name,
             description,
             filePath: FilePath,
             duration: Duration,
-            thumbnail: Thumbnail
+            thumbnail: Thumbnail,
+            images: Images
         }
         CreateCategory(variables);
         setValues({
@@ -70,7 +79,8 @@ const Categories = ({
             description: "",
             filePath: "",
             duration: "",
-            thumbnail: ""
+            thumbnail: "",
+            images: []
         });
         setTimeout(() => {
             loadCategories();
@@ -122,12 +132,19 @@ const Categories = ({
         }, 300);
     }
 
+    const updateImages = (newImages) => {
+        console.log(newImages);
+        setImages(newImages)
+    }
+
     return (
         <Fragment>
             <h4 className="text-center" style={{marginTop: "15vh"}}>Создать категорию</h4>
             <div className='mt-5' style={{position: "relative", left: "10vw", width: "90vw"}}>
                 <div className="row">
                     <form className="col s12" onSubmit={handleSubmit}>
+                    <ImagesUpload refreshFunction={updateImages}/>
+
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                         <Dropzone
                             onDrop={onDrop} 

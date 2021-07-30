@@ -35,6 +35,7 @@ const UploadVideo = ({
     const [FilePath, setFilePath] = useState("");
     const [Duration, setDuration] = useState("");
     const [Thumbnail, setThumbnail] = useState("");
+    const [Images, setImages] = useState([])
 
     const [values, setValues] = useState({
         title: "", 
@@ -74,7 +75,8 @@ const UploadVideo = ({
             description,
             duration: Duration,
             thumbnail: Thumbnail,
-            category
+            category,
+            images: Images
         }
 
         SaveVideoFunction(variables);
@@ -139,6 +141,13 @@ const UploadVideo = ({
         },300);
     }
 
+
+    const updateImages = (newImages) => {
+        console.log(newImages);
+        setImages(newImages)
+    }
+
+
     return (
         <Fragment>
             
@@ -147,7 +156,7 @@ const UploadVideo = ({
         
 
         <form onSubmit={handleSubmit}>
-        <ImagesUpload/>
+        <ImagesUpload refreshFunction={updateImages}/>
 
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <Dropzone
