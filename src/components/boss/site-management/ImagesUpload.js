@@ -13,7 +13,7 @@ function ImagesUpload(props) {
         const config = {
             header: {'content-type': 'multipart/form-data'}
         }
-        console.log(files)
+        //console.log(files)
         formData.append('file', files[0]);
 
         axios.post(`${process.env.REACT_APP_API}/images-upload`, formData, config)
@@ -43,7 +43,7 @@ function ImagesUpload(props) {
             <Dropzone
                 onDrop={onDrop}
                 multiple={true}
-                maxSize={800000000}
+                maxSize={8000000000}
             >
                 {({getRootProps, getInputProps}) => (
                     <div style={{width: "300px", height: "240px", border: "1px solid lightgrey", display: "flex", alignItems: "center", justifyContent: 'center'}}
@@ -60,8 +60,8 @@ function ImagesUpload(props) {
                         <img style={{ minWidth: "300px", width: "350px", height: "240px" }} src={`http://localhost:5003/${image}`} alt='info' />
                     </div>
                 ))}
-                
             </div>
+            
         </div>
     )
 }

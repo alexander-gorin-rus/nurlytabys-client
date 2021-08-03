@@ -8,6 +8,8 @@ import {
 import Dropzone from 'react-dropzone';
 import axios from 'axios';
 import { connect } from 'react-redux';
+import ImagesUpload from './ImagesUpload';
+
 
 const UpdateCategory = ({
     GetOneCategoryToUpdate, 
@@ -22,31 +24,43 @@ const UpdateCategory = ({
         GetOneCategoryToUpdate(id)
     },[]);
 
-    useEffect(() => {
-        if(category.category){
-            setValues({
-                name: category.category.name,
-                description: category.category.description
-            })
-        }
-    },[category.category]);
 
     const [FilePath, setFilePath] = useState("");
     const [Duration, setDuration] = useState("");
     const [Thumbnail, setThumbnail] = useState("");
+    const [Images, setImages] = useState([]);
+
 
     const [values, setValues] = useState({
         name: "",
         description: "",
-        filePath: FilePath,
-        duration: Duration,
-        thumbnail: Thumbnail
+        filePath: "",
+        duration: "",
+        thumbnail: "",
+        images: []
     });
 
     const { 
         name, 
-        description 
+        description,
+        filePath,
+        duration,
+        thumbnail,
+        images
     } = values;
+
+    useEffect(() => {
+        if(category.category){
+            setValues({
+                name: category.category.name,
+                description: category.category.description,
+                filePath: category.category.filePath,
+                duration: category.category.duration,
+                thumbnail: category.category.thumbnail,
+                images: category.category.images
+            })
+        }
+    },[category.category]);
 
     const onChange = (e) => {
         setValues({...values, [e.target.name]: e.target.value})
@@ -60,7 +74,8 @@ const UpdateCategory = ({
             description,
             filePath: FilePath,
             duration: Duration,
-            thumbnail: Thumbnail
+            thumbnail: Thumbnail,
+            images: Images
         }
         CategoryUpdate(id, varibles);
         setTimeout(() => {
@@ -73,13 +88,13 @@ const UpdateCategory = ({
         const config = {
             header: {'content-type': 'multipart/form-data'}
         }
-        console.log('Сохраненный файл:', files)
+        //console.log('Сохраненный файл:', files)
         formData.append('file', files[0]);
 
         axios.post(`${process.env.REACT_APP_API}/category-video-upload`, formData, config)
             .then(res => {
                 if(res.data.success){
-                    console.log(res)
+                    //console.log(res)
 
                     let variable = {
                         filePath: res.data.filePath,
@@ -104,6 +119,12 @@ const UpdateCategory = ({
     }
 
 
+    const updateImages = (images, newImages) => {
+        //console.log(newImages);
+        setImages(images, newImages)
+    }
+
+
     return (
         <div>
             {category && category.category ? 
@@ -111,8 +132,13 @@ const UpdateCategory = ({
                 <Fragment>
                 <h4 className="text-center" style={{marginTop: "15vh"}}>Изменить категорию</h4>
                 <div className='mt-5' style={{position: "relative", left: "10vw", width: "90vw"}}>
+                {category.category.images.map((i, index) => (
+                    <img style={{width: "200px", height: "auto"}} key={index} src={`http://localhost:5003/${i}`}/>
+                ))}
                 <div className="row">
+                {JSON.stringify(values)}
                     <form className="col s12" onSubmit={e => onSubmit(e)}>
+                        <ImagesUpload refreshFunction={updateImages} images={category.category.images} />
                         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                             <Dropzone
                                 onDrop={onDrop} 
@@ -135,7 +161,27 @@ const UpdateCategory = ({
                                 </div>
                             }
                         </div>
-                        <div className="row">
+
+                        <div className="form-group">
+                            <input
+                                type="text"
+                                name="name"
+                                className="form-control"
+                                value={name}
+                                onChange={e => onChange(e)}
+                            />
+                        </div>
+
+                        <div className="form-group">
+                            <input
+                                type="text"
+                                name="description"
+                                className="form-control"
+                                value={description}
+                                onChange={e => onChange(e)}
+                            />
+                        </div>
+                        {/* <div className="row">
                             <div className="input-field col s6">
                                 <i className="material-icons prefix">add_box</i>
                                 <input 
@@ -158,12 +204,11 @@ const UpdateCategory = ({
                                     onChange={e => onChange(e)}    
                                 />
                             </div> 
-                        </div>
+                        </div> */}
                         <input type='submit' className='btn btn-primary' value='Отправить' />
                         <Link className='d-block p-3 mt-4 bg-warning ' to='/categories'>Вернуться на страницу управления категориями</Link>
                     </form>
                 </div>
-                {/* {category && JSON.stringify(category.category.name)} */}
             </div>
             </Fragment>
             ) 

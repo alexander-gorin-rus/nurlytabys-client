@@ -10,6 +10,7 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { useParams, useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
+import ImagesUpload from './ImagesUpload';
 
 
 
@@ -32,6 +33,8 @@ const UpdateVideo = ({
     const [FilePath, setFilePath] = useState("");
     const [Duration, setDuration] = useState("");
     const [Thumbnail, setThumbnail] = useState("");
+    const [Images, setImages] = useState([]);
+
 
     const [values, setValues] = useState({
         title: "", 
@@ -126,6 +129,11 @@ const UpdateVideo = ({
                 }
             })
     }
+
+    const updateImages = (newImages) => {
+        console.log(newImages);
+        setImages(newImages)
+    }
     return (
         <Fragment>
             <h3 className="text-center" style={{marginTop: "15vh"}}>Изменить видео</h3>
@@ -135,7 +143,7 @@ const UpdateVideo = ({
                 </div>
 
                 <form onSubmit={handleSubmit}>
-
+                <ImagesUpload refreshFunction={updateImages} />
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                         <Dropzone
                             onDrop={onDrop} 

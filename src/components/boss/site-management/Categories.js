@@ -35,7 +35,7 @@ const Categories = ({
     const [FilePath, setFilePath] = useState("");
     const [Duration, setDuration] = useState("");
     const [Thumbnail, setThumbnail] = useState("");
-    const [Images, setImages] = useState([])
+    const [Images, setImages] = useState([]);
 
     const [values, setValues] = useState({
         name: "",
@@ -51,7 +51,8 @@ const Categories = ({
         description,
         filePath,
         duration,
-        thumbnail
+        thumbnail,
+        images
     } = values;
 
     const onChange = e => {
@@ -140,7 +141,7 @@ const Categories = ({
     return (
         <Fragment>
             <h4 className="text-center" style={{marginTop: "15vh"}}>Создать категорию</h4>
-            <div className='mt-5' style={{position: "relative", left: "10vw", width: "90vw"}}>
+            <div className='mt-5' style={{ maxWidth: '700px', margin: '2rem auto' }}>
                 <div className="row">
                     <form className="col s12" onSubmit={handleSubmit}>
                     <ImagesUpload refreshFunction={updateImages}/>
@@ -167,32 +168,27 @@ const Categories = ({
                             </div>
                         }
                     </div>
-                        <div className="row">
-                            <div className="input-field col s6">
-                                <i className="material-icons prefix">add_box</i>
-                                <input 
-                                    id="icon_prefix" 
-                                    type="text" 
-                                    className="validate"
-                                    name='name'
-                                    value={name}
-                                    onChange={e => onChange(e)}    
-                                />
-                                <label htmlFor="icon_prefix">Название категории</label>
-                            </div> 
-                            <div className="input-field col s6">
-                                <i className="material-icons prefix">add_box</i>
-                                <input 
-                                    id="icon_prefix" 
-                                    type="text" 
-                                    className="validate"
-                                    name='description'
-                                    value={description}
-                                    onChange={e => onChange(e)}    
-                                />
-                                <label htmlFor="icon_prefix">Описание категории</label>
-                            </div> 
-                        </div>
+                    <div className="form-group">
+                        <input
+                            type="text"
+                            name="name"
+                            className="form-control"
+                            value={name}
+                            onChange={e => onChange(e)}
+                            placeholder="Название категории"
+                        />
+                    </div>
+
+                    <div className="form-group">
+                        <input
+                            type="text"
+                            name="description"
+                            className="form-control"
+                            value={description}
+                            onChange={e => onChange(e)}
+                            placeholder="Описание категории"
+                        />
+                    </div>
                         <input type='submit' className='btn btn-primary' value='Отправить' />
                         <Link className='d-block p-3 mt-4 bg-warning ' to='/site-management'>Вернуться на страницу управления сайтом</Link>
                     </form>
@@ -204,10 +200,20 @@ const Categories = ({
                 <div>
                     <h4 className='text-center mb-5'>Созданные категории</h4>
                 {
-                categories.map((category) => (
+                categories && categories.map((category) => (
                     <div className="category-cart" key={category.id} style={{position: "relative", left: "10vw", width: "80vw"}}>
                         <div className='bg-danger p-3 text-center'>
-                        <img alt='construction' src={`http://localhost:5003/${category.thumbnail}`} />
+                            {
+                                category.filePath === "" ? 
+                                (
+                                    <img style={{width: "200px", height: "auto"}} alt='construction' src={`http://localhost:5003/${category.images[0]}`} />
+                                ) 
+                                    : 
+                                (
+                                    <img alt='construction' src={`http://localhost:5003/${category.thumbnail}`} />
+                                )
+                            }
+                                {/* <img alt='construction' src={`http://localhost:5003/${category.thumbnail}`} /> */}
                                 <p>{category.name}</p>
                                 <span className='delete-custom px-3' onClick={() => onDelete(category.slug)}>
                                         Удалить категорию

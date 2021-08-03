@@ -10,6 +10,7 @@ import {
     MainPageInfoDelete
 } from '../../../redux/actions/main_page_info'
 import { Link, useHistory } from 'react-router-dom';
+import ImagesUpload from './ImagesUpload';
 
 const { Title } = Typography;
 
@@ -30,6 +31,8 @@ const MainPageVideo = ({
     const [FilePath, setFilePath] = useState("");
     const [Duration, setDuration] = useState("");
     const [Thumbnail, setThumbnail] = useState("");
+    const [Images, setImages] = useState([]);
+
 
     const [values, setValues] = useState({
         title: "", 
@@ -39,6 +42,7 @@ const MainPageVideo = ({
         contacts: "",
         duration: Duration,
         thumbnail: Thumbnail,
+        images: Images
     });
 
     const { 
@@ -49,6 +53,7 @@ const MainPageVideo = ({
         filePath,
         duration,
         thumbnail,
+        images
     } = values;
 
     const history = useHistory();
@@ -69,6 +74,7 @@ const MainPageVideo = ({
             filePath: FilePath,
             duration: Duration,
             thumbnail: Thumbnail,
+            images: Images
         }
 
         MainPageInfoUpload(variables);
@@ -117,6 +123,12 @@ const MainPageVideo = ({
         }
     }
 
+    const updateImages = (newImages) => {
+        console.log(newImages);
+        setImages(newImages)
+    }
+
+
     return (
         <Fragment>
         <h4 className="text-center" style={{marginTop: "15vh"}}>Управление информацией для главной страницы</h4>
@@ -128,7 +140,7 @@ const MainPageVideo = ({
                 </div>
 
                 <form onSubmit={handleSubmit}>
-
+                <ImagesUpload refreshFunction={updateImages}/>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                         <Dropzone
                             onDrop={onDrop} 
@@ -203,12 +215,24 @@ const MainPageVideo = ({
             </Fragment>
             ) : (
             <Fragment>
-                <p className="text-center bg-info p-3" style={{ position: "relative", left: "15vw", width: "80vw"}}>Вы уже создали информацию для главной страницы</p>
+                <p 
+                    className="text-center bg-info p-3" 
+                    style={{ position: "relative", left: "10vw", width: "80vw"}}>
+                        Вы уже создали информацию для главной страницы
+                </p>
                 <div className='mb-5' style={{position: "relative", left: "10vw", width: "80vw"}}>
-                    {main_page_info.video && main_page_info.video.map((c) =>
-                    <div className="category-cart" key={c.id} >
+                    {main_page_info.video && main_page_info.video.map((c, index) =>
+                    <div className="category-cart" key={index} >
                     <div className='bg-danger p-3 text-center'>
-                    <img alt='construction' src={`http://localhost:5003/${c.thumbnail}`} />
+                        {c.filePath === "" ? 
+                            (
+                                <img style={{width: "200px", height: "auto"}} alt='construction' src={`http://localhost:5003/${c.images[0]}`} />
+                            )
+                            :
+                            (
+                                <img alt='construction' src={`http://localhost:5003/${c.thumbnail}`} />
+                            )
+                        }
                                     <p>{c.title}</p>
                         <span className='delete-custom px-3' onClick={() => clickDelete(c.slug)}>
                             Удалить видео

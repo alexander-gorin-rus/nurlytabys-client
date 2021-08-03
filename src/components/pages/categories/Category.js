@@ -87,7 +87,7 @@ const Category = ({
         <Fragment>
         {load_category && load_category.category ? (
             <div className="main-page-video-div">
-                {load_category && load_category.category.filePath === "" ? (
+                {load_category.category && load_category.category.filePath === "" ? (
                     <ImagesSlider images={load_category.category.images}/>
                 ) 
                     : 
@@ -110,11 +110,15 @@ const Category = ({
                     <div data-aos="fade-down-right" className="main-page-categories " key={index}>
                         <p className='text-center text-light'>{v.title}</p>
                         <Link to={`/video/${v.slug}`}>
-                            {load_category.category.filePath === "" ? (
-                                load_category.videos.map((image, index) => (    
-                                    <img key={index} style={{position: "relative", width: "35vw", height: "auto"}} src={`http://localhost:5003/${image.images[0]}`}  alt="cool" />   
-                                ))
-                            ) : (<img className="my-3" src={`http://localhost:5003/${v.thumbnail}` } alt="construction" />)}
+                            {v.filePath === "" ? 
+                            (    
+                                <img style={{position: "relative", width: "35vw", height: "auto"}} src={`http://localhost:5003/${v.images[0]}`}  alt="cool" />      
+                            ) : 
+                            (
+                                <img className="my-3" src={`http://localhost:5003/${v.thumbnail}` } alt="construction" />
+                            )
+                            }
+                            {/* <img className="my-3" src={`http://localhost:5003/${v.thumbnail}` } alt="construction" /> */}
                         </Link>
                         
                     </div>

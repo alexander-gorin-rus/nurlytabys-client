@@ -9,6 +9,8 @@ import {
     GetMainPageInfoById 
 } from '../../../redux/actions/main_page_info'
 import { Link, useHistory, useParams } from 'react-router-dom';
+import ImagesUpload from './ImagesUpload';
+
 
 const { Title } = Typography;
 
@@ -31,6 +33,8 @@ const MainPageInfoUpdate = ({
     const [FilePath, setFilePath] = useState("");
     const [Duration, setDuration] = useState("");
     const [Thumbnail, setThumbnail] = useState("");
+    const [Images, setImages] = useState([]);
+
 
     const [values, setValues] = useState({
         title: "",
@@ -40,6 +44,7 @@ const MainPageInfoUpdate = ({
         filePath: FilePath,
         duration: Duration,
         thumbnail: Thumbnail,
+        images: Images
     });
 
     const { 
@@ -50,18 +55,10 @@ const MainPageInfoUpdate = ({
         filePath,
         duration,
         thumbnail,
+        images
     } = values;
 
     useEffect(() => {
-        // setValues({
-        //     title: main_page_info_by_id.info.title,
-        //     companyInfo: main_page_info_by_id.info.companyInfo,
-        //     description: main_page_info_by_id.info.description,
-        //     contacts: main_page_info_by_id.info.contacts,
-        //     filePath: main_page_info_by_id.filePath,
-        //     duration: main_page_info_by_id.duration,
-        //     thumbnail: main_page_info_by_id.thumbnail
-        // })
         if(main_page_info_by_id && main_page_info_by_id.info){
             setValues({
                 title: main_page_info_by_id.info.title,
@@ -70,11 +67,12 @@ const MainPageInfoUpdate = ({
                 contacts: main_page_info_by_id.info.contacts,
                 filePath: main_page_info_by_id.info.filePath,
                 duration: main_page_info_by_id.info.duration,
-                thumbnail: main_page_info_by_id.info.thumbnail
+                thumbnail: main_page_info_by_id.info.thumbnail,
+                images: main_page_info_by_id.info.images
             })
             //console.log(values)
         }
-    },[main_page_info_by_id.info])
+    },[main_page_info_by_id])
 
     const handleChange = e => {
         setValues({...values, [e.target.name]: e.target.value})
@@ -91,6 +89,7 @@ const MainPageInfoUpdate = ({
             filePath: FilePath,
             duration: Duration,
             thumbnail: Thumbnail,
+            images: Images
         }
 
         UpdateMainPageInfo(id, variables);
@@ -133,6 +132,10 @@ const MainPageInfoUpdate = ({
             })
     }
 
+    const updateImages = (newImages) => {
+        console.log(newImages);
+        setImages(newImages)
+    }
     return (
         <Fragment>
             <div style={{ maxWidth: '700px', margin: '2rem auto', marginTop: "15vh" }}>
@@ -143,7 +146,7 @@ const MainPageInfoUpdate = ({
             </div>
 
             <form onSubmit={handleSubmit}>
-
+            <ImagesUpload refreshFunction={updateImages}/>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                     <Dropzone
                         onDrop={onDrop} 

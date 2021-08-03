@@ -231,7 +231,16 @@ const UploadVideo = ({
         {videos && videos.map((c, index) =>
             <div className="category-cart" key={index} style={{position: "relative", left: "10vw", width: "80vw"}}>
                 <div className='bg-danger p-3 text-center'>
-                <img alt='construction' src={`http://localhost:5003/${c.thumbnail}`} />
+                    {c.filePath === "" ? 
+                        (
+                            <img style={{width: "200px", height: "auto"}} alt='construction' src={`http://localhost:5003/${c.images[0]}`} />
+                        ) 
+                            : 
+                        (
+                            <img alt='construction' src={`http://localhost:5003/${c.thumbnail}`} />
+                        )    
+                    }
+                {/* <img alt='construction' src={`http://localhost:5003/${c.thumbnail}`} /> */}
                                 <p>{c.title}</p>
                     <span className='delete-custom px-3' onClick={() => clickDelete(c.slug)}>
                         Удалить видео

@@ -6,6 +6,7 @@ import {MainPageInfoShow} from '../../redux/actions/main_page_info';
 import Aos from 'aos';
 import "aos/dist/aos.css";
 import { GetCategories } from '../../redux/actions/categories';
+import ImagesSlider from '../forms/ImagesSlider';
 
 const Main = ({
     MainPageInfoShow,
@@ -35,10 +36,18 @@ const Main = ({
                 <Fragment>
                     {main_page_info.video && main_page_info.video.map((v, index) =>
                         <div key={index} className="main-page-video-div">
-                            <video className="main-page-video-video" autoPlay loop muted 
-                                src={`http://localhost:5003/${v.filePath}`}
-                            >     
-                            </video>
+                            {v.filePath === "" ? 
+                                (
+                                    <ImagesSlider images={v.images}/>
+                                )
+                                :
+                                (
+                                    <video className="main-page-video-video" autoPlay loop muted 
+                                    src={`http://localhost:5003/${v.filePath}`}
+                                    >     
+                                    </video>
+                                )
+                            }
                             <div className="main-page-content-div-absolute">
 
                                 <div data-aos="fade-zoom-in" className=" d-flex justify-content-center">
