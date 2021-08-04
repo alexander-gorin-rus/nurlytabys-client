@@ -1,6 +1,5 @@
 import React, { useState, useEffect, Fragment } from 'react'
 import PropTypes from 'prop-types';
-import { Typography } from 'antd';
 import Dropzone from 'react-dropzone';
 import axios from 'axios';
 import { connect } from 'react-redux';
@@ -10,10 +9,6 @@ import {
 } from '../../../redux/actions/main_page_info'
 import { Link, useHistory, useParams } from 'react-router-dom';
 import ImagesUpload from './ImagesUpload';
-
-
-const { Title } = Typography;
-
 
 
 const MainPageInfoUpdate = ({
@@ -133,18 +128,14 @@ const MainPageInfoUpdate = ({
     }
 
     const updateImages = (newImages) => {
-        console.log(newImages);
+        //console.log(newImages);
         setImages(newImages)
     }
     return (
         <Fragment>
-            <div style={{ maxWidth: '700px', margin: '2rem auto', marginTop: "15vh" }}>
-            <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-                <Title level={5} >Загрузить видео</Title>
-                
-                
-            </div>
-
+            <h4 className="text-center" style={{marginTop: "15vh"}}>Изменить информацию для главной страницы</h4>
+            <div style={{ maxWidth: '700px', margin: '2rem auto', marginTop: "15vh", marginBottom: "10vh" }}>
+            {JSON.stringify(values.images)}
             <form onSubmit={handleSubmit}>
             <ImagesUpload refreshFunction={updateImages}/>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>

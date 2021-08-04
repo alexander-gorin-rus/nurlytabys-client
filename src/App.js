@@ -49,6 +49,11 @@ import MainPageInfoUpdate from './components/boss/site-management/MainPageInfoUp
 import ExcessToRegister from './components/boss/site-management/ExcessToRegister';
 import UpdateExcessToRegister from './components/boss/site-management/UpdateExcessToRegister';
 import UpdateVideo from './components/boss/site-management/UpdateVideo';
+import RoleComponent from './components/boss/company-management/RoleComponent';
+import MyBusiness from './components/boss/company-management/MyBusiness';
+import UpdateRole from './components/boss/company-management/UpdateRole';
+import EmployeeList from './components/boss/company-management/EmployeeList';
+import Employee from './components/boss/company-management/Employee';
 
 
 
@@ -97,6 +102,11 @@ const App = () => {
                 <BossPrivateRoutes exact path='/main-page-info-update/:id' component={MainPageInfoUpdate} />
                 <BossPrivateRoutes exact path='/categories' component={Categories} />
                 <BossPrivateRoutes exact path='/get-category-to-update/:id' component={UpdateCategory} />
+                <BossPrivateRoutes exact path='/role-component' component={RoleComponent} />
+                <BossPrivateRoutes exact path='/my-business' component={MyBusiness} />
+                <BossPrivateRoutes exact path='/update-role/:id' component={UpdateRole} />
+                <BossPrivateRoutes exact path='/employee-list' component={EmployeeList} />
+                <BossPrivateRoutes exact path='/employee/:id' component={Employee} />
             </Switch>
             </div>
         </Fragment>

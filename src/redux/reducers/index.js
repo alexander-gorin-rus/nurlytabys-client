@@ -5,6 +5,7 @@ import register_entry from "./register_entry";
 import categories from "./categories";
 import videos from './videos';
 import main_page_info from './main_page_info';
+import roles from './roles';
 
 export default combineReducers({
     employee_reducer,
@@ -12,5 +13,6 @@ export default combineReducers({
     register_entry,
     categories,
     videos,
-    main_page_info
+    main_page_info,
+    roles
 });

@@ -235,9 +235,9 @@ const MainPageVideo = ({
                         }
                                     <p>{c.title}</p>
                         <span className='delete-custom px-3' onClick={() => clickDelete(c.slug)}>
-                            Удалить видео
+                            Удалить
                         </span>
-                        <Link to={`main-page-info-update/${c._id}`}>Изменить видео</Link>
+                        <Link to={`main-page-info-update/${c._id}`}>Изменить</Link>
                     </div>
                 </div>
                         )}

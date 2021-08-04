@@ -8,7 +8,11 @@ import {
     LOGOUT,
     ACCOUNT_DELETED,
     AUTH_ERROR, 
-    CLEAR_PROFILE
+    CLEAR_PROFILE,
+    GET_EMPLOYEE_LIST_SUCCESS,
+    GET_EMPLOYEE_LIST_FAIL,
+    GET_EMPLOYEE_BY_ID_SUCCESS,
+    GET_EMPLOYEE_BY_ID_FAIL
 } from '../types';
 import { setAlert} from './alert';
 
@@ -98,4 +102,32 @@ export const logout = () => dispatch => {
       type: LOGOUT
     });
   };
+
+export const GetEmployeeList = () => async dispatch => {
+    try {
+        const res = await axios.get(`${process.env.REACT_APP_API}/employee-list`);
+        dispatch({
+            type: GET_EMPLOYEE_LIST_SUCCESS,
+            payload: res.data
+        });
+    } catch (err) {
+        dispatch({
+            type: GET_EMPLOYEE_LIST_FAIL
+        });
+    }
+}
+
+export const GetEmployeeById = (id) => async dispatch => {
+    try {
+        const res = await axios.get(`${process.env.REACT_APP_API}/get-employee-by-id/${id}`);
+        dispatch({
+            type: GET_EMPLOYEE_BY_ID_SUCCESS,
+            payload: res.data
+        });
+    } catch (err) {
+        dispatch({
+            type: GET_EMPLOYEE_BY_ID_FAIL
+        })
+    }
+}
   

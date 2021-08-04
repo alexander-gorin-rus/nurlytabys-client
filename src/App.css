@@ -106,6 +106,15 @@
   /* border: 1px solid red */
 }
 
+.main_container{
+  position: relative;
+  top: 10vh;
+  left: 7vw;
+  width: 93vw;
+  height: 90vh;
+  border: 1px solid red
+}
+
 .div-header{
   position: fixed;
   top: 0;

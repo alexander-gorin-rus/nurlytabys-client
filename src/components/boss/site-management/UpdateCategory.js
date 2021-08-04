@@ -136,7 +136,7 @@ const UpdateCategory = ({
                     <img style={{width: "200px", height: "auto"}} key={index} src={`http://localhost:5003/${i}`}/>
                 ))}
                 <div className="row">
-                {JSON.stringify(values)}
+                {/* {JSON.stringify(values)} */}
                     <form className="col s12" onSubmit={e => onSubmit(e)}>
                         <ImagesUpload refreshFunction={updateImages} images={category.category.images} />
                         <div style={{ display: 'flex', justifyContent: 'space-between' }}>

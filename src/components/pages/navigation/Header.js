@@ -11,7 +11,7 @@ export const Header = ( { logout, role} ) => {
                 <ul className="header-custom">
                         {role === null && (
                             <Fragment>
-                                <li className="li-register li-custom"><Link className="link" to="/register">Зарегистрироваться</Link></li>
+                                <li className="li-register li-custom"><Link className="link" to="/register-form">Зарегистрироваться</Link></li>
                                 <li className="li-login li-custom"><Link className="link" to="/login">Войти</Link></li>
                             </Fragment>
                         )}

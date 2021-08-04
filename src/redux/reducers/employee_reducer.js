@@ -7,7 +7,11 @@ import {
     LOGOUT,
     ACCOUNT_DELETED,
     AUTH_ERROR,
-    CLEAR_PROFILE
+    CLEAR_PROFILE,
+    GET_EMPLOYEE_LIST_SUCCESS,
+    GET_EMPLOYEE_LIST_FAIL,
+    GET_EMPLOYEE_BY_ID_SUCCESS,
+    GET_EMPLOYEE_BY_ID_FAIL
  } from '../types';
 
 const initialState = {
@@ -15,6 +19,8 @@ const initialState = {
     isAuthenticated: null,
     loading: true,
     employee: null,
+    employee_list: [],
+    employee_by_id: null,
     role: null
 }
 
@@ -40,6 +46,30 @@ export default function (state = initialState, action){
                loading: false,
                role: payload.role
            };
+        case GET_EMPLOYEE_LIST_SUCCESS: 
+            return {
+                ...state,
+                employee_list: payload,
+                load: false
+            }
+        case GET_EMPLOYEE_LIST_FAIL:
+            return {
+                ...state,
+                employee_list: [],
+                loading: false
+            }
+        case GET_EMPLOYEE_BY_ID_SUCCESS:
+            return {
+                ...state,
+                employee_by_id: payload,
+                loading: false
+            }
+        case GET_EMPLOYEE_BY_ID_FAIL:
+            return {
+                ...state,
+                employee_by_id: null,
+                loading: false
+            }
         case REGISTER_FAIL:
         case LOGIN_FAIL:
         case LOGOUT:

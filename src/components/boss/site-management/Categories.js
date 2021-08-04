@@ -1,6 +1,5 @@
 import React, {Fragment, useState, useEffect} from 'react'
 import PropTypes from 'prop-types';
-import { Typography } from 'antd';
 import Dropzone from 'react-dropzone';
 import axios from 'axios';
 import { connect } from 'react-redux';
@@ -13,7 +12,6 @@ import { Link } from 'react-router-dom';
 import ImagesUpload from './ImagesUpload';
 
 
-const { Title } = Typography;
 
 const Categories = ({
     CreateCategory, 
@@ -195,36 +193,41 @@ const Categories = ({
                 </div>
             </div>
             
-            {categories && categories.length === 0 ? (<h3 className="text-center">Вы пока не создали категории</h3>) : 
-            (
-                <div>
-                    <h4 className='text-center mb-5'>Созданные категории</h4>
-                {
-                categories && categories.map((category) => (
-                    <div className="category-cart" key={category.id} style={{position: "relative", left: "10vw", width: "80vw"}}>
-                        <div className='bg-danger p-3 text-center'>
-                            {
-                                category.filePath === "" ? 
-                                (
-                                    <img style={{width: "200px", height: "auto"}} alt='construction' src={`http://localhost:5003/${category.images[0]}`} />
-                                ) 
-                                    : 
-                                (
-                                    <img alt='construction' src={`http://localhost:5003/${category.thumbnail}`} />
-                                )
-                            }
-                                {/* <img alt='construction' src={`http://localhost:5003/${category.thumbnail}`} /> */}
-                                <p>{category.name}</p>
-                                <span className='delete-custom px-3' onClick={() => onDelete(category.slug)}>
-                                        Удалить категорию
-                                </span>
-                                    <Link to={`get-category-to-update/${category.id}`}>Изменить категорию</Link>
-                            </div>
-                    </div>
-                    ))
-                }
-                </div>   
-            )}
+            {categories && categories.length === 0 ? 
+                (
+                    <h3 className="text-center">Вы пока не создали категории</h3>
+                ) 
+                    : 
+                (
+                    <div>
+                        <h4 className='text-center mb-5'>Созданные категории</h4>
+                    {
+                    categories && categories.map((category) => (
+                        <div className="category-cart" key={category.id} style={{position: "relative", left: "10vw", width: "80vw"}}>
+                            <div className='bg-danger p-3 text-center'>
+                                {
+                                    category.filePath === "" ? 
+                                    (
+                                        <img style={{width: "200px", height: "auto"}} alt='construction' src={`http://localhost:5003/${category.images[0]}`} />
+                                    ) 
+                                        : 
+                                    (
+                                        <img alt='construction' src={`http://localhost:5003/${category.thumbnail}`} />
+                                    )
+                                }
+                                    {/* <img alt='construction' src={`http://localhost:5003/${category.thumbnail}`} /> */}
+                                    <p>{category.name}</p>
+                                    <span className='delete-custom px-3' onClick={() => onDelete(category.slug)}>
+                                            Удалить категорию
+                                    </span>
+                                        <Link to={`get-category-to-update/${category.id}`}>Изменить категорию</Link>
+                                </div>
+                        </div>
+                        ))
+                    }
+                    </div>   
+                )
+            }
         </Fragment>
     )
 }

@@ -62,7 +62,7 @@ const UploadVideo = ({
     }
 
     const handleCategoryChange = (e) => {
-        console.log('the choosen category', e.target.value);
+        //console.log('the choosen category', e.target.value);
         setValues({ ...values, category: e.target.value });
     }
 
@@ -217,7 +217,8 @@ const UploadVideo = ({
                             key={c._id}
                             value={c._id}
                         >{c.name}
-                        </option>)}
+                        </option>)
+                }
             </select>
 
             <button className="btn btn-outline-info mt-4">Отправить</button>
