@@ -54,6 +54,7 @@ import MyBusiness from './components/boss/company-management/MyBusiness';
 import UpdateRole from './components/boss/company-management/UpdateRole';
 import EmployeeList from './components/boss/company-management/EmployeeList';
 import Employee from './components/boss/company-management/Employee';
+import MyBusinessById from './components/boss/company-management/MyBusinessById';
 
 
 
@@ -104,6 +105,7 @@ const App = () => {
                 <BossPrivateRoutes exact path='/get-category-to-update/:id' component={UpdateCategory} />
                 <BossPrivateRoutes exact path='/role-component' component={RoleComponent} />
                 <BossPrivateRoutes exact path='/my-business' component={MyBusiness} />
+                <BossPrivateRoutes exact path='/my-business-by-id/:id' component={MyBusinessById} />
                 <BossPrivateRoutes exact path='/update-role/:id' component={UpdateRole} />
                 <BossPrivateRoutes exact path='/employee-list' component={EmployeeList} />
                 <BossPrivateRoutes exact path='/employee/:id' component={Employee} />

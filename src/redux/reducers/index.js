@@ -6,6 +6,7 @@ import categories from "./categories";
 import videos from './videos';
 import main_page_info from './main_page_info';
 import roles from './roles';
+import business from "./business";
 
 export default combineReducers({
     employee_reducer,
@@ -14,5 +15,6 @@ export default combineReducers({
     categories,
     videos,
     main_page_info,
-    roles
+    roles,
+    business
 });
