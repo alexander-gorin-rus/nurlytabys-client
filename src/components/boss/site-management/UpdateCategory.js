@@ -181,30 +181,6 @@ const UpdateCategory = ({
                                 onChange={e => onChange(e)}
                             />
                         </div>
-                        {/* <div className="row">
-                            <div className="input-field col s6">
-                                <i className="material-icons prefix">add_box</i>
-                                <input 
-                                    id="icon_prefix" 
-                                    type="text" 
-                                    className="validate"
-                                    name='name'
-                                    value={name}
-                                    onChange={e => onChange(e)}    
-                                />
-                            </div> 
-                            <div className="input-field col s6">
-                                <i className="material-icons prefix">add_box</i>
-                                <input 
-                                    id="icon_prefix" 
-                                    type="text" 
-                                    className="validate"
-                                    name="description"
-                                    value={description}
-                                    onChange={e => onChange(e)}    
-                                />
-                            </div> 
-                        </div> */}
                         <input type='submit' className='btn btn-primary' value='Отправить' />
                         <Link className='d-block p-3 mt-4 bg-warning ' to='/categories'>Вернуться на страницу управления категориями</Link>
                     </form>

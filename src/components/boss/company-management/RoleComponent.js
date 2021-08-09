@@ -33,7 +33,7 @@ const RoleComponent = ({
         e.preventDefault();
 
         if(!name){
-            alert('Название роль обязательно должно быть указано')
+            alert('Название должности обязательно должно быть указано')
         }
 
         const variables = {
@@ -51,7 +51,7 @@ const RoleComponent = ({
     }
 
     const onDelete = (id) => {
-        if(window.confirm('Вы точно желаете удалить эту роль?')){
+        if(window.confirm('Вы точно желаете удалить эту должность?')){
             DeleteRole(id);
         }
        setTimeout(() => {
@@ -62,9 +62,9 @@ const RoleComponent = ({
     return (
         <Fragment>
             <div className='mt-5' style={{ maxWidth: '700px', margin: '2rem auto' }}>
-            <h4 className="text-center" style={{marginTop: "15vh"}}>Форма управления ролями</h4>
+            <h4 className="text-center" style={{marginTop: "15vh"}}>Форма управления должностями</h4>
             
-            <h4 className="text-center" style={{marginTop: "15vh"}}>Создать роль</h4>
+            <h4 className="text-center" style={{marginTop: "15vh"}}>Создать должность</h4>
                 <form className="col s12" onSubmit={handleSubmit}>
                     <div className="form-group">
                         <input
@@ -81,20 +81,20 @@ const RoleComponent = ({
                 </form>
                 {load_all_roles.roles && load_all_roles.roles.length === 0 ? 
                     (
-                        <h3 className="text-center">Вы пока не создали ролей</h3>
+                        <h3 className="text-center">Вы пока не создали должности</h3>
                     )
                         :
                     (
                         <div>
-                            <h4 className='text-center mb-5'>Созданные роли</h4>
+                            <h4 className='text-center mb-5'>Созданные должности</h4>
                         {load_all_roles.roles && load_all_roles.roles.map((r, index) => (
                             <div className="category-cart" key={index}>
                                 <div className='bg-danger p-3 text-center'>
                                 <p>{r.name}</p>
                                 <span className='delete-custom px-3' onClick={() => onDelete(r._id)}>
-                                            Удалить роль
+                                            Удалить должность
                                 </span>
-                                <Link to={`/update-role/${r._id}`}>Изменить роль</Link>
+                                <Link to={`/update-role/${r._id}`}>Изменить должность</Link>
                                 </div>
                             </div>
                         ))}

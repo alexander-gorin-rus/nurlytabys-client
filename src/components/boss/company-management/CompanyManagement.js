@@ -8,7 +8,7 @@ const CompanyManagement = props => {
             <div className="row">
                 <div className="col-12">
                     <ul className="list-inline">
-                        <li className="list-inline-item bg-warning p-2 rounded-3"><Link to="/role-component">Создать роль</Link></li>
+                        <li className="list-inline-item bg-warning p-2 rounded-3"><Link to="/role-component">Управления должностями</Link></li>
                         <li className="list-inline-item bg-warning p-2 rounded"><Link to="/my-business">Мои дела</Link></li>
                         <li className="list-inline-item bg-warning p-2 rounded"><Link to="/employee-list">Список сотрудников</Link></li>
                     </ul>

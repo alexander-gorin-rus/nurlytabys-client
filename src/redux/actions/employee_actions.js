@@ -12,7 +12,11 @@ import {
     GET_EMPLOYEE_LIST_SUCCESS,
     GET_EMPLOYEE_LIST_FAIL,
     GET_EMPLOYEE_BY_ID_SUCCESS,
-    GET_EMPLOYEE_BY_ID_FAIL
+    GET_EMPLOYEE_BY_ID_FAIL,
+    UPDATE_EMPLOYEE_FAIL,
+    UPDATE_EMPLOYEE_SUCCESS,
+    DELETE_EMPLOYEE_SUCCESS,
+    DELETE_EMPLOYEE_FAIL
 } from '../types';
 import { setAlert} from './alert';
 
@@ -128,6 +132,37 @@ export const GetEmployeeById = (id) => async dispatch => {
         dispatch({
             type: GET_EMPLOYEE_BY_ID_FAIL
         })
+    }
+}
+
+export const UpdateEmployee = (id, values) => async dispatch => {
+    try {
+        const res = await axios.put(`${process.env.REACT_APP_API}/update-employee/${id}`, values);
+        dispatch({
+            type: UPDATE_EMPLOYEE_SUCCESS,
+            payload: res.data
+        });
+        dispatch(setAlert('Работнику успешно присвоена роль', 'success'));
+    } catch (err) {
+        dispatch({
+            type: UPDATE_EMPLOYEE_FAIL
+        });
+        dispatch(setAlert('Не удалось присвоить работнику роль', 'danger'))
+    }
+}
+
+export const DeleteEmployee = (id) => async dispatch => {
+    try {
+        await axios.delete(`${process.env.REACT_APP_API}/delete-employee/${id}`);
+        dispatch({
+            type: DELETE_EMPLOYEE_SUCCESS
+        });
+        dispatch(setAlert('Работник успешно удален', 'success'));
+    } catch (err) {
+        dispatch({
+            type: DELETE_EMPLOYEE_FAIL
+        });
+        dispatch(setAlert('Не удалось удалить работника', 'danger'));
     }
 }
   

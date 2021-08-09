@@ -11,17 +11,23 @@ import {
     GET_EMPLOYEE_LIST_SUCCESS,
     GET_EMPLOYEE_LIST_FAIL,
     GET_EMPLOYEE_BY_ID_SUCCESS,
-    GET_EMPLOYEE_BY_ID_FAIL
+    GET_EMPLOYEE_BY_ID_FAIL,
+    UPDATE_EMPLOYEE_SUCCESS,
+    UPDATE_EMPLOYEE_FAIL,
+    DELETE_EMPLOYEE_SUCCESS,
+    DELETE_EMPLOYEE_FAIL
  } from '../types';
 
 const initialState = {
     token: localStorage.getItem('token'),
     isAuthenticated: null,
-    loading: true,
     employee: null,
     employee_list: [],
     employee_by_id: null,
-    role: null
+    updated_employee: null,
+    boss: null,
+    deleted_employee: false,
+    loading: true,
 }
 
 export default function (state = initialState, action){
@@ -34,7 +40,8 @@ export default function (state = initialState, action){
                 isAuthenticated: true,
                 loading: false,
                 employee: payload,
-                role: payload.role
+                //role: payload.role
+                boss: payload.boss
             };
         case REGISTER_SUCCESS:
         case LOGIN_SUCCESS:
@@ -44,7 +51,8 @@ export default function (state = initialState, action){
                ...payload,
                isAuthenticated: true,
                loading: false,
-               role: payload.role
+               //role: payload.role
+               boss: payload.boss
            };
         case GET_EMPLOYEE_LIST_SUCCESS: 
             return {
@@ -70,6 +78,30 @@ export default function (state = initialState, action){
                 employee_by_id: null,
                 loading: false
             }
+        case UPDATE_EMPLOYEE_SUCCESS: 
+            return {
+                ...state,
+                updated_employee: payload,
+                loading: false
+            }
+        case UPDATE_EMPLOYEE_FAIL: 
+            return {
+                ...state,
+                updated_employee: null,
+                loading: false
+            }
+        case DELETE_EMPLOYEE_SUCCESS: 
+            return {
+                ...state,
+                deleted_employee: true,
+                loading: false
+            }
+        case DELETE_EMPLOYEE_FAIL:
+            return {
+                ...state,
+                deleted_employee: false,
+                loading: false
+            }
         case REGISTER_FAIL:
         case LOGIN_FAIL:
         case LOGOUT:
@@ -83,7 +115,8 @@ export default function (state = initialState, action){
                 token: null,
                 isAuthenticated: false,
                 loading: false,
-                role: null
+                //role: null
+                boss: null
             };
         default:
             return state; 
