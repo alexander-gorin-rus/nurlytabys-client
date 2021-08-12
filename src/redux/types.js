@@ -89,3 +89,4 @@ export const DELETE_BUSINESS_SUCCESS = 'DELETE_BUSINESS_SUCCESS';
 export const DELETE_BUSINESS_FAIL = 'DELETE_BUSINESS_FAIL';
 export const TEST1 = 'TEST1';
 export const TEST2 = 'TEST2';
+export const TEST3 = 'TEST3';
