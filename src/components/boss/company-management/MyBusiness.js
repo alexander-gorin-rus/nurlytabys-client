@@ -6,6 +6,9 @@ import {
 } from '../../../redux/actions/business';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import Calendar from './Calendar'
+import moment from 'moment';
+
 
 const MyBusiness = ({
     GetBusinessList,
@@ -13,27 +16,50 @@ const MyBusiness = ({
     business: {business_list}
 }) => {
 
+    moment.locale('en', {week: {dow: 1}});
+    //const today = moment();
+    const [today, setToday] = useState(moment())
+    const startDay = today.clone().startOf('month').startOf('week');
+    window.moment = moment;
+
+    const prevMonth = () => {
+        setToday(prev => prev.clone().subtract(1, 'month'));
+    }
+
+    const currentMonth = () => {
+        setToday(moment());
+    }
+
+    const nextMonth = () => {
+        setToday(next => next.clone().add(1, 'month'));
+    }
+
     useEffect(() => {
         GetBusinessList()
     },[]);
 
+
     const [dispalyForm, toggleForm] = useState(false);
     const [values, setValues] = useState({
         title: "",
-        content: ""
+        content: "",
+        finish: null
     });
 
-    const { title, content } = values;
+    const { title, content, finish } = values;
 
     const onChange = e =>
         setValues({ ...values, [e.target.name]: e.target.value });
 
     const onSubmit = (e) => {
         e.preventDefault();
-        CreateBusiness(values);
+        CreateBusiness(values,
+                console.log(values)
+            );
         setValues({
             title: "",
-            content: ""
+            content: "",
+            finish: null
         });
         setTimeout(() => {
             GetBusinessList()
@@ -90,12 +116,21 @@ const MyBusiness = ({
                                                 onChange={e => onChange(e)}
                                             />
                                         </div>
+                                        <div>
+                                            <label>Выбрать дату</label>
+                                            <input 
+                                                type="date" 
+                                                name='finish'
+                                                value={finish}
+                                                onChange={e => onChange(e)}
+                                            />
+                                        </div>
                                         <input type='submit' className='btn btn-primary' value='Отправить'/>
                                     </form>
                                 </div>
                             )
                         }
-                        {
+                        {/* {
                             business_list && business_list.list.map((b, index) => (
                                 <div className="container" key={index}>
                                     <div className="row">
@@ -107,7 +142,14 @@ const MyBusiness = ({
                                     </div>
                                 </div>
                             ))
-                        }
+                        } */}
+                        <Calendar 
+                            startDay={startDay} 
+                            today={today}
+                            prevMonth={prevMonth}
+                            currentMonth={currentMonth}
+                            nextMonth={nextMonth} 
+                        />
                     </Fragment>
                 )
             }

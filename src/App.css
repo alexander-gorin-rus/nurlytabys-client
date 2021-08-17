@@ -318,3 +318,141 @@ a{
   margin: 30px;
   padding: 30px;
 }
+
+:root {
+  --black: rgb(58, 58, 58);
+  --grey: rgb(205, 205, 205);
+  --white: rgb(240, 240, 240);
+  --red: rgb(206, 36, 36);
+  --light-blue: rgb(102, 193, 255);
+  --font-light: "AirbnbCerealLight", sans-serif;
+  --font-book: "AirbnbCerealBook", sans-serif;
+  --font-black: "AirbnbCerealBlack", sans-serif;
+  color: var(--black);
+  font-family: var(--font-light);
+  font-size: 16px;
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
+  /* font-smoothing: antialiased; */
+  -webkit-font-smoothing: antialiased;
+}
+/* 
+@font-face {
+  font-family: "AirbnbCerealLight";
+  src: url(/fonts/AirbnbCerealLight.woff);
+}
+@font-face {
+  font-family: "AirbnbCerealBook";
+  src: url(/fonts/AirbnbCerealBook.woff);
+}
+@font-face {
+  font-family: "AirbnbCerealMedium";
+  src: url(/fonts/AirbnbCerealMedium.woff);
+}
+@font-face {
+  font-family: "AirbnbCerealBold";
+  src: url(/fonts/AirbnbCerealBold.woff);
+}
+@font-face {
+  font-family: "AirbnbCerealBlack";
+  src: url(/fonts/AirbnbCerealBlack.woff);
+} */
+
+.calendar{
+  border: 1px solid #110e0e;
+  border-radius: 5px;
+  overflow: hidden;
+  background-color: hsl(0, 1%, 30%);
+  margin: 10px 20px 10px 20px;
+}
+
+@media(max-width: 850px){
+  .calendar{
+    margin: 10px 20px 10px 20px;
+  }
+}
+
+@media(max-width: 600px){
+  .calendar{
+    margin: 10px 30px 10px 30px;
+  }
+}
+
+.calendar-grid{
+  display: grid;
+  grid-template-columns:  repeat(7, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+  margin: 5px 0px 0px 0px;
+  background: rgb(108, 127, 231);
+  /* border: 2px solid black; */
+  border-radius: 5px;
+}
+
+
+.calender-cell-content{
+  justify-content: space-between;
+}
+
+.calendar-header{
+  display: flex;
+  justify-content: space-between;
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: aliceblue;
+}
+
+.calendar-header-content{
+  display: flex;
+  justify-content: space-between;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.calendar-header-content-month{
+  font-size: 2rem;
+  color: aliceblue;
+  margin-right: 30px;
+}
+
+.calendar-header-content-year{
+  font-size: 1.7rem;
+  color: aliceblue;
+  margin-left: 30px;
+}
+
+.calendar-buttons-div{
+  padding-top: 10px;
+}
+
+.calendar-header-content-button{
+  padding: 8px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.calendar-current-day{
+  display: flex;
+  border: 2px solid red;
+  align-items: center;
+  justify-content: center;
+  min-width: 90px;
+  min-height: 50px;
+}
+
+@media (max-width: 850px) {
+  .calendar-current-day{
+    min-width: 60px;
+    min-height: 50px;
+    margin: 3px;
+
+  }
+}
+
+@media (max-width: 580px){
+  .calendar-current-day{
+    min-width: 30px;
+    min-height: 20px;
+    margin: 3px;
+    
+    }
+}

@@ -37,6 +37,7 @@ const MyBusinessById = ({
                             <p>{business_by_id.business.title}</p>
                             <p>{business_by_id.business.content}</p>
                             <p>{business_by_id.business.start.toString()}</p>
+                            <p>{business_by_id.business.finish.toString()}</p>
                             <p 
                                 style={{cursor: "pointer"}} 
                                 className="bg-danger p-3" 
