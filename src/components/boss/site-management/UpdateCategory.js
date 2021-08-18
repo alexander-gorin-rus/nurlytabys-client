@@ -43,10 +43,10 @@ const UpdateCategory = ({
     const { 
         name, 
         description,
-        filePath,
-        duration,
-        thumbnail,
-        images
+        // filePath,
+        // duration,
+        // thumbnail,
+        // images
     } = values;
 
     useEffect(() => {

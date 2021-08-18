@@ -47,12 +47,12 @@ const UpdateVideo = ({
     });
 
     const { 
-        title,
-        filePath,
+        title, 
         description,
-        duration,
+        //filePath,
+        //duration,
         //categories,
-        thumbnail,
+        //thumbnail,
         category
     } = values;
 

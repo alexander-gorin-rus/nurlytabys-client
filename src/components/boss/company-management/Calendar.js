@@ -14,7 +14,7 @@ const Calendar = ({
     
     //const moment = moment();
     window.moment = moment;
-    const calenderStructure = 42;
+    //const calenderStructure = 42;
     const day = startDay.clone().subtract(1, 'day');
     const daysArray = [...Array(42)].map(() => day.add(1, 'day').clone());
 
@@ -82,6 +82,11 @@ const Calendar = ({
                 </div>
             </div>
             <div className="calendar-grid">
+            {[...Array(7)].map((i, d) => (
+                <div key={i} className="calendar-week-days">
+                    <p>{moment().day(d + 1).format('ddd')}</p>
+                </div>
+            ))}
             {daysArray.map((d) => (
                 <CellWrapper 
                     key={d.format('DD-MM-YYYY')}

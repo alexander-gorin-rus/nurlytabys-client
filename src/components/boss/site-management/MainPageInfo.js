@@ -50,10 +50,10 @@ const MainPageVideo = ({
         companyInfo,
         description,
         contacts,
-        filePath,
-        duration,
-        thumbnail,
-        images
+        // filePath,
+        // duration,
+        // thumbnail,
+        // images
     } = values;
 
     const history = useHistory();

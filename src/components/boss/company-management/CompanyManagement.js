@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom'
 
 const CompanyManagement = props => {
@@ -17,10 +16,6 @@ const CompanyManagement = props => {
             
         </div>
     )
-}
-
-CompanyManagement.propTypes = {
-
 }
 
 export default CompanyManagement

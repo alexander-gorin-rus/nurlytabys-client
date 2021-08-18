@@ -49,11 +49,11 @@ const UploadVideo = ({
 
     const { 
         title,
-        filePath,
         description,
-        duration,
-        //categories,
-        thumbnail,
+        // filePath,
+        // duration,
+        // categories,
+        // thumbnail,
         category
     } = values;
 

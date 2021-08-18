@@ -36,7 +36,7 @@ const MyBusiness = ({
 
     useEffect(() => {
         GetBusinessList()
-    },[]);
+    },[GetBusinessList]);
 
 
     const [dispalyForm, toggleForm] = useState(false);
@@ -53,9 +53,7 @@ const MyBusiness = ({
 
     const onSubmit = (e) => {
         e.preventDefault();
-        CreateBusiness(values,
-                console.log(values)
-            );
+        CreateBusiness(values);
         setValues({
             title: "",
             content: "",
@@ -130,7 +128,15 @@ const MyBusiness = ({
                                 </div>
                             )
                         }
-                        {/* {
+                        <Calendar 
+                            startDay={startDay} 
+                            today={today}
+                            prevMonth={prevMonth}
+                            currentMonth={currentMonth}
+                            nextMonth={nextMonth} 
+                        />
+
+                        {
                             business_list && business_list.list.map((b, index) => (
                                 <div className="container" key={index}>
                                     <div className="row">
@@ -142,14 +148,7 @@ const MyBusiness = ({
                                     </div>
                                 </div>
                             ))
-                        } */}
-                        <Calendar 
-                            startDay={startDay} 
-                            today={today}
-                            prevMonth={prevMonth}
-                            currentMonth={currentMonth}
-                            nextMonth={nextMonth} 
-                        />
+                        }
                     </Fragment>
                 )
             }
