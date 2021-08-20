@@ -9,6 +9,15 @@
   border: 2px solid red;
 } */
 
+.main-div-content{
+  position: relative;
+  top: 12vh;
+  left: 15vw;
+  width: 70vw;
+  height: auto;
+  border: 1px solid red;
+}
+
 
 .parallax{
   z-index: 120;
@@ -417,6 +426,12 @@ a{
   margin-right: 30px;
 }
 
+@media(max-width: 650px){
+  .calendar-header-content-month{
+    font-size: 1.3rem;
+  }
+}
+
 
 .calendar-header-content-year{
   font-size: 1.7rem;
@@ -432,14 +447,22 @@ a{
     font-size: 1rem;
   }
 }
+
+
 .calendar-buttons-div{
   padding-top: 10px;
 }
 
 .calendar-header-content-button{
-  padding: 8px;
+  padding: 6px;
   border-radius: 5px;
   cursor: pointer;
+}
+
+@media(max-width: 650px){
+  .calendar-header-content-button{
+    font-size: 0.7rem;
+  }
 }
 
 .calendar-current-day{
@@ -473,10 +496,24 @@ a{
     }
 }
 
+.calendar-week-days-div{
+  height: auto;
+  margin-left: 7px;
+  font-size: 1.4rem;
+}
+
+@media(max-width: 650px){
+  .calendar-week-days-div{
+    font-size: 1rem;
+  }
+}
+
+@media(max-width: 500px){
+  .calendar-week-days-div{
+    font-size: 0.7rem;
+  }
+}
+
 .calendar-week-days{
-  min-width: 90px;
-  height: 20px;
-  border: 1px solid red;
-  margin: 7px 7px 7px 7px;
-  
+  justify-content: center;
 }

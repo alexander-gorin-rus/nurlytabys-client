@@ -6,9 +6,8 @@ import {
 } from '../../../redux/actions/business';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import Calendar from './Calendar'
+//import { Calendar_ } from './Calendar_';
 import moment from 'moment';
-
 
 const MyBusiness = ({
     GetBusinessList,
@@ -43,7 +42,7 @@ const MyBusiness = ({
     const [values, setValues] = useState({
         title: "",
         content: "",
-        finish: new Date()
+        finish: null
     });
 
     const { title, content, finish } = values;
@@ -53,17 +52,12 @@ const MyBusiness = ({
 
     const onSubmit = (e) => {
         e.preventDefault();
-        if(title === '' || content === '' || finish === ''){
-            alert('Все поля должны быть заполнены')
-        }else{
-            CreateBusiness(values);
-        }
+        CreateBusiness(values);
         setValues({
             title: "",
             content: "",
-            finish: new Date()
+            finish: null
         });
-
         setTimeout(() => {
             GetBusinessList()
         },300)
@@ -133,6 +127,7 @@ const MyBusiness = ({
                                 </div>
                             )
                         }
+                       
                         <Calendar 
                             business_list={business_list}
                             startDay={startDay} 
@@ -149,7 +144,6 @@ const MyBusiness = ({
                                         <div className="col-12">
                                             <Link to={`/my-business-by-id/${b._id}`}>
                                                 <p className="bg-warning p-3" style={{ cursor: "pointer" }}>{b.title}</p>
-                                                <p>{b.finish}</p>
                                             </Link>
                                         </div>
                                     </div>

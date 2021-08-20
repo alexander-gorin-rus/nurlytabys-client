@@ -1,4 +1,6 @@
 import './App.css';
+import Modal from 'react-modal';
+
 
 //CORE REACT
 import {Fragment, useEffect} from 'react';
@@ -61,6 +63,8 @@ import MyBusinessById from './components/boss/company-management/MyBusinessById'
 if(localStorage.token){
   setAuthToken(localStorage.token)
 }
+
+Modal.setAppElement('#root');
 
 const App = () => {
   

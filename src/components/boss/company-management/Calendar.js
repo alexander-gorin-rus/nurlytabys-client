@@ -8,7 +8,8 @@ const Calendar = ({
     today,
     prevMonth,
     currentMonth,
-    nextMonth
+    nextMonth,
+    business_list
 }) => {
 
     
@@ -25,21 +26,18 @@ const Calendar = ({
         border: 1px solid white;
         margin: 7px 7px 7px 7px;
         border-radius: 5px;
-
         @media (max-width: 850px) {
               min-width: 60px;
               min-height: 50px;
               margin: 3px;
            
           }
-
           @media (max-width: 580px) {
             min-width: 30px;
             min-height: 20px;
             margin: 3px;
          
         }
-
     `
 
     const isCurrentDay = (day) => moment().isSame(day, 'day');
@@ -87,16 +85,28 @@ const Calendar = ({
                     <p>{moment().day(d + 1).format('ddd')}</p>
                 </div>
             ))}
-            {daysArray.map((d) => (
+            {daysArray.map((d, index) => (
                 <CellWrapper 
-                    key={d.format('DD-MM-YYYY')}
+                    // key={d.format('DD-MM-YYYY')}
+                    key={index}
                     isWeekend={d.day() === 6 || d.day() === 0}
                     >
                     {
                         !isCurrentDay(d) && d.format('D') ? 
                             (
                                 <div>
+                                    
                                     {d.format('D')}
+                                    {/* {console.log(d._d.toISOString().split('T', 1)[0])} */}
+                                    {
+                                        business_list && business_list.list.map((b, index) => (
+                                            <div className="container" key={index}> 
+                                                {d._d.toISOString().split('T', 1)[0] === b.finish.split('T', 1)[0] ? (<p>{b.title}</p>) : (<p></p>)}      
+                                                {/* <p>{b.title}</p>       */}
+                                                {/* {console.log(b.finish)} */}
+                                            </div>
+                                        ))
+                                    } 
                                 </div> 
                             ) 
                                 : 
@@ -109,8 +119,19 @@ const Calendar = ({
                 </CellWrapper>
             ))}
         </div>
+        {/* 
+            {
+                business_list && business_list.list.map((b, index) => (
+                    <div className="container" key={index}>       
+                        <p>{b.title}</p>      
+                    </div>
+                ))
+            } 
+        */}
         </div>
     )
 }
 
 export default Calendar
+
+
