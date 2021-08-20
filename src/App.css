@@ -15,7 +15,7 @@
   left: 15vw;
   width: 70vw;
   height: auto;
-  border: 1px solid red;
+  margin-bottom: 100px;
 }
 
 
@@ -405,6 +405,10 @@ a{
   justify-content: space-between;
 }
 
+.calendar-cell-text{
+  font-size: 0.7rem;
+}
+
 .calendar-header{
   display: flex;
   justify-content: space-between;
@@ -473,9 +477,10 @@ a{
   border: 2px solid red;
   align-items: center;
   justify-content: center;
-  min-width: 90px;
-  min-height: 50px;
+  width: auto;
+  height: auto;
   border-radius: 5px;
+  color: aliceblue;
 }
 
 @media (max-width: 850px) {
@@ -516,4 +521,5 @@ a{
 
 .calendar-week-days{
   justify-content: center;
+  padding-left: 12px;
 }

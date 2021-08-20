@@ -43,7 +43,7 @@ const MyBusiness = ({
     const [values, setValues] = useState({
         title: "",
         content: "",
-        finish: new Date()
+        finish: new Date(-1)
     });
 
     const { title, content, finish } = values;
@@ -61,7 +61,7 @@ const MyBusiness = ({
         setValues({
             title: "",
             content: "",
-            finish: new Date()
+            finish: new Date(-1)
         });
 
         setTimeout(() => {
@@ -71,15 +71,15 @@ const MyBusiness = ({
 
     return (
         <div className="main_container">
-            {business_list && business_list.list.length === 0 ? 
+            {/* {business_list && business_list.list.length === 0 ? 
                 (
                     <p className="text-center bg-primary p-3 text-light">Список дел пока пуст</p>
                 )
                     :
                 (
-                    <p className="text-center bg-primary p-3 text-light">Список моих дел</p>
+                    <p className="text-center bg-primary p-3 text-light main-div-content">Список моих дел</p>
                 )
-            }
+            } */}
             
             {business_list && business_list === null ?
                 (
@@ -90,15 +90,17 @@ const MyBusiness = ({
                     :
                 (
                     <Fragment>
+                        <div className="main-div-content">
                         <p style={{cursor: "pointer"}} 
                             onClick={() => toggleForm(!dispalyForm)} 
-                            className="text-center text-light bg-danger p-2">
-                                Создать новое дело
+                            className="text-center text-light bg-success p-2">
+                                {dispalyForm && dispalyForm ? (<p>Свернуть</p>) : (<p>Создать новое дело</p>)} 
                         </p>
+                        </div>
 
                         {
                             dispalyForm && (
-                                <div>
+                                <div className="main-div-content">
                                     <p className="text-center">Форма заполнения</p>
                                     <form className="form mb-4" onSubmit={e => onSubmit(e)}>
                                         <div>
@@ -149,7 +151,8 @@ const MyBusiness = ({
                                         <div className="col-12">
                                             <Link to={`/my-business-by-id/${b._id}`}>
                                                 <p className="bg-warning p-3" style={{ cursor: "pointer" }}>{b.title}</p>
-                                                <p>{b.finish}</p>
+                                                <p>start: {b.start}</p>
+                                                <p>finish: {b.finish}</p>
                                             </Link>
                                         </div>
                                     </div>

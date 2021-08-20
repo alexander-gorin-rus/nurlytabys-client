@@ -82,13 +82,13 @@ const Calendar = ({
             <div className="calendar-grid">
             {[...Array(7)].map((i, d) => (
                 <div key={i} className="calendar-week-days">
-                    <p>{moment().day(d + 1).format('ddd')}</p>
+                    <p>{moment().day(d + 1).format('dddd')}</p>
                 </div>
             ))}
-            {daysArray.map((d, index) => (
+            {daysArray.map((d) => (
                 <CellWrapper 
-                    // key={d.format('DD-MM-YYYY')}
-                    key={index}
+                    key={d.format('DD-MM-YYYY')}
+                    //key={index}
                     isWeekend={d.day() === 6 || d.day() === 0}
                     >
                     {
@@ -97,13 +97,10 @@ const Calendar = ({
                                 <div>
                                     
                                     {d.format('D')}
-                                    {/* {console.log(d._d.toISOString().split('T', 1)[0])} */}
                                     {
                                         business_list && business_list.list.map((b, index) => (
                                             <div className="container" key={index}> 
-                                                {d._d.toISOString().split('T', 1)[0] === b.finish.split('T', 1)[0] ? (<p>{b.title}</p>) : (<p></p>)}      
-                                                {/* <p>{b.title}</p>       */}
-                                                {/* {console.log(b.finish)} */}
+                                                {d._d.toISOString().split('T', 1)[0] === b.finish.split('T', 1)[0] ? (<p className='calendar-cell-text'>{b.title}</p>) : (<p></p>)}
                                             </div>
                                         ))
                                     } 
@@ -119,15 +116,6 @@ const Calendar = ({
                 </CellWrapper>
             ))}
         </div>
-        {/* 
-            {
-                business_list && business_list.list.map((b, index) => (
-                    <div className="container" key={index}>       
-                        <p>{b.title}</p>      
-                    </div>
-                ))
-            } 
-        */}
         </div>
     )
 }
