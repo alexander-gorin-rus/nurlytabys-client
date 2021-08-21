@@ -17,7 +17,9 @@ const MyBusiness = ({
 }) => {
 
     moment.locale('en', {week: {dow: 1}});
-    //const today = moment();
+    //const thisDay = new Date()
+    const currentDay = new Date().toISOString().slice(0, 10)
+    console.log(currentDay)
     const [today, setToday] = useState(moment())
     const startDay = today.clone().startOf('month').startOf('week');
     window.moment = moment;
@@ -43,7 +45,7 @@ const MyBusiness = ({
     const [values, setValues] = useState({
         title: "",
         content: "",
-        finish: new Date(-1)
+        finish: new Date()
     });
 
     const { title, content, finish } = values;
@@ -55,13 +57,16 @@ const MyBusiness = ({
         e.preventDefault();
         if(title === '' || content === '' || finish === ''){
             alert('Все поля должны быть заполнены')
-        }else{
+        }else if(finish < currentDay){
+            alert('Назначенная дата уже истекла')
+        }
+        else{
             CreateBusiness(values);
         }
         setValues({
             title: "",
             content: "",
-            finish: new Date(-1)
+            finish: new Date()
         });
 
         setTimeout(() => {
@@ -71,16 +76,6 @@ const MyBusiness = ({
 
     return (
         <div className="main_container">
-            {/* {business_list && business_list.list.length === 0 ? 
-                (
-                    <p className="text-center bg-primary p-3 text-light">Список дел пока пуст</p>
-                )
-                    :
-                (
-                    <p className="text-center bg-primary p-3 text-light main-div-content">Список моих дел</p>
-                )
-            } */}
-            
             {business_list && business_list === null ?
                 (
                     <Fragment>
@@ -91,11 +86,11 @@ const MyBusiness = ({
                 (
                     <Fragment>
                         <div className="main-div-content">
-                        <p style={{cursor: "pointer"}} 
+                        <section style={{cursor: "pointer"}} 
                             onClick={() => toggleForm(!dispalyForm)} 
                             className="text-center text-light bg-success p-2">
                                 {dispalyForm && dispalyForm ? (<p>Свернуть</p>) : (<p>Создать новое дело</p>)} 
-                        </p>
+                        </section>
                         </div>
 
                         {
@@ -144,7 +139,7 @@ const MyBusiness = ({
                             nextMonth={nextMonth} 
                         />
 
-                        {
+                        {/* {
                             business_list && business_list.list.map((b, index) => (
                                 <div className="container" key={index}>
                                     <div className="row">
@@ -158,7 +153,7 @@ const MyBusiness = ({
                                     </div>
                                 </div>
                             ))
-                        }
+                        } */}
                     </Fragment>
                 )
             }

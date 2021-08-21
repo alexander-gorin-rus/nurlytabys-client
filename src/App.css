@@ -395,9 +395,10 @@ a{
   grid-template-columns:  repeat(7, 1fr);
   grid-template-rows: repeat(6, 1fr);
   margin: 5px 0px 0px 0px;
-  background: rgb(108, 127, 231);
+  background: rgb(249, 253, 223);
   /* border: 2px solid black; */
   border-radius: 5px;
+  /* border-color: #87e4d0; */
 }
 
 
@@ -407,6 +408,8 @@ a{
 
 .calendar-cell-text{
   font-size: 0.7rem;
+  cursor: pointer;
+ 
 }
 
 .calendar-header{
@@ -522,4 +525,14 @@ a{
 .calendar-week-days{
   justify-content: center;
   padding-left: 12px;
+}
+
+.modal-div{
+  position: absolute;
+  top: 25vh;
+  left: 25vw;
+  width: 50vw;
+  height: 50vh;
+  background-color: aqua;
+  /* display: none; */
 }
