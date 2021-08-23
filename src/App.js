@@ -52,11 +52,11 @@ import ExcessToRegister from './components/boss/site-management/ExcessToRegister
 import UpdateExcessToRegister from './components/boss/site-management/UpdateExcessToRegister';
 import UpdateVideo from './components/boss/site-management/UpdateVideo';
 import RoleComponent from './components/boss/company-management/RoleComponent';
-import MyBusiness from './components/boss/company-management/MyBusiness';
+import MyBusiness from './components/boss/company-management/calendar/MyBusiness';
 import UpdateRole from './components/boss/company-management/UpdateRole';
 import EmployeeList from './components/boss/company-management/EmployeeList';
 import Employee from './components/boss/company-management/Employee';
-import MyBusinessById from './components/boss/company-management/MyBusinessById';
+import MyBusinessById from './components/boss/company-management/calendar/MyBusinessById';
 
 
 

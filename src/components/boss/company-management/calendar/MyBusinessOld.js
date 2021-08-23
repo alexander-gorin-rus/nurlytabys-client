@@ -3,12 +3,11 @@ import PropTypes from 'prop-types';
 import {
     GetBusinessList,
     CreateBusiness
-} from '../../../redux/actions/business';
+} from '../../../../redux/actions/business';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import Calendar from './Calendar'
+//import { Calendar_ } from './Calendar_';
 import moment from 'moment';
-
 
 const MyBusiness = ({
     GetBusinessList,
@@ -17,9 +16,7 @@ const MyBusiness = ({
 }) => {
 
     moment.locale('en', {week: {dow: 1}});
-    //const thisDay = new Date()
-    const currentDay = new Date().toISOString().slice(0, 10)
-    console.log(currentDay)
+    //const today = moment();
     const [today, setToday] = useState(moment())
     const startDay = today.clone().startOf('month').startOf('week');
     window.moment = moment;
@@ -45,7 +42,7 @@ const MyBusiness = ({
     const [values, setValues] = useState({
         title: "",
         content: "",
-        finish: new Date()
+        finish: null
     });
 
     const { title, content, finish } = values;
@@ -55,20 +52,12 @@ const MyBusiness = ({
 
     const onSubmit = (e) => {
         e.preventDefault();
-        if(title === '' || content === '' || finish === ''){
-            alert('Все поля должны быть заполнены')
-        }else if(finish < currentDay){
-            alert('Назначенная дата уже истекла')
-        }
-        else{
-            CreateBusiness(values);
-        }
+        CreateBusiness(values);
         setValues({
             title: "",
             content: "",
-            finish: new Date()
+            finish: null
         });
-
         setTimeout(() => {
             GetBusinessList()
         },300)
@@ -76,6 +65,16 @@ const MyBusiness = ({
 
     return (
         <div className="main_container">
+            {business_list && business_list.list.length === 0 ? 
+                (
+                    <p className="text-center bg-primary p-3 text-light">Список дел пока пуст</p>
+                )
+                    :
+                (
+                    <p className="text-center bg-primary p-3 text-light">Список моих дел</p>
+                )
+            }
+            
             {business_list && business_list === null ?
                 (
                     <Fragment>
@@ -85,17 +84,15 @@ const MyBusiness = ({
                     :
                 (
                     <Fragment>
-                        <div className="main-div-content">
-                        <section style={{cursor: "pointer"}} 
+                        <p style={{cursor: "pointer"}} 
                             onClick={() => toggleForm(!dispalyForm)} 
-                            className="text-center text-light bg-success p-2">
-                                {dispalyForm && dispalyForm ? (<p>Свернуть</p>) : (<p>Создать новое дело</p>)} 
-                        </section>
-                        </div>
+                            className="text-center text-light bg-danger p-2">
+                                Создать новое дело
+                        </p>
 
                         {
                             dispalyForm && (
-                                <div className="main-div-content">
+                                <div>
                                     <p className="text-center">Форма заполнения</p>
                                     <form className="form mb-4" onSubmit={e => onSubmit(e)}>
                                         <div>
@@ -130,6 +127,7 @@ const MyBusiness = ({
                                 </div>
                             )
                         }
+                       
                         <Calendar 
                             business_list={business_list}
                             startDay={startDay} 
@@ -139,21 +137,19 @@ const MyBusiness = ({
                             nextMonth={nextMonth} 
                         />
 
-                        {/* {
+                        {
                             business_list && business_list.list.map((b, index) => (
                                 <div className="container" key={index}>
                                     <div className="row">
                                         <div className="col-12">
                                             <Link to={`/my-business-by-id/${b._id}`}>
                                                 <p className="bg-warning p-3" style={{ cursor: "pointer" }}>{b.title}</p>
-                                                <p>start: {b.start}</p>
-                                                <p>finish: {b.finish}</p>
                                             </Link>
                                         </div>
                                     </div>
                                 </div>
                             ))
-                        } */}
+                        }
                     </Fragment>
                 )
             }

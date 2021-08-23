@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { 
     GetBusinessById,
     DeleteBusiness
-} from '../../../redux/actions/business';
+} from '../../../../redux/actions/business';
 import { connect } from 'react-redux';
 import { useParams, useHistory } from 'react-router';
 import { Link } from 'react-router-dom';

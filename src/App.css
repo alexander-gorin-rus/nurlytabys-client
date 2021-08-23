@@ -18,6 +18,14 @@
   margin-bottom: 100px;
 }
 
+.main-div-container{
+  position: relative;
+  top: 12vh;
+  left: 5vw;
+  width: 80vw;
+  height: auto;
+  margin-bottom: 100px;
+}
 
 .parallax{
   z-index: 120;
@@ -328,57 +336,21 @@ a{
   padding: 30px;
 }
 
-:root {
-  --black: rgb(58, 58, 58);
-  --grey: rgb(205, 205, 205);
-  --white: rgb(240, 240, 240);
-  --red: rgb(206, 36, 36);
-  --light-blue: rgb(102, 193, 255);
-  --font-light: "AirbnbCerealLight", sans-serif;
-  --font-book: "AirbnbCerealBook", sans-serif;
-  --font-black: "AirbnbCerealBlack", sans-serif;
-  color: var(--black);
-  font-family: var(--font-light);
-  font-size: 16px;
-  text-rendering: optimizeLegibility;
-  -moz-osx-font-smoothing: grayscale;
-  /* font-smoothing: antialiased; */
-  -webkit-font-smoothing: antialiased;
-}
-/* 
-@font-face {
-  font-family: "AirbnbCerealLight";
-  src: url(/fonts/AirbnbCerealLight.woff);
-}
-@font-face {
-  font-family: "AirbnbCerealBook";
-  src: url(/fonts/AirbnbCerealBook.woff);
-}
-@font-face {
-  font-family: "AirbnbCerealMedium";
-  src: url(/fonts/AirbnbCerealMedium.woff);
-}
-@font-face {
-  font-family: "AirbnbCerealBold";
-  src: url(/fonts/AirbnbCerealBold.woff);
-}
-@font-face {
-  font-family: "AirbnbCerealBlack";
-  src: url(/fonts/AirbnbCerealBlack.woff);
-} */
 
-.calendar{
+_____________________________
+/* OLD VERSION OF CALENDAR */
+.calendar_old{
   border: 1px solid #110e0e;
   border-radius: 5px;
-  overflow: hidden;
-  background-color: hsl(0, 1%, 30%);
-  margin-top: 10px;
-  margin-right: 50px;
+  /* overflow: hidden; */
+  background-color: hsl(0, 41%, 55%);
+  margin-top: 100px;
+  margin-right: 150px;
   margin-bottom: 100px;
   margin-left:  20px;
 }
 
-@media(max-width: 850px){
+/* @media(max-width: 850px){
   .calendar{
     margin: 10px 20px 10px 20px;
   }
@@ -388,7 +360,7 @@ a{
   .calendar{
     margin: 10px 30px 10px 30px;
   }
-}
+} */
 
 .calendar-grid{
   display: grid;
@@ -396,9 +368,9 @@ a{
   grid-template-rows: repeat(6, 1fr);
   margin: 5px 0px 0px 0px;
   background: rgb(249, 253, 223);
-  /* border: 2px solid black; */
+  
   border-radius: 5px;
-  /* border-color: #87e4d0; */
+  
 }
 
 
@@ -483,7 +455,7 @@ a{
   width: auto;
   height: auto;
   border-radius: 5px;
-  color: aliceblue;
+  color: rgb(243, 82, 8);
 }
 
 @media (max-width: 850px) {
@@ -534,5 +506,9 @@ a{
   width: 50vw;
   height: 50vh;
   background-color: aqua;
-  /* display: none; */
+}
+
+
+#dummy{
+  color: #1daf49;
 }

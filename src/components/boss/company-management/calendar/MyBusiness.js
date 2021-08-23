@@ -3,11 +3,14 @@ import PropTypes from 'prop-types';
 import {
     GetBusinessList,
     CreateBusiness
-} from '../../../redux/actions/business';
+} from '../../../../redux/actions/business';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-//import { Calendar_ } from './Calendar_';
+import Calendar_old from './Calendar_old'
+//import Calendar from './Calendar';
 import moment from 'moment';
+//import DatePicker from "react-datepicker";
+//import "react-datepicker/dist/react-datepicker.css";
+
 
 const MyBusiness = ({
     GetBusinessList,
@@ -15,8 +18,10 @@ const MyBusiness = ({
     business: {business_list}
 }) => {
 
+
     moment.locale('en', {week: {dow: 1}});
-    //const today = moment();
+    //const thisDay = new Date()
+    const currentDay = new Date().toISOString().slice(0, 10)
     const [today, setToday] = useState(moment())
     const startDay = today.clone().startOf('month').startOf('week');
     window.moment = moment;
@@ -42,7 +47,7 @@ const MyBusiness = ({
     const [values, setValues] = useState({
         title: "",
         content: "",
-        finish: null
+        finish: new Date()
     });
 
     const { title, content, finish } = values;
@@ -52,12 +57,20 @@ const MyBusiness = ({
 
     const onSubmit = (e) => {
         e.preventDefault();
-        CreateBusiness(values);
+        if(title === '' || content === '' || finish === ''){
+            alert('Все поля должны быть заполнены')
+        }else if(finish < currentDay){
+            alert('Назначенная дата уже истекла')
+        }
+        else{
+            CreateBusiness(values);
+        }
         setValues({
             title: "",
             content: "",
-            finish: null
+            finish: new Date()
         });
+
         setTimeout(() => {
             GetBusinessList()
         },300)
@@ -65,16 +78,6 @@ const MyBusiness = ({
 
     return (
         <div className="main_container">
-            {business_list && business_list.list.length === 0 ? 
-                (
-                    <p className="text-center bg-primary p-3 text-light">Список дел пока пуст</p>
-                )
-                    :
-                (
-                    <p className="text-center bg-primary p-3 text-light">Список моих дел</p>
-                )
-            }
-            
             {business_list && business_list === null ?
                 (
                     <Fragment>
@@ -84,15 +87,17 @@ const MyBusiness = ({
                     :
                 (
                     <Fragment>
-                        <p style={{cursor: "pointer"}} 
+                        <div className="main-div-content">
+                        <section style={{cursor: "pointer"}} 
                             onClick={() => toggleForm(!dispalyForm)} 
-                            className="text-center text-light bg-danger p-2">
-                                Создать новое дело
-                        </p>
+                            className="text-center text-light bg-success p-2">
+                                {dispalyForm && dispalyForm ? (<p>Свернуть</p>) : (<p>Создать новое дело</p>)} 
+                        </section>
+                        </div>
 
                         {
                             dispalyForm && (
-                                <div>
+                                <div className="main-div-content">
                                     <p className="text-center">Форма заполнения</p>
                                     <form className="form mb-4" onSubmit={e => onSubmit(e)}>
                                         <div>
@@ -113,8 +118,14 @@ const MyBusiness = ({
                                                 onChange={e => onChange(e)}
                                             />
                                         </div>
+                                        {/* <DatePicker 
+                                            selected={startDate} 
+                                            onChange={(date) => setStartDate(date)} 
+                                            
+                                            /> */}
                                         <div>
                                             <label>Выбрать дату</label>
+                                            <p className='bg-danger px-1'>Внимание: на этом календаре неделя начинается с воскресенья</p>
                                             <input 
                                                 type="date" 
                                                 name='finish'
@@ -127,8 +138,14 @@ const MyBusiness = ({
                                 </div>
                             )
                         }
-                       
-                        <Calendar 
+                        {/* <Calendar
+                            business_list={business_list}    
+                        /> */}
+
+
+
+
+                        <Calendar_old 
                             business_list={business_list}
                             startDay={startDay} 
                             today={today}
@@ -137,19 +154,21 @@ const MyBusiness = ({
                             nextMonth={nextMonth} 
                         />
 
-                        {
+                        {/* {
                             business_list && business_list.list.map((b, index) => (
                                 <div className="container" key={index}>
                                     <div className="row">
                                         <div className="col-12">
                                             <Link to={`/my-business-by-id/${b._id}`}>
                                                 <p className="bg-warning p-3" style={{ cursor: "pointer" }}>{b.title}</p>
+                                                <p>start: {b.start}</p>
+                                                <p>finish: {b.finish}</p>
                                             </Link>
                                         </div>
                                     </div>
                                 </div>
                             ))
-                        }
+                        } */}
                     </Fragment>
                 )
             }

@@ -13,6 +13,17 @@ const Calendar = ({
     business_list
 }) => {
 
+
+    //make an array from business_list
+    const business = business_list && business_list.list;
+    console.log(business);
+    // const b_finish = business && business.map((b, i) => (
+    //     <div keyi={i}>
+    //         <p>{b.finish}</p>
+    //     </div>
+    // ));
+    // console.log(b_finish)
+
     
     //const moment = moment();
     window.moment = moment;
@@ -44,7 +55,7 @@ const Calendar = ({
     const isCurrentDay = (day) => moment().isSame(day, 'day');
 
     return (
-        <div className="calendar ">
+        <div className="main-div-container">
             <div className="calendar-header">
                 header
             </div>
@@ -86,79 +97,82 @@ const Calendar = ({
                     <p>{moment().day(d + 1).format('dddd')}</p>
                 </div>
             ))}
-            {daysArray.map((d) => (
-                <CellWrapper 
-                    key={d.format('DD-MM-YYYY')}
-                    //key={index}
-                    isWeekend={d.day() === 6 || d.day() === 0}
-                    >
-                    {
-                        !isCurrentDay(d) && d.format('D') ? 
-                            (
-                                <div>
-                                    
-                                    {d.format('D')}
-                                    {
-                                         business_list && business_list.list.map((b, index) => (
-                                             <>
-                                             {d._d.toISOString().split('T', 1)[0] === b.finish.split('T', 1)[0] ? 
-                                                     (
-                                                         <div 
-                                                             key={index}
-                                                             className='calendar-cell-text'
-                                                           
-                                                         >
-                                                             <Link to={`/my-business-by-id/${b._id}`}>
-                                                                 <p className="bg-warning px-1 mx-1" style={{ cursor: "pointer" }}>{b.title}</p>
-                                                                
-                                                             </Link>
-                                                         </div>
-                                                     ) 
-                                                         : 
-                                                     (
-                                                         null
-                                                     )
-                                                 }
-                                             </>
-                                           
-                                         ))
-                                     }
-                                </div> 
-                            ) 
-                                : 
-                            (
+           {
+    daysArray.map((d) => (
+    <CellWrapper 
+        key={d.format('DD-MM-YYYY')}
+        //key={index}
+        isWeekend={d.day() === 6 || d.day() === 0}
+        >
+        {
+            !isCurrentDay(d) && d.format('D') ? 
+                (
+                    <>
+                        <div>
+                            {d.format('D')}
+                            {console.log(d._d)}
+                        </div>
+                        {
+                            business_list && business_list.list.map((b, index) => (
                                 <>
-                                 <div className='calendar-current-day'>
-                                     {d.format('D')}  
-                                 </div>
-                                 {
-                                     business_list && business_list.list.map((b, index) => (
-                                         <>
-                                             {d._d.toISOString().split('T', 1)[0] === b.finish.split('T', 1)[0] ? 
-                                                     (
-                                                         <div 
-                                                             key={index}
-                                                             className='calendar-cell-text'
-                                                         >
-                                                             <Link to={`/my-business-by-id/${b._id}`}>
-                                                                 <p className="bg-warning px-1 mx-1" style={{ cursor: "pointer" }}>{b.title}</p>
-                                                                
-                                                             </Link>
-                                                         </div>
-                                                     ) 
-                                                         :                                                      (
-                                                         null
-                                                     )
-                                                }
-                                             </>
-                                           
-                                         ))
-                                     }
-                                </>
-                            )
-                    }
-                </CellWrapper>
-            ))}
+                                    {d._d.toISOString().split('T', 1)[0] === b.finish.split('T', 1)[0] ? 
+                                            (
+                                                <div 
+                                                    key={index}
+                                                    className='calendar-cell-text'
+                                                >
+                                                    <Link to={`/my-business-by-id/${b._id}`}>
+                                                        <p className="bg-warning px-1 mx-1" style={{ cursor: "pointer" }}>{b.title}</p>
+                                                        
+                                                    </Link>
+                                                </div>
+                                            ) 
+                                                :                                                      (
+                                                null
+                                            )
+                                        }
+                                    </>
+                                
+                                ))
+                        } 
+                    </>
+                ) 
+                    : 
+                (
+                    <>
+                     <div className='calendar-current-day'>
+                         {d.format('D')}  
+                     </div>
+                     
+                        {
+                            business_list && business_list.list.map((b, index) => (
+                                <>
+                                    {d._d.toISOString().split('T', 1)[0] === b.finish.split('T', 1)[0] ? 
+                                            (
+                                                <div 
+                                                    key={index}
+                                                    className='calendar-cell-text'
+                                                >
+                                                    <Link to={`/my-business-by-id/${b._id}`}>
+                                                        <p className="bg-warning px-1 mx-1" style={{ cursor: "pointer" }}>{b.title}</p>
+                                                        
+                                                    </Link>
+                                                </div>
+                                            ) 
+                                                :                                                      (
+                                                null
+                                            )
+                                        }
+                                    </>
+                                
+                                ))
+                        } 
+                        
+                    </>
+                )
+        }
+    </CellWrapper>
+))}
         </div>
         </div>
     )
