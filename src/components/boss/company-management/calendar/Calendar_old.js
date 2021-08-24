@@ -62,7 +62,7 @@ const Calendar = ({
             <div className="calendar-header-content">
                 <div>
                     <span className="calendar-header-content-month">
-                        <b>
+                        <b className="px-2">
                            {today.format('MMMM')}
                         </b>   
                     </span >

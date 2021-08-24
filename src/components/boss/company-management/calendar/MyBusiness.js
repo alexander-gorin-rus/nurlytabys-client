@@ -5,8 +5,8 @@ import {
     CreateBusiness
 } from '../../../../redux/actions/business';
 import { connect } from 'react-redux';
-import Calendar_old from './Calendar_old'
-//import Calendar from './Calendar';
+//import Calendar_old from './Calendar_old'
+import Calendar from './Calendar.tsx'
 import moment from 'moment';
 //import DatePicker from "react-datepicker";
 //import "react-datepicker/dist/react-datepicker.css";
@@ -138,21 +138,21 @@ const MyBusiness = ({
                                 </div>
                             )
                         }
-                        {/* <Calendar
+                        <Calendar
                             business_list={business_list}    
-                        /> */}
+                        />
 
 
 
 
-                        <Calendar_old 
+                        {/* <Calendar_old 
                             business_list={business_list}
                             startDay={startDay} 
                             today={today}
                             prevMonth={prevMonth}
                             currentMonth={currentMonth}
                             nextMonth={nextMonth} 
-                        />
+                        /> */}
 
                         {/* {
                             business_list && business_list.list.map((b, index) => (
