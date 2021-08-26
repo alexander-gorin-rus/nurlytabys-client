@@ -25,6 +25,7 @@
   width: 80vw;
   height: auto;
   margin-bottom: 100px;
+  border: 1px solid red;
 }
 
 .parallax{
@@ -336,7 +337,6 @@ a{
   padding: 30px;
 }
 
-
 _____________________________
 /* OLD VERSION OF CALENDAR */
 .calendar_old{
@@ -350,17 +350,16 @@ _____________________________
   margin-left:  20px;
 }
 
-/* @media(max-width: 850px){
+@media(max-width: 850px){
   .calendar{
     margin: 10px 20px 10px 20px;
   }
 }
-
 @media(max-width: 600px){
   .calendar{
     margin: 10px 30px 10px 30px;
   }
-} */
+}
 
 .calendar-grid{
   display: grid;
@@ -374,8 +373,38 @@ _____________________________
 }
 
 
+
+
 .calender-cell-content{
   justify-content: space-between;
+}
+
+.cell-wrapper{
+  min-width: 90px;
+  min-height: 50px;
+  background: #bbbcc7;
+  border: 1px solid white;
+  margin: 7px 7px 7px 7px;
+  border-radius: 5px;    
+}
+
+
+@media (max-width: 850px) {
+
+  .cell-wrapper{
+    min-width: 60px;
+    min-height: 50px;
+    margin: 3px;
+  }
+}
+
+
+@media (max-width: 580px) {
+  .cell-wrapper {
+    min-width: 30px;
+    min-height: 20px;
+    margin: 3px;
+  }
 }
 
 .calendar-cell-text{
