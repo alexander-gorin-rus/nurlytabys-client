@@ -1,31 +1,73 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import FullCalendar from '@fullcalendar/react' // must go before plugins
 import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
 import interactionPlugin from "@fullcalendar/interaction" // needed for dayClick
-import { Modal, Button } from 'antd';
+import { Modal } from 'antd';
+import { CreateBusiness  } from '../../../../functions/calendar';
+import axios from 'axios';
+import PropTypes from 'prop-types';
+import { GetBusinessList, DeleteBusiness } from '../../../../redux/actions/business'
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { useParams } from 'react-router';
 
-const MyBusiness = () => {
+const MyBusiness = ({
+    GetBusinessList,
+    DeleteBusiness,
+    business: {business_list}
+}) => {
 
+    const [event, setEvent] = useState([])
+
+    useEffect(() => {
+        ShowBusinessList()
+    },[]);
+
+    useEffect(() => {
+        GetBusinessList()
+    },[GetBusinessList]);
+
+
+    const ShowBusinessList = async () => {
+        try {
+            await axios.get(`${process.env.REACT_APP_API}/show-all-businesses`)
+                .then(res => {
+                    setEvent(res.data)
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    const { id } = useParams();
+    const [displaBusinesses, toggleBusinesses] = useState(false)
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [values, setValues] = useState({
         title: '',
+        content: '',
         start: '',
-        end: ''
+        finish: ''
     });
+    
+    const { title, content, start, finish } = values;
 
-    const { title, start, end } = values;
+    const onChange = e =>
+        setValues({ ...values, [e.target.name]: e.target.value });
 
-    const onChangeTitle = (e) => {
-        // console.log(e.target.value)
-        setValues({...values, title: e.target.value})
-    }
+    // const onChangeTitle = (e) => {
+    //     // console.log(e.target.value)
+    //     setValues({...values, title: e.target.value})
+    // }
 
     const handleSelect = (info) => {
         showModal();
         // console.log(info)
         setValues({...values, 
             start: info.startStr,
-            end: info.endStr
+            finish: info.endStr
         })
     }
 
@@ -35,13 +77,39 @@ const MyBusiness = () => {
 
     const handleOk = () => {
         setIsModalVisible(false);
-        console.log(values)
+        if(title === '' || content === ''){
+            alert('Необходимо заполнить все поля')
+        }else{
+             CreateBusiness({values})
+            .then(res => {
+                ShowBusinessList();
+                alert('Дело успешно созздано')
+                setValues({
+                    title: '',
+                    content: ''
+                })
+            })
+            .catch(err => {
+                console.log(err)
+            })
+        }
     }
 
     const handleCancel = () => {
         setIsModalVisible(false)
     }
+
+    const onDelete = (id) => {
+        if(window.confirm('Вы действительно желаете удалить это дело из списка?')){
+            DeleteBusiness(id)
+        }
+        GetBusinessList()
+        ShowBusinessList()
+    }
+
+    
     return (
+        <>
         <div className='main-div-content'>
             <FullCalendar
                 plugins={[ dayGridPlugin, interactionPlugin ]}
@@ -49,20 +117,80 @@ const MyBusiness = () => {
                 firstDay={1}
                 selectable={true}
                 select={handleSelect}
-                events={[
-                    {title: 'complete calendar', date: '2021-09-01'}
-                ]}
+                events={event}
+                eventDisplay={"list-item"}
+                displayEventEnd={true}
+                eventClick={
+                    function(arg){     
+                        alert(arg.event.extendedProps.content)
+                        console.log(arg.event)
+                    }
+                }
+                
             />
-            <Modal title="Basic Modal" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-                <p>Some contents...</p>
-                <p>Some contents...</p>
-                <input value={title} onChange={(e) => onChangeTitle(e)} />
+            <Modal title="Создать заметку" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+                <p>Когда задано {start}</p>
+                <p>Когда закончить {finish}</p>
+                <input 
+                    name='title' 
+                    value={title} 
+                    onChange={(e) => onChange(e)} 
+                    placeholder='Название дела'
+                    />
+                <input 
+                    name='content' 
+                    value={content} 
+                    onChange={(e) => onChange(e)} 
+                    placeholder='Описание дела'
+                    />
             </Modal>
+
+            <p 
+                onClick={() => toggleBusinesses(!displaBusinesses)}
+                className='business-item'
+                >Показать список дел</p>
+            {displaBusinesses && (
+                <>
+                    {
+                        business_list && business_list.list.map((b, index) => (
+                            <div className="container" key={index}>
+                                <div className="row">
+                                    <div className="col-12 bg-info p-3">
+                                        <Link to={`/my-business-by-id/${b._id}`}>
+                                            <p style={{ cursor: "pointer" }}>Заголовок дела: {b.title}</p>
+                                            <p>Содержание: {b.content}</p>
+                                        </Link>
+                                        <p 
+                                        style={{cursor: "pointer"}} 
+                                        className="bg-danger p-3" 
+                                        onClick={() => onDelete(b._id)} >Удалить дело</p>
+                                    </div>
+                                </div>
+                            </div>
+                        ))
+                    }
+                </>
+            )}
         </div>
+        </>
     )
 }
 
-export default MyBusiness
+MyBusiness.propTypes = {
+    GetBusinessList: PropTypes.func.isRequired,
+    DeleteBusiness: PropTypes.func.isRequired,
+    business: PropTypes.object,
+}
+
+const mapStateToProps = state => ({
+    business: state.business
+})
+
+export default connect(mapStateToProps,
+    {
+        GetBusinessList,
+        DeleteBusiness
+    })(MyBusiness)
 
 
 

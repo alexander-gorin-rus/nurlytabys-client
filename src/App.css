@@ -18,6 +18,21 @@
   margin-bottom: 100px;
 }
 
+@media(max-width: 750px){
+  .main-div-content{
+    left: 15vw;
+    width: 80vw;
+  }
+}
+
+@media(max-width: 440px){
+  .main-div-content{
+    left: 18vw;
+    width: 80vw;
+  }
+}
+
+
 .main-div-container{
   position: relative;
   top: 12vh;
@@ -536,8 +551,14 @@ _____________________________
   width: 50vw;
   height: 50vh;
   background-color: aqua;
+  margin-top: 20px;
 }
 
+.business-item{
+  cursor: pointer;
+  text-align: center;
+  background-color: #7ae79b;
+}
 
 #dummy{
   color: #1daf49;
