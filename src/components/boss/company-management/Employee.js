@@ -46,7 +46,7 @@ const Employee = ({
     }
 
     return (
-        <div className="main_container">
+        <div className="main-div-content">
             {employee_by_id && employee_by_id.employee ? 
                 (
                     <form onSubmit={handleSubmit}>
@@ -61,7 +61,7 @@ const Employee = ({
                                     className="form-control bg-primary text-light"
                                     onChange={handleRoleChange}
                                 >
-                                <option>Выбрать должность</option>
+                                <option className='app-text-small'>Выбрать должность</option>
                                     {load_all_roles.roles &&
                                         load_all_roles.roles.map((c) =>
                                             <option

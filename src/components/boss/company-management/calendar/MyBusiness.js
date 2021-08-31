@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import FullCalendar from '@fullcalendar/react' // must go before plugins
 import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
+import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from "@fullcalendar/interaction" // needed for dayClick
 import { Modal } from 'antd';
 import { CreateBusiness  } from '../../../../functions/calendar';
 import axios from 'axios';
 import PropTypes from 'prop-types';
-import { GetBusinessList, DeleteBusiness } from '../../../../redux/actions/business'
+import { 
+    GetBusinessList, 
+    DeleteBusiness,
+} from '../../../../redux/actions/business'
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router';
@@ -43,8 +47,9 @@ const MyBusiness = ({
     }
 
     const { id } = useParams();
-    const [displaBusinesses, toggleBusinesses] = useState(false)
+    const [displayBusinesses, toggleBusinesses] = useState(false)
     const [isModalVisible, setIsModalVisible] = useState(false);
+    
     const [values, setValues] = useState({
         title: '',
         content: '',
@@ -57,9 +62,13 @@ const MyBusiness = ({
     const onChange = e =>
         setValues({ ...values, [e.target.name]: e.target.value });
 
-    // const onChangeTitle = (e) => {
-    //     // console.log(e.target.value)
-    //     setValues({...values, title: e.target.value})
+    const onChangeTitle = (e) => {
+        // console.log(e.target.value)
+        setValues({...values, title: e.target.value})
+    }
+
+    // const clickSelect = () => {
+    //     handleSelect()
     // }
 
     const handleSelect = (info) => {
@@ -83,6 +92,7 @@ const MyBusiness = ({
              CreateBusiness({values})
             .then(res => {
                 ShowBusinessList();
+                GetBusinessList()
                 alert('Дело успешно созздано')
                 setValues({
                     title: '',
@@ -110,31 +120,51 @@ const MyBusiness = ({
     
     return (
         <>
-        <div className='main-div-content'>
+        <div className='main-div-content-calendar'>
             <FullCalendar
-                plugins={[ dayGridPlugin, interactionPlugin ]}
-                initialView="dayGridMonth"
+                plugins={[ dayGridPlugin, interactionPlugin, timeGridPlugin ]}
+                initialView="timeGridWeek"
                 firstDay={1}
                 selectable={true}
                 select={handleSelect}
+               
                 events={event}
                 eventDisplay={"list-item"}
                 displayEventEnd={true}
+                allDaySlot={false}
+                //longPressDelay={3}
+                selectLongPressDelay={2}
                 eventClick={
                     function(arg){     
                         alert(arg.event.extendedProps.content)
                         console.log(arg.event)
                     }
                 }
-                
+                height={'1250px'}
             />
+
+
+            {/* <p 
+                className='p-3 bg-success text-center'
+                onClick={() => clickSelect()}
+            >
+                    Назначить дело
+            </p> */}
+
+
+            </div>
+
+
+
             <Modal title="Создать заметку" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-                <p>Когда задано {start}</p>
-                <p>Когда закончить {finish}</p>
+                {/* <p>Когда задано: {start.split("T")[0]}</p> */}
+                <p>Когда закончить: {finish.split('T')[0]}</p>
+                <p>Время: {finish.split("T").pop().split('+')[0]}</p>
+
                 <input 
                     name='title' 
                     value={title} 
-                    onChange={(e) => onChange(e)} 
+                    onChange={(e) => onChangeTitle(e)} 
                     placeholder='Название дела'
                     />
                 <input 
@@ -145,11 +175,23 @@ const MyBusiness = ({
                     />
             </Modal>
 
-            <p 
-                onClick={() => toggleBusinesses(!displaBusinesses)}
-                className='business-item'
-                >Показать список дел</p>
-            {displaBusinesses && (
+            <div className="d-flex justify-content-center">
+                <section style={{cursor: "pointer"}} 
+                    onClick={() => toggleBusinesses(!displayBusinesses)} 
+                    className="text-center text-light bg-success p-2">
+                        {displayBusinesses && displayBusinesses ? 
+                            (
+                                <p>Свернуть</p>
+                            ) 
+                                : 
+                            (
+                                <p>Показать дела простым списком</p>
+                            )
+                        } 
+                </section>
+            </div>
+
+            {displayBusinesses && (
                 <>
                     {
                         business_list && business_list.list.map((b, index) => (
@@ -171,7 +213,7 @@ const MyBusiness = ({
                     }
                 </>
             )}
-        </div>
+        
         </>
     )
 }

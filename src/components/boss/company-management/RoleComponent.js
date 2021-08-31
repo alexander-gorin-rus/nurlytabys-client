@@ -12,7 +12,7 @@ const RoleComponent = ({
     CreateRole,
     LoadAllRoles,
     DeleteRole,
-    roles :{load_all_roles}
+    roles: {load_all_roles}
 }) => {
 
     useEffect(() => {
@@ -61,10 +61,10 @@ const RoleComponent = ({
 
     return (
         <Fragment>
-            <div className='mt-5' style={{ maxWidth: '700px', margin: '2rem auto' }}>
-            <h4 className="text-center" style={{marginTop: "15vh"}}>Форма управления должностями</h4>
+            <div className='mt-5 main-div-content'>
+            <p className="text-center app-text-large" style={{marginTop: "15vh"}}>Форма управления должностями</p>
             
-            <h4 className="text-center" style={{marginTop: "15vh"}}>Создать должность</h4>
+            <p className="text-center app-text-large">Создать должность</p>
                 <form className="col s12" onSubmit={handleSubmit}>
                     <div className="form-group">
                         <input
@@ -73,28 +73,28 @@ const RoleComponent = ({
                             className="form-control"
                             value={name}
                             onChange={e => onChange(e)}
-                            placeholder="Название роли"
+                            placeholder="Название должности"
                         />
                     </div>
                     <input type='submit' className='btn btn-primary' value='Отправить'/>
-                    <Link className='d-block p-3 mt-4 bg-warning ' to='/company-management'>Вернуться на страницу управления компанией</Link>
+                    <Link className='d-block p-3 mt-4 bg-warning app-text-small' to='/company-management'>Вернуться на страницу управления компанией</Link>
                 </form>
                 {load_all_roles.roles && load_all_roles.roles.length === 0 ? 
                     (
-                        <h3 className="text-center">Вы пока не создали должности</h3>
+                        <p className="text-center text-large">Вы пока не создали должности</p>
                     )
                         :
                     (
                         <div>
-                            <h4 className='text-center mb-5'>Созданные должности</h4>
+                            <p className='text-center mb-5 mt-5 app-text-large'>Созданные должности</p>
                         {load_all_roles.roles && load_all_roles.roles.map((r, index) => (
                             <div className="category-cart" key={index}>
                                 <div className='bg-danger p-3 text-center'>
-                                <p>{r.name}</p>
-                                <span className='delete-custom px-3' onClick={() => onDelete(r._id)}>
+                                <p className='app-text-small'>{r.name}</p>
+                                <span className='delete-custom px-3 app-text-small' onClick={() => onDelete(r._id)}>
                                             Удалить должность
                                 </span>
-                                <Link to={`/update-role/${r._id}`}>Изменить должность</Link>
+                                <Link className='app-text-small' to={`/update-role/${r._id}`}>Изменить должность</Link>
                                 </div>
                             </div>
                         ))}

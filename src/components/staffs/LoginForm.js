@@ -31,8 +31,8 @@ const LoginForm = ( { loginEmployee }) => {
 
     return (
         <Fragment>
-            <h4 className="text-center" style={{marginTop: "15vh"}}>Вход для сотрудников компании</h4>
-            <div className='mt-5' style={{position: "relative", left: "10vw", width: "90vw"}}>
+            <p className="text-center app-text-large" style={{marginTop: "15vh"}}>Вход для сотрудников компании</p>
+            <div className='mt-5 main-div-content'>
                 <div className="row">
                     <form className="col s12" onSubmit={e => onSubmit(e)}>
                         <div className="row">
@@ -40,13 +40,14 @@ const LoginForm = ( { loginEmployee }) => {
                                 <i className="material-icons prefix">email</i>
                                 <input 
                                     id="icon_telephone" 
-                                    type="tel" 
+                                    type="email" 
                                     className="validate"
                                     name='email'
                                     value={email}
-                                    onChange={e => onChange(e)}    
+                                    onChange={e => onChange(e)}
+                                    placeholder='почта'    
                                 />
-                                <label htmlFor="icon_telephone">Почта</label>
+                               
                             </div>
                             <div className="input-field col s3">
                                 <i className="material-icons prefix">password</i>
@@ -56,9 +57,9 @@ const LoginForm = ( { loginEmployee }) => {
                                     className="validate"
                                     name='password'
                                     value={password}
-                                    onChange={e => onChange(e)}        
+                                    onChange={e => onChange(e)}
+                                    placeholder='пароль'        
                                 />
-                                <label htmlFor="icon_telephone">Пароль</label>
                             </div>
                         </div>
                         <input type='submit' className='btn btn-primary' value='Войти' />

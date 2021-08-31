@@ -15,7 +15,7 @@ const EmployeeList = ({
     
     useEffect(() => {
         GetEmployeeList()
-    },[]);
+    },[GetEmployeeList]);
 
     const clickDelete = (id) => {
         if(window.confirm('Вы действительно хотите удалить этого работника?')){
@@ -26,10 +26,10 @@ const EmployeeList = ({
         }
     }
     return (
-        <div className="main_container">
-            <h4 className="text-center">Список сотрудников</h4>
+        <div className="main-div-content">
+            <p className="text-center app-text-large">Список сотрудников</p>
             {employee_list.list && (
-                <h4 className="text-center bg-primary text-light p-3">В Вашей компании зарегистрировано <p className="text-danger">{employee_list.list.length} </p> сотрудников</h4>
+                <p className="text-center bg-primary text-light p-3 app-text">В Вашей компании зарегистрировано <p className="text-danger">{employee_list.list.length - 1} </p> сотрудников</p>
             )}
             {employee_list.list && employee_list.list.map((l, index) => 
                 (

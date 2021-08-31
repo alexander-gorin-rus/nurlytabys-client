@@ -12,26 +12,63 @@
 .main-div-content{
   position: relative;
   top: 12vh;
-  left: 15vw;
+  left: 12vw;
   width: 70vw;
   height: auto;
   margin-bottom: 100px;
+  
 }
 
 @media(max-width: 750px){
   .main-div-content{
     left: 15vw;
     width: 80vw;
+    font-size: 0.9rem;
   }
 }
 
 @media(max-width: 440px){
   .main-div-content{
     left: 18vw;
-    width: 80vw;
+    width: 70vw;
   }
 }
 
+.app-text{
+  font-size: 1.4rem;
+}
+
+@media(max-width: 750px){
+  .app-text{
+    font-size: 0.9rem;
+  }
+}
+
+.app-text-large{
+  font-size: 1.8rem;
+}
+
+@media(max-width: 750px){
+  .app-text-large{
+    font-size: 1.2rem;
+  }
+}
+
+@media(max-width: 560px){
+  .app-text-large{
+    font-size: 1rem;
+  }
+}
+
+.app-text-small{
+  font-size: 0.8rem;
+}
+
+@media(max-width: 560px){
+  .app-text-small{
+    font-size: 0.6rem;
+  }
+}
 
 .main-div-container{
   position: relative;
@@ -156,6 +193,12 @@
   transition: 1s ease;
   z-index: 102;
 }
+
+@media(max-width: 560px){
+  .div-header{
+    height: 7vh;
+  }
+}
 .div-header:hover{
   background-color: rgba(33, 57, 121, 0.918);
   transition: 1s ease;
@@ -173,6 +216,12 @@
   transition: 1s ease;
   opacity: 0;
 }
+
+@media(max-width: 560px){
+  .li-custom{
+    font-size: 0.6rem;
+  }
+}
 .div-header:hover .li-custom{
   opacity: 1;
   transition: 1s ease;
@@ -185,6 +234,16 @@
 .li-register{
   float: right;
   margin-right: 30px;
+}
+
+@media(max-width: 560px){
+  .li-register{
+    margin-right: 10px;
+    padding-right: 20px;
+  }
+  .li-login{
+    margin-right: 15px;
+  }
 }
 /* .link{
   text-decoration: none !important;
@@ -261,6 +320,12 @@
   z-index: 100;
 }
 
+@media(max-width: 750px){
+  .custom_navigation_abs{
+    width: 4%;
+  }
+}
+
 .custom_navigation_rel{
   position: relative;
   /* border: 1px solid red; */
@@ -273,7 +338,7 @@
   position: absolute;
   top: 25%;
   left: -220px;
-  /* border: 2px solid black; */
+  /* border: 2px solid red; */
   width: 200px !important;
   vertical-align: middle !important;
   transition: 1s ease;
@@ -298,7 +363,7 @@ a{
 }
 
 .main_page_navigation{
-  position: relative;
+  position: fixed;
   top: 0%;
   height: 100vh;
   left: -15px !important;
@@ -312,6 +377,28 @@ a{
   padding-right: 15px;
   display: inline-block;
   transition: 1s ease;
+  width: 4vw;
+}
+
+@media(max-width: 1125px){
+  .main_page_navigation{
+    width: 4vw;
+    padding-left: 12px;
+  }
+}
+
+@media(max-width: 740px){
+  .main_page_navigation{
+    width: 6vw;
+    padding-left: 12px;
+  }
+}
+
+@media(max-width: 560px){
+  .main_page_navigation{
+    width: 8vw;
+    padding-left: 9px;
+  }
 }
 
 .custom_navigation_abs:hover .ul_navigation{
@@ -352,6 +439,12 @@ a{
   padding: 30px;
 }
 
+@media(max-width: 560px){
+  .category-cart{
+    margin: 5px;
+    padding: 5px;
+  }
+}
 _____________________________
 /* OLD VERSION OF CALENDAR */
 .calendar_old{
@@ -562,4 +655,11 @@ _____________________________
 
 #dummy{
   color: #1daf49;
+}
+
+.main-div-content-calendar{
+  position: relative;
+  top: 15vh;
+  left: 8vw;
+  width: 75vw;
 }
