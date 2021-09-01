@@ -2,6 +2,8 @@ import React, {useEffect, Fragment} from 'react'
 import PropTypes from 'prop-types';
 import { GetEmployeeList } from '../../../../redux/actions/employee_actions';
 import { connect } from 'react-redux';
+import SideBar from './SideBar';
+import Chat from './Chat';
 
 const BusinessScheduler = ({
     GetEmployeeList,
@@ -13,8 +15,15 @@ const BusinessScheduler = ({
     },[GetEmployeeList]);
 
     return (
-        <div className="main-div-content">
-            {employee_list.list && employee_list.list.map((l, index) => 
+        <div className="main-div-content-absolute">
+            <div className='scheduler-body'>
+                <SideBar />
+                <Chat />
+            </div>
+                
+           
+            
+            {/* {employee_list.list && employee_list.list.map((l, index) => 
                 (
                     <div className="bg-info" key={index}>
                         {l && l.boss === 1 ? 
@@ -41,7 +50,7 @@ const BusinessScheduler = ({
                         }
                     </div>
                 ))
-            }
+            } */}
            
         </div>
     )

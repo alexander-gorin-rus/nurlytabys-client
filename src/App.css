@@ -219,7 +219,7 @@
 
 @media(max-width: 560px){
   .li-custom{
-    font-size: 0.6rem;
+    font-size: 0.8rem;
   }
 }
 .div-header:hover .li-custom{
@@ -662,4 +662,97 @@ _____________________________
   top: 15vh;
   left: 8vw;
   width: 75vw;
+}
+
+.main-div-content-absolute{
+  position: absolute;
+  top: 12vh;
+  left: 10vw;
+  width: 80vw;
+  height: auto;
+  margin-bottom: 100px;
+  /* border: 1px solid red; */
+}
+
+@media(max-width: 1125px){
+  .main-div-content-absolute{
+    width: 80vw;
+  }
+}
+
+@media(max-width: 750px){
+  .main-div-content-absolute{
+    width: 85vw;
+  }
+}
+
+
+
+.scheduler-body{
+  position: relative;
+  display: flex;
+  background-color: #ededed;
+  height: 90vh;
+  width: 80vw;
+  box-shadow: -1px 4px 20px -6px rgba(0, 0, 0, 0.75);
+}
+
+@media(max-width: 750px){
+  .scheduler-body{
+    width: 85vw;
+  }
+}
+
+.sidebar{
+  display: flex;
+  flex-direction: column;
+  flex: 0.35;
+}
+
+.sidebar-header{
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  border-right: 1px solid lightgray;
+}
+
+.sidebar-header-right{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 20vw;
+}
+
+.sidebar-header-right > .MuiSvgIcon-root{
+  margin-right: 2vw;
+  font-size: 24px !important;
+}
+
+.sidebar-search{
+  display: flex;
+  align-items: center;
+  background-color: #f6f6f6;
+  height: 40px;
+  padding: 10px;
+}
+
+.sidebar-search-container{
+  display: flex;
+  align-items: center;
+  background-color: white;
+  width: 100%;
+  height: 35px;
+  border-radius: 20px;
+}
+
+.sidebar-search-container > input {
+  color: none;
+  outline-width: 0;
+  margin-left: 10px;
+}
+
+.chat{
+  display: flex;
+  flex-direction: column;
+  flex: 0.65;
 }
