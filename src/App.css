@@ -44,6 +44,10 @@
   }
 }
 
+.app-text-medium{
+  font-size: 1.2rem;
+}
+
 .app-text-large{
   font-size: 1.8rem;
 }
@@ -751,8 +755,33 @@ _____________________________
   margin-left: 10px;
 }
 
+.sidebar-chats{
+  flex: 1;
+  background-color: white;
+  overflow: scroll;
+}
+
+.sidebar-chat{
+  display: column;
+  padding: 20px;
+  cursor: pointer;
+  border-bottom: 1px solid #272424;
+}
+
+.sidebar-chat:hover{
+  background-color: rgb(212, 224, 250);
+}
+
 .chat{
   display: flex;
   flex-direction: column;
   flex: 0.65;
+}
+
+.chat-header{
+
+}
+
+.chat-header-info{
+  
 }
