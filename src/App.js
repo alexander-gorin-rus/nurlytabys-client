@@ -59,6 +59,9 @@ import EmployeeList from './components/boss/company-management/EmployeeList';
 import Employee from './components/boss/company-management/Employee';
 import MyBusinessById from './components/boss/company-management/calendar/MyBusinessById';
 import CalendarDayById from './components/boss/company-management/calendar/CalendarDayById';
+import BossPage from './components/boss/BossPage';
+import ChangeStaffInfo from './components/boss/ChangeStaffInfo';
+
 
 
 
@@ -99,6 +102,8 @@ const App = () => {
                 <Route path="/category/:slug" exact component={Category} />
                 <Route exact path="/video/:slug" component={DetailedVideo} />
                 <EmployeePrivateRoutes exact path="/employee-dashboard" component={StaffDashboard}/>
+                <BossPrivateRoutes exact path='/boss-page' component={BossPage} />
+                <BossPrivateRoutes exact path='/change-staff-info/:id' component={ChangeStaffInfo} />
                 <BossPrivateRoutes exact path='/excess-to-register' component={ExcessToRegister} />
                 <BossPrivateRoutes exact path='/update-excess-to-register/:id' component={UpdateExcessToRegister} />
                 <BossPrivateRoutes exact path='/company-management' component={CompanyManagement} />

@@ -8,6 +8,13 @@ export const Header = ( {
     logout,
     boss
 } ) => {
+
+    const clickLogout = () => {
+        logout()
+        window.location.reload()
+    }
+
+
     return (
         <Fragment>
             <div className="div-header">
@@ -24,15 +31,14 @@ export const Header = ( {
                                 {boss && boss === 1 ? 
                             (
                                 <Fragment>
-                                    <li onClick={logout} className="li-register li-custom"><Link className="link" to="/" >Выйти</Link></li>
-                                    <li className='li-login li-custom'><Link className="link" to='/company-management'>Управление компанией</Link></li>
-                                    <li className='li-login li-custom'><Link className="link" to='/site-management'>Управление сайтом</Link></li> 
+                                    <li onClick={clickLogout} className="li-register li-custom"><Link className="link" to="/" >Выйти</Link></li>
+                                    <li className='li-login li-custom'><Link className="link" to='/boss-page'>Моя страница</Link></li> 
                                 </Fragment> 
                             ) 
                                 :
                             (
                                 <Fragment>
-                                    <li onClick={logout} className="li-register li-custom"><Link className="link" to="/" >Выйти</Link></li> 
+                                    <li onClick={clickLogout} className="li-register li-custom"><Link className="link" to="/" >Выйти</Link></li> 
                                     <li className="li-login li-custom"><Link className="link" to="/employee-dashboard">Моя страница</Link></li>
                                 </Fragment>  
                             )
@@ -48,7 +54,7 @@ export const Header = ( {
 
 Header.propTypes = {
     logout: PropTypes.func.isRequired,
-    boss: PropTypes.number,
+    boss: PropTypes.number
   };
   
   const mapStateToProps = state => ({

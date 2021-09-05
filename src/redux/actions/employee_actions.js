@@ -142,12 +142,12 @@ export const UpdateEmployee = (id, values) => async dispatch => {
             type: UPDATE_EMPLOYEE_SUCCESS,
             payload: res.data
         });
-        dispatch(setAlert('Работнику успешно присвоена роль', 'success'));
+        dispatch(setAlert('В персональные данные сотрудника успешно внесены изменения', 'success'));
     } catch (err) {
         dispatch({
             type: UPDATE_EMPLOYEE_FAIL
         });
-        dispatch(setAlert('Не удалось присвоить работнику роль', 'danger'))
+        dispatch(setAlert('Не удалось изменить персональные данные сотрудника', 'danger'))
     }
 }
 

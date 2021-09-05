@@ -14,7 +14,7 @@ const CompanyManagement = props => {
                     </ul>
                 </div>
             </div>
-            
+            <Link className='d-block p-3 mt-4 bg-warning ' to='/boss-page'>Вернуться на мою страницу</Link>
         </div>
     )
 }

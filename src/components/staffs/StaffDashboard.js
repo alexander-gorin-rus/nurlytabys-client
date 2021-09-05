@@ -1,11 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import MyPersonalPage from '../pages/personalPage/MyPersonalPage';
 
 
-const StaffDashboard = () => {
+const StaffDashboard = ({
+    employee
+}) => {
     return (
-        <h3>Loading</h3>
+        <MyPersonalPage employee={employee} />
     )
 }
 
@@ -13,12 +16,12 @@ StaffDashboard.propTypes = {
     employee_reducer: PropTypes.object.isRequired,
 }
 
-// const mapStateToProps = state => ({
-//     employee: state.employee_reducer.employee
-// })
+const mapStateToProps = state => ({
+    employee: state.employee_reducer.employee
+})
 
 export default connect(
-    null, 
+    mapStateToProps, 
     {}
 )(StaffDashboard)
 

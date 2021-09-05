@@ -2,11 +2,17 @@ import React, { Fragment, useState } from 'react'
 import PropTypes from 'prop-types';
 import { loginEmployee } from '../../redux/actions/employee_actions';
 import { connect } from 'react-redux';
-import { useHistory } from 'react-router-dom'
+import { 
+    //useHistory, 
+    Redirect 
+} from 'react-router-dom'
 
-const LoginForm = ( { loginEmployee }) => {
+const LoginForm = ( { 
+    loginEmployee,
+    employee_reducer: {employee}
+}) => {
 
-    const history = useHistory();
+    //const history = useHistory();
 
     const [values, setValues] = useState({
         email: "",
@@ -26,7 +32,15 @@ const LoginForm = ( { loginEmployee }) => {
             email: "",
             password: ""
         });
-        history.push('/')
+        //history.push('/')
+    }
+
+    if(employee && employee.boss === 1){
+        return <Redirect to='/boss-page' />
+    }
+
+    if(employee && employee.boss === 0){
+        return <Redirect to='/employee-dashboard' />
     }
 
     return (
@@ -73,12 +87,12 @@ const LoginForm = ( { loginEmployee }) => {
 LoginForm.propTypes = {
     loginEmployee: PropTypes.func.isRequired,
     role: PropTypes.string,
-    //employee_reducer: PropTypes.object.isRequired,
+    employee_reducer: PropTypes.object,
 }
 
 const mapStateToProps = state => ({
     role: state.employee_reducer.role,
-    //employee_reducer: state.employee_reducer.employee
+    employee_reducer: state.employee_reducer
 })
 export default connect(
     mapStateToProps,

@@ -140,7 +140,7 @@ const MyBusiness = ({
                         console.log(arg.event)
                     }
                 }
-                height={'1250px'}
+                height={'1200px'}
             />
 
 
@@ -175,7 +175,7 @@ const MyBusiness = ({
                     />
             </Modal>
 
-            <div className="d-flex justify-content-center">
+            <div className="d-flex justify-content-center" style={{marginTop: "50px", marginBottom: "100px"}}>
                 <section style={{cursor: "pointer"}} 
                     onClick={() => toggleBusinesses(!displayBusinesses)} 
                     className="text-center text-light bg-success p-2">
@@ -233,11 +233,6 @@ export default connect(mapStateToProps,
         GetBusinessList,
         DeleteBusiness
     })(MyBusiness)
-
-
-
-
-
 
 
 
