@@ -6,7 +6,8 @@ import {
     GetEmployeeById
 } from '../../redux/actions/employee_actions';
 import { connect } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { setAlert } from '../../redux/actions/alert';
 
 
 const ChangeStaffInfo = ({
@@ -16,7 +17,6 @@ const ChangeStaffInfo = ({
 }) => {
 
     const { id } = useParams();
-    const history = useHistory()
 
     useEffect(() => {
         GetEmployeeById(id)
@@ -29,7 +29,6 @@ const ChangeStaffInfo = ({
         email: "",
         password: "",
         password2: "",
-        role: ""
     });
 
     const { name, lastName, phone, email, password, password2 } = values;
@@ -48,9 +47,7 @@ const ChangeStaffInfo = ({
                 lastName: employee_by_id.employee.lastName,
                 phone: employee_by_id.employee.phone,
                 email: employee_by_id.employee.email,
-                phone: employee_by_id.employee.phone,
-                password: employee_by_id.employee.password,
-                password2: employee_by_id.employee.password2,
+                phone: employee_by_id.employee.phone
             })
         }
     },[employee_by_id]);
@@ -66,11 +63,15 @@ const ChangeStaffInfo = ({
             password,
             password2
         }
-        UpdateEmployee(id, variables);
-        setTimeout(() => {
-            window.location.reload();
-            //history.push('/boss-page')
-        },6000)
+        if(password !== password2){
+            setAlert("Пароли не совпадают", "danger")
+        }else{
+            UpdateEmployee(id, variables);
+                setTimeout(() => {
+                    window.location.reload();
+                },6000)
+            }
+        
     }
     return (
         <Fragment>
@@ -82,7 +83,7 @@ const ChangeStaffInfo = ({
                 <div className="row">
                     <div className="input-field col s6">
                         <i className="material-icons prefix">account_circle</i>
-                        <input 
+                        <input
                             id="icon_prefix" 
                             type="text" 
                             className="validate"
@@ -167,7 +168,16 @@ const ChangeStaffInfo = ({
                 <input type='submit' className='my-5 btn btn-primary' value='Изменить' />
             </form>
         </div>
-        <Link className='d-block p-3 mt-4 bg-warning ' to='/boss-page'>Вернуться на мою страницу</Link>
+        {employee_by_id && employee_by_id.employee.boss === 1 ? 
+            (
+                <Link className='d-block p-3 mt-4 bg-warning ' to='/boss-page'>Вернуться на мою страницу</Link>
+            )
+                :
+            (
+                <Link className='d-block p-3 mt-4 bg-warning ' to='/employee-dashboard'>Вернуться на мою страницу</Link>
+            )
+        }
+        
     </div>
     </Fragment>
     )

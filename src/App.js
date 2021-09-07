@@ -61,6 +61,7 @@ import MyBusinessById from './components/boss/company-management/calendar/MyBusi
 import CalendarDayById from './components/boss/company-management/calendar/CalendarDayById';
 import BossPage from './components/boss/BossPage';
 import ChangeStaffInfo from './components/boss/ChangeStaffInfo';
+import Task from './components/boss/company-management/tasks/Task';
 
 
 
@@ -117,6 +118,7 @@ const App = () => {
                 <BossPrivateRoutes exact path='/role-component' component={RoleComponent} />
                 <BossPrivateRoutes exact path='/my-business' component={MyBusiness} />
                 <BossPrivateRoutes exact path='/business-scheduler' component={BusinessScheduler} />
+                <BossPrivateRoutes exact path='/tasks' component={Task} />
                 <BossPrivateRoutes exact path='/my-business-by-id/:id' component={MyBusinessById} />
                 <BossPrivateRoutes exact path='/day-by-id/:id' component={CalendarDayById} />
                 <BossPrivateRoutes exact path='/update-role/:id' component={UpdateRole} />

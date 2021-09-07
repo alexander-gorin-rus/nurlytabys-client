@@ -2,19 +2,12 @@ import React, { useState, useEffect, } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-// import { GetEmployeeById } from '../../redux/actions/employee_actions'
-// import { useParams } from 'react-router-dom'
+
 
 const BossPage = ({
     employee_reducer: {employee},
-    ///GetEmployeeById
+    
 }) => {
-
-    // const { id } = useParams();
-
-    // useEffect(() => {
-    //     GetEmployeeById(id)
-    // },[GetEmployeeById])
 
     const [displayMyInfo, toggleMyInfo] = useState(false);
 
@@ -50,6 +43,7 @@ const BossPage = ({
                         <p className='app-text'>{employee.name}</p>
                         <p className='app-text'>{employee.lastName}</p>
                         <p className='app-text'>{employee.phone}</p>
+                        <p className='app-text'>{employee.email}</p>
                         <div>
                         {employee && employee.boss === 1 ? 
                             (
@@ -74,8 +68,7 @@ const BossPage = ({
 }
 
 BossPage.propTypes = {
-    employee_reducer:PropTypes.object,
-    //GetEmployeeById: PropTypes.func.isRequired,
+    employee_reducer:PropTypes.object
 }
 
 const mapStateToProps = state => ({
@@ -83,5 +76,4 @@ const mapStateToProps = state => ({
 })
 
 export default connect(mapStateToProps, {
-    //GetEmployeeById
 })(BossPage)

@@ -1,0 +1,24 @@
+import { 
+    CREATE_TASK_SUCCESS,
+    CREATE_TASK_FAIL
+} from '../types';
+import axios from 'axios';
+import { setAlert } from './alert';
+
+
+
+export const CreateTask = (variables) => async dispatch => {
+    try {
+        const res = await axios.post(`${process.env.REACT_APP_API}/create-task`, variables);
+        dispatch({
+            type: CREATE_TASK_SUCCESS,
+            payload: res.data
+        });
+        dispatch(setAlert('Задание успешно создано', 'success'))
+    } catch (err) {
+        dispatch({
+            type: CREATE_TASK_FAIL
+        });
+        dispatch(setAlert('Не удалось создать задание', 'danger'))
+    }
+}
