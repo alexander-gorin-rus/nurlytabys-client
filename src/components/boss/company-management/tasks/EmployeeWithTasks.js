@@ -5,9 +5,11 @@ import { loadEmployeeWithTasks } from '../../../../redux/actions/employee_action
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import TaskStatus from './TaskStatus';
+import { DeleteTask } from '../../../../redux/actions/task';
 
 const EmployeeWithTasks = ({
     loadEmployeeWithTasks,
+    DeleteTask,
     employee_reducer: {employee_with_tasks}
 }) => {
 
@@ -17,7 +19,14 @@ const EmployeeWithTasks = ({
         loadEmployeeWithTasks(id)
     },[])
 
-    
+    const clickDelete = (id) => {
+        if(window.confirm('Вы действительно хотите удалить это задание?')){
+            DeleteTask(id)
+        }
+        setTimeout(() => {
+            loadEmployeeWithTasks(id);
+        }, 300);
+    }
     return (
         <div className="main-div-content">
             <p className="text-center">Задания выданные:
@@ -34,9 +43,11 @@ const EmployeeWithTasks = ({
                 <p className="app-text-small text-center">Задание задано:</p>
                 <p className="text-center">{new Date(t.createdAt).toLocaleString('en-GB')}</p>
                 <p className="app-text-small text-center">Задание необходимо закончить:</p>
-                <p className="text-center">{new Date(t.finish).toLocaleString('en-GB').split(',')[0]}</p>
+                <p className="text-center">{new Date(t.finish).toLocaleString('en-GB')}</p>
                 <p className="app-text-small text-center">Статус задания</p>
                 <TaskStatus t={t} />
+                <p className="app-text-small text-center bg-danger" style={{cursor: "pointer"}} onClick={() => clickDelete(t._id)}>Удалить задания</p>
+
              </div>
             ))}
              <Link className='d-block p-3 mt-4 bg-warning ' to='/tasks'>Вернуться на страницу заданий</Link>
@@ -47,6 +58,7 @@ const EmployeeWithTasks = ({
 EmployeeWithTasks.propTypes = {
     employee_reducer: PropTypes.object,
     loadEmployeeWithTasks: PropTypes.func.isRequired,
+    DeleteTask: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = state => ({
@@ -54,5 +66,6 @@ const mapStateToProps = state => ({
 })
 
 export default connect(mapStateToProps, {
-    loadEmployeeWithTasks
+    loadEmployeeWithTasks,
+    DeleteTask
 })(EmployeeWithTasks)

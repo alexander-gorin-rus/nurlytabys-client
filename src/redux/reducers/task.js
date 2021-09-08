@@ -2,12 +2,15 @@ import {
     CREATE_TASK_SUCCESS,
     CREATE_TASK_FAIL,
     TASK_CHANGE_SUCCESS,
-    TASK_CHANGE_FAIL
+    TASK_CHANGE_FAIL,
+    TASK_DELETE_SUCCESS,
+    TASK_DELETE_FAIL
 } from '../types';
 
 const initialState = {
     create_task: {},
     change_task: null,
+    delete_task: false,
     loading: true
 }
 
@@ -37,6 +40,12 @@ export default function(state = initialState, action){
             return {
                 ...state,
                 change_task: null,
+                loading: false
+            }
+        case TASK_DELETE_SUCCESS:
+            return {
+                ...state,
+                delete_task: true,
                 loading: false
             }
         default: 

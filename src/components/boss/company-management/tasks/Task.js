@@ -92,7 +92,7 @@ const EmployeeList = ({
                             <label>Выбрать дату</label>
                             <p className='bg-danger px-1'>Внимание: на этом календаре неделя начинается с воскресенья</p>
                             <input 
-                                type="date" 
+                                type="datetime-local" 
                                 name='finish'
                                 value={finish}
                                 onChange={e => handleChange(e)}
@@ -161,5 +161,5 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps, {
     GetEmployeeList,
-    CreateTask
+    CreateTask,
 })(EmployeeList)

@@ -2,7 +2,9 @@ import {
     CREATE_TASK_SUCCESS,
     CREATE_TASK_FAIL,
     TASK_CHANGE_FAIL,
-    TASK_CHANGE_SUCCESS
+    TASK_CHANGE_SUCCESS,
+    TASK_DELETE_FAIL,
+    TASK_DELETE_SUCCESS
 } from '../types';
 import axios from 'axios';
 import { setAlert } from './alert';
@@ -38,5 +40,19 @@ export const ChangeTask = (taskId, completed) => async dispatch => {
             type: TASK_CHANGE_FAIL
         })
         dispatch(setAlert('Не удалось изменить статус задания', 'danger'))
+    }
+}
+
+export const DeleteTask = (id) => async dispatch => {
+    try {
+        await axios.delete(`${process.env.REACT_APP_API}/delete-task/${id}`);
+        dispatch({
+            type: TASK_DELETE_SUCCESS
+        })
+    } catch (err) {
+        dispatch({
+            type: TASK_DELETE_FAIL
+        });
+        dispatch(setAlert('Не удалось удалить задание', 'danger'))
     }
 }
