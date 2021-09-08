@@ -3,13 +3,23 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import './staff-dashbord.css';
+import { ChangeTask } from '../../redux/actions/task';
+import TaskStatus from '../boss/company-management/tasks/TaskStatus';
 
 
 const StaffDashboard = ({
+    ChangeTask,
     employee_reducer: {employee}
 }) => {
 
     const [displayMyInfo, toggleMyInfo] = useState(false);
+
+    const handleStatusChange = (taskId, completed) => {
+        ChangeTask(taskId, completed);
+        setTimeout(() => {
+            window.location.reload()
+        },2000)
+    }
 
 
     return (
@@ -20,11 +30,26 @@ const StaffDashboard = ({
                     <p className="app-text text-center bg-warning px-2 py-2">Мои задания</p>
                     {employee && employee.tasks.map((t, index) => (
                         <div className="task-card" key={index}>
+                            {/* <p className="app-text-small text-center">{t._id}</p> */}
                             <p className="task-card-description">{t.description}</p>
                             <br />
                             <p className="app-text-small text-center">Задание задано:</p>
-                            <p className="text-center">{t.createdAt.split('T')[0]}</p>
+                            <p className="app-text-small text-center">{t.createdAt.split('T')[0]}</p>
+                            <p className="app-text-small text-center">Статус задания</p>
+                            <TaskStatus t={t} />
                            
+                            <div>
+                            <p className="app-text-small text-center bg-warning">Изменить статус задания</p>
+                            <select
+                                onChange={(e) => handleStatusChange(t._id, e.target.value)}
+                                className="form-control"
+                                name="completed"
+                                defaultValue={t.completed}
+                            >
+                                <option value="Не выполнено">Не выполнено</option>
+                                <option value="Выполнено">Выполнено</option>
+                            </select>
+                            </div>
                         </div>
                     ))}
                 </div>
@@ -77,6 +102,7 @@ const StaffDashboard = ({
 }
 
 StaffDashboard.propTypes = {
+    ChangeTask: PropTypes.func.isRequired,
     employee_reducer: PropTypes.object.isRequired,
 }
 
@@ -85,7 +111,8 @@ const mapStateToProps = state => ({
 })
 
 export default connect(
-    mapStateToProps, 
-    {}
+    mapStateToProps, {
+        ChangeTask
+}
 )(StaffDashboard)
 

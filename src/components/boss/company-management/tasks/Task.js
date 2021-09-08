@@ -22,12 +22,14 @@ const EmployeeList = ({
     const [displayTaskForm, toggleTaskForm] = useState(false);
     const [values, setValues] = useState({
         description: "",
-        employee: ""
+        employee: "",
+        finish: new Date()
     });
 
     const { 
         description,
-        employee
+        employee,
+        finish
     } = values;
 
     const handleEmployeeChange = (e) => {
@@ -44,7 +46,8 @@ const EmployeeList = ({
 
         const variables = {
             description,
-            employee
+            employee,
+            finish
         }
 
         CreateTask(variables)
@@ -83,6 +86,16 @@ const EmployeeList = ({
                                 value={description}
                                 onChange={handleChange}
                                 placeholder="Текст задания"
+                            />
+                        </div>
+                        <div>
+                            <label>Выбрать дату</label>
+                            <p className='bg-danger px-1'>Внимание: на этом календаре неделя начинается с воскресенья</p>
+                            <input 
+                                type="date" 
+                                name='finish'
+                                value={finish}
+                                onChange={e => handleChange(e)}
                             />
                         </div>
                         <select
@@ -131,7 +144,7 @@ const EmployeeList = ({
                     </div>
                 ))
             }
-             <Link className='d-block p-3 mt-4 bg-warning ' to='/company-management'>Вернуться на страницу управления компанией</Link>
+            <Link className='d-block p-3 mt-4 bg-warning ' to='/company-management'>Вернуться на страницу управления компанией</Link>
         </div>
     )
 }

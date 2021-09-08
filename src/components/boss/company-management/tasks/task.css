@@ -293,3 +293,25 @@
     text-align: center;
     margin-top: 20px;
   }
+
+  .task-card{
+    width: 100%;
+    height: auto;
+    background-color: rgb(228, 228, 218);
+    margin-bottom: 10px;
+    
+}
+
+.task-card-description{
+    text-align: center; 
+}
+
+.text-red{
+  background-color: red;
+  color: white;
+}
+
+.text-green{
+  background-color: green;
+  color: white;
+}
