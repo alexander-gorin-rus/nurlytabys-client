@@ -6,7 +6,7 @@ import { logout } from '../../../redux/actions/employee_actions';
 
 export const Header = ( { 
     logout,
-    boss
+    employee_reducer
 } ) => {
 
     const clickLogout = () => {
@@ -19,7 +19,7 @@ export const Header = ( {
         <Fragment>
             <div className="div-header">
                 <ul className="header-custom">
-                        {boss === null ? (
+                        {employee_reducer.employee === null ? (
                             <Fragment>
                                 <li className="li-register li-custom"><Link className="link" to="/register-form">Зарегистрироваться</Link></li>
                                 <li className="li-login li-custom"><Link className="link" to="/login">Войти</Link></li>
@@ -28,7 +28,7 @@ export const Header = ( {
                             :
                         (
                             <Fragment>
-                                {boss && boss === 1 ? 
+                                {employee_reducer.employee && employee_reducer.employee.employee.boss === 1 ? 
                             (
                                 <Fragment>
                                     <li onClick={clickLogout} className="li-register li-custom"><Link className="link" to="/" >Выйти</Link></li>
@@ -54,11 +54,11 @@ export const Header = ( {
 
 Header.propTypes = {
     logout: PropTypes.func.isRequired,
-    boss: PropTypes.number
+    employee_reducer: PropTypes.object,
   };
   
   const mapStateToProps = state => ({
-    boss: state.employee_reducer.boss
+    employee_reducer: state.employee_reducer
   });
   
   export default connect(

@@ -15,7 +15,9 @@ import {
     UPDATE_EMPLOYEE_SUCCESS,
     UPDATE_EMPLOYEE_FAIL,
     DELETE_EMPLOYEE_SUCCESS,
-    DELETE_EMPLOYEE_FAIL
+    DELETE_EMPLOYEE_FAIL,
+    GET_EMPLOYEE_WITH_TASKS_SUCCESS,
+    GET_EMPLOYEE_WITH_TASKS_FAIL
  } from '../types';
 
 const initialState = {
@@ -27,6 +29,7 @@ const initialState = {
     updated_employee: null,
     boss: null,
     deleted_employee: false,
+    employee_with_tasks: null,
     loading: true,
 }
 
@@ -40,7 +43,6 @@ export default function (state = initialState, action){
                 isAuthenticated: true,
                 loading: false,
                 employee: payload,
-                //role: payload.role
                 boss: payload.boss
             };
         case REGISTER_SUCCESS:
@@ -96,10 +98,16 @@ export default function (state = initialState, action){
                 deleted_employee: true,
                 loading: false
             }
-        case DELETE_EMPLOYEE_FAIL:
+        case GET_EMPLOYEE_WITH_TASKS_SUCCESS:
             return {
                 ...state,
-                deleted_employee: false,
+                employee_with_tasks: payload,
+                loading: false
+            }
+        case GET_EMPLOYEE_WITH_TASKS_FAIL:
+            return {
+                ...state,
+                employee_with_tasks: null,
                 loading: false
             }
         case REGISTER_FAIL:

@@ -1,4 +1,4 @@
-import React, {useState,  useEffect} from 'react';
+import React, {useState,  useEffect, Fragment} from 'react';
 import PropTypes from 'prop-types';
 import { 
     GetEmployeeList
@@ -19,6 +19,7 @@ const EmployeeList = ({
         GetEmployeeList()
     },[GetEmployeeList]);
 
+    const [displayTaskForm, toggleTaskForm] = useState(false);
     const [values, setValues] = useState({
         description: "",
         employee: ""
@@ -56,38 +57,81 @@ const EmployeeList = ({
 
     return (
         <div className="main-div-content">
-            <p className='app-text text-center'>Форма заполнения задания</p>
-            <form onSubmit={handleSubmit}>
-            <div className="form-group">
-                <input
-                    type="text"
-                    name="description"
-                    className="form-control"
-                    value={description}
-                    onChange={handleChange}
-                    placeholder="Текст задания"
-                />
-            </div>
-            <select
-                name="employee"
-                className="form-control bg-primary text-light"
-                onChange={handleEmployeeChange}
-            >
-                <option>Выбрать сотрудника</option>
-                {employee_list.list && employee_list.list.length > 0 &&
-                    employee_list.list.map((l) =>
-                        <option
-                            key={l._id}
-                            value={l._id}
-                        >{l.name}
-                        </option>)
-                }
-            </select>
-
-            <button className="btn btn-outline-info mt-4">Отправить</button>
+            <section>
+                <div 
+                    className="d-flex justify-content-center bg-success p-3 rounded-2" 
+                    style={{cursor: "pointer"}} 
+                    onClick={() => toggleTaskForm(!displayTaskForm)}>
+                        {displayTaskForm && displayTaskForm ? 
+                            (
+                                <p>Свернуть</p>
+                            )
+                                :
+                            (
+                                <p>Форма заполнения заданий</p>
+                            )
+                            }
+                    </div>
+                {displayTaskForm && (
+                    <>
+                        <form onSubmit={handleSubmit}>
+                        <div className="form-group">
+                            <input
+                                type="text"
+                                name="description"
+                                className="form-control"
+                                value={description}
+                                onChange={handleChange}
+                                placeholder="Текст задания"
+                            />
+                        </div>
+                        <select
+                            name="employee"
+                            className="form-control bg-primary text-light"
+                            onChange={handleEmployeeChange}
+                        >
+                            <option>Выбрать сотрудника</option>
+                            {employee_list.list && employee_list.list.length > 0 &&
+                                employee_list.list.map((l) =>
+                                    <option
+                                        key={l._id}
+                                        value={l._id}
+                                    >{l.name}
+                                    </option>)
+                            }
+                        </select>
+                        <button className="btn btn-outline-info mt-4">Отправить</button> 
+                        </form>
+                    </>
+                )}
+               
+            </section>
+            
            
-        </form>
-            <Link className='d-block p-3 mt-4 bg-warning ' to='/company-management'>Вернуться на страницу управления компанией</Link>
+            <br />
+            <br />
+            {employee_list.list && employee_list.list.map((l, index) => 
+                (
+                    <div className="bg-info" key={index}>
+                        {l && l.boss === 1 ? 
+                            (
+                                null
+                            )
+                                :
+                            (
+                                <section style={{cursor: "pointer"}}>
+                                     <Link to={`/employee-with-tasks/${l._id}`}>
+                                        <p className="text-center">{l.name}</p>
+                                        <p className="text-center">{l.lastName}</p>  
+                                    </Link>
+                                </section>
+                               
+                            )
+                        }
+                    </div>
+                ))
+            }
+             <Link className='d-block p-3 mt-4 bg-warning ' to='/company-management'>Вернуться на страницу управления компанией</Link>
         </div>
     )
 }

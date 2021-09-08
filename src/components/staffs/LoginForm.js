@@ -35,11 +35,11 @@ const LoginForm = ( {
         //history.push('/')
     }
 
-    if(employee && employee.boss === 1){
+    if(employee && employee.employee.boss === 1){
         return <Redirect to='/boss-page' />
     }
 
-    if(employee && employee.boss === 0){
+    if(employee && employee.employee.boss === 0){
         return <Redirect to='/employee-dashboard' />
     }
 

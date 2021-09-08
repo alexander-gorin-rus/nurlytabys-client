@@ -16,7 +16,9 @@ import {
     UPDATE_EMPLOYEE_FAIL,
     UPDATE_EMPLOYEE_SUCCESS,
     DELETE_EMPLOYEE_SUCCESS,
-    DELETE_EMPLOYEE_FAIL
+    DELETE_EMPLOYEE_FAIL,
+    GET_EMPLOYEE_WITH_TASKS_SUCCESS,
+    GET_EMPLOYEE_WITH_TASKS_FAIL
 } from '../types';
 import { setAlert} from './alert';
 
@@ -37,6 +39,21 @@ export const loadEmployee = () => async dispatch => {
         dispatch({
             type: AUTH_ERROR
           });
+    }
+}
+
+export const loadEmployeeWithTasks = (id) => async dispatch => {
+    try {
+        const res = await axios.get(`${process.env.REACT_APP_API}/get-employee-with-tasks/${id}`);
+        dispatch({
+            type: GET_EMPLOYEE_WITH_TASKS_SUCCESS,
+            payload: res.data
+        })
+    } catch (err) {
+        dispatch({
+            type: GET_EMPLOYEE_WITH_TASKS_FAIL
+        })
+        dispatch(setAlert('Не удалось получить пользователя', 'danger'))
     }
 }
 
