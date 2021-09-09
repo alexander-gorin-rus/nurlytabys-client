@@ -39,16 +39,8 @@ const EmployeeWithTasks = ({
 
             </div>
             <br />
-            <div className="text-center d-inline px-3">Количество поручений: 
-                {employee_with_tasks === null ? (null) : (<p className='d-inline px-1 rounded-3 mx-4 bg-warning'>{employee_with_tasks && employee_with_tasks.tasks.length}</p>)}
-            </div>
             <br />
-            <div className="text-center d-inline px-3">Выполненные поручения: 
-                {employee_with_tasks && employee_with_tasks.tasks.map((t, index) => (
-                   <div key={index}>{t.completed === 'Выполнено' ? (<p>{t.length}</p>) : (null)}</div> 
-                ))}
-            </div>
-            
+            <br />
             {employee_with_tasks && employee_with_tasks.tasks.map((t, index) => (
                 <div className="task-card" key={index}>
                 <p className="task-card-description">{t.description}</p>
