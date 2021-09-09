@@ -219,7 +219,7 @@ const UploadVideo = ({
             </select>
 
             <button className="btn btn-outline-info mt-4 app-text-small">Отправить</button>
-            <Link className='d-block p-3 mt-4 bg-warning ' to='/site-management'>Вернуться на страницу управления сайтом</Link>
+            <Link className='d-block p-3 mt-4 bg-warning app-text-small' to='/site-management'>Вернуться на страницу управления сайтом</Link>
         </form>
     </div>
     { videos && videos.length === 0 ? (<h4 className="text-center pb-5">Вы пока не создали видео</h4>) : (
@@ -238,11 +238,11 @@ const UploadVideo = ({
                             <img alt='construction' src={`http://localhost:5003/${c.thumbnail}`} />
                         )    
                     }
-                                <p>{c.title}</p>
-                    <span className='delete-custom px-3' onClick={() => clickDelete(c.slug)}>
+                                <p className='app-text-small'>{c.title}</p>
+                    <span className='delete-custom px-3 app-text-small' onClick={() => clickDelete(c.slug)}>
                         Удалить видео
                     </span>
-                    <Link to={`update-video/${c._id}`}>Изменить видео</Link>
+                    <Link className='app-text-small' to={`update-video/${c._id}`}>Изменить видео</Link>
                 </div>
             </div>
         )}

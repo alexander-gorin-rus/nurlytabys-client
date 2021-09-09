@@ -131,27 +131,23 @@ const MainPageVideo = ({
 
     return (
         <Fragment>
-        <h4 className="text-center" style={{marginTop: "15vh"}}>Управление информацией для главной страницы</h4>
         {main_page_info && main_page_info.length === 0 ? (
             <Fragment>
-                <div style={{ maxWidth: '700px', margin: '2rem auto' }}>
-                <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-                    <Title level={5} >Загрузить видео</Title>
-                </div>
-
+                <div className='main-div-content'>
+                <p className="text-center app-text">Управление информацией для главной страницы</p>
                 <form onSubmit={handleSubmit}>
                 <ImagesUpload refreshFunction={updateImages}/>
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: "3vh"}}>
                         <Dropzone
                             onDrop={onDrop} 
                             multiple={false}
                             maxSize={800000000}>
                             {({ getRootProps, getInputProps }) => (
-                                <div style={{ width: '300px', height: '240px', border: '1px solid lightgray', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                                <div className='upload-div'
                                     {...getRootProps()}
                                 >
                                     <input {...getInputProps()} />
-                                    <h4>Выбрать видео</h4>
+                                    <p className='app-text'>Выбрать видео</p>
 
                                 </div>
                             )}
@@ -209,7 +205,7 @@ const MainPageVideo = ({
                         </div>
 
                         <button className="btn btn-outline-info mt-4">Отправить</button>
-                        <Link className='d-block p-3 mt-4 bg-warning ' to='/site-management'>Вернуться на страницу управления сайтом</Link>
+                        <Link className='d-block p-3 mt-4 bg-warning app-text-small' to='/site-management'>Вернуться на страницу управления сайтом</Link>
                     </form>
                 </div>
             </Fragment>
