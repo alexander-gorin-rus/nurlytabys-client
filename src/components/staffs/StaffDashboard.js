@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import './staff-dashbord.css';
 import { ChangeTask } from '../../redux/actions/task';
 import TaskStatus from '../boss/company-management/tasks/TaskStatus';
+import axios from 'axios'
 
 
 const StaffDashboard = ({
@@ -22,9 +23,27 @@ const StaffDashboard = ({
     }
 
 
+    const [event, setEvent] = useState([])
+
+    const ShowTasksList = async () => {
+        try {
+            await axios.get(`${process.env.REACT_APP_API}/get-all-tasks/${employee.employee._id}`)
+                .then(res => {
+                    //setEvent(res.data)
+                    console.log(res.data)
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
     return (
         <div className="main-div-content">
             <p className='app-text text-center'>Моя страница</p>
+            
             <div className="row">
                 <div className="col-12">
                     <p className="app-text text-center bg-warning px-2 py-2">Мои задания</p>
@@ -34,7 +53,9 @@ const StaffDashboard = ({
                             <p className="task-card-description">{t.description}</p>
                             <br />
                             <p className="app-text-small text-center">Задание задано:</p>
-                            <p className="app-text-small text-center">{t.createdAt.split('T')[0]}</p>
+                            <p className="text-center">{new Date(t.createdAt).toLocaleString('en-GB')}</p>
+                            <p className="app-text-small text-center">Задание необходимо закончить:</p>
+                            <p className="text-center">{new Date(t.finish).toLocaleString('en-GB')}</p>
                             <p className="app-text-small text-center">Статус задания</p>
                             <TaskStatus t={t} />
                            
@@ -56,6 +77,9 @@ const StaffDashboard = ({
             </div>
             <div className="row">
                 <div className="col-12">
+                {/* <Link className='d-block p-3 mt-4 bg-warning ' to='/employee-dashboard'>Вернуться на мою страницу</Link>
+                <br />
+                <br /> */}
                 <section>
                     <div 
                         className="d-flex justify-content-center bg-success p-3 rounded-2" 

@@ -39,7 +39,7 @@ function ImagesUpload(props) {
     }
 
     return (
-        <div style={{position: "relative", marginTop: "15vh", display: 'flex', justifyContent: 'space-between' }}>
+        <div style={{position: "relative", marginTop: "2vh", display: 'flex', justifyContent: 'space-between' }}>
             <Dropzone
                 onDrop={onDrop}
                 multiple={true}
@@ -49,7 +49,7 @@ function ImagesUpload(props) {
                     <div style={{width: "300px", height: "240px", border: "1px solid lightgrey", display: "flex", alignItems: "center", justifyContent: 'center'}}
                         {...getRootProps()}>
                         <input {...getInputProps()} />
-                        <h4 className="text-center">Выбрать изображение</h4>
+                        <p className="text-center app-text">Выбрать изображение</p>
                     </div>
                 )}
             </Dropzone>

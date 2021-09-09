@@ -95,8 +95,44 @@
   height: 100% !important;
   top: 0%;
   object-fit: cover;
-  
+  /* border: 2px solid red; */
 
+}
+
+.image-card-content{
+  position: relative;
+  width: 36.5vw;
+  height: auto;
+}
+
+@media(max-width: 1000px){
+  .image-card-content{
+    width: 36vw;
+  }
+}
+
+@media(max-width: 790px){
+  .image-card-content{
+    width: 35vw;
+  }
+}
+
+@media(max-width: 640px){
+  .image-card-content{
+    width: 34vw;
+  }
+}
+
+@media(max-width: 525px){
+  .image-card-content{
+    width: 32vw;
+  }
+}
+
+@media(max-width: 420px){
+  .image-card-content{
+    width: 30vw;
+  }
 }
 
 .main-page-content-div-absolute{
@@ -156,20 +192,21 @@
   margin-top: 15vh;
   padding: 20px;
   background: rgb(12, 43, 85);
-  
+  color: white;
   /* border: 2px solid green; */
 }
 .main-page-categories a{
   color: rgb(237, 241, 221) !important;
 }
-/* .main-page-video-source{
-  position: fixed;
-  top: 0%;
-  left: 0%;
-  width: 150% !important;
-  height: auto;
-  border: 2px dashed rgb(2, 4, 24);
-} */
+
+.main-page-detailed-video{
+  position: relative;
+  left: 20%;
+  width: auto;
+  margin-top: 55vh;
+  padding: 20px;
+  background: rgb(180, 208, 248);
+}
 
 
 .main_app_container{
@@ -810,4 +847,25 @@ _____________________________
   display: flex;
   width: 100%;
   /* border: 1px solid red; */
+}
+
+.upload-div{
+  width: 300px;
+  height: 240px;
+  border: 1px solid lightgray;
+  display: flex; 
+  align-items: center;
+  justify-content: center;
+}
+
+@media(max-width: 650px){
+  .upload-div{
+    width: 37vw;
+  }
+}
+
+@media(max-width: 441px){
+  .upload-div{
+    width: 32.5vw;
+  }
 }

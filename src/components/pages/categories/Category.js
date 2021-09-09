@@ -7,6 +7,7 @@ import Aos from 'aos';
 import "aos/dist/aos.css";
 import { Link } from 'react-router-dom';
 import ImagesSlider from '../../forms/ImagesSlider';
+import Spinner from '../../layout/Spinner'
 
 const Category = ({ 
     categories: {load_category}, 
@@ -53,13 +54,12 @@ const Category = ({
                         <Link to={`/video/${v.slug}`}>
                             {v.filePath === "" ? 
                             (    
-                                <img style={{position: "relative", width: "35vw", height: "auto"}} src={`http://localhost:5003/${v.images[0]}`}  alt="cool" />      
+                                <img className='image-card-content' src={`http://localhost:5003/${v.images[0]}`}  alt="cool" />      
                             ) : 
                             (
                                 <img className="my-3" src={`http://localhost:5003/${v.thumbnail}` } alt="construction" />
                             )
                             }
-                            {/* <img className="my-3" src={`http://localhost:5003/${v.thumbnail}` } alt="construction" /> */}
                         </Link>
                         
                     </div>
@@ -69,14 +69,7 @@ const Category = ({
             ) 
             : 
             (
-                <h3 style={{
-                        position: "relative", 
-                        textAlign: "center", 
-                        marginTop: "35vh", 
-                        left: "20vw", 
-                        width: "60vw"
-                        }}>Загружаю...
-                </h3>
+                <Spinner />
             )}
         </Fragment>
     )

@@ -138,23 +138,23 @@ const Categories = ({
 
     return (
         <Fragment>
-            <h4 className="text-center" style={{marginTop: "15vh"}}>Создать категорию</h4>
-            <div className='mt-5' style={{ maxWidth: '700px', margin: '2rem auto' }}>
+            <div className='main-div-content'>
+            <p className="text-center bg-info p-3 app-text-small">Создать категорию</p>
                 <div className="row">
-                    <form className="col s12" onSubmit={handleSubmit}>
+                    <form onSubmit={handleSubmit}>
                     <ImagesUpload refreshFunction={updateImages}/>
 
-                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <div style={{ position: "relative", marginTop: "3vh", display: 'flex', justifyContent: 'space-between' }}>
                         <Dropzone
                             onDrop={onDrop} 
                             multiple={false}
                             maxSize={800000000}>
                             {({ getRootProps, getInputProps }) => (
-                                <div style={{ width: '300px', height: '240px', border: '1px solid lightgray', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                                <div className='upload-div'
                                     {...getRootProps()}
                                 >
                                     <input {...getInputProps()} />
-                                    <h4>Выбрать видео</h4>
+                                    <p className='app-text'>Выбрать видео</p>
 
                                 </div>
                             )}
@@ -195,12 +195,12 @@ const Categories = ({
             
             {categories && categories.length === 0 ? 
                 (
-                    <h3 className="text-center">Вы пока не создали категории</h3>
+                    <p className="text-center app-text">Вы пока не создали категории</p>
                 ) 
                     : 
                 (
                     <div>
-                        <h4 className='text-center mb-5'>Созданные категории</h4>
+                        <p className='text-center mb-5 app-text'>Созданные категории</p>
                     {
                     categories && categories.map((category) => (
                         <div className="category-cart" key={category.id} style={{position: "relative", left: "10vw", width: "80vw"}}>
@@ -216,11 +216,11 @@ const Categories = ({
                                     )
                                 }
                                     {/* <img alt='construction' src={`http://localhost:5003/${category.thumbnail}`} /> */}
-                                    <p>{category.name}</p>
-                                    <span className='delete-custom px-3' onClick={() => onDelete(category.slug)}>
+                                    <p className='app-text-small'>{category.name}</p>
+                                    <span className='delete-custom px-3 app-text-small' onClick={() => onDelete(category.slug)}>
                                             Удалить категорию
                                     </span>
-                                        <Link to={`get-category-to-update/${category.id}`}>Изменить категорию</Link>
+                                        <Link className='app-text-small' to={`get-category-to-update/${category.id}`}>Изменить категорию</Link>
                                 </div>
                         </div>
                         ))

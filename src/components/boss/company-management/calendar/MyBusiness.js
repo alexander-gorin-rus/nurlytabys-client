@@ -57,7 +57,12 @@ const MyBusiness = ({
         finish: ''
     });
     
-    const { title, content, start, finish } = values;
+    const { 
+        title, 
+        content, 
+        start, 
+        finish 
+    } = values;
 
     const onChange = e =>
         setValues({ ...values, [e.target.name]: e.target.value });
@@ -67,9 +72,6 @@ const MyBusiness = ({
         setValues({...values, title: e.target.value})
     }
 
-    // const clickSelect = () => {
-    //     handleSelect()
-    // }
 
     const handleSelect = (info) => {
         showModal();
@@ -86,7 +88,11 @@ const MyBusiness = ({
 
     const handleOk = () => {
         setIsModalVisible(false);
-        if(title === '' || content === ''){
+        if(
+            title === '' 
+            || 
+            content === ''
+            ){
             alert('Необходимо заполнить все поля')
         }else{
              CreateBusiness({values})
@@ -137,29 +143,20 @@ const MyBusiness = ({
                 eventClick={
                     function(arg){     
                         alert(arg.event.extendedProps.content)
-                        console.log(arg.event)
+                        // console.log(arg.event)
                     }
                 }
                 height={'1200px'}
             />
 
-
-            {/* <p 
-                className='p-3 bg-success text-center'
-                onClick={() => clickSelect()}
-            >
-                    Назначить дело
-            </p> */}
-
-
+<Link className='d-block p-3 mt-4 bg-warning app-text-small' to='/boss-page'>Вернуться на мою страницу</Link>
             </div>
 
 
 
             <Modal title="Создать заметку" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-                {/* <p>Когда задано: {start.split("T")[0]}</p> */}
-                <p>Когда закончить: {finish.split('T')[0]}</p>
-                <p>Время: {finish.split("T").pop().split('+')[0]}</p>
+                <p>Когда закончить: {finish && finish.split('T')[0]}</p>
+                <p>Время: {finish && finish.split("T").pop().split('+')[0]}</p>
 
                 <input 
                     name='title' 
@@ -175,17 +172,22 @@ const MyBusiness = ({
                     />
             </Modal>
 
-            <div className="d-flex justify-content-center" style={{marginTop: "50px", marginBottom: "100px"}}>
+            <br />
+            <br />
+            <br />
+            <br />
+
+            <div className="d-flex justify-content-center" style={{marginTop: "20px", marginBottom: "10px"}}>
                 <section style={{cursor: "pointer"}} 
                     onClick={() => toggleBusinesses(!displayBusinesses)} 
                     className="text-center text-light bg-success p-2">
                         {displayBusinesses && displayBusinesses ? 
                             (
-                                <p>Свернуть</p>
+                                <p className='app-text-small'>Свернуть</p>
                             ) 
                                 : 
                             (
-                                <p>Показать дела простым списком</p>
+                                <p className='app-text-small'>Показать дела простым списком</p>
                             )
                         } 
                 </section>
@@ -197,14 +199,14 @@ const MyBusiness = ({
                         business_list && business_list.list.map((b, index) => (
                             <div className="container" key={index}>
                                 <div className="row">
-                                    <div className="col-12 bg-info p-3">
+                                    <div className="col-12 bg-info p-2">
                                         <Link to={`/my-business-by-id/${b._id}`}>
-                                            <p style={{ cursor: "pointer" }}>Заголовок дела: {b.title}</p>
-                                            <p>Содержание: {b.content}</p>
+                                            <p className='app-text-small' style={{ cursor: "pointer" }}>Заголовок дела: {b.title}</p>
+                                            <p className='app-text-small'>Содержание: {b.content}</p>
                                         </Link>
                                         <p 
                                         style={{cursor: "pointer"}} 
-                                        className="bg-danger p-3" 
+                                        className="bg-danger p-1 app-text-small" 
                                         onClick={() => onDelete(b._id)} >Удалить дело</p>
                                     </div>
                                 </div>

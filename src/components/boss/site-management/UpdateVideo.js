@@ -136,25 +136,26 @@ const UpdateVideo = ({
     }
     return (
         <Fragment>
-            <h3 className="text-center" style={{marginTop: "15vh"}}>Изменить видео</h3>
-                <div style={{ maxWidth: '700px', margin: '2rem auto' }}>
+           
+                <div className='main-div-content'>
+                <p className="text-center app-text">Изменить видео</p>
                 <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
                     
                 </div>
 
                 <form onSubmit={handleSubmit}>
                 <ImagesUpload refreshFunction={updateImages} />
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <div style={{ position: "relative", marginTop: "3vh", display: 'flex', justifyContent: 'space-between' }}>
                         <Dropzone
                             onDrop={onDrop} 
                             multiple={false}
                             maxSize={800000000}>
                             {({ getRootProps, getInputProps }) => (
-                                <div style={{ width: '300px', height: '240px', border: '1px solid lightgray', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                                <div className='upload-div'
                                     {...getRootProps()}
                                 >
                                     <input {...getInputProps()} />
-                                    <h4>Выбрать видео</h4>
+                                    <p className='app-text'>Выбрать видео</p>
 
                                 </div>
                             )}
@@ -188,9 +189,6 @@ const UpdateVideo = ({
                             placeholder="Текст к видео"
                         />
                     </div>
-
-                    <h6 className="text-center">Выбрать категорию</h6>
-
                     <select
                         name="category"
                         className="form-control bg-primary text-light"

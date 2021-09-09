@@ -50,7 +50,16 @@ const EmployeeList = ({
             finish
         }
 
-        CreateTask(variables)
+        if(description === ''){
+            alert('Необходимо заполнить поле с текстом задания')
+        }
+        // else if(employee === ''){
+        //     alert('Необходимо выбрать сотрудника')
+        // }
+        else{
+            CreateTask(variables)
+        }
+       
         
         setValues({
             description: "",

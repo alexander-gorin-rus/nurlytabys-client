@@ -9,7 +9,7 @@ import Dropzone from 'react-dropzone';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import ImagesUpload from './ImagesUpload';
-
+import Spinner from '../../layout/spinner1.gif'
 
 const UpdateCategory = ({
     GetOneCategoryToUpdate, 
@@ -130,37 +130,37 @@ const UpdateCategory = ({
             {category && category.category ? 
             (
                 <Fragment>
-                <h4 className="text-center" style={{marginTop: "15vh"}}>Изменить категорию</h4>
-                <div className='mt-5' style={{position: "relative", left: "10vw", width: "90vw"}}>
+                <div className='main-div-content'>
+                <p className="text-center app-text">Изменить категорию</p>
                 {category.category.images.map((i, index) => (
                     <img style={{width: "200px", height: "auto"}} key={index} src={`http://localhost:5003/${i}`}/>
                 ))}
                 <div className="row">
                 {/* {JSON.stringify(values)} */}
-                    <form className="col s12" onSubmit={e => onSubmit(e)}>
+                    <form onSubmit={e => onSubmit(e)}>
                         <ImagesUpload refreshFunction={updateImages} images={category.category.images} />
-                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                            <Dropzone
-                                onDrop={onDrop} 
-                                multiple={false}
-                                maxSize={800000000}>
-                                {({ getRootProps, getInputProps }) => (
-                                    <div style={{ width: '300px', height: '240px', border: '1px solid lightgray', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-                                        {...getRootProps()}
-                                    >
-                                        <input {...getInputProps()} />
-                                        <h4>Выбрать видео</h4>
+                        <div style={{position: "relative", marginTop: "3vh", display: 'flex', justifyContent: 'space-between' }}>
+                <Dropzone
+                    onDrop={onDrop} 
+                    multiple={false}
+                    maxSize={800000000}>
+                    {({ getRootProps, getInputProps }) => (
+                        <div className='upload-div'
+                            {...getRootProps()}
+                        >
+                            <input {...getInputProps()} />
+                            <p className='app-text'>Выбрать видео</p>
 
-                                    </div>
-                                )}
-                            </Dropzone>
-
-                            {Thumbnail !== "" &&
-                                <div>
-                                    <img src={`http://localhost:5003/${Thumbnail}`} alt="construction" />
-                                </div>
-                            }
                         </div>
+                    )}
+                </Dropzone>
+
+                {Thumbnail !== "" &&
+                    <div>
+                        <img src={`http://localhost:5003/${Thumbnail}`} alt="construction" />
+                    </div>
+                }
+            </div>
 
                         <div className="form-group">
                             <input
@@ -189,7 +189,10 @@ const UpdateCategory = ({
             </Fragment>
             ) 
             : 
-            (<h1 className="text-center text-warning">Загружаю</h1>)}
+            (
+                <Spinner />
+            // <h1 className="text-center text-warning">Загружаю</h1>
+            )}
         </div>
     )
 }

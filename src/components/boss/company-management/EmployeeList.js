@@ -70,7 +70,7 @@ const EmployeeList = ({
                     </div>
                 ))
             }
-            <Link className='d-block p-3 mt-4 bg-warning ' to='/company-management'>Вернуться на страницу управления компанией</Link>
+            <Link className='d-block p-3 mt-4 bg-warning app-text-small' to='/company-management'>Вернуться на страницу управления компанией</Link>
         </div>
     )
 }

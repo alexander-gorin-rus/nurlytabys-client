@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { GetDetailedVideo } from '../../../redux/actions/videos';
 import { connect } from 'react-redux';
 import ImagesSlider from '../../forms/ImagesSlider';
+import Spinner from '../../layout/Spinner';
 
 const DetailedVideo = ({
     GetDetailedVideo,
@@ -25,6 +26,9 @@ const DetailedVideo = ({
                         {detailed_info.video && detailed_info.video.filePath === "" ? (
                             <div>
                                 <ImagesSlider images={detailed_info.video.images}/>
+                                <div className='main-page-detailed-video'>
+                                    <p>{detailed_info.video.description}</p>
+                                </div>
                             </div>
                         ) :
                         (
@@ -32,7 +36,7 @@ const DetailedVideo = ({
                                 <video style={{width: '80vw'}}  
                                     src={`http://localhost:5003/${detailed_info.video.filePath}`} controls>
                                 </video>
-                                <div className='col'>
+                                <div className='main-page-categories'>
                                     <p>{detailed_info.video.description}</p>
                                 </div>
                             </>
@@ -44,14 +48,7 @@ const DetailedVideo = ({
                 </div>
             </div>
         ) : (
-            <h3 style={{
-                position: "relative", 
-                textAlign: "center", 
-                marginTop: "35vh", 
-                left: "20vw", 
-                width: "60vw"
-                }}>Загружаю...
-            </h3>
+            <Spinner />
         )}
         </Fragment>
     )
@@ -68,47 +65,4 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps, {
     GetDetailedVideo
-})(DetailedVideo)
-
-
-// import React, { useEffect, useState } from 'react';
-// import axios from 'axios';
-// import { useParams } from 'react-router';
-// import { Link } from 'react-router-dom';
-
-
-// const DetailedVideo = ({ match }) => {
-
-//     const {slug} = match.params;
-//     const { id } = useParams()
-
-//     const [Video, setVideo] = useState([])
-//     useEffect(() => {
-//         axios.get(`${process.env.REACT_APP_API}/getVideo/${slug}`)
-//             .then(res => {
-//                 if(res.data.success){
-//                     console.log(res.data.video)
-//                     setVideo(res.data.video)
-//                 }else{
-//                     alert('error in fetching data');
-//                 }
-//             })
-//     },[]);
-
-//     return (
-//         <div style={{position: 'relative', left: "10vw", marginTop: "15vh", width: "80vw"}}>
-//             <div className='row'>
-//                 <div col='col'>
-//                     <video style={{width: '80vw'}}  
-//                         src={`http://localhost:5003/${Video.filePath}`} controls>
-//                     </video>
-//                 </div>
-//                 <div className='col'>
-//                     <p>{Video.description}</p>
-//                 </div>
-//             </div>
-//         </div>
-//     )
-// }
-
-// export default DetailedVideo
+})(DetailedVideo);

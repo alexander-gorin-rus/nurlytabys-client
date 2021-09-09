@@ -54,8 +54,8 @@ const UpdateRole = ({
 
     return (
         <Fragment>
-            <div className='mt-5' style={{ maxWidth: '700px', margin: '2rem auto' }}>
-            <h4 className="text-center" style={{marginTop: "15vh"}}>Изменить роль</h4>
+            <div className='main-div-content'>
+            <p className="text-center app-text">Изменить роль</p>
                 <form className="col s12" onSubmit={handleSubmit}>
                     <div className="form-group">
                         <input

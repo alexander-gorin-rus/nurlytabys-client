@@ -170,11 +170,11 @@ const ChangeStaffInfo = ({
         </div>
         {employee_by_id && employee_by_id.employee.boss === 1 ? 
             (
-                <Link className='d-block p-3 mt-4 bg-warning ' to='/boss-page'>Вернуться на мою страницу</Link>
+                <Link className='d-block p-3 mt-4 bg-warning app-text-small ' to='/boss-page'>Вернуться на мою страницу</Link>
             )
                 :
             (
-                <Link className='d-block p-3 mt-4 bg-warning ' to='/employee-dashboard'>Вернуться на мою страницу</Link>
+                <Link className='d-block p-3 mt-4 bg-warning app-text-small' to='/employee-dashboard'>Вернуться на мою страницу</Link>
             )
         }
         

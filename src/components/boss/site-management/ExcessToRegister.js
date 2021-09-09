@@ -52,8 +52,8 @@ const ExcessToRegister = ({
         <Fragment>
             {register_entry && register_entry.list_of_registers.length  === 0 ? (
                 <Fragment>
-                <div style={{position: "relative", left: "10vw", width: "90vw", marginTop: "15vh"}}>
-                <h4 className="text-center">Форма создания пароля для регистрации сотрудников</h4>
+                <div className='main-div-content'>
+                <p className="text-center app-text">Форма создания пароля для регистрации сотрудников</p>
                     <div className="row">
                         <form className="col s12" onSubmit={e => onSubmit(e)}>
                             <div className="row">

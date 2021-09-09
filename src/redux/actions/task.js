@@ -45,14 +45,16 @@ export const ChangeTask = (taskId, completed) => async dispatch => {
 
 export const DeleteTask = (id) => async dispatch => {
     try {
-        await axios.delete(`${process.env.REACT_APP_API}/delete-task/${id}`);
+        const res = await axios.delete(`${process.env.REACT_APP_API}/delete-task/${id}`);
         dispatch({
-            type: TASK_DELETE_SUCCESS
-        })
+            type: TASK_DELETE_SUCCESS,
+            payload: res.data
+        });
+    dispatch(setAlert('Задание успешно удалено', 'success'));
     } catch (err) {
         dispatch({
             type: TASK_DELETE_FAIL
         });
-        dispatch(setAlert('Не удалось удалить задание', 'danger'))
+        dispatch(setAlert('Не удалось удалить задание', 'danger'));
     }
 }
