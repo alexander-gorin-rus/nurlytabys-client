@@ -63,7 +63,7 @@ const EmployeeWithTasks = ({
 
              </div>
             ))}
-            <Link className='d-block p-3 mt-4 bg-warning ' to='/tasks'>Вернуться на страницу заданий</Link>
+            <Link className='d-block p-3 mt-4 bg-warning app-text-small' to='/tasks'>Вернуться на страницу заданий</Link>
         </div>
     )
 }
