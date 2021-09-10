@@ -37,6 +37,7 @@ const MyBusiness = ({
             await axios.get(`${process.env.REACT_APP_API}/show-all-businesses`)
                 .then(res => {
                     setEvent(res.data)
+                    //console.log(event)
                 })
                 .catch(err => {
                     console.log(err)
@@ -75,7 +76,7 @@ const MyBusiness = ({
 
     const handleSelect = (info) => {
         showModal();
-        // console.log(info)
+        console.log(info)
         setValues({...values, 
             start: info.startStr,
             finish: info.endStr
@@ -143,20 +144,22 @@ const MyBusiness = ({
                 eventClick={
                     function(arg){     
                         alert(arg.event.extendedProps.content)
-                        // console.log(arg.event)
+                        //console.log(arg.event)
                     }
                 }
                 height={'1200px'}
             />
 
 <Link className='d-block p-3 mt-4 bg-warning app-text-small' to='/boss-page'>Вернуться на мою страницу</Link>
-            </div>
-
-
-
+        </div>
             <Modal title="Создать заметку" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-                <p>Когда закончить: {finish && finish.split('T')[0]}</p>
-                <p>Время: {finish && finish.split("T").pop().split('+')[0]}</p>
+                <p>Когда закончить: 
+                    {new Date(finish).toLocaleString('en-GB').split(',')[0]}
+                    </p>
+                <p>Время: 
+                    {finish && finish.split("T").pop().split('+')[0]}
+                    
+                    </p>
 
                 <input 
                     name='title' 

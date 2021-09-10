@@ -3,9 +3,15 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import './staff-dashbord.css';
+import { CreateEmployeeBusiness } from '../../functions/calendar'
 import { ChangeTask } from '../../redux/actions/task';
 import TaskStatus from '../boss/company-management/tasks/TaskStatus';
-import axios from 'axios'
+import axios from 'axios';
+import FullCalendar from '@fullcalendar/react' // must go before plugins
+import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
+import timeGridPlugin from '@fullcalendar/timegrid'
+import interactionPlugin from "@fullcalendar/interaction" // needed for dayClick
+import { Modal } from 'antd';
 
 
 const StaffDashboard = ({
@@ -13,9 +19,95 @@ const StaffDashboard = ({
     employee_reducer: {employee}
 }) => {
 
-    useEffect(() => {
-        ShowTasksList()
-    },[])
+    const [event, setEvent] = useState([])
+    const [isModalVisible, setIsModalVisible] = useState(false);
+    
+    
+    const [values, setValues] = useState({
+        title: '',
+        content: '',
+        start: '',
+        finish: ''
+    });
+    
+    const { 
+        title, 
+        content, 
+        start, 
+        finish 
+    } = values;
+
+    const onChange = e =>
+        setValues({ ...values, [e.target.name]: e.target.value });
+
+    const onChangeTitle = (e) => {
+        // console.log(e.target.value)
+        setValues({...values, title: e.target.value})
+    }
+
+
+    const handleSelect = (info) => {
+        showModal();
+        console.log(info)
+        setValues({...values, 
+            start: info.startStr,
+            finish: info.endStr
+        })
+    }
+
+    const showModal = () => {
+        setIsModalVisible(true)
+    }
+
+    const handleOk = () => {
+        setIsModalVisible(false);
+        if(
+            title === '' 
+            || 
+            content === ''
+            ){
+            alert('Необходимо заполнить все поля')
+        }else{
+             CreateEmployeeBusiness({values})
+            console.log(values)
+            // .then(res => {
+            //     ShowBusinessList();
+            //     GetBusinessList()
+            //     alert('Дело успешно созздано')
+            //     setValues({
+            //         title: '',
+            //         content: ''
+            //     })
+            // })
+            // .catch(err => {
+            //     console.log(err)
+            // })
+        }
+    }
+
+    const handleCancel = () => {
+        setIsModalVisible(false)
+    }
+
+
+    // const ShowTasksList = async () => {
+    //     try {
+    //         await axios.get(`${process.env.REACT_APP_API}/get-all-tasks/${employee.employee._id}`)
+    //             .then(res => {
+    //                 setEvent(res.data)
+    //                 console.log(event)
+    //             })
+    //             .catch(err => {
+    //                 console.log(err)
+    //             })
+    //     } catch (err) {
+    //         console.log(err)
+    //     }
+    // }
+
+    // useEffect(() => {
+    //     ShowTasksList()
+    // },[])
 
     const [displayMyInfo, toggleMyInfo] = useState(false);
 
@@ -27,27 +119,65 @@ const StaffDashboard = ({
     }
 
 
-    const [event, setEvent] = useState([])
-
-    const ShowTasksList = async () => {
-        try {
-            await axios.get(`${process.env.REACT_APP_API}/get-all-tasks/${employee.employee._id}`)
-                .then(res => {
-                    //setEvent(res.data)
-                    console.log(res.data)
-                })
-                .catch(err => {
-                    console.log(err)
-                })
-        } catch (err) {
-            console.log(err)
-        }
-    }
-
     return (
+        <>
         <div className="main-div-content">
             <p className='app-text text-center'>Моя страница</p>
-            <div>Id of employee is: {employee && employee.employee._id}</div>
+            <br />
+            <FullCalendar
+                plugins={[ dayGridPlugin, interactionPlugin, timeGridPlugin ]}
+                initialView="timeGridWeek"
+                firstDay={1}
+                selectable={true}
+                select={handleSelect}
+               
+                events={event}
+                eventDisplay={"list-item"}
+                displayEventEnd={true}
+                allDaySlot={false}
+                //longPressDelay={3}
+                selectLongPressDelay={2}
+                eventClick={
+                    function(arg){     
+                        alert(arg.event.content)
+                        console.log(arg.event)
+                    }
+                }
+                height={'1200px'}
+            />
+            <br />
+            <br />
+        </div>
+
+        <Modal title="Создать заметку" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+                <p>Когда закончить: 
+                    {new Date(finish).toLocaleString('en-GB').split(',')[0]}
+                    </p>
+                <p>Время: 
+                    {finish && finish.split("T").pop().split('+')[0]}
+                    
+                    </p>
+
+                <input 
+                    name='title' 
+                    value={title} 
+                    onChange={(e) => onChangeTitle(e)} 
+                    placeholder='Название дела'
+                    />
+                <input 
+                    name='content' 
+                    value={content} 
+                    onChange={(e) => onChange(e)} 
+                    placeholder='Описание дела'
+                    />
+            </Modal>
+
+            <br />
+            <br />
+            <br />
+            <br />
+
+            <div className='main-div-content'>
             <div className="row">
                 <div className="col-12">
                     <p className="app-text text-center bg-warning px-2 py-2">Мои задания</p>
@@ -121,8 +251,8 @@ const StaffDashboard = ({
                     </section>
                 </div>
             </div>
-            
-        </div>
+            </div>
+        </>
     )
 }
 
