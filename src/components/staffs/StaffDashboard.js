@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -12,6 +12,10 @@ const StaffDashboard = ({
     ChangeTask,
     employee_reducer: {employee}
 }) => {
+
+    useEffect(() => {
+        ShowTasksList()
+    },[])
 
     const [displayMyInfo, toggleMyInfo] = useState(false);
 
@@ -43,13 +47,12 @@ const StaffDashboard = ({
     return (
         <div className="main-div-content">
             <p className='app-text text-center'>Моя страница</p>
-            
+            <div>Id of employee is: {employee && employee.employee._id}</div>
             <div className="row">
                 <div className="col-12">
                     <p className="app-text text-center bg-warning px-2 py-2">Мои задания</p>
                     {employee && employee.tasks.map((t, index) => (
                         <div className="task-card" key={index}>
-                            {/* <p className="app-text-small text-center">{t._id}</p> */}
                             <p className="task-card-description">{t.description}</p>
                             <br />
                             <p className="app-text-small text-center">Задание задано:</p>
@@ -77,9 +80,7 @@ const StaffDashboard = ({
             </div>
             <div className="row">
                 <div className="col-12">
-                {/* <Link className='d-block p-3 mt-4 bg-warning ' to='/employee-dashboard'>Вернуться на мою страницу</Link>
-                <br />
-                <br /> */}
+                
                 <section>
                     <div 
                         className="d-flex justify-content-center bg-success p-3 rounded-2" 
