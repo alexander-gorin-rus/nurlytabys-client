@@ -38,7 +38,6 @@ const EmployeeList = ({
 
     const handleChange = (e) => {
         setValues({...values, [e.target.name]: e.target.value})
-        //console.log('The choosen employee is', e.target.value)
     }
 
     const handleSubmit = (e) => {

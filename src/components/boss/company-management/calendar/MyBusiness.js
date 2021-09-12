@@ -100,7 +100,7 @@ const MyBusiness = ({
             .then(res => {
                 ShowBusinessList();
                 GetBusinessList()
-                alert('Дело успешно созздано')
+                alert('Дело успешно создано')
                 setValues({
                     title: '',
                     content: ''
