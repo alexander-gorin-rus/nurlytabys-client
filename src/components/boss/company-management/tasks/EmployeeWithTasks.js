@@ -29,6 +29,9 @@ const EmployeeWithTasks = ({
             history.push('/tasks');
         },1000)
     }
+
+    let dayOptions = {weekday: 'long'}
+
     return (
         <div className="main-div-content">
             <div className="text-center d-inline px-3">Задания поручены:
