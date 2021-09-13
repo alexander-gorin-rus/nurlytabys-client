@@ -21,31 +21,10 @@ const MyBusiness = ({
     business: {business_list}
 }) => {
 
-    const [event, setEvent] = useState([])
-
-    useEffect(() => {
-        ShowBusinessList()
-    },[]);
-
     useEffect(() => {
         GetBusinessList()
     },[GetBusinessList]);
 
-
-    const ShowBusinessList = async () => {
-        try {
-            await axios.get(`${process.env.REACT_APP_API}/show-all-businesses`)
-                .then(res => {
-                    setEvent(res.data)
-                    //console.log(event)
-                })
-                .catch(err => {
-                    console.log(err)
-                })
-        } catch (err) {
-            console.log(err)
-        }
-    }
 
     const { id } = useParams();
     const [displayBusinesses, toggleBusinesses] = useState(false)
@@ -98,7 +77,6 @@ const MyBusiness = ({
         }else{
              CreateBusiness({values})
             .then(res => {
-                ShowBusinessList();
                 GetBusinessList()
                 alert('Дело успешно создано')
                 setValues({
@@ -121,7 +99,6 @@ const MyBusiness = ({
             DeleteBusiness(id)
         }
         GetBusinessList()
-        ShowBusinessList()
     }
 
     
@@ -135,7 +112,8 @@ const MyBusiness = ({
                 selectable={true}
                 select={handleSelect}
                
-                events={event}
+                // events={event}
+                events={business_list && business_list.list}
                 eventDisplay={"list-item"}
                 displayEventEnd={true}
                 allDaySlot={false}

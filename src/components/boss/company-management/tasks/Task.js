@@ -21,13 +21,16 @@ const EmployeeList = ({
 
     const [displayTaskForm, toggleTaskForm] = useState(false);
     const [values, setValues] = useState({
-        description: "",
+        title: "",
+        content: "",
         employee: "",
-        finish: new Date()
+        //finish: new Date()
+        finish: ""
     });
 
     const { 
-        description,
+        title,
+        content,
         employee,
         finish
     } = values;
@@ -37,19 +40,19 @@ const EmployeeList = ({
     }
 
     const handleChange = (e) => {
-        setValues({...values, [e.target.name]: e.target.value})
-    }
+        setValues({ ...values, [e.target.name]: e.target.value })}
 
     const handleSubmit = (e) => {
         e.preventDefault()
 
         const variables = {
-            description,
+            title,
+            content,
             employee,
             finish
         }
 
-        if(description === ''){
+        if(content === ''){
             alert('Необходимо заполнить поле с текстом задания')
         }
         // else if(employee === ''){
@@ -61,7 +64,8 @@ const EmployeeList = ({
        
         
         setValues({
-            description: "",
+            title,
+            content: "",
             employee: ""
         })
     }
@@ -86,12 +90,22 @@ const EmployeeList = ({
                 {displayTaskForm && (
                     <>
                         <form onSubmit={handleSubmit}>
+                        {/* <div className="form-group">
+                            <input
+                                type="text"
+                                name="title"
+                                className="form-control"
+                                value={title}
+                                onChange={handleChange}
+                                placeholder="Заголовок задания"
+                            />
+                        </div> */}
                         <div className="form-group">
                             <input
                                 type="text"
-                                name="description"
+                                name="content"
                                 className="form-control"
-                                value={description}
+                                value={content}
                                 onChange={handleChange}
                                 placeholder="Текст задания"
                             />

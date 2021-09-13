@@ -43,19 +43,18 @@ const EmployeeWithTasks = ({
             <br />
             {employee_with_tasks && employee_with_tasks.tasks.map((t, index) => (
                 <div className="task-card" key={index}>
-                <p className="task-card-description">{t.description}</p>
-                <br />
-                <p className="app-text-small text-center">Задание задано:</p>
-                <p className="text-center">{new Date(t.createdAt).toLocaleString('en-GB')}</p>
-                <p className="app-text-small text-center">Задание необходимо закончить:</p>
-                <p className="text-center">{new Date(t.finish).toLocaleString('en-GB')}</p>
-                <p className="app-text-small text-center">Статус задания</p>
-                <TaskStatus t={t} />
-                <p className="app-text-small text-center bg-danger" style={{cursor: "pointer"}} onClick={() => clickDelete(t._id)}>Удалить задание</p>
+                    <p className="task-card-description">{t.content}</p>
+                    <p className="app-text-small text-center">Задание задано:</p>
+                    <p className="text-center">{new Date(t.createdAt).toLocaleString('en-GB')}</p>
+                    <p className="app-text-small text-center">Задание необходимо закончить:</p>
+                    <p className="text-center">{new Date(t.finish).toLocaleString('en-GB')}</p>
+                    <TaskStatus t={t} />
+                    <br />
+                    <p className="app-text-small text-center bg-danger" style={{cursor: "pointer"}} onClick={() => clickDelete(t._id)}>Удалить задание</p>
 
-             </div>
+                </div>
             ))}
-            <Link className='d-block p-3 mt-4 bg-warning app-text-small' to='/tasks'>Вернуться на страницу заданий</Link>
+            <Link className='d-block p-3 my-4 bg-warning app-text-small' to='/tasks'>Вернуться на страницу заданий</Link>
         </div>
     )
 }

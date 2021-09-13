@@ -298,8 +298,8 @@
     width: 100%;
     height: auto;
     background-color: rgb(228, 228, 218);
-    margin-bottom: 10px;
-    
+    margin-bottom: 30px;
+    border: 1px solid blue;
 }
 
 .task-card-description{
@@ -314,4 +314,8 @@
 .text-green{
   background-color: green;
   color: white;
+}
+
+.employee-task-card-content{
+  display: inline-flexbox;
 }
