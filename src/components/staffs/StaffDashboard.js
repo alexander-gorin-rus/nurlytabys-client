@@ -46,12 +46,12 @@ const StaffDashboard = ({
                                 <p className="d-inline mx-1">{new Date(t.finish).toLocaleString('ru')}</p>
                             </div>
                             <Link 
-                                className='app-text-small my-2 mx-1 bg-warning p-2' 
+                                className='app-text-small my-4 mx-2 bg-warning p-1' 
                                 to={`/task-comment/${t._id}`}  
                             >
                                     Написать комментарий к заданию
                             </Link>
-                             <p className="app-text-small text-center">Статус задания</p>
+                             <p className="app-text-small text-center mt-2">Статус задания</p>
                              <TaskStatus t={t} />
                            
                              <div>

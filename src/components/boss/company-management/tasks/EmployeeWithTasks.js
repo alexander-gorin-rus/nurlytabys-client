@@ -47,10 +47,19 @@ const EmployeeWithTasks = ({
             {employee_with_tasks && employee_with_tasks.tasks.map((t, index) => (
                 <div className="task-card" key={index}>
                     <p className="task-card-description">{t.content}</p>
-                    <p className="app-text-small text-center">Задание задано:</p>
-                    <p className="text-center">{new Date(t.createdAt).toLocaleString('en-GB')}</p>
-                    <p className="app-text-small text-center">Задание необходимо закончить:</p>
-                    <p className="text-center">{new Date(t.finish).toLocaleString('en-GB')}</p>
+                    <div className='employee-task-card-content'>
+                        <p className="app-text-small d-inline mx-1">Задание задано в:</p>
+                        <p className="d-inline mx-1">{new Date(t.createdAt).toLocaleTimeString('ru', dayOptions).split(' ')[0]}</p>
+                        <p className="d-inline mx-1">{new Date(t.createdAt).toLocaleString('ru')}</p>
+                        <br />
+                        <p className="app-text-small d-inline mx-1">Выполнить к:</p>
+                        <p className="d-inline mx-1">{new Date(t.finish).toLocaleTimeString('ru', dayOptions).split(' ')[0]}</p>
+                        <p className="d-inline mx-1">{new Date(t.finish).toLocaleString('ru')}</p>
+                        <br />
+                        {t.feedback && t.feedback !== '' ? (<p className='app-text-small my-2 text-center'>Комментарии к заданию</p>) : (null)}
+                        <p className='d-inline mx-1'>{t.feedback}</p>
+                    </div>
+                    
                     <TaskStatus t={t} />
                     <br />
                     <p className="app-text-small text-center bg-danger" style={{cursor: "pointer"}} onClick={() => clickDelete(t._id)}>Удалить задание</p>
