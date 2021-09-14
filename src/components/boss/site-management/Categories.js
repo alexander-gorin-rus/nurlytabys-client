@@ -188,7 +188,7 @@ const Categories = ({
                         />
                     </div>
                         <input type='submit' className='btn btn-primary' value='Отправить' />
-                        <Link className='d-block p-3 mt-4 bg-warning ' to='/site-management'>Вернуться на страницу управления сайтом</Link>
+                        <Link className='d-block p-3 mt-4 bg-warning app-text-small' to='/site-management'>Вернуться на страницу управления сайтом</Link>
                     </form>
                 </div>
             </div>

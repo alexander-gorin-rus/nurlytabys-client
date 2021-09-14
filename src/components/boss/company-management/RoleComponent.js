@@ -62,9 +62,9 @@ const RoleComponent = ({
     return (
         <Fragment>
             <div className='mt-5 main-div-content'>
-            <p className="text-center app-text-large" style={{marginTop: "15vh"}}>Форма управления должностями</p>
+            <p className="text-center app-text-small" style={{marginTop: "15vh"}}>Форма управления должностями</p>
             
-            <p className="text-center app-text-large">Создать должность</p>
+            <p className="text-center app-text-small">Создать должность</p>
                 <form className="col s12" onSubmit={handleSubmit}>
                     <div className="form-group">
                         <input
@@ -81,12 +81,12 @@ const RoleComponent = ({
                 </form>
                 {load_all_roles.roles && load_all_roles.roles.length === 0 ? 
                     (
-                        <p className="text-center text-large">Вы пока не создали должности</p>
+                        <p className="text-center app-text-small">Вы пока не создали должности</p>
                     )
                         :
                     (
                         <div>
-                            <p className='text-center mb-5 mt-5 app-text-large'>Созданные должности</p>
+                            <p className='text-center mb-5 mt-5 app-text-small'>Созданные должности</p>
                         {load_all_roles.roles && load_all_roles.roles.map((r, index) => (
                             <div className="category-cart" key={index}>
                                 <div className='bg-danger p-3 text-center'>

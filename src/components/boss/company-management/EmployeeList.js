@@ -29,7 +29,7 @@ const EmployeeList = ({
         <div className="main-div-content">
             <p className="text-center app-text-large">Список сотрудников</p>
             {employee_list.list && (
-                <p className="text-center bg-primary text-light p-3 app-text">В Вашей компании зарегистрировано <p className="text-danger">{employee_list.list.length - 1} </p> сотрудников</p>
+                <p className="text-center bg-primary text-light p-3 app-text-small">В Вашей компании зарегистрировано <p className="text-danger">{employee_list.list.length - 1} </p> сотрудников</p>
             )}
             {employee_list.list && employee_list.list.map((l, index) => 
                 (
@@ -41,29 +41,29 @@ const EmployeeList = ({
                                 :
                             (
                                 <Fragment>
-                                <p className="text-center">{l.name}</p>
-                                <p className="text-center">{l.lastName}</p>  
+                                <p className="text-center app-text-small">{l.name}</p>
+                                <p className="text-center app-text-small">{l.lastName}</p>  
                                 {l && l.role === undefined ? 
                                     (
-                                        <p className="text-center">Должность пока не присвоена</p>
+                                        <p className="text-center app-text-small">Должность пока не присвоена</p>
                                     ) 
                                         : 
                                     (
-                                        <p className="text-center">{l.role.name}</p>
+                                        <p className="text-center app-text-small">{l.role.name}</p>
                                     )
                                 }
                                 <Link to={`/employee/${l._id}`}>
                                 {l && l.role === undefined ? 
                                     (
-                                        <p className="text-center text-warning">Присвоить должность</p>
+                                        <p className="text-center text-warning app-text-small">Присвоить должность</p>
                                     ) 
                                         : 
                                     (
-                                        <p className="text-center text-warning">Изменить должность</p>
+                                        <p className="text-center text-warning app-text-small">Изменить должность</p>
                                     )
                                 }
                                 </Link>
-                                <p onClick={() => clickDelete(l._id)} className="text-center text-danger" style={{cursor: "pointer"}} >Удалить работника</p>
+                                <p onClick={() => clickDelete(l._id)} className="text-center text-danger app-text-small" style={{cursor: "pointer"}} >Удалить работника</p>
                                 </Fragment>
                             )
                         }

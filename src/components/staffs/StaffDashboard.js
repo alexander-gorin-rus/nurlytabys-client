@@ -81,11 +81,11 @@ const StaffDashboard = ({
                          onClick={() => toggleMyInfo(!displayMyInfo)}>
                              {displayMyInfo && displayMyInfo ? 
                                  (
-                                     <p>Свернуть</p>
+                                     <p className='app-text-small'>Свернуть</p>
                                  )
                                      :
                                  (
-                                     <p>Показать мою персональную информацию</p>
+                                     <p className='app-text-small'>Показать мою персональную информацию</p>
                                  )
                              }
                      </div>

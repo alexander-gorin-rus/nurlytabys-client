@@ -205,7 +205,7 @@ const UpdateVideo = ({
                     </select>
 
                     <button className="btn btn-outline-info mt-4">Отправить</button>
-                    <Link className='d-block p-3 mt-4 bg-warning ' to='/upload-video'>Вернуться на страницу видео материалов</Link>
+                    <Link className='d-block p-3 mt-4 bg-warning app-text-small' to='/upload-video'>Вернуться на страницу видео материалов</Link>
                 </form>
             </div>
         </Fragment>

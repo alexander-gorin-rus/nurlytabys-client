@@ -29,21 +29,21 @@ const MyBusinessById = ({
     }
 
     return (
-        <div className="main_container">
+        <div className="main-container">
             {business_by_id && business_by_id.business ? 
                 (
                     <Fragment>
                         <div className='main-div-content'>
                             <p>{business_by_id.business.title}</p>
                             <p>{business_by_id.business.content}</p>
-                            <section>Задание было задано: <p className='bg-info px-2'>{business_by_id.business.start.split('T', 1)[0]}</p></section>
-                            <section>Задание должно быть выполнено: <p className='bg-warning px-2'>{business_by_id.business.finish.split('T', 1)[0]}</p></section>
-                            <Link className='d-block p-3 mt-4 bg-warning ' to='/my-business'>Вернуться на страницу управления компанией</Link>
+                            <section className='app-text-small'>Задание было задано: <p className='bg-info px-2'>{business_by_id.business.start.split('T', 1)[0]}</p></section>
+                            <section className='app-text-small'>Задание должно быть выполнено: <p className='bg-warning px-2'>{business_by_id.business.finish.split('T', 1)[0]}</p></section>
+                            <Link className='d-block p-3 mt-4 bg-warning app-text-small' to='/my-business'>Вернуться на страницу управления компанией</Link>
                             <br />
                             <br />
                             <p 
                                 style={{cursor: "pointer"}} 
-                                className="bg-danger p-3" 
+                                className="bg-danger p-3 app-text-small" 
                                 onClick={() => onDelete(business_by_id.business._id)} >Удалить дело</p>
                         </div>
                         

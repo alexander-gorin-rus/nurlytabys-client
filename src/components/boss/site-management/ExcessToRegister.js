@@ -53,7 +53,7 @@ const ExcessToRegister = ({
             {register_entry && register_entry.list_of_registers.length  === 0 ? (
                 <Fragment>
                 <div className='main-div-content'>
-                <p className="text-center app-text">Форма создания пароля для регистрации сотрудников</p>
+                <p className="text-center app-text-small">Форма создания пароля для регистрации сотрудников</p>
                     <div className="row">
                         <form className="col s12" onSubmit={e => onSubmit(e)}>
                             <div className="row">
@@ -84,6 +84,7 @@ const ExcessToRegister = ({
                             </div>
                             <input type='submit' className='btn btn-primary' value='Отправить' />
                         </form>
+                        <Link className='d-block p-3 mt-4 bg-warning app-text-small' to='/site-management'>Вернуться на страницу управления сайтом </Link>
                     </div>
                 </div>
         </Fragment>

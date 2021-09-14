@@ -79,11 +79,11 @@ const EmployeeList = ({
                     onClick={() => toggleTaskForm(!displayTaskForm)}>
                         {displayTaskForm && displayTaskForm ? 
                             (
-                                <p>Свернуть</p>
+                                <p className='app-text-small'>Свернуть</p>
                             )
                                 :
                             (
-                                <p>Форма заполнения заданий</p>
+                                <p className='app-text-small'>Форма заполнения заданий</p>
                             )
                             }
                     </div>

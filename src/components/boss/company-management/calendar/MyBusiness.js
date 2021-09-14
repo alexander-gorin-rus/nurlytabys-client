@@ -128,7 +128,7 @@ const MyBusiness = ({
                 height={'1200px'}
             />
 
-<Link className='d-block p-3 mt-4 bg-warning app-text-small' to='/boss-page'>Вернуться на мою страницу</Link>
+            <Link className='d-block p-3 mt-4 bg-warning app-text-small' to='/boss-page'>Вернуться на мою страницу</Link>
         </div>
             <Modal title="Создать заметку" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
                 <p>Когда закончить: 

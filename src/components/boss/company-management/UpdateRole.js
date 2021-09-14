@@ -55,7 +55,7 @@ const UpdateRole = ({
     return (
         <Fragment>
             <div className='main-div-content'>
-            <p className="text-center app-text">Изменить роль</p>
+            <p className="text-center app-text-small">Изменить должность</p>
                 <form className="col s12" onSubmit={handleSubmit}>
                     <div className="form-group">
                         <input
@@ -67,7 +67,7 @@ const UpdateRole = ({
                         />
                     </div>
                     <input type='submit' className='btn btn-primary' value='Отправить'/>
-                    <Link className='d-block p-3 mt-4 bg-warning ' to='/role-component'>Вернуться на страницу управления ролями</Link>
+                    <Link className='d-block p-3 mt-4 bg-warning app-text-small' to='/role-component'>Вернуться на страницу управления ролями</Link>
                 </form>
             </div>
         </Fragment>
