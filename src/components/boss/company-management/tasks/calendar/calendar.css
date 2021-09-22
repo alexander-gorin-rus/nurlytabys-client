@@ -52,7 +52,9 @@
 
 .calendar-select-buttons-wrapper{
     display: flex;
-    align-items: center;;
+    align-items: center;
+    outline: unset;
+    cursor: pointer;
 }
 
 .text-bold{
@@ -88,6 +90,14 @@
     color: #e6e6e6;
     text-align: center;
     padding-bottom: 5px;
+}
+
+@media(max-width: 850px){
+    .calendar-select-button{
+        font-size: 0.5rem;
+        height: 14px;
+        padding: 3px
+    }
 }
 
 .today{

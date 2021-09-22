@@ -1,6 +1,11 @@
 import React from 'react'
 
-const CalendarSelect = ({ today }) => {
+const CalendarSelect = ({ 
+    today,
+    prevMonth,
+    currentMonth,
+    nextMonth
+}) => {
     return (
         <div className='calendar-select-div'>
             <div>
@@ -8,9 +13,9 @@ const CalendarSelect = ({ today }) => {
                 <span className='calendar-select-texts'>{today.format('YYYY')}</span>
             </div>
             <div className='calendar-select-buttons-wrapper'>
-                <button className="calendar-select-button"> &lt; </button>
-                <button className="calendar-select-button today">today</button>
-                <button className="calendar-select-button"> &gt; </button>
+                <button onClick={prevMonth} className="calendar-select-button"> &lt; </button>
+                <button onClick={currentMonth} className="calendar-select-button today">текущий месяц</button>
+                <button onClick={nextMonth} className="calendar-select-button"> &gt; </button>
             </div>
         </div>
     )

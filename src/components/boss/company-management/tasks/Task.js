@@ -25,7 +25,8 @@ const EmployeeList = ({
 }) => {
 
     moment.locale('ru', {week: {dow: 1}});
-    const today = moment()
+    //const today = moment()
+    const [today, setToday] = useState(moment())
     const startMonth = today.clone().startOf('month').startOf('week');
     const endMonth = moment().endOf('month').endOf('week');
     const startWeek = moment().startOf('week');
@@ -70,6 +71,17 @@ const EmployeeList = ({
     window.day = day;;
 
     
+    const prevMonth = () => {
+        setToday(prev => prev.clone().subtract(1, 'month'));
+    }
+    const currentMonth = () => {
+        setToday(moment())
+    }
+    const nextMonth = () => {
+        setToday(prev => prev.clone().add(1, 'month'));
+
+    }
+
     useEffect(() => {
         GetEmployeeList();
         LoadAllRoles()
@@ -147,7 +159,11 @@ const EmployeeList = ({
         <div className="main-div-content">
             <div className="calendar-div">
                 <CalendarHeader />
-                <CalendarSelect today={today} />
+                <CalendarSelect 
+                    prevMonth={prevMonth}
+                    currentMonth={currentMonth}
+                    nextMonth={nextMonth}
+                    today={today} />
                 <CalendarGrid startMonth={startMonth} />
             </div>
             <section>
