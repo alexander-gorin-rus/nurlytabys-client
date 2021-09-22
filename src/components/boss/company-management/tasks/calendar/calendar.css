@@ -1,48 +1,29 @@
 .calendar-div{
     position: relative;
-    left: -1vw;
+    left: -6vw;
     width: 90vw;
-    /* border: 1px solid red; */
+    border: 1px solid rgb(58, 54, 54);
+    
+    background-color: rgb(129, 125, 120);
 }
-
-@media(max-width: 750px){
-    .calendar-div{
-        left: -2vw;
-    }
-}
-
-@media(max-width: 570px){
-    .calendar-div{
-        left: -4vw;
-    }
-}
-
-@media(max-width: 500px){
-    .calendar-div{
-        left: -1vw;
-    }
-}
-
 
 .calendar{
     position: relative;
-    left: -1vw;
+    top: 0;
+    left: 0%;
+    height: 100%;
+    width: 100%;
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     grid-template-rows: repeat(6, 1fr);
     grid-gap: 1px;
-   
-    /* border: 3px solid gray; */
-}
-
-.calendar-cell{
-    width: 13vw;
-    height: 14vh;
-    background-color: rgb(220, 220, 250);
+    
+    /* border: 3px solid rgb(5, 206, 65); */
 }
 
 .top-row-cell{
     display: flex;
+    margin: 7px;
 }
 
 .day-wrapper{
@@ -51,4 +32,72 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: red;
+    border-radius: 50%;
+}
+
+@media(max-width: 850px){
+    .day-wrapper{
+        height: 20px;
+        width: 20px;
+    }
+}
+
+.calendar-select-div{
+    display: flex;
+    justify-content: space-between;
+    background-color: #aae9e9;
+    padding: 16px;
+}
+
+.calendar-select-buttons-wrapper{
+    display: flex;
+    align-items: center;;
+}
+
+.text-bold{
+    font-weight: bold;
+}
+
+.calendar-select-texts{
+    font-size: 2.5rem;
+    margin-left: 24px;
+}
+
+@media(max-width: 850px){
+    .calendar-select-texts{
+        font-size: 1.5rem;
+        margin-left: 12px;
+    }
+}
+
+@media(max-width: 650px){
+    .calendar-select-texts{
+        font-size: 0.9rem;
+        margin-left: 6px;
+    }
+}
+
+.calendar-select-button{
+    border: unset;
+    background-color: #565759;
+    height: 28px;
+    margin-right: 2px;
+    padding: 7px;
+    border-radius: 4px;
+    color: #e6e6e6;
+    text-align: center;
+    padding-bottom: 5px;
+}
+
+.today{
+    padding-right: 14px;
+    padding-left: 14px;
+    font-weight: bold;
+}
+
+.calendar-select-header{
+    background-color: #2a2820;
+    height: 40px;
+    color: thistle;
 }

@@ -1,6 +1,3 @@
-
-
-
 import React, {useState,  useEffect, Fragment} from 'react';
 import PropTypes from 'prop-types';
 import { 
@@ -12,7 +9,8 @@ import {
 import { LoadAllRoles } from '../../../../redux/actions/roles';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import moment from 'moment'
+import moment from 'moment';
+import 'moment/locale/ru'
 import CalendarHeader from './calendar/CalendarHeader';
 import CalendarSelect from './calendar/CalendarSelect';
 import CalendarGrid from './calendar/CalendarGrid';
@@ -26,8 +24,9 @@ const EmployeeList = ({
     roles: {load_all_roles}
 }) => {
 
-    moment.updateLocale('ru', {week: {dow: 1}});
-    const startMonth = moment().startOf('month').startOf('week');
+    moment.locale('ru', {week: {dow: 1}});
+    const today = moment()
+    const startMonth = today.clone().startOf('month').startOf('week');
     const endMonth = moment().endOf('month').endOf('week');
     const startWeek = moment().startOf('week');
     const endWeek = moment().endOf('week');
@@ -131,7 +130,6 @@ const EmployeeList = ({
     }
 
     const handleToggle = (value) => {
-        //
         const currentIndex = checked.indexOf(value);
         const newChecked = [...checked];
 
@@ -149,8 +147,8 @@ const EmployeeList = ({
         <div className="main-div-content">
             <div className="calendar-div">
                 <CalendarHeader />
-                <CalendarSelect />
-                <CalendarGrid />
+                <CalendarSelect today={today} />
+                <CalendarGrid startMonth={startMonth} />
             </div>
             <section>
                 <div 

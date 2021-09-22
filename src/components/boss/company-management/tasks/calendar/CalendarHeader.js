@@ -2,8 +2,8 @@ import React from 'react'
 
 const CalendarHeader = () => {
     return (
-        <div>
-            
+        <div className='calendar-select-header'>
+            CalendarHeader
         </div>
     )
 }
