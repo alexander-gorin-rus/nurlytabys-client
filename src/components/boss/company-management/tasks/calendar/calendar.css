@@ -15,10 +15,27 @@
     width: 100%;
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    grid-template-rows: repeat(6, 1fr);
+    /* grid-template-rows: repeat(6, 1fr); */
     grid-gap: 1px;
     
     /* border: 3px solid rgb(5, 206, 65); */
+}
+
+.calendar-week-days{
+    height: 5vh !important;
+    padding-left: 40px;
+    color: white;
+    background-color: #2a2820;
+    font-size: 1.1rem;
+}
+
+@media(max-width: 850px){
+    .calendar-week-days{
+        height: 2vh !important;
+        font-size: 0.3rem;
+        padding-left: 6px;
+
+    }
 }
 
 .top-row-cell{

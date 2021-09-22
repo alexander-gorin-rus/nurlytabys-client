@@ -15,6 +15,11 @@ const CalendarGrid = ({startMonth}) => {
 
     return (
         <div className='calendar'>
+            {[...Array(7)].map((_, i) => (
+                <div key={i} className='calendar-week-days'>
+                    {moment().day(i + 1).format('dddd')}
+                </div>
+            ))}
             {
                 daysArray.map((dayItem) => (
                     <CellWrapper 
