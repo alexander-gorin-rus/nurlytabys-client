@@ -1,11 +1,12 @@
 import React from 'react'
 
-const CalendarSelect = ({ 
+const MonthSelect = ({ 
     today,
     prevMonth,
     currentMonth,
     nextMonth
 }) => {
+
     return (
         <div className='calendar-select-div'>
             <div>
@@ -21,4 +22,4 @@ const CalendarSelect = ({
     )
 }
 
-export default CalendarSelect
+export default MonthSelect

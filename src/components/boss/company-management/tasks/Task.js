@@ -12,9 +12,11 @@ import { Link } from 'react-router-dom';
 import moment from 'moment';
 import 'moment/locale/ru'
 import CalendarHeader from './calendar/CalendarHeader';
-import CalendarSelect from './calendar/CalendarSelect';
-import CalendarGrid from './calendar/CalendarGrid';
+import MonthSelect from './calendar/MonthSelect';
+import CalendarGridMonth from './calendar/CalendarGridMonth';
 import './calendar/calendar.css'
+import CalendarGridWeek from './calendar/CalendarGridWeek';
+import WeekSelect from './calendar/WeekSelect';
 
 const EmployeeList = ({
     GetEmployeeList,
@@ -29,7 +31,7 @@ const EmployeeList = ({
     const [today, setToday] = useState(moment())
     const startMonth = today.clone().startOf('month').startOf('week');
     const endMonth = moment().endOf('month').endOf('week');
-    const startWeek = moment().startOf('week');
+    const startWeek = today.clone().startOf('week');
     const endWeek = moment().endOf('week');
     const startDay = moment().startOf('hour').hours();
     const endDay = moment().startOf('hour').hours();
@@ -81,6 +83,18 @@ const EmployeeList = ({
         setToday(prev => prev.clone().add(1, 'month'));
 
     }
+
+    const prevWeek = () => {
+        setToday(prev => prev.clone().subtract(1, 'week'));
+    }
+    const currentWeek = () => {
+        setToday(moment())
+    }
+    const nextWeek = () => {
+        setToday(prev => prev.clone().add(1, 'week'));
+
+    }
+
 
     useEffect(() => {
         GetEmployeeList();
@@ -159,12 +173,21 @@ const EmployeeList = ({
         <div className="main-div-content">
             <div className="calendar-div">
                 <CalendarHeader />
-                <CalendarSelect 
-                    prevMonth={prevMonth}
-                    currentMonth={currentMonth}
-                    nextMonth={nextMonth}
-                    today={today} />
-                <CalendarGrid startMonth={startMonth} />
+                {/* <MonthSelect 
+                        prevMonth={prevMonth}
+                        currentMonth={currentMonth}
+                        nextMonth={nextMonth}
+                        today={today} 
+                    />
+                <CalendarGridMonth startMonth={startMonth} /> */}
+                <WeekSelect 
+                    prevWeek={prevWeek}
+                    currentWeek={currentWeek}
+                    nextWeek={nextWeek}
+                    today={today}
+                />
+                <CalendarGridWeek startWeek={startWeek}/>
+                
             </div>
             <section>
                 <div 
