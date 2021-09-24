@@ -7,7 +7,8 @@ import moment from 'moment';
 const CalendarGridMont = ({
     startMonth, 
     totalMonthDays,
-    all_tasks
+    all_tasks,
+    openModalHandler
 }) => {
 
     const monthDay = startMonth.clone().subtract(1, 'day')
@@ -17,11 +18,6 @@ const CalendarGridMont = ({
     const currentDay = (day) => moment().isSame(day, 'day');
     const isSelectedMonth = (day) => moment().isSame(day, 'month');
 
-    console.log(daysArray)
-
-    const onDoubleClick = (e) => {
-        e.preventDefault();
-    }
     return (
         <div className='calendar'>
             {[...Array(7)].map((_, i) => (
@@ -37,7 +33,7 @@ const CalendarGridMont = ({
                         isSelectedMonth={isSelectedMonth(dayItem)}
                     >
                         <div className="top-row-cell">
-                            <div className='show-day-wrapper'>
+                            <div className='show-day-wrapper' onDoubleClick={(e) => openModalHandler('Create')}>
                                {currentDay(dayItem) && dayItem.format('D') ? 
                                (
                                     <div className="day-wrapper">
@@ -55,7 +51,7 @@ const CalendarGridMont = ({
                                     {all_tasks.tasks && all_tasks.tasks.filter(task => task.finish.split('T', 1)[0] >= dayItem.format('YYYY-MM-DD') && task.finish.split('T', 1)[0] <= dayItem.clone().endOf('day').format('YYYY-MM-DD'))
                                         .map((task) => (
                                             <li className='' key={task._id}>
-                                                <button className='task-button' onDoubleClick={onDoubleClick}>
+                                                <button className='task-button' onDoubleClick={(e) => openModalHandler('Update', task)}>
                                                     {task.content}
                                                 </button>
                                             </li>

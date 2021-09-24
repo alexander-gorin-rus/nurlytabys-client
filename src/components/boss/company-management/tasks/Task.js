@@ -34,8 +34,8 @@ const EmployeeList = ({
 }) => {
 
     moment.locale('ru', {week: {dow: 1}});
-    //const today = moment()
     const [today, setToday] = useState(moment())
+    const [taskUpdate, setTaskUpdate] = useState(null)
     const startMonth = today.clone().startOf('month').startOf('week');
     const endMonth = moment().endOf('month').endOf('week');
     const startWeek = today.clone().startOf('week');
@@ -104,7 +104,7 @@ const EmployeeList = ({
 
     useEffect(() => {
         GetAllTasks();
-    },[today])
+    },[])
 
 
     useEffect(() => {
@@ -184,9 +184,13 @@ const EmployeeList = ({
         }
 
         setChecked(newChecked)
-        console.log(newChecked)
         setValues({...values, role: newChecked})
 }
+
+    const openModalHandler = ( method, taskForUpdate) => {
+        // e.preventDefault()
+        console.log(method)
+    }
     return (
         <div className="main-div-content">
             {/* {tasksList.map((t) => (
@@ -203,7 +207,9 @@ const EmployeeList = ({
                 <CalendarGridMonth 
                     startMonth={startMonth} 
                     totalMonthDays={totalMonthDays} 
-                    all_tasks={all_tasks} />
+                    all_tasks={all_tasks} 
+                    openModalHandler={openModalHandler}
+                    />
                 {/* <WeekSelect 
                     prevWeek={prevWeek}
                     currentWeek={currentWeek}
