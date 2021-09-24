@@ -42,6 +42,7 @@
 .top-row-cell{
     display: flex;
     margin: 7px;
+    /* justify-content: flex-end; */
 }
 
 .day-wrapper{
@@ -128,4 +129,33 @@
     background-color: #2a2820;
     height: 40px;
     color: thistle;
+}
+
+.show-day-wrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.tasks-list-wrapper{
+    margin: unset;
+    list-style-position: inside;
+    padding-left: 4px;
+    border:1px solid green
+}
+
+.task-button{
+    position: relative;
+    left: -14px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 114px;
+    border: unset;
+    background: unset;
+    color: #000000;
+    cursor: pointer;
+    margin: 0;
+    padding: 0;
+    text-align: center;
 }

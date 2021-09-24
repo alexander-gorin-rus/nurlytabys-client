@@ -7,7 +7,9 @@ import {
     TASK_DELETE_FAIL,
     TASK_DELETE_SUCCESS,
     GET_TASK_BY_ID_FAIL,
-    GET_TASK_BY_ID_SUCCESS
+    GET_TASK_BY_ID_SUCCESS,
+    GET_ALL_TASKS_SUCCESS,
+    GET_ALL_TASKS_FAIL
 } from '../types';
 import axios from 'axios';
 import { setAlert } from './alert';
@@ -89,5 +91,20 @@ export const DeleteTask = (id) => async dispatch => {
             type: TASK_DELETE_FAIL
         });
         dispatch(setAlert('Не удалось удалить задание', 'danger'));
+    }
+}
+
+export const GetAllTasks = () => async dispatch => {
+    try {
+        const res = await axios.get(`${process.env.REACT_APP_API}/get-all-tasks`);
+        dispatch({
+            type: GET_ALL_TASKS_SUCCESS,
+            payload: res.data
+        })
+    } catch (err) {
+        console.log(err);
+        dispatch({
+            type: GET_ALL_TASKS_FAIL
+        })
     }
 }

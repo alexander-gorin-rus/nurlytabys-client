@@ -4,16 +4,24 @@ import './calendar.css'
 import moment from 'moment';
 
 
-const CalendarGridMont = ({startMonth}) => {
+const CalendarGridMont = ({
+    startMonth, 
+    totalMonthDays,
+    all_tasks
+}) => {
 
-    const totalDays = 42;
     const monthDay = startMonth.clone().subtract(1, 'day')
 
-    const daysArray = [...Array(42)].map(() => monthDay.add(1, 'day').clone());
+    const daysArray = [...Array(totalMonthDays)].map(() => monthDay.add(1, 'day').clone());
 
     const currentDay = (day) => moment().isSame(day, 'day');
     const isSelectedMonth = (day) => moment().isSame(day, 'month');
 
+    console.log(daysArray)
+
+    const onDoubleClick = (e) => {
+        e.preventDefault();
+    }
     return (
         <div className='calendar'>
             {[...Array(7)].map((_, i) => (
@@ -24,16 +32,37 @@ const CalendarGridMont = ({startMonth}) => {
             {
                 daysArray.map((dayItem) => (
                     <CellWrapper 
-                        key={dayItem.format('DDMMYYYY')}
+                        key={dayItem.unix()}
                         isWeekend={dayItem.day() === 6 || dayItem.day() === 0} 
                         isSelectedMonth={isSelectedMonth(dayItem)}
                     >
                         <div className="top-row-cell">
-                            {!currentDay(dayItem) && dayItem.format('D')}
-                            {currentDay(dayItem) && <div className="day-wrapper">
-                                                        {dayItem.format('D')}
-                                                    </div>}
-                             
+                            <div className='show-day-wrapper'>
+                               {currentDay(dayItem) && dayItem.format('D') ? 
+                               (
+                                    <div className="day-wrapper">
+                                        {dayItem.format('D')}
+                                    </div>
+                                        
+                                ) 
+                                    : 
+                                (
+                                    dayItem.format('D')
+                                )} 
+                                {/* <div>Start: {dayItem.format('X')}</div> */}
+
+                                <ul className='tasks-list-wrapper'>
+                                    {all_tasks.tasks && all_tasks.tasks.filter(task => task.finish.split('T', 1)[0] >= dayItem.format('YYYY-MM-DD') && task.finish.split('T', 1)[0] <= dayItem.clone().endOf('day').format('YYYY-MM-DD'))
+                                        .map((task) => (
+                                            <li className='' key={task._id}>
+                                                <button className='task-button' onDoubleClick={onDoubleClick}>
+                                                    {task.content}
+                                                </button>
+                                            </li>
+                                        ))
+                                    }
+                                </ul>
+                            </div>
                             
                          </div>
                     </CellWrapper>
@@ -46,7 +75,8 @@ export default CalendarGridMont
 
 const CellWrapper = styled.div`
         width: auto;
-        height: 16vh;
+        min-height: 16vh;
+        height: auto;
         color: ${props => props.isSelectedMonth ? 'black' : 'grey'};
         font-weight: bold;
         background: ${props => props.isWeekend ? 'aqua' : '#aae9e9'};

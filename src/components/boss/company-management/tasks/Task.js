@@ -1,10 +1,11 @@
-import React, {useState,  useEffect, Fragment} from 'react';
+import React, {useState,  useEffect} from 'react';
 import PropTypes from 'prop-types';
 import { 
     GetEmployeeList
 } from '../../../../redux/actions/employee_actions';
 import {
-    CreateTask
+    CreateTask,
+    GetAllTasks
 } from '../../../../redux/actions/task';
 import { LoadAllRoles } from '../../../../redux/actions/roles';
 import { connect } from 'react-redux';
@@ -17,13 +18,19 @@ import CalendarGridMonth from './calendar/CalendarGridMonth';
 import './calendar/calendar.css'
 import CalendarGridWeek from './calendar/CalendarGridWeek';
 import WeekSelect from './calendar/WeekSelect';
+import axios from 'axios';
+
+//global constants for calendar
+const totalMonthDays = 42
 
 const EmployeeList = ({
     GetEmployeeList,
     LoadAllRoles,
     CreateTask,
+    GetAllTasks,
     employee_reducer: {employee_list},
-    roles: {load_all_roles}
+    roles: {load_all_roles},
+    task: {all_tasks}
 }) => {
 
     moment.locale('ru', {week: {dow: 1}});
@@ -95,12 +102,19 @@ const EmployeeList = ({
 
     }
 
+    useEffect(() => {
+        GetAllTasks();
+    },[today])
+
 
     useEffect(() => {
         GetEmployeeList();
-        LoadAllRoles()
+        LoadAllRoles();
     },[GetEmployeeList]);
 
+    // {all_tasks && all_tasks.map(())}
+
+    const [tasksList, setTasksList] = useState([])
     const [displayTaskForm, toggleTaskForm] = useState(false);
     const [Role, setRoles] = useState([]);
     const [checked, setChecked] = useState([]);
@@ -145,6 +159,8 @@ const EmployeeList = ({
             CreateTask(variables)
         }
        
+
+        console.log(finish)
         
         setValues({
             title,
@@ -152,7 +168,9 @@ const EmployeeList = ({
             role: []
         });
 
-        window.location.reload('/tasks')
+        // setTimeout(() => {
+        //     window.location.reload('/tasks')
+        // },300)
     }
 
     const handleToggle = (value) => {
@@ -171,22 +189,28 @@ const EmployeeList = ({
 }
     return (
         <div className="main-div-content">
+            {/* {tasksList.map((t) => (
+                <div key={t._id}>{t}</div>
+            ))} */}
             <div className="calendar-div">
                 <CalendarHeader />
-                {/* <MonthSelect 
+                <MonthSelect 
                         prevMonth={prevMonth}
                         currentMonth={currentMonth}
                         nextMonth={nextMonth}
                         today={today} 
                     />
-                <CalendarGridMonth startMonth={startMonth} /> */}
-                <WeekSelect 
+                <CalendarGridMonth 
+                    startMonth={startMonth} 
+                    totalMonthDays={totalMonthDays} 
+                    all_tasks={all_tasks} />
+                {/* <WeekSelect 
                     prevWeek={prevWeek}
                     currentWeek={currentWeek}
                     nextWeek={nextWeek}
                     today={today}
                 />
-                <CalendarGridWeek startWeek={startWeek}/>
+                <CalendarGridWeek startWeek={startWeek}/> */}
                 
             </div>
             <section>
@@ -240,7 +264,6 @@ const EmployeeList = ({
                                     </label> 
                                 </li>
                             ))}
-                            {/* <CheckBox loadAllRoles={load_all_roles} /> */}
                         </ul>
                        
                         <button className="btn btn-outline-info mt-4">Отправить</button> 
@@ -283,18 +306,21 @@ EmployeeList.propTypes = {
     GetEmployeeList: PropTypes.func.isRequired,
     LoadAllRoles:PropTypes.func.isRequired,
     CreateTask: PropTypes.func.isRequired,
+    GetAllTasks: PropTypes.func.isRequired,
     employee_reducer: PropTypes.object.isRequired,
 }
 
 const mapStateToProps = state => ({
     employee_reducer: state.employee_reducer,
-    roles: state.roles
+    roles: state.roles,
+    task: state.task
 });
 
 export default connect(mapStateToProps, {
     GetEmployeeList,
     LoadAllRoles,
     CreateTask,
+    GetAllTasks
 })(EmployeeList)
 
 
