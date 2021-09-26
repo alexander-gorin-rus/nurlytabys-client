@@ -1,8 +1,5 @@
 import React, {useState,  useEffect} from 'react';
 import PropTypes from 'prop-types';
-import { 
-    GetEmployeeList
-} from '../../../../redux/actions/employee_actions';
 import {
     CreateTask,
     GetAllTasks
@@ -12,23 +9,19 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 import 'moment/locale/ru'
-import CalendarHeader from './calendar/CalendarHeader';
 import MonthSelect from './calendar/MonthSelect';
-import CalendarGridMonth from './calendar/CalendarGridMonth';
+import MonthGrid from './calendar/MonthGrid';
 import './calendar/calendar.css'
-import CalendarGridWeek from './calendar/CalendarGridWeek';
+import WeekGrid from './calendar/WeekGrid';
 import WeekSelect from './calendar/WeekSelect';
-import axios from 'axios';
 
 //global constants for calendar
 const totalMonthDays = 42
 
 const EmployeeList = ({
-    GetEmployeeList,
     LoadAllRoles,
     CreateTask,
     GetAllTasks,
-    employee_reducer: {employee_list},
     roles: {load_all_roles},
     task: {all_tasks}
 }) => {
@@ -108,41 +101,38 @@ const EmployeeList = ({
 
     useEffect(() => {
         GetAllTasks();
+        LoadAllRoles();
     },[])
 
 
-    useEffect(() => {
-        GetEmployeeList();
-        LoadAllRoles();
-    },[GetEmployeeList]);
 
-    const [tasksList, setTasksList] = useState([])
-    const [displayTaskForm, toggleTaskForm] = useState(false);
-    const [Role, setRoles] = useState([]);
+    //const [tasksList, setTasksList] = useState([])
+
+    const [toggleCalendarGrid, setToggleCalendarGrid] = useState(1)
+
+    const selectCalendarGrid = (index) => {
+        setToggleCalendarGrid(index)
+    }
     const [checked, setChecked] = useState([]);
     const [values, setValues] = useState({
         title: "",
         content: "",
         role: [],
-        //employee: "",
-        //finish: new Date()
         finish: ""
+       
     });
 
     const { 
         title,
         content,
         role,
-        //employee,
         finish
     } = values;
 
-    const handleEmployeeChange = (e) => {
-        setValues({...values, employee: e.target.value})
-    }
 
     const handleChange = (e) => {
         setValues({ ...values, [e.target.name]: e.target.value })}
+
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -154,24 +144,21 @@ const EmployeeList = ({
             finish
         }
 
-        // if(content === ''){
-        //     alert('Необходимо заполнить поле с текстом задания')
-        // }
-        // else{
-        //     CreateTask(variables)
-        // }
-
-        CreateTask(variables)
+        if(content === ""){
+            alert('Необходимо заполнить поле с текстом задания')
+        }
+        else{
+            CreateTask(variables)
+            setTimeout(() => {
+                setShowForm(false)
+            },200)
+        }
         
         setValues({
             title,
             content: "",
             role: []
         });
-
-        // setTimeout(() => {
-        //     window.location.reload('/tasks')
-        // },300)
     }
 
     const handleToggle = (value) => {
@@ -199,14 +186,14 @@ const EmployeeList = ({
     }
     return (
         <div className="main-div-content">
-            <div className="calendar-div">
+            <div className="calendar-div  my-4">
                 <>
                     {
                         isShowForm ? 
                         (
                             <div className='form-position-wrapper'>
                                 <form onSubmit={handleSubmit}>
-                                    <div className="form-group">
+                                    <div className="form-group mx-4">
                                         <input
                                             type="text"
                                             name="content"
@@ -218,7 +205,6 @@ const EmployeeList = ({
                                     </div>
                                     <div>
                                         <label>Выбрать дату</label>
-                                        <p className='bg-danger px-1'>Внимание: на этом календаре неделя начинается с воскресенья</p>
                                         <input 
                                             type="datetime-local" 
                                             name='finish'
@@ -251,135 +237,65 @@ const EmployeeList = ({
                             :
                         null
                     }
-                    <CalendarHeader />
-                    <MonthSelect 
-                        prevMonth={prevMonth}
-                        currentMonth={currentMonth}
-                        nextMonth={nextMonth}
-                        today={today} 
-                    />
-                    <CalendarGridMonth 
-                        startMonth={startMonth} 
-                        totalMonthDays={totalMonthDays} 
-                        all_tasks={all_tasks} 
-                        openModalHandler={openModalHandler}
-                    />
+                     <div className='calendar-select-header'>
+                        <p 
+                            onClick={() => selectCalendarGrid(1)}
+                            className={toggleCalendarGrid === 1 ? 'calendar-header-content calendar-header-active' : 'calendar-header-content'} >День</p>
+                        <p 
+                            onClick={() => selectCalendarGrid(2)}
+                            className={toggleCalendarGrid === 2 ? 'calendar-header-content calendar-header-active' : 'calendar-header-content'}>Неделя</p>
+                        <p 
+                            onClick={() => selectCalendarGrid(3)}
+                            className={toggleCalendarGrid === 3 ? 'calendar-header-content calendar-header-active' : 'calendar-header-content'}>Месяц</p>
+                    </div>
+                    <div className={toggleCalendarGrid === 1 ? 'calendar-content content-active' : 'calendar-content'}>Day</div>
+                    <div className={toggleCalendarGrid === 2 ? 'calendar-content content-active' : 'calendar-content'}>
+                        <WeekSelect
+                            prevWeek={prevWeek}
+                            currentWeek={currentWeek}
+                            nextWeek={nextWeek}
+                            today={today}
+                        />
+                        <WeekGrid
+                            startWeek={startWeek}
+                            all_tasks={all_tasks} 
+                            openModalHandler={openModalHandler}
+                        />
+                    </div>
+                    <div className={toggleCalendarGrid === 3 ? 'calendar-content content-active' : 'calendar-content'}>
+                        <MonthSelect
+                            prevMonth={prevMonth}
+                            currentMonth={currentMonth}
+                            nextMonth={nextMonth}
+                            today={today} 
+                        />
+                        <MonthGrid
+                            startMonth={startMonth} 
+                            totalMonthDays={totalMonthDays} 
+                            all_tasks={all_tasks} 
+                            openModalHandler={openModalHandler}
+                        />
+                    </div> 
                 </>
-                
-                {/* <WeekSelect 
-                    prevWeek={prevWeek}
-                    currentWeek={currentWeek}
-                    nextWeek={nextWeek}
-                    today={today}
-                />
-                <CalendarGridWeek startWeek={startWeek}/> */}
-                
             </div>
-            <section>
-                <div 
-                    className="d-flex justify-content-center bg-success p-3 rounded-2" 
-                    style={{cursor: "pointer"}} 
-                    onClick={() => toggleTaskForm(!displayTaskForm)}>
-                        {displayTaskForm && displayTaskForm ? 
-                            (
-                                <p className='app-text-small'>Свернуть</p>
-                            )
-                                :
-                            (
-                                <p className='app-text-small'>Форма заполнения заданий</p>
-                            )
-                            }
-                    </div>
-                {displayTaskForm && (
-                    <>
-                        <form onSubmit={handleSubmit}>
-                        <div className="form-group">
-                            <input
-                                type="text"
-                                name="content"
-                                className="form-control"
-                                value={content}
-                                onChange={handleChange}
-                                placeholder="Текст задания"
-                            />
-                        </div>
-                        <div>
-                            <label>Выбрать дату</label>
-                            <p className='bg-danger px-1'>Внимание: на этом календаре неделя начинается с воскресенья</p>
-                            <input 
-                                type="datetime-local" 
-                                name='finish'
-                                value={finish}
-                                onChange={e => handleChange(e)}
-                            />
-                        </div>
-                        <ul>
-                            {load_all_roles && load_all_roles.roles.map((r) => (
-                                <li key={r._id}>
-                                    <label>
-                                        <input
-                                            type="checkbox"
-                                            onChange={() => handleToggle(r._id)}
-                                            value={checked.indexOf(r._id === -1)}
-                                            className="form-check-input" 
-                                        /><span>{r.name}</span>
-                                    </label> 
-                                </li>
-                            ))}
-                        </ul>
-                       
-                        <button className="btn btn-outline-info mt-4">Отправить</button> 
-                        </form>
-                    </>
-                )}
-               
-            </section>
-            
-           
-            <br />
-            <br />
-            {employee_list.list && employee_list.list.map((l, index) => 
-                (
-                    <div className="bg-info" key={index}>
-                        {l && l.boss === 1 ? 
-                            (
-                                null
-                            )
-                                :
-                            (
-                                <section style={{cursor: "pointer"}}>
-                                     <Link to={`/employee-with-tasks/${l._id}`}>
-                                        <p className="text-center">{l.name}</p>
-                                        <p className="text-center">{l.lastName}</p>  
-                                    </Link>
-                                </section>
-                               
-                            )
-                        }
-                    </div>
-                ))
-            }
-            <Link className='d-block p-3 mt-4 bg-warning app-text-small' to='/company-management'>Вернуться на страницу управления компанией</Link>
+          
+            <Link className='d-block p-3 mt-3 bg-warning app-text-small' to='/company-management'>Вернуться на страницу управления компанией</Link>
         </div>
     )
 }
 
 EmployeeList.propTypes = {
-    GetEmployeeList: PropTypes.func.isRequired,
     LoadAllRoles:PropTypes.func.isRequired,
     CreateTask: PropTypes.func.isRequired,
     GetAllTasks: PropTypes.func.isRequired,
-    employee_reducer: PropTypes.object.isRequired,
 }
 
 const mapStateToProps = state => ({
-    employee_reducer: state.employee_reducer,
     roles: state.roles,
     task: state.task
 });
 
 export default connect(mapStateToProps, {
-    GetEmployeeList,
     LoadAllRoles,
     CreateTask,
     GetAllTasks

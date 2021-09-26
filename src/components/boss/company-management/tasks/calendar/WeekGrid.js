@@ -4,7 +4,11 @@ import './calendar.css'
 import moment from 'moment';
 
 
-const CalendarGridWeek = ({startWeek}) => {
+const WeekGrid = ({
+    startWeek,
+    all_tasks,
+    openModalHandler
+}) => {
 
     const totalDays = 42;
     const weekDay = startWeek.clone().subtract(1, 'day')
@@ -32,16 +36,39 @@ const CalendarGridWeek = ({startWeek}) => {
         
                     >
                          <div className="top-row-cell">
-                            {!currentDay(dayItem) && dayItem.format('D')}
+                         <div className='show-day-wrapper' onDoubleClick={() => openModalHandler('Create')}>
+                               {currentDay(dayItem) && dayItem.format('D') ? 
+                               (
+                                    <div className="day-wrapper">
+                                        {dayItem.format('D')}
+                                    </div>
+                                        
+                                ) 
+                                    : 
+                                (
+                                    dayItem.format('D')
+                                )} 
+                                {/* <div>Start: {dayItem.format('X')}</div> */}
+
+                                <ul className='tasks-list-wrapper'>
+                                    {all_tasks.tasks && all_tasks.tasks.filter(task => task.finish.split('T', 1)[0] >= dayItem.format('YYYY-MM-DD') && task.finish.split('T', 1)[0] <= dayItem.clone().endOf('day').format('YYYY-MM-DD'))
+                                        .map((task) => (
+                                            <li className='' key={task._id}>
+                                                <button className='task-button' onDoubleClick={() => openModalHandler('Update', task)}>
+                                                    {task.content}
+                                                </button>
+                                            </li>
+                                        ))
+                                    }
+                                </ul>
+                            </div>
+                            {/* {!currentDay(dayItem) && dayItem.format('D')}
                             {currentDay(dayItem) && <div className="day-wrapper">
                                                         {dayItem.format('D')}
                                                     </div>}
                              
-                            
+                             */}
                          </div>
-                        {[...Array(24)].map((_, i) => (
-                            <div className='calendar-week-hours'>{i + 1}</div>
-                        ))}
                        
                     </CellWrapper>
             ))}
@@ -49,7 +76,7 @@ const CalendarGridWeek = ({startWeek}) => {
     )
 }
 
-export default CalendarGridWeek
+export default WeekGrid
 
 const CellWrapper = styled.div`
         width: auto;

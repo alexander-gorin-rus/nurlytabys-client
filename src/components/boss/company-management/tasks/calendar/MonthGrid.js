@@ -4,7 +4,7 @@ import './calendar.css'
 import moment from 'moment';
 
 
-const CalendarGridMont = ({
+const MonthGrid = ({
     startMonth, 
     totalMonthDays,
     all_tasks,
@@ -67,7 +67,7 @@ const CalendarGridMont = ({
     )
 }
 
-export default CalendarGridMont
+export default MonthGrid
 
 const CellWrapper = styled.div`
         width: auto;
