@@ -34,8 +34,12 @@ const EmployeeList = ({
 }) => {
 
     moment.locale('ru', {week: {dow: 1}});
-    const [today, setToday] = useState(moment())
+
+    //this section is for calendar model
     const [taskUpdate, setTaskUpdate] = useState(null)
+    const [isShowForm, setShowForm] = useState(false)
+
+    const [today, setToday] = useState(moment())
     const startMonth = today.clone().startOf('month').startOf('week');
     const endMonth = moment().endOf('month').endOf('week');
     const startWeek = today.clone().startOf('week');
@@ -112,8 +116,6 @@ const EmployeeList = ({
         LoadAllRoles();
     },[GetEmployeeList]);
 
-    // {all_tasks && all_tasks.map(())}
-
     const [tasksList, setTasksList] = useState([])
     const [displayTaskForm, toggleTaskForm] = useState(false);
     const [Role, setRoles] = useState([]);
@@ -152,15 +154,14 @@ const EmployeeList = ({
             finish
         }
 
-        if(content === ''){
-            alert('Необходимо заполнить поле с текстом задания')
-        }
-        else{
-            CreateTask(variables)
-        }
-       
+        // if(content === ''){
+        //     alert('Необходимо заполнить поле с текстом задания')
+        // }
+        // else{
+        //     CreateTask(variables)
+        // }
 
-        console.log(finish)
+        CreateTask(variables)
         
         setValues({
             title,
@@ -188,28 +189,83 @@ const EmployeeList = ({
 }
 
     const openModalHandler = ( method, taskForUpdate) => {
-        // e.preventDefault()
-        console.log(method)
+        setTaskUpdate(taskForUpdate)
+        setShowForm(true)
+        console.log('onDoudleClick', method)
+    }
+
+    const cancelButtonHandler = () => {
+        setShowForm(false)
     }
     return (
         <div className="main-div-content">
-            {/* {tasksList.map((t) => (
-                <div key={t._id}>{t}</div>
-            ))} */}
             <div className="calendar-div">
-                <CalendarHeader />
-                <MonthSelect 
+                <>
+                    {
+                        isShowForm ? 
+                        (
+                            <div className='form-position-wrapper'>
+                                <form onSubmit={handleSubmit}>
+                                    <div className="form-group">
+                                        <input
+                                            type="text"
+                                            name="content"
+                                            className="form-control"
+                                            value={content}
+                                            onChange={handleChange}
+                                            placeholder="Текст задания"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label>Выбрать дату</label>
+                                        <p className='bg-danger px-1'>Внимание: на этом календаре неделя начинается с воскресенья</p>
+                                        <input 
+                                            type="datetime-local" 
+                                            name='finish'
+                                            value={finish}
+                                            onChange={e => handleChange(e)}
+                                        />
+                                    </div>
+                                    <ul>
+                                        {load_all_roles && load_all_roles.roles.map((r) => (
+                                            <li key={r._id}>
+                                                <label>
+                                                    <input
+                                                        type="checkbox"
+                                                        onChange={() => handleToggle(r._id)}
+                                                        value={checked.indexOf(r._id === -1)}
+                                                        className="form-check-input" 
+                                                    /><span>{r.name}</span>
+                                                </label> 
+                                            </li>
+                                        ))}
+                                    </ul>
+                                    <button className="btn btn-outline-info mt-4">Отправить</button>
+                                    <br />
+                                    <br />
+                                    <button onClick={cancelButtonHandler}  className="btn bg-warning mt-4 text-danger mb-3">Закрыть</button> 
+                                    
+                                </form>
+                            </div>
+                        ) 
+                            :
+                        null
+                    }
+                    <CalendarHeader />
+                    <MonthSelect 
                         prevMonth={prevMonth}
                         currentMonth={currentMonth}
                         nextMonth={nextMonth}
                         today={today} 
                     />
-                <CalendarGridMonth 
-                    startMonth={startMonth} 
-                    totalMonthDays={totalMonthDays} 
-                    all_tasks={all_tasks} 
-                    openModalHandler={openModalHandler}
+                    <CalendarGridMonth 
+                        startMonth={startMonth} 
+                        totalMonthDays={totalMonthDays} 
+                        all_tasks={all_tasks} 
+                        openModalHandler={openModalHandler}
                     />
+                </>
+                
                 {/* <WeekSelect 
                     prevWeek={prevWeek}
                     currentWeek={currentWeek}

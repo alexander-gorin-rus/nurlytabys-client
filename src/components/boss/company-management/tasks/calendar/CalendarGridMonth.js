@@ -33,7 +33,7 @@ const CalendarGridMont = ({
                         isSelectedMonth={isSelectedMonth(dayItem)}
                     >
                         <div className="top-row-cell">
-                            <div className='show-day-wrapper' onDoubleClick={(e) => openModalHandler('Create')}>
+                            <div className='show-day-wrapper' onDoubleClick={() => openModalHandler('Create')}>
                                {currentDay(dayItem) && dayItem.format('D') ? 
                                (
                                     <div className="day-wrapper">
@@ -51,7 +51,7 @@ const CalendarGridMont = ({
                                     {all_tasks.tasks && all_tasks.tasks.filter(task => task.finish.split('T', 1)[0] >= dayItem.format('YYYY-MM-DD') && task.finish.split('T', 1)[0] <= dayItem.clone().endOf('day').format('YYYY-MM-DD'))
                                         .map((task) => (
                                             <li className='' key={task._id}>
-                                                <button className='task-button' onDoubleClick={(e) => openModalHandler('Update', task)}>
+                                                <button className='task-button' onDoubleClick={() => openModalHandler('Update', task)}>
                                                     {task.content}
                                                 </button>
                                             </li>
