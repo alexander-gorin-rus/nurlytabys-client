@@ -48,7 +48,7 @@ const WeekGrid = ({
                                         .map((task) => (
                                             <li className='' key={task._id}>
                                                 <button className='task-button' onDoubleClick={() => openModalHandler('Update', task)}>
-                                                    {task.content}
+                                                    {task.title}
                                                 </button>
                                             </li>
                                         ))

@@ -28,7 +28,8 @@
     min-height: 40px;
     height: 100%;
     width: 100%;
-    border: 1px solid red;
+    /* border: 1px solid red; */
+    background-color: azure;
 }
 
 .calendar-week-days{
@@ -185,7 +186,7 @@
 }
 
 .day-tasks-list-wrapper{
-    border: 1px solid green;
+    /* border: 1px solid green; */
 }
 
 .day-tasks-list{
@@ -208,6 +209,11 @@
     padding: 0;
     text-align: center;
     font-size: 0.9rem;
+}
+
+.task-update-button{
+    cursor: pointer;
+    font-weight: bold;
 }
 
 @media(max-width: 850px){

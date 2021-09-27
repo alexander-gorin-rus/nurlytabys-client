@@ -206,6 +206,16 @@ const EmployeeList = ({
                         (
                             <div className='form-position-wrapper'>
                                 <form onSubmit={handleSubmit}>
+                                <div className="form-group mx-4">
+                                        <input
+                                            type="text"
+                                            name="title"
+                                            className="form-control"
+                                            value={title}
+                                            onChange={handleChange}
+                                            placeholder="Название задания"
+                                        />
+                                    </div>
                                     <div className="form-group mx-4">
                                         <input
                                             type="text"
