@@ -14,6 +14,8 @@ import MonthGrid from './calendar/MonthGrid';
 import './calendar/calendar.css'
 import WeekGrid from './calendar/WeekGrid';
 import WeekSelect from './calendar/WeekSelect';
+import DaySelect from './calendar/DaySelect';
+import DayGrid from './calendar/DayGrid';
 
 //global constants for calendar
 const totalMonthDays = 42
@@ -37,8 +39,8 @@ const EmployeeList = ({
     const endMonth = moment().endOf('month').endOf('week');
     const startWeek = today.clone().startOf('week');
     const endWeek = moment().endOf('week');
-    const startDay = moment().startOf('hour').hours();
-    const endDay = moment().startOf('hour').hours();
+    const startDay = today.clone().startOf('day');
+    const endDay = moment().endOf('day');
 
     window.startMonth = startMonth;
     window.endMonth = endMonth;
@@ -60,10 +62,10 @@ const EmployeeList = ({
         monthDay.add(1, 'day')
     }
 
-    // while(!weekDay.isAfter(endWeek)){
-    //     weekCalendar.push(weekDay.clone())
-    //     weekDay.add(1, 'day')
-    // }
+    while(!weekDay.isAfter(endWeek)){
+        weekCalendar.push(weekDay.clone())
+        weekDay.add(1, 'day')
+    }
 
     // while(!day.isAfter(endDay)){
     //     dayCalendar.push(day.clone())
@@ -96,6 +98,17 @@ const EmployeeList = ({
     }
     const nextWeek = () => {
         setToday(prev => prev.clone().add(1, 'week'));
+
+    }
+
+    const prevDay = () => {
+        setToday(prev => prev.clone().subtract(1, 'day'));
+    }
+    const currentDay = () => {
+        setToday(moment())
+    }
+    const nextDay = () => {
+        setToday(prev => prev.clone().add(1, 'day'));
 
     }
 
@@ -248,7 +261,19 @@ const EmployeeList = ({
                             onClick={() => selectCalendarGrid(3)}
                             className={toggleCalendarGrid === 3 ? 'calendar-header-content calendar-header-active' : 'calendar-header-content'}>Месяц</p>
                     </div>
-                    <div className={toggleCalendarGrid === 1 ? 'calendar-content content-active' : 'calendar-content'}>Day</div>
+                    <div className={toggleCalendarGrid === 1 ? 'calendar-content content-active' : 'calendar-content'}>
+                        <DaySelect 
+                            prevDay={prevDay}
+                            currentDay={currentDay}
+                            nextDay={nextDay}
+                            today={today}
+                        />
+                        <DayGrid
+                            startDay={startDay}
+                            all_tasks={all_tasks}
+                            openModalHandler={openModalHandler}
+                        />
+                    </div>
                     <div className={toggleCalendarGrid === 2 ? 'calendar-content content-active' : 'calendar-content'}>
                         <WeekSelect
                             prevWeek={prevWeek}

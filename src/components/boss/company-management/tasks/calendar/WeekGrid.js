@@ -12,9 +12,7 @@ const WeekGrid = ({
 
     const totalDays = 42;
     const weekDay = startWeek.clone().subtract(1, 'day')
-    //const weekDays = startWeek.clone().subtract(1, 'day')
     const daysArray = [...Array(7)].map(() => weekDay.add(1, 'day').clone());
-    const weekDaysArray = [...Array(7)].map(() => weekDay.add(1, 'day').clone());
 
     const currentDay = (day) => moment().isSame(day, 'day');
 
@@ -25,9 +23,6 @@ const WeekGrid = ({
                     {moment().day(i + 1).format('ddd')}
                 </div>
             ))}
-            {/* {weekDaysArray.map((weekDayItem) => (
-                <div key={weekDayItem.format('DDMMYYYY')}>{weekDayItem}</div>
-            ))} */}
             {
                 daysArray.map((dayItem) => (
                     <CellWrapper 
@@ -48,8 +43,6 @@ const WeekGrid = ({
                                 (
                                     dayItem.format('D')
                                 )} 
-                                {/* <div>Start: {dayItem.format('X')}</div> */}
-
                                 <ul className='tasks-list-wrapper'>
                                     {all_tasks.tasks && all_tasks.tasks.filter(task => task.finish.split('T', 1)[0] >= dayItem.format('YYYY-MM-DD') && task.finish.split('T', 1)[0] <= dayItem.clone().endOf('day').format('YYYY-MM-DD'))
                                         .map((task) => (
@@ -62,12 +55,6 @@ const WeekGrid = ({
                                     }
                                 </ul>
                             </div>
-                            {/* {!currentDay(dayItem) && dayItem.format('D')}
-                            {currentDay(dayItem) && <div className="day-wrapper">
-                                                        {dayItem.format('D')}
-                                                    </div>}
-                             
-                             */}
                          </div>
                        
                     </CellWrapper>
