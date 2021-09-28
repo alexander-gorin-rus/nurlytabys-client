@@ -109,11 +109,7 @@ const EmployeeList = ({
     useEffect(() => {
         GetAllTasks();
         LoadAllRoles();
-    },[])
-
-
-
-    //const [tasksList, setTasksList] = useState([])
+    },[]);
 
     const [toggleCalendarGrid, setToggleCalendarGrid] = useState(1)
 
@@ -256,7 +252,7 @@ const EmployeeList = ({
                             :
                         null
                     }
-                     <div className='calendar-select-header'>
+                    <div className='calendar-select-header'>
                         <p 
                             onClick={() => selectCalendarGrid(1)}
                             className={toggleCalendarGrid === 1 ? 'calendar-header-content calendar-header-active' : 'calendar-header-content'} >День</p>

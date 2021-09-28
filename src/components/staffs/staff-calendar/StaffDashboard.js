@@ -7,12 +7,14 @@ import {
     ChangeTaskStatus,
     GetTasksByRole
 } from '../../../redux/actions/task';
-import MonthGrid from '../../boss/company-management/tasks/calendar/MonthGrid';
-import MonthSelect from '../../boss/company-management/tasks/calendar/MonthSelect';
 import moment from 'moment';
 import 'moment/locale/ru'
 import StaffMonthGrid from './StaffMontGrid';
 import StaffMonthSelect from './StaffMonthSelect';
+import StaffWeekGrid from './StaffWeekGrid';
+import StaffWeekSelect from './StaffWeekSelect';
+import StaffDayGrid from './StaffDayGrid';
+import StaffDaySelect from './StaffDaySelect';
 
 const totalMonthDays = 42
 
@@ -111,6 +113,12 @@ const StaffDashboard = ({
         setShowForm(false)
     }
 
+    const [toggleCalendarGrid, setToggleCalendarGrid] = useState(1)
+
+    const selectCalendarGrid = (index) => {
+        setToggleCalendarGrid(index)
+    }
+
     useEffect(() => {
         GetTasksByRole(employee && employee.employee.role._id)
     },[])
@@ -128,18 +136,57 @@ const StaffDashboard = ({
     return (
         <>
         <div className='main-div-content'>
-            <StaffMonthSelect 
-                prevMonth={prevMonth}
-                currentMonth={currentMonth}
-                nextMonth={nextMonth}
-                today={today} 
-            />
-            <StaffMonthGrid 
-                startMonth={startMonth} 
-                totalMonthDays={totalMonthDays} 
-                tasks_by_role={tasks_by_role} 
-                openModalHandler={openModalHandler}
-            />
+            <div className='calendar-select-header'>
+                <p 
+                    onClick={() => selectCalendarGrid(1)}
+                    className={toggleCalendarGrid === 1 ? 'calendar-header-content calendar-header-active' : 'calendar-header-content'} >День</p>
+                <p 
+                    onClick={() => selectCalendarGrid(2)}
+                    className={toggleCalendarGrid === 2 ? 'calendar-header-content calendar-header-active' : 'calendar-header-content'}>Неделя</p>
+                <p 
+                    onClick={() => selectCalendarGrid(3)}
+                    className={toggleCalendarGrid === 3 ? 'calendar-header-content calendar-header-active' : 'calendar-header-content'}>Месяц</p>
+                </div>
+            <div className={toggleCalendarGrid === 1 ? 'calendar-content content-active' : 'calendar-content'}>
+                        <StaffDaySelect 
+                            prevDay={prevDay}
+                            currentDay={currentDay}
+                            nextDay={nextDay}
+                            today={today}
+                        />
+                        <StaffDayGrid
+                            startDay={startDay}
+                            tasks_by_role={tasks_by_role}
+                            openModalHandler={openModalHandler}
+                        />
+                    </div>
+                    <div className={toggleCalendarGrid === 2 ? 'calendar-content content-active' : 'calendar-content'}>
+                        <StaffWeekSelect
+                            prevWeek={prevWeek}
+                            currentWeek={currentWeek}
+                            nextWeek={nextWeek}
+                            today={today}
+                        />
+                        <StaffWeekGrid
+                            startWeek={startWeek}
+                            tasks_by_role={tasks_by_role} 
+                            openModalHandler={openModalHandler}
+                        />
+                    </div>
+                    <div className={toggleCalendarGrid === 3 ? 'calendar-content content-active' : 'calendar-content'}>
+                        <StaffMonthSelect
+                            prevMonth={prevMonth}
+                            currentMonth={currentMonth}
+                            nextMonth={nextMonth}
+                            today={today} 
+                        />
+                        <StaffMonthGrid
+                            startMonth={startMonth} 
+                            totalMonthDays={totalMonthDays} 
+                            tasks_by_role={tasks_by_role} 
+                            openModalHandler={openModalHandler}
+                        />
+                    </div> 
                
         </div>
         <div className="main-div-content">
