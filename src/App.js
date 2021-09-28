@@ -19,7 +19,7 @@ import Alert from './components/forms/alert-forms/Alert';
 import Register from './components/Register';
 import RegisterForm  from './components/staffs/RegisterForm';
 import LoginForm from './components/staffs/LoginForm';
-import StaffDashboard from './components/staffs/StaffDashboard';
+import StaffDashboard from './components/staffs/staff-calendar/StaffDashboard';
 import CompanyManagement from './components/boss/company-management/CompanyManagement';
 import SiteManagenet from './components/boss/site-management/SiteManagement';
 import UploadVideo from './components/boss/site-management/UploadVideo';

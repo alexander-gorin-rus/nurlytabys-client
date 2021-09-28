@@ -9,7 +9,9 @@ import {
     GET_TASK_BY_ID_FAIL,
     GET_TASK_BY_ID_SUCCESS,
     GET_ALL_TASKS_SUCCESS,
-    GET_ALL_TASKS_FAIL
+    GET_ALL_TASKS_FAIL,
+    GET_TASKS_BY_ROLE_SUCCESS,
+    GET_TASKS_BY_ROLE_FAIL
 } from '../types';
 import axios from 'axios';
 import { setAlert } from './alert';
@@ -105,6 +107,20 @@ export const GetAllTasks = () => async dispatch => {
         console.log(err);
         dispatch({
             type: GET_ALL_TASKS_FAIL
+        })
+    }
+}
+
+export const GetTasksByRole = (id) => async dispatch => {
+    try {
+        const res = await axios.get(`${process.env.REACT_APP_API}/get-tasks-by-role/${id}`);
+        dispatch({
+            type: GET_TASKS_BY_ROLE_SUCCESS,
+            payload: res.data
+        })
+    } catch (err) {
+        dispatch({
+            type: GET_TASKS_BY_ROLE_FAIL
         })
     }
 }

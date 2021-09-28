@@ -18,6 +18,7 @@ const MonthGrid = ({
     const currentDay = (day) => moment().isSame(day, 'day');
     const isSelectedMonth = (day) => moment().isSame(day, 'month');
 
+    let dayOptions = {weekday: 'long'}
     return (
         <div className='calendar'>
             {[...Array(7)].map((_, i) => (
@@ -54,6 +55,9 @@ const MonthGrid = ({
                                                 <button className='task-button' onDoubleClick={() => openModalHandler('Update', task)}>
                                                     {task.title}
                                                 </button>
+                                                <p className="app-text-small d-inline mx-1">Выполнить к:</p>
+                                                <p className="d-inline mx-1">{new Date(task.finish).toLocaleTimeString('ru', dayOptions).split(' ')[0]}</p>
+                                                <p className="d-inline mx-1">{new Date(task.finish).toLocaleString('ru')}</p>
                                             </li>
                                         ))
                                     }

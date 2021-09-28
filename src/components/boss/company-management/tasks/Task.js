@@ -67,12 +67,6 @@ const EmployeeList = ({
         weekDay.add(1, 'day')
     }
 
-    // while(!day.isAfter(endDay)){
-    //     dayCalendar.push(day.clone())
-    //     day.add(1, 'hour')
-    // }
-
-    
     window.moment = moment;
     window.monthDay = monthDay;
     window.weekDay = weekDay;
@@ -170,7 +164,8 @@ const EmployeeList = ({
         setValues({
             title,
             content: "",
-            role: []
+            role: [],
+            finish: ""
         });
     }
 
@@ -197,6 +192,7 @@ const EmployeeList = ({
     const cancelButtonHandler = () => {
         setShowForm(false)
     }
+    
     return (
         <div className="main-div-content">
             <div className="calendar-div  my-4">

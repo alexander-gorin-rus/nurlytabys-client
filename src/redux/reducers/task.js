@@ -9,7 +9,9 @@ import {
     GET_TASK_BY_ID_SUCCESS,
     GET_TASK_BY_ID_FAIL,
     GET_ALL_TASKS_SUCCESS,
-    GET_ALL_TASKS_FAIL
+    GET_ALL_TASKS_FAIL,
+    GET_TASKS_BY_ROLE_SUCCESS,
+    GET_TASKS_BY_ROLE_FAIL
 } from '../types';
 
 const initialState = {
@@ -19,6 +21,7 @@ const initialState = {
     change_task: null,
     task_by_id: null,
     all_tasks: [],
+    tasks_by_role: [],
     loading: true
 }
 
@@ -78,6 +81,18 @@ export default function(state = initialState, action){
             return {
                 ...state,
                 all_tasks: [],
+                loading: false
+            }
+        case GET_TASKS_BY_ROLE_SUCCESS:
+            return {
+                ...state,
+                tasks_by_role: payload,
+                loading: false
+            }
+        case GET_TASKS_BY_ROLE_FAIL:
+            return {
+                ...state,
+                tasks_by_role: [],
                 loading: false
             }
         case TASK_DELETE_SUCCESS:

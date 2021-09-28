@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
 import './calendar.css'
 
 
@@ -8,6 +7,9 @@ const DayGrid = ({
     all_tasks,
     openModalHandler
 }) => {
+
+    let dayOptions = {weekday: 'long'}
+    
     return (
         <div className='day-calendar'  onDoubleClick={() => openModalHandler('Create')}>
             <ul className='day-tasks-list-wrapper'>
@@ -15,8 +17,17 @@ const DayGrid = ({
                     .map((task) => 
                         (
                             <li className='day-tasks-list' key={task._id}>
+                                <p>Исполнители:</p>
+                                
+                                {task.role.map((r) => (
+                                    <div key={r._id}>{r.name}</div>
+                                ))}
                                 <div className='task-update-button' onDoubleClick={() => openModalHandler('Update', task)}>
                                     {task.content}
+                                    <br />
+                                    <p className="app-text-small d-inline mx-1">Выполнить к:</p>
+                                    <p className="d-inline mx-1">{new Date(task.finish).toLocaleTimeString('ru', dayOptions).split(' ')[0]}</p>
+                                    <p className="d-inline mx-1">{new Date(task.finish).toLocaleString('ru')}</p>
                                 </div>
                             </li>
                         ))

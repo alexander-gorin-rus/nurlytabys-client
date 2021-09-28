@@ -186,22 +186,25 @@
 }
 
 .day-tasks-list-wrapper{
-    /* border: 1px solid green; */
+    
 }
 
 .day-tasks-list{
     position: relative;
-    left: 20px;
+    padding-left: 20px;
+    background-color: rgb(194, 225, 253);
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .task-button{
     position: relative;
     left: -14px;
-    text-overflow: ellipsis;
+    /* text-overflow: ellipsis;
     overflow: hidden;
-    white-space: nowrap;
+    white-space: nowrap; */
     width: 114px;
-    border: unset;
+    /* border: unset; */
     background: unset;
     color: #000000;
     cursor: pointer;
