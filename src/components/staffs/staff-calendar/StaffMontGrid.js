@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import '../../boss/company-management/tasks/calendar/calendar.css'
 import moment from 'moment';
+import { Link } from 'react-router-dom';
 
 
 const StaffMonthGrid = ({
@@ -46,23 +47,22 @@ const StaffMonthGrid = ({
                                 (
                                     dayItem.format('D')
                                 )} 
-                                <ul className='tasks-list-wrapper'>
-                                    {tasks_by_role && tasks_by_role.filter(task => task.finish.split('T', 1)[0] >= dayItem.format('YYYY-MM-DD') && task.finish.split('T', 1)[0] <= dayItem.clone().endOf('day').format('YYYY-MM-DD'))
-                                        .map((task) => (
-                                            <li className='' key={task._id}>
-                                                <div className='task-button' onDoubleClick={() => openModalHandler('Update', task)}>
-                                                    {task.title}
-                                                </div>
-                                                <p className="app-text-small d-inline mx-1">Выполнить к:</p>
-                                                <p className="d-inline mx-1">{new Date(task.finish).toLocaleTimeString('ru', dayOptions).split(' ')[0]}</p>
-                                                <p className="d-inline mx-1">{new Date(task.finish).toLocaleString('ru')}</p>
-                                            </li>
-                                        ))
-                                    }
-                                </ul>
                             </div>
-                            
-                         </div>
+                        </div>
+                        <ul className='tasks-list-wrapper'>
+                            {tasks_by_role.tasks && tasks_by_role.tasks.filter(task => task.finish.split('T', 1)[0] >= dayItem.format('YYYY-MM-DD') && task.finish.split('T', 1)[0] <= dayItem.clone().endOf('day').format('YYYY-MM-DD'))
+                                .map((task) => 
+                                (
+                                    <li className='' key={task._id}>
+                                        <div className='task-button'>
+                                            <Link to={`task-full-info/${task._id}`}>
+                                                {task.title}
+                                            </Link>
+                                        </div>
+                                    </li>
+                                ))
+                            }
+                        </ul>
                     </CellWrapper>
             ))}
         </div>

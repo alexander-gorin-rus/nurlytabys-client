@@ -199,17 +199,17 @@
 
 .task-button{
     position: relative;
-    left: -14px;
+    left: 0;
     /* text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap; */
-    width: 114px;
+    width: auto;
     /* border: unset; */
-    background: unset;
+    background-color: blanchedalmond;
     color: #000000;
     cursor: pointer;
-    margin: 0;
-    padding: 0;
+    margin-bottom: 10px;
+    padding: 2px;
     text-align: center;
     font-size: 0.9rem;
 }
@@ -237,4 +237,31 @@
     align-items: center;
     justify-content: center;
 
+}
+
+.change-color-black{
+    top: 10vh;
+    position: relative;
+    left: 25vw;
+    background-color: black;
+    width: 100px;
+    height: 100px;
+}
+
+.change-color-red{
+    position: relative;
+    top: 10vh;
+    left: 25vw;
+    background-color: rgb(230, 22, 22);
+    width: 100px;
+    height: 100px;
+}
+
+.delete-task{
+    background-color: red;
+    color: white;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 5px;
+    cursor: pointer;
 }

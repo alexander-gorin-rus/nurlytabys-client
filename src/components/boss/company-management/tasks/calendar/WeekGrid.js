@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import './calendar.css'
 import moment from 'moment';
-
+import { Link } from 'react-router-dom';
 
 const WeekGrid = ({
     startWeek,
@@ -10,13 +10,10 @@ const WeekGrid = ({
     openModalHandler
 }) => {
 
-    const totalDays = 42;
     const weekDay = startWeek.clone().subtract(1, 'day')
     const daysArray = [...Array(7)].map(() => weekDay.add(1, 'day').clone());
 
     const currentDay = (day) => moment().isSame(day, 'day');
-
-    let dayOptions = {weekday: 'long'}
     return (
         <div className='calendar'>
             {[...Array(7)].map((_, i) => (
@@ -32,7 +29,7 @@ const WeekGrid = ({
         
                     >
                          <div className="top-row-cell">
-                         <div className='show-day-wrapper' onDoubleClick={() => openModalHandler('Create')}>
+                         <div className='show-day-wrapper' onDoubleClick={() => openModalHandler()}>
                                {currentDay(dayItem) && dayItem.format('D') ? 
                                (
                                     <div className="day-wrapper">
@@ -44,27 +41,22 @@ const WeekGrid = ({
                                 (
                                     dayItem.format('D')
                                 )} 
-                                <ul className='tasks-list-wrapper'>
-                                    {all_tasks.tasks && all_tasks.tasks.filter(task => task.finish.split('T', 1)[0] >= dayItem.format('YYYY-MM-DD') && task.finish.split('T', 1)[0] <= dayItem.clone().endOf('day').format('YYYY-MM-DD'))
-                                        .map((task) => (
-                                            <li className='' key={task._id}>
-                                                <div className='task-button' onDoubleClick={() => openModalHandler('Update', task)}>
-                                                    {task.title}
-                                                    <br />
-                                                    {task.content}
-                                                </div>
-                                                <p className="app-text-small d-inline mx-1">Выполнить к:</p>
-                                                <br />
-                                                <p className="d-inline mx-1 app-text-small">{new Date(task.finish).toLocaleTimeString('ru', dayOptions).split(' ')[0]}</p>
-                                                <br />
-                                                <p className="d-inline mx-1 app-text-small">{new Date(task.finish).toLocaleString('ru')}</p>
-                                            </li>
-                                        ))
-                                    }
-                                </ul>
                             </div>
-                         </div>
-                       
+                        </div>
+                        <ul className='tasks-list-wrapper'>
+                            {all_tasks.tasks && all_tasks.tasks.filter(task => task.finish.split('T', 1)[0] >= dayItem.format('YYYY-MM-DD') && task.finish.split('T', 1)[0] <= dayItem.clone().endOf('day').format('YYYY-MM-DD'))
+                                .map((task) => 
+                                (
+                                    <li className='' key={task._id}>
+                                        <div className='task-button'>
+                                            <Link to={`task-full-info/${task._id}`}>
+                                                {task.content}
+                                            </Link>
+                                        </div>
+                                    </li>
+                                ))
+                            }
+                        </ul>
                     </CellWrapper>
             ))}
         </div>

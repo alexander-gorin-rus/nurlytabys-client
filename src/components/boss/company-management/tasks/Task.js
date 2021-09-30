@@ -179,10 +179,8 @@ const EmployeeList = ({
         setValues({...values, role: newChecked})
 }
 
-    const openModalHandler = ( method, taskForUpdate) => {
-        setTaskUpdate(taskForUpdate)
+    const openModalHandler = () => {
         setShowForm(true)
-        console.log('onDoudleClick', method)
     }
 
     const cancelButtonHandler = () => {

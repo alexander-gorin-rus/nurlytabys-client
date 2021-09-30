@@ -63,7 +63,7 @@ import BossPage from './components/boss/BossPage';
 import ChangeStaffInfo from './components/boss/ChangeStaffInfo';
 import Task from './components/boss/company-management/tasks/Task';
 import EmployeeWithTasks from './components/boss/company-management/tasks/EmployeeWithTasks';
-import TaskComment from './components/boss/company-management/tasks/TaskComment';
+import TaskFullInfo from './components/boss/company-management/tasks/TaskFullInfo';
 
 
 
@@ -104,7 +104,7 @@ const App = () => {
                 <Route path="/category/:slug" exact component={Category} />
                 <Route exact path="/video/:slug" component={DetailedVideo} />
                 <EmployeePrivateRoutes exact path="/employee-dashboard" component={StaffDashboard}/>
-                <EmployeePrivateRoutes exact path="/task-comment/:id" component={TaskComment}/>
+                <EmployeePrivateRoutes exact path="/task-full-info/:id" component={TaskFullInfo}/>
                 <BossPrivateRoutes exact path='/boss-page' component={BossPage} />
                 <BossPrivateRoutes exact path='/change-staff-info/:id' component={ChangeStaffInfo} />
                 <BossPrivateRoutes exact path='/excess-to-register' component={ExcessToRegister} />

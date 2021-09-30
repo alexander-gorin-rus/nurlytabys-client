@@ -13,7 +13,7 @@ const StaffDayGrid = ({
     return (
         <div className='day-calendar'  onDoubleClick={() => openModalHandler('Create')}>
             <ul className='day-tasks-list-wrapper'>
-                {tasks_by_role && tasks_by_role.filter(task => task.finish.split('T', 1)[0] >= startDay.format('YYYY-MM-DD') && task.finish.split('T', 1)[0] <= startDay.clone().endOf('day').format('YYYY-MM-DD'))
+                {tasks_by_role.tasks && tasks_by_role.tasks.filter(task => task.finish.split('T', 1)[0] >= startDay.format('YYYY-MM-DD') && task.finish.split('T', 1)[0] <= startDay.clone().endOf('day').format('YYYY-MM-DD'))
                     .map((task) => 
                         (
                             <li className='day-tasks-list' key={task._id}>

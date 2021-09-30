@@ -15,6 +15,8 @@ import StaffWeekGrid from './StaffWeekGrid';
 import StaffWeekSelect from './StaffWeekSelect';
 import StaffDayGrid from './StaffDayGrid';
 import StaffDaySelect from './StaffDaySelect';
+import SoundAlert1 from './sound-alert1.mp3';
+import useSound from 'use-sound';
 
 const totalMonthDays = 42
 
@@ -24,6 +26,17 @@ const StaffDashboard = ({
     employee_reducer: {employee},
     task: {tasks_by_role}
 }) => {
+
+    const [play] = useSound(SoundAlert1)
+
+    let tasks_length = tasks_by_role.length;
+
+    const [tasksLength, setTasksLength] = useState(0);
+
+    useEffect(() => {
+        setTasksLength()
+    },[tasks_length])
+
 
     moment.locale('ru', {week: {dow: 1}});
 
@@ -106,7 +119,7 @@ const StaffDashboard = ({
     const openModalHandler = ( method, taskForUpdate) => {
         setTaskUpdate(taskForUpdate)
         setShowForm(true)
-        console.log('onDoudleClick', method)
+        // console.log('onDoudleClick', method)
     }
 
     const cancelButtonHandler = () => {
@@ -131,8 +144,7 @@ const StaffDashboard = ({
     }    
     const [displayMyInfo, toggleMyInfo] = useState(false);
 
-    let dayOptions = {weekday: 'long'}
-    
+
     return (
         <>
         <div className='main-div-content'>
@@ -189,6 +201,7 @@ const StaffDashboard = ({
                     </div> 
                
         </div>
+       
         <div className="main-div-content">
                  <section>
                      <div 
