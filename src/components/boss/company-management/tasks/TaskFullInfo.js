@@ -23,9 +23,6 @@ const TaskFullInfo = ({
     let employeeId = employee && employee.employee._id
     let taskId = task_by_id && task_by_id.task._id
 
-    console.log(employeeId)
-    console.log(taskId)
-
     const { id } = useParams();
     const history = useHistory()
 
@@ -40,22 +37,37 @@ const TaskFullInfo = ({
         history.push('/tasks')
     }
 
+
     return (
         <div className='main-div-content'>
             <div>
                 <p className='text-center'>{task_by_id && task_by_id.task.title}</p>
-               
                 {task_by_id && task_by_id.task.content}
+            </div>
+            <hr />
+            <div>
+                <p className="app-text-small d-inline mx-1 bg-info p-2">Выполнить к:</p>
+                <p className="d-inline mx-1 bg-warning p-2">{new Date(task_by_id && task_by_id.task.finish).toLocaleString('ru').substr(11)}</p>
             </div>
             <hr />
             <div>
                 <p>Задание было поручено:</p>
                
-                {task_by_id && task_by_id.task.role.map((r) => (
-                    <p key={r._id}>{r.name}</p>
+                {task_by_id && task_by_id.task.employee.map((e) => (
+                    <div className='card inline-flex' key={e._id}>
+                        <div className=' px-2 bg-primary text-white'>{e.name}</div>
+                        <div className=' px-2 bg-primary text-white'>{e.lastName}</div>
+                        {task_by_id && task_by_id.task.comments.map((t) => (
+                            <div className='px-2'>{e._id !== t.byEmployee ? null : (<p>{t.comment}</p>) }</div>
+                        ))}
+                    </div>
                 ))}
             </div>
-            <CommentForm UpdateTask={UpdateTask} taskId={task_by_id && task_by_id.task._id} />
+            <CommentForm 
+                UpdateTask={UpdateTask} 
+                taskId={taskId} 
+                employee={employee}
+            />
 
             {/* <div>
                 <p className="app-text text-center bg-warning">Изменить статус задания</p>

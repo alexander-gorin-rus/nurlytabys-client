@@ -372,7 +372,7 @@
   /* border: 1px solid red; */
   height: 100% !important;
   width: 100%;
-  /* border: 4px dashed yellow; */
+  border: 4px dashed yellow;
 }
 
 .ul_navigation{
@@ -406,7 +406,7 @@ a{
 .main_page_navigation{
   position: fixed;
   top: 0%;
-  height: 100vh;
+  height: 110vh;
   left: -15px !important;
   writing-mode: vertical-lr;
   background-color: rgba(31, 31, 153, 0.918);
@@ -430,15 +430,15 @@ a{
 
 @media(max-width: 740px){
   .main_page_navigation{
-    width: 6vw;
-    padding-left: 12px;
+    width: 10vw;
+    padding-left: 18px;
   }
 }
 
 @media(max-width: 560px){
   .main_page_navigation{
-    width: 8vw;
-    padding-left: 9px;
+    width: 12vw;
+    padding-left: 15px;
   }
 }
 

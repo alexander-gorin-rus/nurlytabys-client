@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { 
-    GetTasksByRole
+    GetTasksByEmployee
 } from '../../../redux/actions/task';
 import moment from 'moment';
 import 'moment/locale/ru'
@@ -19,7 +19,7 @@ import useSound from 'use-sound';
 const totalMonthDays = 42
 
 const StaffDashboard = ({
-    GetTasksByRole,
+    GetTasksByEmployee,
     employee_reducer: {employee},
     task: {tasks_by_role}
 }) => {
@@ -115,7 +115,7 @@ const StaffDashboard = ({
     }
 
     useEffect(() => {
-        GetTasksByRole(employee && employee.employee.role._id)
+        GetTasksByEmployee(employee && employee.employee._id)
     },[])
 
     const [displayMyInfo, toggleMyInfo] = useState(false);
@@ -222,7 +222,7 @@ const StaffDashboard = ({
 }
 
 StaffDashboard.propTypes = {
-    GetTasksByRole: PropTypes.func.isRequired,
+    GetTasksByEmployee: PropTypes.func.isRequired,
     business: PropTypes.object,
     employee_reducer:PropTypes.object,
 }
@@ -235,5 +235,5 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps,
     {
-        GetTasksByRole
+        GetTasksByEmployee
     })(StaffDashboard)

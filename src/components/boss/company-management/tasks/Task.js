@@ -5,6 +5,7 @@ import {
     GetAllTasks
 } from '../../../../redux/actions/task';
 import { LoadAllRoles } from '../../../../redux/actions/roles';
+import { GetEmployeeList } from '../../../../redux/actions/employee_actions';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
@@ -22,10 +23,12 @@ const totalMonthDays = 42
 
 const EmployeeList = ({
     LoadAllRoles,
+    GetEmployeeList,
     CreateTask,
     GetAllTasks,
     roles: {load_all_roles},
-    task: {all_tasks}
+    task: {all_tasks},
+    employee_reducer: {employee_list}
 }) => {
 
     moment.locale('ru', {week: {dow: 1}});
@@ -106,10 +109,16 @@ const EmployeeList = ({
 
     }
 
+    // useEffect(() => {
+    //     GetAllTasks();
+    //     LoadAllRoles();
+    // },[]);
+
+
     useEffect(() => {
         GetAllTasks();
-        LoadAllRoles();
-    },[]);
+        GetEmployeeList()
+    },[GetEmployeeList]);
 
     const [toggleCalendarGrid, setToggleCalendarGrid] = useState(1)
 
@@ -120,7 +129,7 @@ const EmployeeList = ({
     const [values, setValues] = useState({
         title: "",
         content: "",
-        role: [],
+        employee: [],
         finish: ""
        
     });
@@ -128,7 +137,7 @@ const EmployeeList = ({
     const { 
         title,
         content,
-        role,
+        employee,
         finish
     } = values;
 
@@ -143,7 +152,7 @@ const EmployeeList = ({
         const variables = {
             title,
             content,
-            role,
+            employee,
             finish
         }
 
@@ -160,7 +169,7 @@ const EmployeeList = ({
         setValues({
             title,
             content: "",
-            role: [],
+            employee: [],
             finish: ""
         });
     }
@@ -176,7 +185,7 @@ const EmployeeList = ({
         }
 
         setChecked(newChecked)
-        setValues({...values, role: newChecked})
+        setValues({...values, employee: newChecked})
 }
 
     const openModalHandler = () => {
@@ -225,7 +234,7 @@ const EmployeeList = ({
                                             onChange={e => handleChange(e)}
                                         />
                                     </div>
-                                    <ul>
+                                    {/* <ul>
                                         {load_all_roles && load_all_roles.roles.map((r) => (
                                             <li key={r._id}>
                                                 <label>
@@ -235,6 +244,25 @@ const EmployeeList = ({
                                                         value={checked.indexOf(r._id === -1)}
                                                         className="form-check-input" 
                                                     /><span>{r.name}</span>
+                                                </label> 
+                                            </li>
+                                        ))}
+                                    </ul> */}
+                                    <ul>
+                                        {employee_list && employee_list.list.map((l) => (
+                                            <li key={l._id}>
+                                                <label>
+                                                    {l && l.boss === 1 ? null : (
+                                                        <input
+                                                        type="checkbox"
+                                                        onChange={() => handleToggle(l._id)}
+                                                        value={checked.indexOf(l._id === -1)}
+                                                        className="form-check-input" 
+                                                    />
+                                                    )}
+                                                    <span className='mx-2 text-dark'>{!l.role ? null : l.role.name}</span>
+                                                    <span className='text-dark'>{l.boss === 1 ? null : l.name}</span>
+                                                    <span className='mx-2 text-dark'>{l.boss === 1 ? null : l.lastName}</span>
                                                 </label> 
                                             </li>
                                         ))}
@@ -313,17 +341,20 @@ EmployeeList.propTypes = {
     LoadAllRoles:PropTypes.func.isRequired,
     CreateTask: PropTypes.func.isRequired,
     GetAllTasks: PropTypes.func.isRequired,
+    GetEmployeeList: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = state => ({
     roles: state.roles,
-    task: state.task
+    task: state.task,
+    employee_reducer: state.employee_reducer
 });
 
 export default connect(mapStateToProps, {
     LoadAllRoles,
     CreateTask,
-    GetAllTasks
+    GetAllTasks,
+    GetEmployeeList
 })(EmployeeList)
 
 

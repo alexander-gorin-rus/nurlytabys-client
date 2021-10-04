@@ -60,7 +60,7 @@ export const UpdateTask = (taskId, formData) => async dispatch => {
         }
     }
     try {
-        let res = await axios.put(`${process.env.REACT_APP_API}/task-update/comment/${taskId}`, formData, config )
+        const res = await axios.post(`${process.env.REACT_APP_API}/task-update/comment/${taskId}`, formData, config )
         dispatch({
             type: ADD_TASK_COMMENT,
             payload: res.data
@@ -136,9 +136,23 @@ export const GetAllTasks = () => async dispatch => {
     }
 }
 
-export const GetTasksByRole = (id) => async dispatch => {
+// export const GetTasksByRole = (id) => async dispatch => {
+//     try {
+//         const res = await axios.get(`${process.env.REACT_APP_API}/get-tasks-by-role/${id}`);
+//         dispatch({
+//             type: GET_TASKS_BY_ROLE_SUCCESS,
+//             payload: res.data
+//         })
+//     } catch (err) {
+//         dispatch({
+//             type: GET_TASKS_BY_ROLE_FAIL
+//         })
+//     }
+// }
+
+export const GetTasksByEmployee = (id) => async dispatch => {
     try {
-        const res = await axios.get(`${process.env.REACT_APP_API}/get-tasks-by-role/${id}`);
+        const res = await axios.get(`${process.env.REACT_APP_API}/get-tasks-by-employee/${id}`);
         dispatch({
             type: GET_TASKS_BY_ROLE_SUCCESS,
             payload: res.data

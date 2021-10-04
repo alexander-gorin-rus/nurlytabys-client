@@ -19,15 +19,18 @@ const StaffDayGrid = ({
                             <li className='day-tasks-list' key={task._id}>
                                 <p>Исполнители:</p>
                                 
-                                {task.role.map((r) => (
-                                    <div key={r._id}>{r.name}</div>
+                                {task.employee.map((r) => (
+                                    <div key={r._id}>
+                                        <span>{r.name}</span>
+                                        <span className='mx-2'>{r.lastName}</span>
+                                    </div>
                                 ))}
                                 <div className='task-update-button' onDoubleClick={() => openModalHandler('Update', task)}>
                                     {task.content}
                                     <br />
                                     <p className="app-text-small d-inline mx-1">Выполнить к:</p>
-                                    <p className="d-inline mx-1">{new Date(task.finish).toLocaleTimeString('ru', dayOptions).split(' ')[0]}</p>
-                                    <p className="d-inline mx-1">{new Date(task.finish).toLocaleString('ru')}</p>
+
+                                    <p className="d-inline mx-1">{new Date(task.finish).toLocaleString('ru').substr(11)}</p>
                                 </div>
                             </li>
                         ))

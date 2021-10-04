@@ -1,26 +1,32 @@
 import React, {useState} from 'react'
 
-const CommentForm = ({UpdateTask, taskId}) => {
+const CommentForm = ({
+    UpdateTask, 
+    taskId,
+    employee
+}) => {
 
-    const [text, setText] = useState('')
+    const [comment, setComment] = useState('')
     return (
         <div className='post-form'>
-            <form 
+           { employee && employee.employee.boss === 1 ? null : (
+                <form 
                 className='form my-1'
                 onSubmit={e => {
                     e.preventDefault();
-                    UpdateTask(taskId, { text });
-                    setText('')
+                    UpdateTask(taskId, { comment });
+                    setComment('')
                 }}
             >
+            <label className='text-dark'>Напишите комментарий</label>
             <textarea
-                name='text'
-                placeholder='Напишите комментарий'
-                value={text}
-                onChange={e => setText(e.target.value)}
+                name='comment'
+                value={comment}
+                onChange={e => setComment(e.target.value)}
             />
             <input type='submit' className='btn btn-dark my-1' value='Отправить' />
             </form>
+           ) }
         </div>
     )
 }
