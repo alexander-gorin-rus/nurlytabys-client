@@ -11,7 +11,9 @@ import {
     GET_ALL_TASKS_SUCCESS,
     GET_ALL_TASKS_FAIL,
     GET_TASKS_BY_ROLE_SUCCESS,
-    GET_TASKS_BY_ROLE_FAIL
+    GET_TASKS_BY_ROLE_FAIL,
+    ADD_TASK_COMMENT,
+    REMOVE_TASK_COMMENT
 } from '../types';
 import axios from 'axios';
 import { setAlert } from './alert';
@@ -50,19 +52,42 @@ export const ChangeTaskStatus = (taskId, completed) => async dispatch => {
     }
 }
 
-export const UpdateTask = (taskId, values) => async dispatch => {
+export const UpdateTask = (taskId, formData) => async dispatch => {
+
+    const config = {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }
     try {
-        const res = await axios.put(`${process.env.REACT_APP_API}/update-task/${taskId}`, values)
+        let res = await axios.put(`${process.env.REACT_APP_API}/task-update/comment/${taskId}`, formData, config )
         dispatch({
-            type: TASK_CHANGE_SUCCESS,
+            type: ADD_TASK_COMMENT,
             payload: res.data
         });
-        dispatch(setAlert('Комментарий заданию успешно добавлен', 'success'))
+        dispatch(setAlert('В задание успешно внесены изменения', 'success'))
     } catch (err) {
         dispatch({
             type: TASK_CHANGE_FAIL
         })
-        dispatch(setAlert('Не удалось добавить комментарий к заданию', 'danger'))
+        dispatch(setAlert('Не удалось внести изменения в задание', 'danger'))
+    }
+}
+
+export const DeleteComment = (taskId, commentId) => async dispatch => {
+
+    try {
+        const res = await axios.delete(`${process.env.REACT_APP_API}/comment/${taskId}/${commentId}`)
+        dispatch({
+            type: REMOVE_TASK_COMMENT,
+            payload: commentId
+        });
+        dispatch(setAlert('Комментарий к заданию успешно удален', 'success'))
+    } catch (err) {
+        dispatch({
+            type: TASK_CHANGE_FAIL
+        })
+        dispatch(setAlert('Не удалось удалить комментарий', 'danger'))
     }
 }
 

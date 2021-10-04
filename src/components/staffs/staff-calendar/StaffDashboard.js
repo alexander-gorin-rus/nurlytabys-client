@@ -2,9 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import TaskStatus from '../../boss/company-management/tasks/TaskStatus';
 import { 
-    ChangeTaskStatus,
     GetTasksByRole
 } from '../../../redux/actions/task';
 import moment from 'moment';
@@ -21,7 +19,6 @@ import useSound from 'use-sound';
 const totalMonthDays = 42
 
 const StaffDashboard = ({
-    ChangeTaskStatus,
     GetTasksByRole,
     employee_reducer: {employee},
     task: {tasks_by_role}
@@ -29,19 +26,9 @@ const StaffDashboard = ({
 
     const [play] = useSound(SoundAlert1)
 
-    let tasks_length = tasks_by_role.length;
-
-    const [tasksLength, setTasksLength] = useState(0);
-
-    useEffect(() => {
-        setTasksLength()
-    },[tasks_length])
-
-
     moment.locale('ru', {week: {dow: 1}});
 
     //this section is for calendar model
-    const [taskUpdate, setTaskUpdate] = useState(null)
     const [isShowForm, setShowForm] = useState(false)
 
     const [today, setToday] = useState(moment())
@@ -116,15 +103,10 @@ const StaffDashboard = ({
 
     }
     
-    const openModalHandler = ( method, taskForUpdate) => {
-        setTaskUpdate(taskForUpdate)
+    const openModalHandler = () => {
         setShowForm(true)
-        // console.log('onDoudleClick', method)
     }
 
-    const cancelButtonHandler = () => {
-        setShowForm(false)
-    }
 
     const [toggleCalendarGrid, setToggleCalendarGrid] = useState(1)
 
@@ -136,12 +118,6 @@ const StaffDashboard = ({
         GetTasksByRole(employee && employee.employee.role._id)
     },[])
 
-    const handleStatusChange = (taskId, completed) => {
-        ChangeTaskStatus(taskId, completed);
-        setTimeout(() => {
-            window.location.reload()
-        },2000)
-    }    
     const [displayMyInfo, toggleMyInfo] = useState(false);
 
 
@@ -246,7 +222,6 @@ const StaffDashboard = ({
 }
 
 StaffDashboard.propTypes = {
-    ChangeTaskStatus: PropTypes.func.isRequired,
     GetTasksByRole: PropTypes.func.isRequired,
     business: PropTypes.object,
     employee_reducer:PropTypes.object,
@@ -260,6 +235,5 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps,
     {
-        ChangeTaskStatus,
         GetTasksByRole
     })(StaffDashboard)

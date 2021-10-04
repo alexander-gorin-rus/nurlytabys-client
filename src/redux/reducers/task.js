@@ -11,7 +11,9 @@ import {
     GET_ALL_TASKS_SUCCESS,
     GET_ALL_TASKS_FAIL,
     GET_TASKS_BY_ROLE_SUCCESS,
-    GET_TASKS_BY_ROLE_FAIL
+    GET_TASKS_BY_ROLE_FAIL,
+    ADD_TASK_COMMENT,
+    REMOVE_TASK_COMMENT
 } from '../types';
 
 const initialState = {
@@ -22,6 +24,7 @@ const initialState = {
     task_by_id: null,
     all_tasks: [],
     tasks_by_role: [],
+    task: null,
     loading: true
 }
 
@@ -93,6 +96,20 @@ export default function(state = initialState, action){
             return {
                 ...state,
                 tasks_by_role: [],
+                loading: false
+            }
+        case ADD_TASK_COMMENT: 
+            return {
+                ...state,
+                task: { ...state.task, comments: payload }
+            }
+        case REMOVE_TASK_COMMENT: 
+            return {
+                ...state,
+                task: {...state.task, 
+                comments: state.task.comments.filter(
+                    comment => comment._id !== payload
+                )},
                 loading: false
             }
         case TASK_DELETE_SUCCESS:
