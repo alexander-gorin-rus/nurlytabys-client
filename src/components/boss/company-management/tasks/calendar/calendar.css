@@ -159,6 +159,15 @@
     cursor: pointer;
 }
 
+@media(max-width: 850px){
+    .calendar-header-content{
+        font-size: 0.7rem;
+        padding-right: 10px;
+        padding-left: 10px;
+        padding-bottom: 3px;
+    }
+}
+
 .calendar-header-active{
     color: red !important;
     border: 1px solid red;
