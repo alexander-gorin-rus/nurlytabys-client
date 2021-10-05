@@ -13,7 +13,9 @@ import {
     GET_TASKS_BY_ROLE_SUCCESS,
     GET_TASKS_BY_ROLE_FAIL,
     ADD_TASK_COMMENT,
-    REMOVE_TASK_COMMENT
+    REMOVE_TASK_COMMENT,
+    TASK_COMPLETED_SUCCESS,
+    TASK_COMPLETED_FAIL
 } from '../types';
 import axios from 'axios';
 import { setAlert } from './alert';
@@ -36,17 +38,17 @@ export const CreateTask = (variables) => async dispatch => {
     }
 }
 
-export const ChangeTaskStatus = (taskId, completed) => async dispatch => {
+export const TaskStatusCompleted = (taskId, done) => async dispatch => {
     try {
-        const res = await axios.put(`${process.env.REACT_APP_API}/task-status`, {taskId, completed})
+        const res = await axios.post(`${process.env.REACT_APP_API}/task-completed/${taskId}`, done)
         dispatch({
-            type: TASK_CHANGE_STATUS_SUCCESS,
+            type: TASK_COMPLETED_SUCCESS,
             payload: res.data
         });
         dispatch(setAlert('Статус задания успешно изменен', 'success'))
     } catch (err) {
         dispatch({
-            type: TASK_CHANGE_FAIL
+            type: TASK_COMPLETED_FAIL
         })
         dispatch(setAlert('Не удалось изменить статус задания', 'danger'))
     }

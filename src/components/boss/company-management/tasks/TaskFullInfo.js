@@ -4,7 +4,7 @@ import {
     GetTaskById, 
     UpdateTask,
     DeleteTask,
-    GetTasksByRole
+    TaskStatusCompleted
 } from '../../../../redux/actions/task';
 import { connect } from 'react-redux'
 import { useParams, Link, useHistory  } from 'react-router-dom';
@@ -15,10 +15,13 @@ const TaskFullInfo = ({
     UpdateTask,
     GetTaskById,
     DeleteTask,
+    TaskStatusCompleted,
     task: {task_by_id, task},
     employee_reducer: {employee},
     match
 }) => {
+
+    const [done, setDone] = useState(false)
 
     let employeeId = employee && employee.employee._id
     let taskId = task_by_id && task_by_id.task._id
@@ -28,7 +31,7 @@ const TaskFullInfo = ({
 
     useEffect(() => {
         GetTaskById(match.params.id) 
-    },[GetTaskById]);
+    },[task]);
 
     const onDelete = (id) => {
         if(window.confirm('Вы точно желаете удалить это задание?')){
@@ -37,6 +40,16 @@ const TaskFullInfo = ({
         history.push('/tasks')
     }
 
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        TaskStatusCompleted(taskId, {done})
+        //console.log(done)
+    }
+
+    const toggleDone = () => {
+        setDone(!true)
+    }
 
     return (
         <div className='main-div-content'>
@@ -50,6 +63,22 @@ const TaskFullInfo = ({
                 <p className="d-inline mx-1 bg-warning p-2">{new Date(task_by_id && task_by_id.task.finish).toLocaleString('ru').substr(11)}</p>
             </div>
             <hr />
+            {employee && employee.employee.boss === 1 ? null : (
+                <div>
+                    <form onSubmit={handleSubmit}>
+                        <label>
+                            <input
+                                type="checkbox"
+                                onChange={() => toggleDone()}
+                                className="form-check-input" 
+                        />
+                        <span className='text-danger'>Задать статус заданию: (Выполнено/Невыполнено)</span>
+                        </label>
+                        <br />
+                        <button className="btn btn-outline-info mt-4">Отправить</button> 
+                    </form>
+                </div>
+            )}
             <div>
                 <p>Задание было поручено:</p>
                
@@ -58,8 +87,11 @@ const TaskFullInfo = ({
                         <div className=' px-2 bg-primary text-white'>{e.name}</div>
                         <div className=' px-2 bg-primary text-white'>{e.lastName}</div>
                         {task_by_id && task_by_id.task.comments.map((t) => (
-                            <div className='px-2'>{e._id !== t.byEmployee ? null : (<p>{t.comment}</p>) }</div>
+                            <div key={t._id} className='px-2'>{e._id !== t.byEmployee ? null : (<p>{t.comment}</p>) }</div>
                         ))}
+                        {task_by_id && task_by_id.task.completed.map((c) => (
+                            <div className='px-2' key={c._id}>{e._id !== c.byEmployee ? (<p className='px-2 m-3 bg-danger text-white'>Задание не выполнено</p>) : (<p className='px-2 m-3 bg-success text-white'>Задание выполнено{c.done}</p>)}</div>
+                        )) }
                     </div>
                 ))}
             </div>
@@ -68,19 +100,6 @@ const TaskFullInfo = ({
                 taskId={taskId} 
                 employee={employee}
             />
-
-            {/* <div>
-                <p className="app-text text-center bg-warning">Изменить статус задания</p>
-                <select
-                    onChange={(e) => UpdateTask(task_by_id.task._id, e.target.value)}
-                    className="form-control"
-                    name="completed"
-                    defaultValue={task_by_id && task_by_id.task.complete}
-                >
-                <option value="Не выполнено">Не выполнено</option>
-                <option value="Выполнено">Выполнено</option>
-                </select>
-            </div> */}
             {employee && employee.employee.boss === 1 ?
                 (
                     <span className='delete-task' onClick={() => onDelete(task_by_id.task._id)}>
@@ -109,6 +128,7 @@ TaskFullInfo.propTypes = {
     GetTaskById: PropTypes.func.isRequired,
     UpdateTask: PropTypes.func.isRequired,
     DeleteTask: PropTypes.func.isRequired,
+    TaskStatusCompleted: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = state => ({
@@ -119,5 +139,6 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps, {
     GetTaskById,
     UpdateTask,
-    DeleteTask
+    DeleteTask,
+    TaskStatusCompleted
 })(TaskFullInfo)

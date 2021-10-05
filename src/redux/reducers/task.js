@@ -13,12 +13,14 @@ import {
     GET_TASKS_BY_ROLE_SUCCESS,
     GET_TASKS_BY_ROLE_FAIL,
     ADD_TASK_COMMENT,
-    REMOVE_TASK_COMMENT
+    REMOVE_TASK_COMMENT,
+    TASK_COMPLETED_SUCCESS,
+    TASK_COMPLETED_FAIL
 } from '../types';
 
 const initialState = {
     create_task: {},
-    change_task_status: null,
+    task_completed: null,
     delete_task: false,
     change_task: null,
     task_by_id: null,
@@ -44,16 +46,16 @@ export default function(state = initialState, action){
                 create_task: {},
                 loading: false
             }
-        case TASK_CHANGE_STATUS_SUCCESS:
+        case TASK_COMPLETED_SUCCESS:
             return {
                 ...state,
-                change_task_status: payload,
+                task_completed: payload,
                 loading: false
             }
-        case TASK_CHANGE_FAIL:
+        case TASK_COMPLETED_FAIL:
             return {
                 ...state,
-                change_task_status: null,
+                task_completed: null,
                 loading: false
             }
         case TASK_CHANGE_SUCCESS:

@@ -34,7 +34,6 @@ const EmployeeList = ({
     moment.locale('ru', {week: {dow: 1}});
 
     //this section is for calendar model
-    const [taskUpdate, setTaskUpdate] = useState(null)
     const [isShowForm, setShowForm] = useState(false)
 
     const [today, setToday] = useState(moment())
@@ -109,16 +108,14 @@ const EmployeeList = ({
 
     }
 
-    // useEffect(() => {
-    //     GetAllTasks();
-    //     LoadAllRoles();
-    // },[]);
 
+    useEffect(() => {
+        GetEmployeeList()
+    },[GetEmployeeList]);
 
     useEffect(() => {
         GetAllTasks();
-        GetEmployeeList()
-    },[GetEmployeeList]);
+    },[GetAllTasks])
 
     const [toggleCalendarGrid, setToggleCalendarGrid] = useState(1)
 
@@ -234,20 +231,6 @@ const EmployeeList = ({
                                             onChange={e => handleChange(e)}
                                         />
                                     </div>
-                                    {/* <ul>
-                                        {load_all_roles && load_all_roles.roles.map((r) => (
-                                            <li key={r._id}>
-                                                <label>
-                                                    <input
-                                                        type="checkbox"
-                                                        onChange={() => handleToggle(r._id)}
-                                                        value={checked.indexOf(r._id === -1)}
-                                                        className="form-check-input" 
-                                                    /><span>{r.name}</span>
-                                                </label> 
-                                            </li>
-                                        ))}
-                                    </ul> */}
                                     <ul>
                                         {employee_list && employee_list.list.map((l) => (
                                             <li key={l._id}>
