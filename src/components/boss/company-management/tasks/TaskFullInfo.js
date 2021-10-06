@@ -48,7 +48,12 @@ const TaskFullInfo = ({
     }
 
     const toggleDone = () => {
-        setDone(!true)
+        if(done === false){
+            setDone(true)
+        }else if(done === true){
+            setDone(false)
+        }
+        //setDone(!false)
     }
 
     return (
@@ -63,13 +68,13 @@ const TaskFullInfo = ({
                 <p className="d-inline mx-1 bg-warning p-2">{new Date(task_by_id && task_by_id.task.finish).toLocaleString('ru').substr(11)}</p>
             </div>
             <hr />
-            {employee && employee.employee.boss === 1 ? null : (
+            {employee && employee.employee.boss === 1 ?  null : (
                 <div>
                     <form onSubmit={handleSubmit}>
                         <label>
                             <input
                                 type="checkbox"
-                                onChange={() => toggleDone()}
+                                onChange={() => setDone(!false)}
                                 className="form-check-input" 
                         />
                         <span className='text-danger'>Задать статус заданию: (Выполнено/Невыполнено)</span>
@@ -90,7 +95,7 @@ const TaskFullInfo = ({
                             <div key={t._id} className='px-2'>{e._id !== t.byEmployee ? null : (<p>{t.comment}</p>) }</div>
                         ))}
                         {task_by_id && task_by_id.task.completed.map((c) => (
-                            <div className='px-2' key={c._id}>{e._id !== c.byEmployee ? (<p className='px-2 m-3 bg-danger text-white'>Задание не выполнено</p>) : (<p className='px-2 m-3 bg-success text-white'>Задание выполнено{c.done}</p>)}</div>
+                            <div className='px-2' key={c._id}>{e._id !== c.byEmployee || c.done === false ? null : (<p className='px-2 m-3 bg-success text-white'>Задание выполнено{c.done}</p>)}</div>
                         )) }
                     </div>
                 ))}

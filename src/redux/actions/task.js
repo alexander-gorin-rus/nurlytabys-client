@@ -40,7 +40,7 @@ export const CreateTask = (variables) => async dispatch => {
 
 export const TaskStatusCompleted = (taskId, done) => async dispatch => {
     try {
-        const res = await axios.post(`${process.env.REACT_APP_API}/task-completed/${taskId}`, done)
+        const res = await axios.put(`${process.env.REACT_APP_API}/task-completed/${taskId}`, done)
         dispatch({
             type: TASK_COMPLETED_SUCCESS,
             payload: res.data

@@ -8,10 +8,14 @@ const StaffDayGrid = ({
     tasks_by_role,
     openModalHandler
 }) => {
-    
+
+    // let tasksLength = Array.from(tasks_by_role.tasks.completed)
+
+    // console.log(tasksLength)
+
     return (
         <div className='day-calendar'  onDoubleClick={() => openModalHandler('Create')}>
-            <ul className='day-tasks-list-wrapper'>
+            <ul>
                 {tasks_by_role.tasks && tasks_by_role.tasks.filter(task => task.finish.split('T', 1)[0] >= startDay.format('YYYY-MM-DD') && task.finish.split('T', 1)[0] <= startDay.clone().endOf('day').format('YYYY-MM-DD'))
                     .map((task) => 
                         (

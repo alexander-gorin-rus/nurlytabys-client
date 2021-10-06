@@ -194,14 +194,10 @@
     padding-left: 4px;
 }
 
-.day-tasks-list-wrapper{
-    
-}
-
 .day-tasks-list{
     position: relative;
     padding-left: 20px;
-    background-color: rgb(194, 225, 253);
+    background-color: rgb(243, 139, 139);
     margin-top: 10px;
     margin-bottom: 10px;
 }
