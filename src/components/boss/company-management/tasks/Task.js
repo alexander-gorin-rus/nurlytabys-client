@@ -325,11 +325,11 @@ const EmployeeList = ({
             </div>
           
             <Link className='d-block p-3 mt-3 bg-warning app-text-small' to='/company-management'>Вернуться на страницу управления компанией</Link>
-            {all_tasks.tasks && all_tasks.tasks.map((t) => (
+            {/* {all_tasks.tasks && all_tasks.tasks.map((t) => (
                 <div key={t._id}>{t.completed.map((c) => (
                     <div key={c._id}>{c.byEmployee.length}</div>
                 ))}</div>
-            ))}
+            ))} */}
         </div>
     )
 }
