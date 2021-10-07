@@ -54,6 +54,7 @@ const MonthGrid = ({
                                 (
                                     <li className='' key={task._id}>
                                         <div className='task-button' onDoubleClick={() => openModalHandler('Update', task)}>
+                                        <div className='task-status-done-month-grid'></div>
                                             <Link to={`task-full-info/${task._id}`}>
                                                 {task.title}
                                             </Link>

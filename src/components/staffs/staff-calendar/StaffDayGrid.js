@@ -9,10 +9,6 @@ const StaffDayGrid = ({
     openModalHandler
 }) => {
 
-    // let tasksLength = Array.from(tasks_by_role.tasks.completed)
-
-    // console.log(tasksLength)
-
     return (
         <div className='day-calendar'  onDoubleClick={() => openModalHandler('Create')}>
             <ul>

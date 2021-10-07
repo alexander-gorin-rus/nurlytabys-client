@@ -169,6 +169,10 @@ const EmployeeList = ({
             employee: [],
             finish: ""
         });
+
+        setTimeout(() => {
+            window.location.reload()
+        },5000)
     }
 
     const handleToggle = (value) => {
@@ -193,6 +197,11 @@ const EmployeeList = ({
         setShowForm(false)
     }
     
+    const doneLength = all_tasks && all_tasks.tasks
+
+    
+    console.log(doneLength)
+
     return (
         <div className="main-div-content">
             <div className="calendar-div  my-4">
@@ -316,6 +325,11 @@ const EmployeeList = ({
             </div>
           
             <Link className='d-block p-3 mt-3 bg-warning app-text-small' to='/company-management'>Вернуться на страницу управления компанией</Link>
+            {all_tasks.tasks && all_tasks.tasks.map((t) => (
+                <div key={t._id}>{t.completed.map((c) => (
+                    <div key={c._id}>{c.byEmployee.length}</div>
+                ))}</div>
+            ))}
         </div>
     )
 }

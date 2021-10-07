@@ -23,10 +23,8 @@ const TaskFullInfo = ({
 
     const [done, setDone] = useState(false)
 
-    let employeeId = employee && employee.employee._id
     let taskId = task_by_id && task_by_id.task._id
 
-    const { id } = useParams();
     const history = useHistory()
 
     useEffect(() => {
@@ -47,14 +45,20 @@ const TaskFullInfo = ({
         //console.log(done)
     }
 
-    const toggleDone = () => {
-        if(done === false){
-            setDone(true)
-        }else if(done === true){
-            setDone(false)
-        }
-        //setDone(!false)
-    }
+    const setDoneFalse = () => {
+        setDone(false);
+        setTimeout(() => {
+            window.location.reload()
+        },5000)
+    }    
+
+    const setDoneTrue = () => {
+        setDone(true);
+        setTimeout(() => {
+            window.location.reload()
+        },5000)
+    }   
+
 
     return (
         <div className='main-div-content'>
@@ -69,21 +73,41 @@ const TaskFullInfo = ({
             </div>
             <hr />
             {employee && employee.employee.boss === 1 ?  null : (
+                <>
                 <div>
                     <form onSubmit={handleSubmit}>
                         <label>
                             <input
                                 type="checkbox"
-                                onChange={() => setDone(!false)}
+                                onChange={() => setDoneTrue()}
+                                //onChange={() => setDoneOk()}
                                 className="form-check-input" 
                         />
-                        <span className='text-danger'>Задать статус заданию: (Выполнено/Невыполнено)</span>
+                        <span ><p className='px-2 bg-success text-white'>Задать статус заданию: Выполнено</p></span>
+                        </label>
+                        <br />
+                        <button className="btn btn-outline-info mt-4">Отправить</button> 
+                    </form>
+                    <br />
+                    <br />
+                    <form onSubmit={handleSubmit}>
+                        <label>
+                            <input
+                                type="checkbox"
+                                onChange={() => setDoneFalse()}
+                                className="form-check-input" 
+                        />
+                        <span><p className='px-2 bg-danger text-white'>Задать статус заданию: Невыполнено</p></span>
                         </label>
                         <br />
                         <button className="btn btn-outline-info mt-4">Отправить</button> 
                     </form>
                 </div>
+                <br />
+                <br />
+                </>
             )}
+            
             <div>
                 <p>Задание было поручено:</p>
                
