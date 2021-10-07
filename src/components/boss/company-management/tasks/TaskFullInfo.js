@@ -80,7 +80,6 @@ const TaskFullInfo = ({
                             <input
                                 type="checkbox"
                                 onChange={() => setDoneTrue()}
-                                //onChange={() => setDoneOk()}
                                 className="form-check-input" 
                         />
                         <span ><p className='px-2 bg-success text-white'>Задать статус заданию: Выполнено</p></span>
@@ -107,7 +106,11 @@ const TaskFullInfo = ({
                 <br />
                 </>
             )}
-            
+             <CommentForm 
+                UpdateTask={UpdateTask} 
+                taskId={taskId} 
+                employee={employee}
+            />
             <div>
                 <p>Задание было поручено:</p>
                
@@ -124,11 +127,6 @@ const TaskFullInfo = ({
                     </div>
                 ))}
             </div>
-            <CommentForm 
-                UpdateTask={UpdateTask} 
-                taskId={taskId} 
-                employee={employee}
-            />
             {employee && employee.employee.boss === 1 ?
                 (
                     <span className='delete-task' onClick={() => onDelete(task_by_id.task._id)}>

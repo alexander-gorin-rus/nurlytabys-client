@@ -40,7 +40,7 @@ const DayGrid = ({
                         ))
                 }
             </ul>
-            <div onDoubleClick={() => openModalHandler('Create')}><p className='text-center'>Задать еще поручения</p></div>
+            <div className='bg-info' onDoubleClick={() => openModalHandler('Create')}><p className='text-center'>Задать еще поручения</p></div>
         </div>
     )
 }

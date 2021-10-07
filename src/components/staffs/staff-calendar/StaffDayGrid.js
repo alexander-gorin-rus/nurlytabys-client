@@ -5,12 +5,11 @@ import { Link } from 'react-router-dom';
 
 const StaffDayGrid = ({
     startDay,
-    tasks_by_role,
-    openModalHandler
+    tasks_by_role
 }) => {
 
     return (
-        <div className='day-calendar'  onDoubleClick={() => openModalHandler('Create')}>
+        <div className='day-calendar'>
             <ul>
                 {tasks_by_role.tasks && tasks_by_role.tasks.filter(task => task.finish.split('T', 1)[0] >= startDay.format('YYYY-MM-DD') && task.finish.split('T', 1)[0] <= startDay.clone().endOf('day').format('YYYY-MM-DD'))
                     .map((task) => 
@@ -25,7 +24,7 @@ const StaffDayGrid = ({
                                         <span className='mx-2'>{r.lastName}</span>
                                     </div>
                                 ))}
-                                <div className='task-update-button' onDoubleClick={() => openModalHandler('Update', task)}>
+                                <div className='task-update-button'>
                                     {task.content}
                                     <br />
                                     <p className="app-text-small d-inline mx-1">Выполнить к:</p>
