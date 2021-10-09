@@ -8,7 +8,8 @@ import { Link } from 'react-router-dom';
 const StaffWeekGrid = ({
     startWeek,
     tasks_by_role,
-    openModalHandler
+    openModalHandler,
+    employee
 }) => {
 
     const totalDays = 42;
@@ -17,7 +18,6 @@ const StaffWeekGrid = ({
 
     const currentDay = (day) => moment().isSame(day, 'day');
 
-    let dayOptions = {weekday: 'long'}
     return (
         <div className='calendar'>
             {[...Array(7)].map((_, i) => (
@@ -51,11 +51,27 @@ const StaffWeekGrid = ({
                             {tasks_by_role.tasks && tasks_by_role.tasks.filter(task => task.finish.split('T', 1)[0] >= dayItem.format('YYYY-MM-DD') && task.finish.split('T', 1)[0] <= dayItem.clone().endOf('day').format('YYYY-MM-DD'))
                                 .map((task) => 
                                 (
-                                    <li className='' key={task._id}>
+                                    <li key={task._id}>
                                        <div className='task-button'>
                                             <Link to={`task-full-info/${task._id}`}>
                                                 {task.content}
                                             </Link>
+                                            {task.completed.map((complete) => (
+                                                <div key={complete._id}>{complete.byEmployee === employee.employee._id && complete.done === true ? 
+                                                    (
+                                                        <div 
+                                                        className='task-done'
+                                                        >
+                                                            
+                                                        </div>
+                                                    ) 
+                                                        : 
+                                                    (
+                                                        null
+                                                    )
+                                                }
+                                                </div>
+                                            ))}
                                         </div>
                                     </li>
                                 ))

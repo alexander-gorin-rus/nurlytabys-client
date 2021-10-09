@@ -9,7 +9,8 @@ const StaffMonthGrid = ({
     startMonth, 
     totalMonthDays,
     tasks_by_role,
-    openModalHandler
+    openModalHandler,
+    employee
 }) => {
 
     const monthDay = startMonth.clone().subtract(1, 'day')
@@ -52,15 +53,32 @@ const StaffMonthGrid = ({
                             {tasks_by_role.tasks && tasks_by_role.tasks.filter(task => task.finish.split('T', 1)[0] >= dayItem.format('YYYY-MM-DD') && task.finish.split('T', 1)[0] <= dayItem.clone().endOf('day').format('YYYY-MM-DD'))
                                 .map((task) => 
                                 (<>
-                                    <li className='' key={task._id} >
+                                    <li className='' key={task._id}>
                                         <div 
                                             className='task-button'
-                                            //className={color}    
                                         >
                                             <Link to={`task-full-info/${task._id}`}>
                                                 {task.title}
                                             </Link>
+                                            {task.completed.map((complete) => (
+                                                <div key={complete._id}>{complete.byEmployee === employee.employee._id && complete.done === true ? 
+                                                    (
+                                                        <div 
+                                                        className='task-done'
+                                                        >
+                                                            
+                                                        </div>
+                                                    ) 
+                                                        : 
+                                                    (
+                                                        null
+                                                    )
+                                                }
+                                                </div>
+                                            ))}
                                         </div>
+
+
                                     </li>
                                      <br />
                                      </>

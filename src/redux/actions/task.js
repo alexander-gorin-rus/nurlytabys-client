@@ -15,7 +15,9 @@ import {
     ADD_TASK_COMMENT,
     REMOVE_TASK_COMMENT,
     TASK_COMPLETED_SUCCESS,
-    TASK_COMPLETED_FAIL
+    TASK_COMPLETED_FAIL,
+    TASK_OPENED_FAIL,
+    TASK_OPENED_SUCCESS
 } from '../types';
 import axios from 'axios';
 import { setAlert } from './alert';
@@ -51,6 +53,22 @@ export const TaskStatusCompleted = (taskId, done) => async dispatch => {
             type: TASK_COMPLETED_FAIL
         })
         dispatch(setAlert('Не удалось изменить статус задания', 'danger'))
+    }
+}
+
+export const TaskStatusOpened = (taskId, open) => async dispatch => {
+    try {
+        const res = await axios.put(`${process.env.REACT_APP_API}/task-opened/${taskId}`, open)
+        dispatch({
+            type: TASK_OPENED_SUCCESS,
+            payload: res.data
+        });
+        dispatch(setAlert('Задание открыто', 'success'))
+    } catch (err) {
+        dispatch({
+            type: TASK_COMPLETED_FAIL
+        })
+        dispatch(setAlert('Задание не открыто', 'danger'))
     }
 }
 

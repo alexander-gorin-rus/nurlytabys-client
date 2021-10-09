@@ -1,9 +1,7 @@
 import {
     CREATE_TASK_SUCCESS,
     CREATE_TASK_FAIL,
-    TASK_CHANGE_STATUS_SUCCESS,
     TASK_CHANGE_SUCCESS,
-    TASK_CHANGE_FAIL,
     TASK_DELETE_SUCCESS,
     TASK_DELETE_FAIL,
     GET_TASK_BY_ID_SUCCESS,
@@ -15,7 +13,9 @@ import {
     ADD_TASK_COMMENT,
     REMOVE_TASK_COMMENT,
     TASK_COMPLETED_SUCCESS,
-    TASK_COMPLETED_FAIL
+    TASK_COMPLETED_FAIL,
+    TASK_OPENED_SUCCESS,
+    TASK_OPENED_FAIL
 } from '../types';
 
 const initialState = {
@@ -27,6 +27,7 @@ const initialState = {
     all_tasks: [],
     tasks_by_role: [],
     task: null,
+    task_opened: null,
     loading: true
 }
 
@@ -58,6 +59,18 @@ export default function(state = initialState, action){
                 task_completed: null,
                 loading: false
             }
+        case TASK_OPENED_SUCCESS:
+            return {
+                ...state,
+                task_opened: payload,
+                loading: false
+            }
+        case TASK_OPENED_FAIL:
+            return {
+                ...state,
+                task_opened: null,
+                loading: false
+                }
         case TASK_CHANGE_SUCCESS:
             return {
                 ...state,

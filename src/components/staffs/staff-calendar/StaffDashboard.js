@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { 
-    GetTasksByEmployee
+    GetTasksByEmployee,
+    TaskStatusOpened
 } from '../../../redux/actions/task';
 import moment from 'moment';
 import 'moment/locale/ru'
@@ -20,6 +21,7 @@ const totalMonthDays = 42
 
 const StaffDashboard = ({
     GetTasksByEmployee,
+    TaskStatusOpened,
     employee_reducer: {employee},
     task: {tasks_by_role}
 }) => {
@@ -146,6 +148,8 @@ const StaffDashboard = ({
                             startDay={startDay}
                             tasks_by_role={tasks_by_role}
                             openModalHandler={openModalHandler}
+                            TaskStatusOpened={TaskStatusOpened}
+                            employee={employee}
                         />
                     </div>
                     <div className={toggleCalendarGrid === 2 ? 'calendar-content content-active' : 'calendar-content'}>
@@ -159,6 +163,7 @@ const StaffDashboard = ({
                             startWeek={startWeek}
                             tasks_by_role={tasks_by_role} 
                             openModalHandler={openModalHandler}
+                            employee={employee}
                         />
                     </div>
                     <div className={toggleCalendarGrid === 3 ? 'calendar-content content-active' : 'calendar-content'}>
@@ -173,6 +178,7 @@ const StaffDashboard = ({
                             totalMonthDays={totalMonthDays} 
                             tasks_by_role={tasks_by_role} 
                             openModalHandler={openModalHandler}
+                            employee={employee}
                         />
                     </div> 
                
@@ -223,6 +229,7 @@ const StaffDashboard = ({
 
 StaffDashboard.propTypes = {
     GetTasksByEmployee: PropTypes.func.isRequired,
+    TaskStatusOpened: PropTypes.func.isRequired,
     business: PropTypes.object,
     employee_reducer:PropTypes.object,
 }
@@ -235,5 +242,6 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps,
     {
-        GetTasksByEmployee
+        GetTasksByEmployee,
+        TaskStatusOpened
     })(StaffDashboard)

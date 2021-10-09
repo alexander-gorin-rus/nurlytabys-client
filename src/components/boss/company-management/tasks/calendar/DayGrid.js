@@ -11,25 +11,28 @@ const DayGrid = ({
     
     return (
         <div className='day-calendar'>
-            <ul className='day-tasks-list-wrapper'>
+            <ul>
                 {all_tasks.tasks && all_tasks.tasks.filter(task => task.finish.split('T', 1)[0] >= startDay.format('YYYY-MM-DD') && task.finish.split('T', 1)[0] <= startDay.clone().endOf('day').format('YYYY-MM-DD'))
                     .map((task) => 
                         (
                             <Link to={`task-full-info/${task._id}`}>
-                            <li className='day-tasks-list' style={{backgroundColor: `${task.backgroungColor}`}} key={task._id}>
-                                <div className='task-status-done-day-grid'></div>
+                            <li className='day-tasks-list' key={task._id}>
                                 <p>Исполнители:</p>
                                 
-                                {task.employee.map((r) => (
+                                {task.employee.map((e) => (
                                     <>
-                                    <div key={r._id}>
-                                        <span >{r.name}</span>
-                                        <span className='mx-2'>{r.lastName}</span>
+                                    <div key={e._id}>
+                                        <span >{e.name}</span>
+                                        <span className='mx-2'>{e.lastName}</span>
+                                        {task.completed.map((c) => (
+                                            <div key={c._id}>{e._id !== c.beEmployee && c.done === false ? null : (<div>Выполнено</div>)}</div>
+                                            // <div key={c._id}>{r._id}</div>
+                                        ))}
                                     </div>
                                     
                                     </>
                                 ))}
-                                <div className='task-update-button' onDoubleClick={() => openModalHandler('Update', task)}>
+                                <div onDoubleClick={() => openModalHandler('Update', task)}>
                                     {task.content}
                                     <br />
                                     <p className="app-text-small d-inline mx-1">Выполнить к:</p>
@@ -40,7 +43,7 @@ const DayGrid = ({
                         ))
                 }
             </ul>
-            <div className='bg-info' onDoubleClick={() => openModalHandler('Create')}><p className='text-center'>Задать еще поручения</p></div>
+            <div className='bg-info' onDoubleClick={() => openModalHandler('Create')}><p className='text-center ' style={{cursor: 'pointer', fontWeight: 'bold'}}>Задать еще поручения</p></div>
         </div>
     )
 }

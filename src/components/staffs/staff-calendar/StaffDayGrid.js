@@ -5,7 +5,8 @@ import { Link } from 'react-router-dom';
 
 const StaffDayGrid = ({
     startDay,
-    tasks_by_role
+    tasks_by_role,
+    employee
 }) => {
 
     return (
@@ -14,7 +15,24 @@ const StaffDayGrid = ({
                 {tasks_by_role.tasks && tasks_by_role.tasks.filter(task => task.finish.split('T', 1)[0] >= startDay.format('YYYY-MM-DD') && task.finish.split('T', 1)[0] <= startDay.clone().endOf('day').format('YYYY-MM-DD'))
                     .map((task) => 
                         (
+                            <>
                             <Link to={`task-full-info/${task._id}`}>
+                            {task.completed.map((complete) => (
+                                <div key={complete._id}>{complete.byEmployee === employee.employee._id && complete.done === true ? 
+                                    (
+                                        <div 
+                                        className='task-day-done'
+                                        >
+                                            Задание выполнено
+                                        </div>
+                                    ) 
+                                        : 
+                                    (
+                                        null
+                                    )
+                                    }
+                                </div>
+                                ))}
                             <li className='day-tasks-list' key={task._id}>
                                 <p>Исполнители:</p>
                                 
@@ -33,9 +51,11 @@ const StaffDayGrid = ({
                                 </div>
                             </li>
                             </Link>
+                            </>
                         ))
                 }
             </ul>
+            
         </div>
     )
 }
