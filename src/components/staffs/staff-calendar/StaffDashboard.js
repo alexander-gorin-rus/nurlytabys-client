@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -26,6 +26,12 @@ const StaffDashboard = ({
     task: {tasks_by_role}
 }) => {
 
+    let prevTasksLength = useRef(tasks_by_role.length || Object.current)
+    let currentTasksLength = tasks_by_role.length
+
+    if(prevTasksLength < currentTasksLength){
+        alert('Вы получили новое сообщение')
+    }
     const [play] = useSound(SoundAlert1)
 
     moment.locale('ru', {week: {dow: 1}});
@@ -69,7 +75,7 @@ const StaffDashboard = ({
     window.moment = moment;
     window.monthDay = monthDay;
     window.weekDay = weekDay;
-    window.day = day;;
+    window.day = day;
 
     
     const prevMonth = () => {
@@ -109,6 +115,7 @@ const StaffDashboard = ({
         setShowForm(true)
     }
 
+    const [open, setOpen] = useState(0)
 
     const [toggleCalendarGrid, setToggleCalendarGrid] = useState(1)
 
@@ -117,6 +124,8 @@ const StaffDashboard = ({
     }
 
     useEffect(() => {
+        console.log(prevTasksLength)
+        console.log(currentTasksLength)
         GetTasksByEmployee(employee && employee.employee._id)
     },[])
 
@@ -150,6 +159,8 @@ const StaffDashboard = ({
                             openModalHandler={openModalHandler}
                             TaskStatusOpened={TaskStatusOpened}
                             employee={employee}
+                            setOpen={setOpen}
+                            open={open}
                         />
                     </div>
                     <div className={toggleCalendarGrid === 2 ? 'calendar-content content-active' : 'calendar-content'}>

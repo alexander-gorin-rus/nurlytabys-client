@@ -6,8 +6,16 @@ import { Link } from 'react-router-dom';
 const StaffDayGrid = ({
     startDay,
     tasks_by_role,
-    employee
+    employee,
+    setOpen,
+    open,
+    TaskStatusOpened
 }) => {
+
+    // const handleSubmit = (e) => {
+    //     e.preventDefault(e);
+    //     TaskStatusOpened()
+    // }
 
     return (
         <div className='day-calendar'>
@@ -15,8 +23,7 @@ const StaffDayGrid = ({
                 {tasks_by_role.tasks && tasks_by_role.tasks.filter(task => task.finish.split('T', 1)[0] >= startDay.format('YYYY-MM-DD') && task.finish.split('T', 1)[0] <= startDay.clone().endOf('day').format('YYYY-MM-DD'))
                     .map((task) => 
                         (
-                            <>
-                            <Link to={`task-full-info/${task._id}`}>
+                            <div key={task._id}>
                             {task.completed.map((complete) => (
                                 <div key={complete._id}>{complete.byEmployee === employee.employee._id && complete.done === true ? 
                                     (
@@ -49,9 +56,13 @@ const StaffDayGrid = ({
 
                                     <p className="d-inline mx-1">{new Date(task.finish).toLocaleString('ru').substr(11)}</p>
                                 </div>
+                                <Link to={`task-full-info/${task._id}`}>
+                                    <i className=" fas fa-arrow-circle-right text-danger"></i> 
+                                </Link>
+                               
                             </li>
-                            </Link>
-                            </>
+                           
+                            </div>
                         ))
                 }
             </ul>

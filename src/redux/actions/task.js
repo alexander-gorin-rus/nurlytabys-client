@@ -56,9 +56,9 @@ export const TaskStatusCompleted = (taskId, done) => async dispatch => {
     }
 }
 
-export const TaskStatusOpened = (taskId, open) => async dispatch => {
+export const TaskStatusOpened = (_id, open) => async dispatch => {
     try {
-        const res = await axios.put(`${process.env.REACT_APP_API}/task-opened/${taskId}`, open)
+        const res = await axios.put(`${process.env.REACT_APP_API}/task-opened/${_id}`, open)
         dispatch({
             type: TASK_OPENED_SUCCESS,
             payload: res.data

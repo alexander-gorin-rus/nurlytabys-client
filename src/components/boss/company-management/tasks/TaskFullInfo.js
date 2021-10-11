@@ -87,9 +87,9 @@ const TaskFullInfo = ({
                         <br />
                         <button className="btn btn-outline-info mt-4">Отправить</button> 
                     </form>
-                    <br />
-                    <br />
-                    <form onSubmit={handleSubmit}>
+                    {/* <br />
+                    <br /> */}
+                    {/* <form onSubmit={handleSubmit}>
                         <label>
                             <input
                                 type="checkbox"
@@ -100,7 +100,7 @@ const TaskFullInfo = ({
                         </label>
                         <br />
                         <button className="btn btn-outline-info mt-4">Отправить</button> 
-                    </form>
+                    </form> */}
                 </div>
                 <br />
                 <br />

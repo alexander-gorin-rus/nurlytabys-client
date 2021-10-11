@@ -63,11 +63,7 @@ const StaffMonthGrid = ({
                                             {task.completed.map((complete) => (
                                                 <div key={complete._id}>{complete.byEmployee === employee.employee._id && complete.done === true ? 
                                                     (
-                                                        <div 
-                                                        className='task-done'
-                                                        >
-                                                            
-                                                        </div>
+                                                        <i class="fas fa-check-double text-success"></i>
                                                     ) 
                                                         : 
                                                     (

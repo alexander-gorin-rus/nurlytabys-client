@@ -33,7 +33,7 @@ const StaffWeekGrid = ({
         
                     >
                          <div className="top-row-cell">
-                         <div className='show-day-wrapper' onDoubleClick={() => openModalHandler('Create')}>
+                         <div className='show-day-wrapper'>
                                {currentDay(dayItem) && dayItem.format('D') ? 
                                (
                                     <div className="day-wrapper">
@@ -59,11 +59,7 @@ const StaffWeekGrid = ({
                                             {task.completed.map((complete) => (
                                                 <div key={complete._id}>{complete.byEmployee === employee.employee._id && complete.done === true ? 
                                                     (
-                                                        <div 
-                                                        className='task-done'
-                                                        >
-                                                            
-                                                        </div>
+                                                        <i class="fas fa-check-double text-success"></i>
                                                     ) 
                                                         : 
                                                     (
