@@ -16,34 +16,34 @@ const DayGrid = ({
                     .map((task) => 
                         (
                             <Link to={`task-full-info/${task._id}`}>
-                            <li className='day-tasks-list' key={task._id}>
-                                <p>Исполнители:</p>
-                                
-                                {task.employee.map((e) => (
-                                    <>
-                                    <div key={e._id}>
-                                        <span >{e.name}</span>
-                                        <span className='mx-2'>{e.lastName}</span>
-                                        {task.completed.map((c) => (
-                                            <div key={c._id}>{e._id !== c.beEmployee && c.done === false ? null : (<div>Выполнено</div>)}</div>
-                                            // <div key={c._id}>{r._id}</div>
-                                        ))}
-                                    </div>
-                                    
-                                    </>
-                                ))}
-                                <div onDoubleClick={() => openModalHandler('Update', task)}>
+                                <div className='m-3 bg-warning px-3'>
                                     {task.content}
                                     <br />
-                                    <p className="app-text-small d-inline mx-1">Выполнить к:</p>
-                                    <p className="d-inline mx-1">{new Date(task.finish).toLocaleString('ru').substr(11)}</p>
+                                    <p className="app-text-small d-inline p-3">Выполнить к:</p>
+                                    <p className="d-inline">{new Date(task.finish).toLocaleString('ru').substr(11)}</p>
                                 </div>
-                            </li>
+                                <li className='day-tasks-list' key={task._id}>
+                                    <p>Исполнители:</p>
+                                    
+                                    {task && task.employee.map((e) => (
+                                       
+                                        <div key={e._id}>
+                                            <span >{e.name}</span>
+                                            <span className='mx-2'>{e.lastName}</span>
+                                            
+
+                                        {task && task.completed.map((c) => (
+                                        <div className='px-2' key={c._id}>{e._id === c.byEmployee && c.byEmployee !== null && c.done === true && c.done !== null ? (<p className='px-2 m-3 bg-success text-white'>Задание выполнено</p>) : null}</div>
+                                        )) }
+                                            
+                                        </div>
+                                    ))}
+                                </li>
                             </Link>
                         ))
                 }
             </ul>
-            <div className='bg-info' onDoubleClick={() => openModalHandler('Create')}><p className='text-center ' style={{cursor: 'pointer', fontWeight: 'bold'}}>Задать еще поручения</p></div>
+            <div className='bg-warning' onClick={() => openModalHandler('Create')}><p className='text-center text-danger' style={{cursor: 'pointer', fontWeight: 'bold'}}>Задать поручение</p></div>
         </div>
     )
 }
