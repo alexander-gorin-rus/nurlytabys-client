@@ -53,12 +53,9 @@ import UpdateExcessToRegister from './components/boss/site-management/UpdateExce
 import UpdateVideo from './components/boss/site-management/UpdateVideo';
 import RoleComponent from './components/boss/company-management/RoleComponent';
 import MyBusiness from './components/boss/company-management/calendar/MyBusiness';
-import BusinessScheduler from './components/boss/company-management/business-scheduler/BusinessScheduler';
 import UpdateRole from './components/boss/company-management/UpdateRole';
 import EmployeeList from './components/boss/company-management/EmployeeList';
 import Employee from './components/boss/company-management/Employee';
-import MyBusinessById from './components/boss/company-management/calendar/MyBusinessById';
-import CalendarDayById from './components/boss/company-management/calendar/CalendarDayById';
 import BossPage from './components/boss/BossPage';
 import ChangeStaffInfo from './components/boss/ChangeStaffInfo';
 import Task from './components/boss/company-management/tasks/Task';
@@ -119,11 +116,8 @@ const App = () => {
                 <BossPrivateRoutes exact path='/get-category-to-update/:id' component={UpdateCategory} />
                 <BossPrivateRoutes exact path='/role-component' component={RoleComponent} />
                 <BossPrivateRoutes exact path='/my-business' component={MyBusiness} />
-                <BossPrivateRoutes exact path='/business-scheduler' component={BusinessScheduler} />
                 <BossPrivateRoutes exact path='/tasks' component={Task} />
                 <BossPrivateRoutes exact path='/employee-with-tasks/:id' component={EmployeeWithTasks} />
-                <BossPrivateRoutes exact path='/my-business-by-id/:id' component={MyBusinessById} />
-                <BossPrivateRoutes exact path='/day-by-id/:id' component={CalendarDayById} />
                 <BossPrivateRoutes exact path='/update-role/:id' component={UpdateRole} />
                 <BossPrivateRoutes exact path='/employee-list' component={EmployeeList} />
                 <BossPrivateRoutes exact path='/employee/:id' component={Employee} />

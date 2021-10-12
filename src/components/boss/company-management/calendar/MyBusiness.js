@@ -5,7 +5,6 @@ import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from "@fullcalendar/interaction" // needed for dayClick
 import { Modal } from 'antd';
 import { CreateBusiness  } from '../../../../functions/calendar';
-import axios from 'axios';
 import PropTypes from 'prop-types';
 import { 
     GetBusinessList, 

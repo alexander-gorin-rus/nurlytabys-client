@@ -22,11 +22,9 @@ import DayGrid from './calendar/DayGrid';
 const totalMonthDays = 42
 
 const EmployeeList = ({
-    LoadAllRoles,
     GetEmployeeList,
     CreateTask,
     GetAllTasks,
-    roles: {load_all_roles},
     task: {all_tasks},
     employee_reducer: {employee_list}
 }) => {
@@ -173,6 +171,7 @@ const EmployeeList = ({
         setTimeout(() => {
             window.location.reload()
         },5000)
+
     }
 
     const handleToggle = (value) => {
@@ -196,11 +195,6 @@ const EmployeeList = ({
     const cancelButtonHandler = () => {
         setShowForm(false)
     }
-    
-    const doneLength = all_tasks && all_tasks.tasks
-
-    
-    console.log(doneLength)
 
     return (
         <div className="main-div-content">
@@ -325,30 +319,22 @@ const EmployeeList = ({
             </div>
           
             <Link className='d-block p-3 mt-3 bg-warning app-text-small' to='/company-management'>Вернуться на страницу управления компанией</Link>
-            {/* {all_tasks.tasks && all_tasks.tasks.map((t) => (
-                <div key={t._id}>{t.completed.map((c) => (
-                    <div key={c._id}>{c.byEmployee.length}</div>
-                ))}</div>
-            ))} */}
         </div>
     )
 }
 
 EmployeeList.propTypes = {
-    LoadAllRoles:PropTypes.func.isRequired,
     CreateTask: PropTypes.func.isRequired,
     GetAllTasks: PropTypes.func.isRequired,
     GetEmployeeList: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = state => ({
-    roles: state.roles,
     task: state.task,
     employee_reducer: state.employee_reducer
 });
 
 export default connect(mapStateToProps, {
-    LoadAllRoles,
     CreateTask,
     GetAllTasks,
     GetEmployeeList

@@ -49,7 +49,7 @@ const WeekGrid = ({
                                 (
                                     <li className='' key={task._id}>
                                         <div className='task-button'>
-                                        <div className='task-status-done-week-grid'></div>
+                                        
                                             <Link to={`task-full-info/${task._id}`}>
                                                 {task.content}
                                             </Link>

@@ -150,6 +150,13 @@
   z-index: 100;
 }
 
+@media(max-width: 850px){
+  .main-page-title{
+    text-shadow: 1px 1px rgb(7, 11, 17);
+    font-size: 1.2rem;
+  }
+}
+
 .main-page-companyInfo{
   position: relative;
   left: 9vw;
@@ -157,8 +164,17 @@
   margin-top: 25vh;
   padding: 40px;
   color: rgb(15, 15, 26);
-  background: rgb(227, 230, 80);
+  background: rgb(121, 171, 247);
+  font-size: 1.4rem;
+  font-weight: bold;
+  text-align: center;
   /* border: 1px solid black; */
+}
+
+@media(max-width: 850px){
+  .main-page-companyInfo{
+    font-size: 1rem;
+  }
 }
 
 .main-page-description{
@@ -166,23 +182,38 @@
   left: 40%;
   width: 50vw;
   margin-top: 40vh;
-  padding: 40px;
+  padding: 20px;
   background: rgb(9, 9, 172);
   color: aliceblue;
+  font-size: 1.3rem;
+  
   /* border: 2px solid green; */
 }
 
+@media(max-width: 850px){
+  .main-page-description{
+    font-size: 0.8rem;
+  }
+}
 
 .main-page-contacts{
   position: relative;
-  left: 12%;
+  left: 10%;
   width: 40vw;
   margin-top: 40vh;
-  padding: 40px;
+  padding: 20px;
   background: rgb(26, 202, 41);
   color: rgb(9, 12, 15);
   margin-bottom: 250px;
+  font-weight: bold;
+  font-size: 1.1rem;
   /* border: 2px solid green; */
+}
+
+@media(max-width: 850px){
+  .main-page-contacts{
+    font-size: 0.7rem;
+  }
 }
 
 .main-page-categories{
@@ -205,7 +236,8 @@
   width: auto;
   margin-top: 55vh;
   padding: 20px;
-  background: rgb(180, 208, 248);
+  background: rgb(11, 43, 87);
+  color: white;
 }
 
 

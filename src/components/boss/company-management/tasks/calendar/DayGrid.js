@@ -43,7 +43,7 @@ const DayGrid = ({
                         ))
                 }
             </ul>
-            <div className='bg-warning' onClick={() => openModalHandler('Create')}><p className='text-center text-danger' style={{cursor: 'pointer', fontWeight: 'bold'}}>Задать поручение</p></div>
+            <div className='bg-warning' onClick={() => openModalHandler('Create')}><p className='text-center text-danger' style={{cursor: 'pointer', fontWeight: 'bold'}}>Дать поручение</p></div>
         </div>
     )
 }
