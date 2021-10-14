@@ -1,22 +1,25 @@
 import React, {useState,  useEffect} from 'react';
+
 import PropTypes from 'prop-types';
+
+import { connect } from 'react-redux';
+
+import { Link } from 'react-router-dom';
+
+import moment from 'moment';
+
+import { GetEmployeeList } from '../../../../redux/actions/employee_actions';
 import {
     CreateTask,
     GetAllTasks
 } from '../../../../redux/actions/task';
-import { LoadAllRoles } from '../../../../redux/actions/roles';
-import { GetEmployeeList } from '../../../../redux/actions/employee_actions';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import moment from 'moment';
-import 'moment/locale/ru'
-import MonthSelect from './calendar/MonthSelect';
+
+import DayGrid from './calendar/DayGrid';
+import DaySelect from './calendar/DaySelect';
 import MonthGrid from './calendar/MonthGrid';
-import './calendar/calendar.css'
+import MonthSelect from './calendar/MonthSelect';
 import WeekGrid from './calendar/WeekGrid';
 import WeekSelect from './calendar/WeekSelect';
-import DaySelect from './calendar/DaySelect';
-import DayGrid from './calendar/DayGrid';
 
 //global constants for calendar
 const totalMonthDays = 42

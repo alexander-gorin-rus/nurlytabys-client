@@ -1,21 +1,28 @@
 import React, { useState, useEffect, useRef } from 'react';
+
 import PropTypes from 'prop-types';
+
 import { connect } from 'react-redux';
+
 import { Link } from 'react-router-dom';
+
+import moment from 'moment';
+
+import useSound from 'use-sound';
+
+import Spinner from '../../layout/Spinner';
 import { 
     GetTasksByEmployee,
     TaskStatusOpened
 } from '../../../redux/actions/task';
-import moment from 'moment';
-import 'moment/locale/ru'
+
+import StaffDayGrid from './StaffDayGrid';
+import StaffDaySelect from './StaffDaySelect';
 import StaffMonthGrid from './StaffMontGrid';
 import StaffMonthSelect from './StaffMonthSelect';
 import StaffWeekGrid from './StaffWeekGrid';
 import StaffWeekSelect from './StaffWeekSelect';
-import StaffDayGrid from './StaffDayGrid';
-import StaffDaySelect from './StaffDaySelect';
 import SoundAlert1 from './sound-alert1.mp3';
-import useSound from 'use-sound';
 
 const totalMonthDays = 42
 
@@ -26,12 +33,31 @@ const StaffDashboard = ({
     task: {tasks_by_role}
 }) => {
 
-    let prevTasksLength = useRef(tasks_by_role.length || Object.current)
+    let prevTasksLength = useRef(tasks_by_role.length)
     let currentTasksLength = tasks_by_role.length
+    let countTasks = prevTasksLength.current
 
-    if(prevTasksLength < currentTasksLength){
-        alert('Вы получили новое сообщение')
-    }
+    console.log('countTasks: ', countTasks)
+    console.log('previous tasks length: ', prevTasksLength)
+    console.log('current tasks length: ', currentTasksLength)
+    
+
+    useEffect(() => {
+        GetTasksByEmployee(employee && employee.employee._id)
+    },[GetTasksByEmployee])
+
+
+    useEffect(()=>{
+        const timer = setTimeout(() => {
+            if(countTasks !== 0 || countTasks < currentTasksLength) {
+                alert('Вы получили новое задание')
+                
+            }
+          return ()=> clearInterval(timer)
+        }, 1000);
+      },[tasks_by_role])
+
+    
     const [play] = useSound(SoundAlert1)
 
     moment.locale('ru', {week: {dow: 1}});
@@ -123,18 +149,16 @@ const StaffDashboard = ({
         setToggleCalendarGrid(index)
     }
 
-    useEffect(() => {
-        console.log(prevTasksLength)
-        console.log(currentTasksLength)
-        GetTasksByEmployee(employee && employee.employee._id)
-    },[])
-
+   
     const [displayMyInfo, toggleMyInfo] = useState(false);
 
 
     return (
         <>
-        <div className='main-div-content'>
+            {tasks_by_role && tasks_by_role.tasks ? 
+                (
+                    <>
+                    <div className='main-div-content'>
             <div className='calendar-select-header'>
                 <p 
                     onClick={() => selectCalendarGrid(1)}
@@ -233,7 +257,14 @@ const StaffDashboard = ({
                      )}
                    
                      </section>
-                </div>
+                </div> 
+                </>
+                )
+                    :
+                (
+                    <Spinner />
+                )
+            }
         </>
     )
 }

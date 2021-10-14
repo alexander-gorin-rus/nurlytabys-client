@@ -1,7 +1,9 @@
 import React, {useState} from 'react';
+
 import styled from 'styled-components';
-import '../../boss/company-management/tasks/calendar/calendar.css'
+
 import moment from 'moment';
+
 import { Link } from 'react-router-dom';
 
 
@@ -51,9 +53,9 @@ const StaffMonthGrid = ({
                         </div>
                         <ul className='tasks-list-wrapper'>
                             {tasks_by_role.tasks && tasks_by_role.tasks.filter(task => task.finish.split('T', 1)[0] >= dayItem.format('YYYY-MM-DD') && task.finish.split('T', 1)[0] <= dayItem.clone().endOf('day').format('YYYY-MM-DD'))
-                                .map((task) => 
+                                .map((task, index) => 
                                 (<>
-                                    <li className='' key={task._id}>
+                                    <li className='' key={index}>
                                         <div 
                                             className='task-button'
                                         >
