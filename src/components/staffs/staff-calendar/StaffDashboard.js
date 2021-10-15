@@ -38,9 +38,9 @@ const StaffDashboard = ({
     let currentTasksLength = tasks_by_role.length
     let countTasks = prevTasksLength.current
 
-    console.log('countTasks: ', countTasks)
-    console.log('previous tasks length: ', prevTasksLength)
-    console.log('current tasks length: ', currentTasksLength)
+    // console.log('countTasks: ', countTasks)
+    // console.log('previous tasks length: ', prevTasksLength)
+    // console.log('current tasks length: ', currentTasksLength)
     
 
     // useEffect(() => {
