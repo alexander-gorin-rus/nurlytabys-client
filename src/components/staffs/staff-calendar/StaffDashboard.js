@@ -23,6 +23,7 @@ import StaffMonthSelect from './StaffMonthSelect';
 import StaffWeekGrid from './StaffWeekGrid';
 import StaffWeekSelect from './StaffWeekSelect';
 import SoundAlert1 from './sound-alert1.mp3';
+import { Howl, Howler } from 'howler'
 
 const totalMonthDays = 42
 
@@ -42,20 +43,31 @@ const StaffDashboard = ({
     console.log('current tasks length: ', currentTasksLength)
     
 
-    useEffect(() => {
-        GetTasksByEmployee(employee && employee.employee._id)
-    },[GetTasksByEmployee])
+    // useEffect(() => {
+    //        GetTasksByEmployee(employee && employee.employee._id)
+    // },[GetTasksByEmployee, employee])
 
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+           GetTasksByEmployee(employee && employee.employee._id)
+          return ()=> clearInterval(timer)
+        }, 10000);
+        
+    },[GetTasksByEmployee, employee])
+
+
+    Howler.volume(1.0);
 
     useEffect(()=>{
-        const timer = setTimeout(() => {
-            if(countTasks !== 0 || countTasks < currentTasksLength) {
-                alert('Вы получили новое задание')
-                
+            const sound = new Howl({
+                src: [SoundAlert1]
+            })
+            if(countTasks !== 0 && countTasks < currentTasksLength) {
+                //alert('Вы получили новое задание') 
+                sound.play()
             }
-          return ()=> clearInterval(timer)
-        }, 1000);
-      },[tasks_by_role])
+      },[tasks_by_role, countTasks, currentTasksLength])
 
     
     const [play] = useSound(SoundAlert1)
