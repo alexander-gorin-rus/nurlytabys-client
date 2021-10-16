@@ -32,7 +32,7 @@ const TaskFullInfo = ({
 
     useEffect(() => {
         GetTaskById(match.params.id) 
-    },[task]);
+    },[GetTaskById, task, match.params.id]);
 
     const onDelete = (id) => {
         if(window.confirm('Вы точно желаете удалить это задание?')){
@@ -68,7 +68,14 @@ const TaskFullInfo = ({
 
 
     return (
-        <div className='main-div-content'>
+        <>
+        {taskId === null ? 
+            (
+                <div>Это задание было удалено</div>
+            )
+                :
+            (
+                <div className='main-div-content'>
             <div>
                 <p className='text-center'>{task_by_id && task_by_id.task.title}</p>
                 {task_by_id && task_by_id.task.content}
@@ -159,6 +166,9 @@ const TaskFullInfo = ({
             }
             
         </div>
+            )
+        }
+        </>
     )
 }
 

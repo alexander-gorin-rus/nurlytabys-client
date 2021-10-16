@@ -2,8 +2,6 @@ import {
     CREATE_TASK_SUCCESS,
     CREATE_TASK_FAIL,
     TASK_CHANGE_FAIL,
-    TASK_CHANGE_STATUS_SUCCESS,
-    TASK_CHANGE_SUCCESS,
     TASK_DELETE_FAIL,
     TASK_DELETE_SUCCESS,
     GET_TASK_BY_ID_FAIL,
@@ -17,7 +15,9 @@ import {
     TASK_COMPLETED_SUCCESS,
     TASK_COMPLETED_FAIL,
     TASK_READ_FAIL,
-    TASK_READ_SUCCESS
+    TASK_READ_SUCCESS,
+    GET_TASKS_COUNT,
+    UPDATE_TASKS_COUNT
 } from '../types';
 import axios from 'axios';
 import { setAlert } from './alert';
@@ -156,19 +156,6 @@ export const GetAllTasks = () => async dispatch => {
     }
 }
 
-// export const GetTasksByRole = (id) => async dispatch => {
-//     try {
-//         const res = await axios.get(`${process.env.REACT_APP_API}/get-tasks-by-role/${id}`);
-//         dispatch({
-//             type: GET_TASKS_BY_ROLE_SUCCESS,
-//             payload: res.data
-//         })
-//     } catch (err) {
-//         dispatch({
-//             type: GET_TASKS_BY_ROLE_FAIL
-//         })
-//     }
-// }
 
 export const GetTasksByEmployee = (id) => async dispatch => {
     try {
@@ -181,5 +168,33 @@ export const GetTasksByEmployee = (id) => async dispatch => {
         dispatch({
             type: GET_TASKS_BY_ROLE_FAIL
         })
+    }
+}
+
+export const GetTasksCount = (id) => async dispatch => {
+    try {
+        const res = await axios.get(`${process.env.REACT_APP_API}/tasks-count/${id}`);
+        dispatch({
+            type: GET_TASKS_COUNT,
+            payload: res.data
+        })
+    } catch (err) {
+        dispatch({
+            type: GET_TASKS_BY_ROLE_FAIL
+        })
+    }
+}
+
+export const TasksCountUpdate = (taskId, count) => async dispatch => {
+    try {
+        const res = await axios.put(`${process.env.REACT_APP_API}/task-count-update/${taskId}`, count)
+        dispatch({
+            type: UPDATE_TASKS_COUNT,
+            payload: res.data
+        });
+    setAlert('tasks count number was successfully updated', 'success');
+    } catch (err) {
+    setAlert('Unable to update tasks number', 'danger');
+        
     }
 }

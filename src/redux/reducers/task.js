@@ -14,7 +14,9 @@ import {
     TASK_COMPLETED_SUCCESS,
     TASK_COMPLETED_FAIL,
     TASK_READ_SUCCESS,
-    TASK_READ_FAIL
+    TASK_READ_FAIL,
+    GET_TASKS_COUNT,
+    UPDATE_TASKS_COUNT
 } from '../types';
 
 const initialState = {
@@ -27,6 +29,8 @@ const initialState = {
     tasks_by_role: [],
     task: null,
     task_read: null,
+    tasks_count: 0,
+    tasks_count_update: null,
     loading: true
 }
 
@@ -124,6 +128,18 @@ export default function(state = initialState, action){
                 comments: state.task.comments.filter(
                     comment => comment._id !== payload
                 )},
+                loading: false
+            }
+        case GET_TASKS_COUNT:
+            return {
+                ...state,
+                tasks_count: payload,
+                loading: false
+            }
+        case UPDATE_TASKS_COUNT:
+            return {
+                ...state,
+                tasks_count_update: payload,
                 loading: false
             }
         case TASK_DELETE_SUCCESS:

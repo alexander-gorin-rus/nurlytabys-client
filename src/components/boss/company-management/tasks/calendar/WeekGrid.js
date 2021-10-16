@@ -48,12 +48,11 @@ const WeekGrid = ({
                                 .map((task) => 
                                 (
                                     <li className='' key={task._id}>
-                                        <div className='task-button'>
-                                        
-                                            <Link to={`task-full-info/${task._id}`}>
-                                                {task.content}
-                                            </Link>
-                                        </div>
+                                         <Link to={`task-full-info/${task._id}`}>
+                                            <div className='task-button'>
+                                                {task.content}    
+                                            </div>
+                                        </Link>
                                     </li>
                                 ))
                             }

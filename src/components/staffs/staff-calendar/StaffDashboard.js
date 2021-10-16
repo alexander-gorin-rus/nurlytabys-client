@@ -8,11 +8,10 @@ import { Link } from 'react-router-dom';
 
 import moment from 'moment';
 
-import useSound from 'use-sound';
-
 import Spinner from '../../layout/Spinner';
 import { 
-    GetTasksByEmployee
+    GetTasksByEmployee,
+    GetTasksCount
 } from '../../../redux/actions/task';
 
 import StaffDayGrid from './StaffDayGrid';
@@ -28,44 +27,49 @@ const totalMonthDays = 42
 
 const StaffDashboard = ({
     GetTasksByEmployee,
+    GetTasksCount,
     employee_reducer: {employee},
     task: {tasks_by_role}
 }) => {
 
-    let prevTasksLength = useRef(tasks_by_role.length)
-    let currentTasksLength = tasks_by_role.length
-    let countTasks = prevTasksLength.current
+    const prevTasksLength = useRef(tasks_by_role.length)
+    const currentTasksLength = tasks_by_role.length
+    const countTasks = prevTasksLength.current
 
     console.log('countTasks: ', countTasks)
     console.log('previous tasks length: ', prevTasksLength)
     console.log('current tasks length: ', currentTasksLength)
     
 
+    useEffect(() => {
+        GetTasksCount(employee && employee.employee._id)
+        GetTasksByEmployee(employee && employee.employee._id)
+    },[GetTasksByEmployee, employee, GetTasksCount])
+
+
     // useEffect(() => {
+    //     const timer = setInterval(() => {
     //        GetTasksByEmployee(employee && employee.employee._id)
+    //       return ()=> clearInterval(timer)
+    //     }, 10000);
+        
     // },[GetTasksByEmployee, employee])
 
 
-    useEffect(() => {
-        const timer = setInterval(() => {
-           GetTasksByEmployee(employee && employee.employee._id)
-          return ()=> clearInterval(timer)
-        }, 10000);
-        
-    },[GetTasksByEmployee, employee])
+    // Howler.volume(1.0);
 
+    // useEffect(()=>{
+    //         const sound = new Howl({
+    //             src: [SoundAlert1]
+    //         })
+    //         if(countTasks !== 0 && countTasks < currentTasksLength) {
+    //             sound.play()
+    //         }
+    // },[tasks_by_role, countTasks, currentTasksLength])
 
-    Howler.volume(1.0);
-
-    useEffect(()=>{
-            const sound = new Howl({
-                src: [SoundAlert1]
-            })
-            if(countTasks !== 0 && countTasks < currentTasksLength) {
-                sound.play()
-            }
-      },[tasks_by_role, countTasks, currentTasksLength])
-
+    // if(countTasks > currentTasksLength){
+    //     window.location.reload()
+    // }
 
     moment.locale('ru', {week: {dow: 1}});
 
@@ -276,6 +280,7 @@ const StaffDashboard = ({
 
 StaffDashboard.propTypes = {
     GetTasksByEmployee: PropTypes.func.isRequired,
+    GetTasksCount: PropTypes.func.isRequired,
     business: PropTypes.object,
     employee_reducer:PropTypes.object,
 }
@@ -288,5 +293,6 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps,
     {
-        GetTasksByEmployee
+        GetTasksByEmployee,
+        GetTasksCount
     })(StaffDashboard)
