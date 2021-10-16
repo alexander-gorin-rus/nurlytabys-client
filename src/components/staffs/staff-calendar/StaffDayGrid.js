@@ -7,15 +7,7 @@ const StaffDayGrid = ({
     startDay,
     tasks_by_role,
     employee,
-    setOpen,
-    open,
-    TaskStatusOpened
 }) => {
-
-    // const handleSubmit = (e) => {
-    //     e.preventDefault(e);
-    //     TaskStatusOpened()
-    // }
 
     return (
         <div className='day-calendar'>
@@ -24,6 +16,23 @@ const StaffDayGrid = ({
                     .map((task) => 
                         (
                             <div key={task._id}>
+                                {task.read.map((read) => (
+                                <div key={read._id}>{read.byEmployee === employee.employee._id && read.ok === true ? 
+                                    (
+                                        <div 
+                                        className='task-day-read'
+                                        >
+                                            Задание прочитано и принято к исполнению
+                                        </div>
+                                    ) 
+                                        : 
+                                    (
+                                        null
+                                    )
+                                    }
+                                </div>
+                                ))}
+                                <hr />
                             {task.completed.map((complete) => (
                                 <div key={complete._id}>{complete.byEmployee === employee.employee._id && complete.done === true ? 
                                     (

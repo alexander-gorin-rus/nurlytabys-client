@@ -12,8 +12,7 @@ import useSound from 'use-sound';
 
 import Spinner from '../../layout/Spinner';
 import { 
-    GetTasksByEmployee,
-    TaskStatusOpened
+    GetTasksByEmployee
 } from '../../../redux/actions/task';
 
 import StaffDayGrid from './StaffDayGrid';
@@ -29,7 +28,6 @@ const totalMonthDays = 42
 
 const StaffDashboard = ({
     GetTasksByEmployee,
-    TaskStatusOpened,
     employee_reducer: {employee},
     task: {tasks_by_role}
 }) => {
@@ -38,9 +36,9 @@ const StaffDashboard = ({
     let currentTasksLength = tasks_by_role.length
     let countTasks = prevTasksLength.current
 
-    // console.log('countTasks: ', countTasks)
-    // console.log('previous tasks length: ', prevTasksLength)
-    // console.log('current tasks length: ', currentTasksLength)
+    console.log('countTasks: ', countTasks)
+    console.log('previous tasks length: ', prevTasksLength)
+    console.log('current tasks length: ', currentTasksLength)
     
 
     // useEffect(() => {
@@ -64,13 +62,10 @@ const StaffDashboard = ({
                 src: [SoundAlert1]
             })
             if(countTasks !== 0 && countTasks < currentTasksLength) {
-                //alert('Вы получили новое задание') 
                 sound.play()
             }
       },[tasks_by_role, countTasks, currentTasksLength])
 
-    
-    const [play] = useSound(SoundAlert1)
 
     moment.locale('ru', {week: {dow: 1}});
 
@@ -94,7 +89,6 @@ const StaffDashboard = ({
 
     const monthCalendar = [];
     const weekCalendar = [];
-    const dayCalendar = [];
 
     let monthDay = startMonth.clone();
     let weekDay = startWeek.clone();
@@ -193,7 +187,6 @@ const StaffDashboard = ({
                             startDay={startDay}
                             tasks_by_role={tasks_by_role}
                             openModalHandler={openModalHandler}
-                            TaskStatusOpened={TaskStatusOpened}
                             employee={employee}
                             setOpen={setOpen}
                             open={open}
@@ -283,7 +276,6 @@ const StaffDashboard = ({
 
 StaffDashboard.propTypes = {
     GetTasksByEmployee: PropTypes.func.isRequired,
-    TaskStatusOpened: PropTypes.func.isRequired,
     business: PropTypes.object,
     employee_reducer:PropTypes.object,
 }
@@ -296,6 +288,5 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps,
     {
-        GetTasksByEmployee,
-        TaskStatusOpened
+        GetTasksByEmployee
     })(StaffDashboard)

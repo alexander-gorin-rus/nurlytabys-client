@@ -4,10 +4,11 @@ import {
     GetTaskById, 
     UpdateTask,
     DeleteTask,
-    TaskStatusCompleted
+    TaskStatusCompleted,
+    TaskStatusRead
 } from '../../../../redux/actions/task';
 import { connect } from 'react-redux'
-import { useParams, Link, useHistory  } from 'react-router-dom';
+import { Link, useHistory  } from 'react-router-dom';
 import CommentForm from './CommentForm';
 
 
@@ -16,12 +17,14 @@ const TaskFullInfo = ({
     GetTaskById,
     DeleteTask,
     TaskStatusCompleted,
+    TaskStatusRead,
     task: {task_by_id, task},
     employee_reducer: {employee},
     match
 }) => {
 
     const [done, setDone] = useState(false)
+    const [ok, setOk] = useState(false)
 
     let taskId = task_by_id && task_by_id.task._id
 
@@ -42,11 +45,15 @@ const TaskFullInfo = ({
     const handleSubmit = (e) => {
         e.preventDefault();
         TaskStatusCompleted(taskId, {done})
-        //console.log(done)
     }
 
-    const setDoneFalse = () => {
-        setDone(false);
+    const handleReadSubmit = (e) => {
+        e.preventDefault();
+        TaskStatusRead(taskId, {ok})
+    }
+
+    const setReadTrue = () => {
+        setOk(true);
         setTimeout(() => {
             window.location.reload()
         },5000)
@@ -75,6 +82,20 @@ const TaskFullInfo = ({
             {employee && employee.employee.boss === 1 ?  null : (
                 <>
                 <div>
+                <form onSubmit={handleReadSubmit}>
+                        <label>
+                            <input
+                                type="checkbox"
+                                onChange={() => setReadTrue()}
+                                className="form-check-input" 
+                        />
+                        <span><p className='px-2 bg-warning text-dark'>Отметить задание как прочитанное и принятое к исполнению</p></span>
+                        </label>
+                        <br />
+                        <button className="btn btn-outline-info mt-4">Отправить</button> 
+                    </form>
+                    <br />
+                    <hr />
                     <form onSubmit={handleSubmit}>
                         <label>
                             <input
@@ -87,22 +108,9 @@ const TaskFullInfo = ({
                         <br />
                         <button className="btn btn-outline-info mt-4">Отправить</button> 
                     </form>
-                    {/* <br />
-                    <br /> */}
-                    {/* <form onSubmit={handleSubmit}>
-                        <label>
-                            <input
-                                type="checkbox"
-                                onChange={() => setDoneFalse()}
-                                className="form-check-input" 
-                        />
-                        <span><p className='px-2 bg-danger text-white'>Задать статус заданию: Невыполнено</p></span>
-                        </label>
-                        <br />
-                        <button className="btn btn-outline-info mt-4">Отправить</button> 
-                    </form> */}
+                    <br />
+                    <hr />
                 </div>
-                <br />
                 <br />
                 </>
             )}
@@ -121,6 +129,9 @@ const TaskFullInfo = ({
                         {task_by_id && task_by_id.task.comments.map((t) => (
                             <div key={t._id} className='px-2'>{e._id !== t.byEmployee ? null : (<p>{t.comment}</p>) }</div>
                         ))}
+                         {task_by_id && task_by_id.task.read.map((r) => (
+                            <div className='px-2' key={r._id}>{e._id !== r.byEmployee || r.ok === false ? null : (<p className='px-2 m-3 bg-warning text-dark'>Задание принято к исполнению{r.ok}</p>)}</div>
+                        )) }
                         {task_by_id && task_by_id.task.completed.map((c) => (
                             <div className='px-2' key={c._id}>{e._id !== c.byEmployee || c.done === false ? null : (<p className='px-2 m-3 bg-success text-white'>Задание выполнено{c.done}</p>)}</div>
                         )) }
@@ -156,6 +167,7 @@ TaskFullInfo.propTypes = {
     UpdateTask: PropTypes.func.isRequired,
     DeleteTask: PropTypes.func.isRequired,
     TaskStatusCompleted: PropTypes.func.isRequired,
+    TaskStatusRead: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = state => ({
@@ -167,5 +179,6 @@ export default connect(mapStateToProps, {
     GetTaskById,
     UpdateTask,
     DeleteTask,
-    TaskStatusCompleted
+    TaskStatusCompleted,
+    TaskStatusRead
 })(TaskFullInfo)

@@ -52,12 +52,12 @@ const MonthGrid = ({
                             {all_tasks.tasks && all_tasks.tasks.filter(task => task.finish.split('T', 1)[0] >= dayItem.format('YYYY-MM-DD') && task.finish.split('T', 1)[0] <= dayItem.clone().endOf('day').format('YYYY-MM-DD'))
                                 .map((task) => 
                                 (
-                                    <li className='' key={task._id}>
-                                        <div className='task-button' onDoubleClick={() => openModalHandler('Update', task)}>
-                                            <Link to={`task-full-info/${task._id}`}>
-                                                {task.title}
-                                            </Link>
-                                        </div>
+                                    <li className='overflow-hidden' key={task._id}>
+                                        <Link to={`task-full-info/${task._id}`}>
+                                            <div className='task-button' onDoubleClick={() => openModalHandler('Update', task)}>
+                                                {task.content}   
+                                            </div>
+                                        </Link>
                                     </li>
                                 ))
                             }
@@ -74,6 +74,7 @@ const CellWrapper = styled.div`
         width: auto;
         min-height: 16vh;
         height: auto;
+        overflow: hidden;
         color: ${props => props.isSelectedMonth ? 'black' : 'grey'};
         font-weight: bold;
         background: ${props => props.isWeekend ? 'aqua' : '#aae9e9'};

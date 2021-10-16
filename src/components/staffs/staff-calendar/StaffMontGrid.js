@@ -56,30 +56,42 @@ const StaffMonthGrid = ({
                                 .map((task, index) => 
                                 (<>
                                     <li className='' key={index}>
+                                        <Link to={`task-full-info/${task._id}`}>
                                         <div 
                                             className='task-button'
                                         >
-                                            <Link to={`task-full-info/${task._id}`}>
-                                                {task.title}
-                                            </Link>
-                                            {task.completed.map((complete) => (
-                                                <div key={complete._id}>{complete.byEmployee === employee.employee._id && complete.done === true ? 
-                                                    (
-                                                        <i class="fas fa-check-double text-success"></i>
-                                                    ) 
-                                                        : 
-                                                    (
-                                                        null
-                                                    )
-                                                }
-                                                </div>
-                                            ))}
+                                        {task.content}
+                                            <div className='d-flex'>
+                                                {task.read.map((r) => (
+                                                    <div key={r._id}>{r.byEmployee === employee.employee._id && r.ok === true ? 
+                                                        (
+                                                            <i class="fas fa-check-double text-warning"></i>
+                                                        ) 
+                                                            : 
+                                                        (
+                                                            null
+                                                        )
+                                                    }
+                                                    </div>
+                                                ))}
+                                                {task.completed.map((complete) => (
+                                                    <div key={complete._id}>{complete.byEmployee === employee.employee._id && complete.done === true ? 
+                                                        (
+                                                            <i class="fas fa-check-double text-success"></i>
+                                                        ) 
+                                                            : 
+                                                        (
+                                                            null
+                                                        )
+                                                    }
+                                                    </div>
+                                                ))}
+                                            </div>
                                         </div>
-
-
+                                        </Link>
                                     </li>
-                                     <br />
-                                     </>
+                                    <br />
+                                    </>
                                 ))
                             }
                         </ul>
@@ -95,6 +107,7 @@ const CellWrapper = styled.div`
         width: auto;
         min-height: 16vh;
         height: auto;
+        overflow: hidden;
         color: ${props => props.isSelectedMonth ? 'black' : 'grey'};
         font-weight: bold;
         background: ${props => props.isWeekend ? 'aqua' : '#aae9e9'};

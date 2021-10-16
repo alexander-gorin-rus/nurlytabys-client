@@ -56,7 +56,33 @@ const StaffWeekGrid = ({
                                             <Link to={`task-full-info/${task._id}`}>
                                                 {task.content}
                                             </Link>
-                                            {task.completed.map((complete) => (
+                                            <div className='d-flex'>
+                                                {task.read.map((r) => (
+                                                    <div key={r._id}>{r.byEmployee === employee.employee._id && r.ok === true ? 
+                                                        (
+                                                            <i class="fas fa-check-double text-warning"></i>
+                                                        ) 
+                                                            : 
+                                                        (
+                                                            null
+                                                        )
+                                                    }
+                                                    </div>
+                                                ))}
+                                                {task.completed.map((complete) => (
+                                                    <div key={complete._id}>{complete.byEmployee === employee.employee._id && complete.done === true ? 
+                                                        (
+                                                            <i class="fas fa-check-double text-success"></i>
+                                                        ) 
+                                                            : 
+                                                        (
+                                                            null
+                                                        )
+                                                    }
+                                                    </div>
+                                                ))}
+                                            </div>
+                                            {/* {task.completed.map((complete) => (
                                                 <div key={complete._id}>{complete.byEmployee === employee.employee._id && complete.done === true ? 
                                                     (
                                                         <i class="fas fa-check-double text-success"></i>
@@ -67,7 +93,7 @@ const StaffWeekGrid = ({
                                                     )
                                                 }
                                                 </div>
-                                            ))}
+                                            ))} */}
                                         </div>
                                     </li>
                                 ))

@@ -16,8 +16,8 @@ import {
     REMOVE_TASK_COMMENT,
     TASK_COMPLETED_SUCCESS,
     TASK_COMPLETED_FAIL,
-    TASK_OPENED_FAIL,
-    TASK_OPENED_SUCCESS
+    TASK_READ_FAIL,
+    TASK_READ_SUCCESS
 } from '../types';
 import axios from 'axios';
 import { setAlert } from './alert';
@@ -56,19 +56,19 @@ export const TaskStatusCompleted = (taskId, done) => async dispatch => {
     }
 }
 
-export const TaskStatusOpened = (_id, open) => async dispatch => {
+export const TaskStatusRead = (_id, ok) => async dispatch => {
     try {
-        const res = await axios.put(`${process.env.REACT_APP_API}/task-opened/${_id}`, open)
+        const res = await axios.put(`${process.env.REACT_APP_API}/task-read/${_id}`, ok)
         dispatch({
-            type: TASK_OPENED_SUCCESS,
+            type: TASK_READ_SUCCESS,
             payload: res.data
         });
-        dispatch(setAlert('Задание открыто', 'success'))
+        dispatch(setAlert('Задание отмечено как прочитанное', 'success'))
     } catch (err) {
         dispatch({
-            type: TASK_COMPLETED_FAIL
+            type: TASK_READ_FAIL
         })
-        dispatch(setAlert('Задание не открыто', 'danger'))
+        dispatch(setAlert('Не удалось отметить задание как прочитанное', 'danger'))
     }
 }
 
