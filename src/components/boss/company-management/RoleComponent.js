@@ -1,12 +1,15 @@
 import React, {Fragment, useState, useEffect} from 'react'
 import PropTypes from 'prop-types';
+
+import { connect } from 'react-redux';
+
+import { Link } from 'react-router-dom';
+
 import { 
     CreateRole,
     LoadAllRoles,
     DeleteRole
 } from '../../../redux/actions/roles';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 
 const RoleComponent = ({
     CreateRole,
@@ -17,7 +20,7 @@ const RoleComponent = ({
 
     useEffect(() => {
         LoadAllRoles()
-    },[])
+    },[LoadAllRoles])
 
     const [values, setValues] = useState({
         name: ""

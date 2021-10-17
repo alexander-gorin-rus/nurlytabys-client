@@ -29,7 +29,7 @@ const initialState = {
     tasks_by_role: [],
     task: null,
     task_read: null,
-    tasks_count: 0,
+    tasks_count: null,
     tasks_count_update: null,
     loading: true
 }

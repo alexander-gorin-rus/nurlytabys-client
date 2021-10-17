@@ -32,13 +32,13 @@ const StaffDashboard = ({
     task: {tasks_by_role}
 }) => {
 
-    const prevTasksLength = useRef(tasks_by_role.length)
-    const currentTasksLength = tasks_by_role.length
-    const countTasks = prevTasksLength.current
+    //const prevTasksLength = useRef(tasks_by_role.length)
+    //const currentTasksLength = tasks_by_role.length
+    //const countTasks = prevTasksLength.current
 
-    console.log('countTasks: ', countTasks)
-    console.log('previous tasks length: ', prevTasksLength)
-    console.log('current tasks length: ', currentTasksLength)
+    //console.log('countTasks: ', countTasks)
+    //console.log('previous tasks length: ', prevTasksLength)
+    //console.log('current tasks length: ', currentTasksLength)
     
 
     useEffect(() => {
@@ -74,9 +74,11 @@ const StaffDashboard = ({
     moment.locale('ru', {week: {dow: 1}});
 
     //this section is for calendar model
-    const [isShowForm, setShowForm] = useState(false)
+    const [isShowForm, setShowForm] = useState(false);
+    const [today, setToday] = useState(moment());
+    
 
-    const [today, setToday] = useState(moment())
+    //calendar section
     const startMonth = today.clone().startOf('month').startOf('week');
     const endMonth = moment().endOf('month').endOf('week');
     const startWeek = today.clone().startOf('week');

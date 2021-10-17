@@ -167,9 +167,8 @@ const EmployeeList = ({
         });
 
         setTimeout(() => {
-            window.location.reload()
-        },5000)
-
+            GetAllTasks()
+        },300)
     }
 
     const handleToggle = (value) => {

@@ -97,7 +97,7 @@ export const UpdateTask = (taskId, formData) => async dispatch => {
 export const DeleteComment = (taskId, commentId) => async dispatch => {
 
     try {
-        const res = await axios.delete(`${process.env.REACT_APP_API}/comment/${taskId}/${commentId}`)
+        await axios.delete(`${process.env.REACT_APP_API}/comment/${taskId}/${commentId}`)
         dispatch({
             type: REMOVE_TASK_COMMENT,
             payload: commentId
@@ -185,9 +185,9 @@ export const GetTasksCount = (id) => async dispatch => {
     }
 }
 
-export const TasksCountUpdate = (taskId, count) => async dispatch => {
+export const TasksCountUpdate = (_id, count) => async dispatch => {
     try {
-        const res = await axios.put(`${process.env.REACT_APP_API}/task-count-update/${taskId}`, count)
+        const res = await axios.post(`${process.env.REACT_APP_API}/task-count-update/${_id}`, count)
         dispatch({
             type: UPDATE_TASKS_COUNT,
             payload: res.data

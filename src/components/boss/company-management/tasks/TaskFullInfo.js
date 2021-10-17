@@ -1,14 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types';
+
+import { Link, useHistory  } from 'react-router-dom';
+
+import { connect } from 'react-redux';
+
 import { 
     GetTaskById, 
     UpdateTask,
     DeleteTask,
     TaskStatusCompleted,
-    TaskStatusRead
+    TaskStatusRead,
+    GetAllTasks,
+    GetTasksByEmployee,
+    TasksCountUpdate
 } from '../../../../redux/actions/task';
-import { connect } from 'react-redux'
-import { Link, useHistory  } from 'react-router-dom';
+
 import CommentForm from './CommentForm';
 
 
@@ -18,27 +25,37 @@ const TaskFullInfo = ({
     DeleteTask,
     TaskStatusCompleted,
     TaskStatusRead,
-    task: {task_by_id, task},
+    GetAllTasks,
+    GetTasksByEmployee,
+    TasksCountUpdate,
+    task: {task_by_id, task, tasks_by_role},
     employee_reducer: {employee},
     match
 }) => {
 
-    const [done, setDone] = useState(false)
-    const [ok, setOk] = useState(false)
+    const [done, setDone] = useState(false);
+    const [ok, setOk] = useState(false);
+    const [countTasks, setCountTasks] = useState(0)
+    console.log('tasks count is: ', tasks_by_role.length)
 
     let taskId = task_by_id && task_by_id.task._id
 
     const history = useHistory()
 
     useEffect(() => {
+        GetTasksByEmployee(employee && employee.employee._id)
         GetTaskById(match.params.id) 
-    },[GetTaskById, task, match.params.id]);
+    },[GetTasksByEmployee, employee, GetTaskById, task, match.params.id]);
 
     const onDelete = (id) => {
         if(window.confirm('Вы точно желаете удалить это задание?')){
             DeleteTask(id);
         }
-        history.push('/tasks')
+        GetAllTasks()
+        setTimeout(() => {
+            history.push('/tasks')
+        }, 500)
+       
     }
 
 
@@ -50,14 +67,23 @@ const TaskFullInfo = ({
     const handleReadSubmit = (e) => {
         e.preventDefault();
         TaskStatusRead(taskId, {ok})
+        //TasksCountUpdate()
     }
 
-    const setReadTrue = () => {
+    const handleChange = () => {
+        setCountTasks(tasks_by_role.length)
         setOk(true);
         setTimeout(() => {
             window.location.reload()
-        },5000)
-    }    
+        }, 5000)
+    }
+    console.log('length is: ', countTasks)
+    // const setReadTrue = () => {
+    //     setOk(true);
+    //     setTimeout(() => {
+    //         window.location.reload()
+    //     },5000)
+    // }    
 
     const setDoneTrue = () => {
         setDone(true);
@@ -69,7 +95,7 @@ const TaskFullInfo = ({
 
     return (
         <>
-        {taskId === null ? 
+        {!taskId ? 
             (
                 <div>Это задание было удалено</div>
             )
@@ -93,7 +119,7 @@ const TaskFullInfo = ({
                         <label>
                             <input
                                 type="checkbox"
-                                onChange={() => setReadTrue()}
+                                onChange={handleChange}
                                 className="form-check-input" 
                         />
                         <span><p className='px-2 bg-warning text-dark'>Отметить задание как прочитанное и принятое к исполнению</p></span>
@@ -178,6 +204,9 @@ TaskFullInfo.propTypes = {
     DeleteTask: PropTypes.func.isRequired,
     TaskStatusCompleted: PropTypes.func.isRequired,
     TaskStatusRead: PropTypes.func.isRequired,
+    GetAllTasks: PropTypes.func.isRequired,
+    GetTasksByEmployee: PropTypes.func.isRequired,
+    TasksCountUpdate: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = state => ({
@@ -190,5 +219,8 @@ export default connect(mapStateToProps, {
     UpdateTask,
     DeleteTask,
     TaskStatusCompleted,
-    TaskStatusRead
+    TaskStatusRead,
+    GetAllTasks,
+    GetTasksByEmployee,
+    TasksCountUpdate
 })(TaskFullInfo)

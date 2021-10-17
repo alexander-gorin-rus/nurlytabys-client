@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 const StaffDayGrid = ({
     startDay,
     tasks_by_role,
-    employee,
+    employee
 }) => {
 
     return (
@@ -68,7 +68,6 @@ const StaffDayGrid = ({
                                 <Link to={`task-full-info/${task._id}`}>
                                     <i className=" fas fa-arrow-circle-right text-danger"></i> 
                                 </Link>
-                               
                             </li>
                            
                             </div>
