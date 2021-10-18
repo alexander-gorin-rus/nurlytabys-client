@@ -20,7 +20,7 @@ const DayGrid = ({
                 <div className='day-calendar'>
                 <div className='bg-info' onClick={() => openModalHandler('Create')}><p className='text-center text-dark' style={{cursor: 'pointer', fontWeight: 'bold'}}>Дать поручение</p></div>
                 <ul>
-                    {all_tasks.tasks && all_tasks.tasks.filter(task => task.finish.split('T', 1)[0] >= startDay.format('YYYY-MM-DD') && task.finish.split('T', 1)[0] <= startDay.clone().endOf('day').format('YYYY-MM-DD'))
+                    {/* {all_tasks.tasks && all_tasks.tasks.filter(task => task.finish.split('T', 1)[0] >= startDay.format('YYYY-MM-DD') && task.finish.split('T', 1)[0] <= startDay.clone().endOf('day').format('YYYY-MM-DD'))
                         .map((task) => 
                             (
                                 <Link to={`task-full-info/${task._id}`}>
@@ -36,8 +36,8 @@ const DayGrid = ({
                                         {task && task.employee.map((e) => (
                                            
                                             <div key={e._id}>
-                                                {/* <span >{e.name}</span>
-                                                <span className='mx-2'>{e.lastName}</span> */}
+                                                <span >{e.name}</span>
+                                                <span className='mx-2'>{e.lastName}</span>
     
                                             {task && task.read.map((r) => (
                                                 <div className='px-2' key={r._id}>{e._id === r.byEmployee && r.byEmployee !== null && r.ok === true && r.ok !== null ? (<p className='px-2 m-3 bg-info text-dark'>Задание прочитано и принято к исполнению</p>) : null}</div>
@@ -52,7 +52,7 @@ const DayGrid = ({
                                     </li>
                                 </Link>
                             ))
-                    }
+                    } */}
                 </ul>
             </div>
             )
