@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types';
-
+import Spinner from '../../../layout/Spinner';
 import { Link, useHistory  } from 'react-router-dom';
 
 import { connect } from 'react-redux';
@@ -13,7 +13,8 @@ import {
     TaskStatusRead,
     GetAllTasks,
     GetTasksByEmployee,
-    TasksCountUpdate
+    // TasksCountUpdate,
+    // TasksCountCreate,
 } from '../../../../redux/actions/task';
 
 import CommentForm from './CommentForm';
@@ -27,7 +28,8 @@ const TaskFullInfo = ({
     TaskStatusRead,
     GetAllTasks,
     GetTasksByEmployee,
-    TasksCountUpdate,
+    // TasksCountCreate,
+    // TasksCountUpdate,
     task: {task_by_id, task, tasks_by_role},
     employee_reducer: {employee},
     match
@@ -35,8 +37,7 @@ const TaskFullInfo = ({
 
     const [done, setDone] = useState(false);
     const [ok, setOk] = useState(false);
-    const [countTasks, setCountTasks] = useState(0)
-    console.log('tasks count is: ', tasks_by_role.length)
+    //const [countTasks, setCountTasks] = useState(tasks_by_role.length)
 
     let taskId = task_by_id && task_by_id.task._id
 
@@ -67,24 +68,18 @@ const TaskFullInfo = ({
     const handleReadSubmit = (e) => {
         e.preventDefault();
         TaskStatusRead(taskId, {ok})
-        //TasksCountUpdate()
+        //TasksCountCreate(4)
     }
 
+
     const handleChange = () => {
-        setCountTasks(tasks_by_role.length)
+        //setCountTasks(tasks_by_role.length)
         setOk(true);
         setTimeout(() => {
             window.location.reload()
         }, 5000)
     }
-    console.log('length is: ', countTasks)
-    // const setReadTrue = () => {
-    //     setOk(true);
-    //     setTimeout(() => {
-    //         window.location.reload()
-    //     },5000)
-    // }    
-
+     
     const setDoneTrue = () => {
         setDone(true);
         setTimeout(() => {
@@ -97,7 +92,7 @@ const TaskFullInfo = ({
         <>
         {!taskId ? 
             (
-                <div>Это задание было удалено</div>
+                <Spinner />
             )
                 :
             (
@@ -116,14 +111,14 @@ const TaskFullInfo = ({
                 <>
                 <div>
                 <form onSubmit={handleReadSubmit}>
-                        <label>
-                            <input
-                                type="checkbox"
-                                onChange={handleChange}
-                                className="form-check-input" 
+                    <label>
+                        <input
+                            type="checkbox"
+                            onChange={handleChange}
+                            className="form-check-input" 
                         />
-                        <span><p className='px-2 bg-warning text-dark'>Отметить задание как прочитанное и принятое к исполнению</p></span>
-                        </label>
+                    <span><p className='px-2 bg-warning text-dark'>Отметить задание как прочитанное и принятое к исполнению</p></span>
+                    </label>
                         <br />
                         <button className="btn btn-outline-info mt-4">Отправить</button> 
                     </form>
@@ -206,7 +201,8 @@ TaskFullInfo.propTypes = {
     TaskStatusRead: PropTypes.func.isRequired,
     GetAllTasks: PropTypes.func.isRequired,
     GetTasksByEmployee: PropTypes.func.isRequired,
-    TasksCountUpdate: PropTypes.func.isRequired,
+    // TasksCountUpdate: PropTypes.func.isRequired,
+    // TasksCountCreate: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = state => ({
@@ -222,5 +218,6 @@ export default connect(mapStateToProps, {
     TaskStatusRead,
     GetAllTasks,
     GetTasksByEmployee,
-    TasksCountUpdate
+    // TasksCountUpdate,
+    // TasksCountCreate
 })(TaskFullInfo)

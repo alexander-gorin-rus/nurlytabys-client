@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 import { 
     CREATE_TASK_SUCCESS,
     CREATE_TASK_FAIL,
@@ -17,9 +19,11 @@ import {
     TASK_READ_FAIL,
     TASK_READ_SUCCESS,
     GET_TASKS_COUNT,
-    UPDATE_TASKS_COUNT
+    UPDATE_TASKS_COUNT,
+    CREATE_TASKS_COUNT_SUCCESS,
+    CREATE_TASKS_COUNT_FAIL,
 } from '../types';
-import axios from 'axios';
+
 import { setAlert } from './alert';
 
 
@@ -182,6 +186,22 @@ export const GetTasksCount = (id) => async dispatch => {
         dispatch({
             type: GET_TASKS_BY_ROLE_FAIL
         })
+    }
+}
+
+export const TasksCountCreate = (variables) => async dispatch => {
+    try {
+        const res = await axios.post(`${process.env.REACT_APP_API}/tasks-count-create`, variables);
+    dispatch({
+        type: CREATE_TASKS_COUNT_SUCCESS,
+        payload: res.data
+    });
+    dispatch(setAlert('Tasks count create success', 'success'))
+    } catch (err) {
+        dispatch({
+        type: CREATE_TASKS_COUNT_FAIL
+        });
+        dispatch(setAlert('Tasks count create fail', 'danger'))
     }
 }
 
