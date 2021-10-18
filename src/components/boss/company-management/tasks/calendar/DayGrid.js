@@ -10,6 +10,7 @@ const DayGrid = ({
 }) => {
     
     return (
+        
         <div className='day-calendar'>
             <div className='bg-info' onClick={() => openModalHandler('Create')}><p className='text-center text-dark' style={{cursor: 'pointer', fontWeight: 'bold'}}>Дать поручение</p></div>
             <ul>
