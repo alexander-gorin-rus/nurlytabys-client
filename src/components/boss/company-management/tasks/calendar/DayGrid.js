@@ -31,7 +31,7 @@ const DayGrid = ({
                                        
                                         <div key={e._id}>
                                             <span >{e.name}</span>
-                                            {/* <span className='mx-2'>{e.lastName}</span> */}
+                                            <span className='mx-2'>{e.lastName}</span>
 
                                         {task && task.read.map((r) => (
                                             <div className='px-2' key={r._id}>{e._id === r.byEmployee && r.byEmployee !== null && r.ok === true && r.ok !== null ? (<p className='px-2 m-3 bg-info text-dark'>Задание прочитано и принято к исполнению</p>) : null}</div>
