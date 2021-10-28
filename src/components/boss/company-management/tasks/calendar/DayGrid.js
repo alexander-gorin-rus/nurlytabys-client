@@ -20,7 +20,7 @@ const DayGrid = ({
                 <div className='day-calendar'>
                 <div className='bg-info' onClick={() => openModalHandler('Create')}><p className='text-center text-dark' style={{cursor: 'pointer', fontWeight: 'bold'}}>Дать поручение</p></div>
                 <ul>
-                    {/* {all_tasks.tasks && all_tasks.tasks.filter(task => task.finish.split('T', 1)[0] >= startDay.format('YYYY-MM-DD') && task.finish.split('T', 1)[0] <= startDay.clone().endOf('day').format('YYYY-MM-DD'))
+                    {all_tasks.tasks && all_tasks.tasks.filter(task => task.finish.split('T', 1)[0] >= startDay.format('YYYY-MM-DD') && task.finish.split('T', 1)[0] <= startDay.clone().endOf('day').format('YYYY-MM-DD'))
                         .map((task) => 
                             (
                                 <Link to={`task-full-info/${task._id}`}>
@@ -52,7 +52,7 @@ const DayGrid = ({
                                     </li>
                                 </Link>
                             ))
-                    } */}
+                    }
                 </ul>
             </div>
             )
