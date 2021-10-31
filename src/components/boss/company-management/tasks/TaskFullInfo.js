@@ -13,7 +13,10 @@ import {
     TaskStatusCompleted,
     TaskStatusRead,
     GetAllTasks,
-    GetTasksByEmployee
+    GetTasksByEmployee,
+    TasksCountUpdate,
+    TasksCountCreate,
+    GetTasksCount
 } from '../../../../redux/actions/task';
 
 import CommentForm from './CommentForm';
@@ -27,24 +30,40 @@ const TaskFullInfo = ({
     TaskStatusRead,
     GetAllTasks,
     GetTasksByEmployee,
-    // TasksCountCreate,
-    // TasksCountUpdate,
-    task: {task_by_id, task, tasks_by_role},
+    TasksCountCreate,
+    TasksCountUpdate,
+    GetTasksCount,
+    task: {
+        task_by_id, 
+        task, tasks_by_role,
+        tasks_count
+    },
     employee_reducer: {employee},
     match
 }) => {
 
     const [done, setDone] = useState(false);
     const [ok, setOk] = useState(false);
-    //const [countTasks, setCountTasks] = useState(tasks_by_role.length)
+    const [values, setValues] = useState({
+        count: tasks_by_role.length,
+        employeeId: employee && employee.employee._id
+    });
+    const { count, employeeId } = values;
 
-    let taskId = task_by_id && task_by_id.task._id
-    let employeeId = employee && employee.employee._id
+    const handleCountChange = e => {
+        setValues({...values, [e.target.name]: e.target.value})
+    }
+
+    let taskId = task_by_id && task_by_id.task._id;
+
+    let tasksCountId = tasks_count && tasks_count.map(t => t._id);
+    console.log(tasksCountId);
 
     const history = useHistory()
 
     useEffect(() => {
         GetTasksByEmployee(employee && employee.employee._id)
+        GetTasksCount(employee && employee.employee._id)
         GetTaskById(match.params.id) 
     },[GetTasksByEmployee, employee, GetTaskById, task, match.params.id]);
 
@@ -68,7 +87,29 @@ const TaskFullInfo = ({
     const handleReadSubmit = (e) => {
         e.preventDefault();
         TaskStatusRead(taskId, {ok})
-        //TasksCountCreate(4)
+
+        const variables = {
+            count,
+            employeeId
+        }
+
+        const count_tasks = {
+            count
+        }
+
+        TasksCountCreate(variables);
+
+        if (tasks_count === null || tasks_count === []) {
+            TasksCountCreate(variables);
+        } else {
+            TasksCountUpdate(tasksCountId, count_tasks);
+        }
+
+        setTimeout(() => {
+            GetTasksByEmployee(employee && employee.employee._id)
+            GetTasksCount(employee && employee.employee._id)
+            GetTaskById(match.params.id) 
+        }, 1000);
     }
 
 
@@ -77,7 +118,7 @@ const TaskFullInfo = ({
         setOk(true);
         setTimeout(() => {
             window.location.reload()
-        }, 5000)
+        },5000)
     }
      
     const setDoneTrue = () => {
@@ -111,8 +152,8 @@ const TaskFullInfo = ({
                 <>
                 <div>
 
-                {task_by_id && task_by_id.task.read.map((r) => (
-                    <div className='px-2' key={r._id}>{r.byEmployee === employeeId && r.ok === false || !r ? 
+                {/* {task_by_id && task_by_id.task.read.map((r) => (
+                    <div className='px-2' key={r._id}>{r.byEmployee === employeeId && r.read === false ? 
                             (
                                 <form onSubmit={handleReadSubmit}>
                             <label>
@@ -132,13 +173,9 @@ const TaskFullInfo = ({
                                 null
                             )
                             }</div>
-                        )) }
+                        )) } */}
 
-
-
-                
-
-                {/* <form onSubmit={handleReadSubmit}>
+                <form onSubmit={handleReadSubmit}>
                     <label>
                         <input
                             type="checkbox"
@@ -147,9 +184,15 @@ const TaskFullInfo = ({
                         />
                     <span><p className='px-2 bg-warning text-dark'>Отметить задание как прочитанное и принятое к исполнению</p></span>
                     </label>
+                        <input 
+                            type="number"
+                            name="count"
+                            value={count}
+                            onChange={handleCountChange}
+                        />
                         <br />
                         <button className="btn btn-outline-info mt-4">Отправить</button> 
-                </form> */}
+                </form>
 
 
                     <br />
@@ -188,7 +231,7 @@ const TaskFullInfo = ({
                             <div key={t._id} className='px-2'>{e._id !== t.byEmployee ? null : (<p>{t.comment}</p>) }</div>
                         ))}
                          {task_by_id && task_by_id.task.read.map((r) => (
-                            <div className='px-2' key={r._id}>{e._id !== r.byEmployee || r.ok === false ? null : (<p className='px-2 m-3 bg-warning text-dark'>Задание принято к исполнению{r.ok}</p>)}</div>
+                            <div className='px-2' key={r._id}>{e._id !== r.byEmployee || r.ok === false ? null : (<p className='px-2 m-3 bg-warning text-dark'>Задание принято к исполнению{r.read}</p>)}</div>
                         )) }
                         {task_by_id && task_by_id.task.completed.map((c) => (
                             <div className='px-2' key={c._id}>{e._id !== c.byEmployee || c.done === false ? null : (<p className='px-2 m-3 bg-success text-white'>Задание выполнено{c.done}</p>)}</div>
@@ -231,8 +274,9 @@ TaskFullInfo.propTypes = {
     TaskStatusRead: PropTypes.func.isRequired,
     GetAllTasks: PropTypes.func.isRequired,
     GetTasksByEmployee: PropTypes.func.isRequired,
-    // TasksCountUpdate: PropTypes.func.isRequired,
-    // TasksCountCreate: PropTypes.func.isRequired,
+    TasksCountUpdate: PropTypes.func.isRequired,
+    TasksCountCreate: PropTypes.func.isRequired,
+    GetTasksCount: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = state => ({
@@ -248,8 +292,9 @@ export default connect(mapStateToProps, {
     TaskStatusRead,
     GetAllTasks,
     GetTasksByEmployee,
-    // TasksCountUpdate,
-    // TasksCountCreate
+    TasksCountUpdate,
+    TasksCountCreate,
+    GetTasksCount,
 })(TaskFullInfo)
 
 
@@ -282,7 +327,7 @@ export default connect(mapStateToProps, {
 // }) => {
 
 //     const [done, setDone] = useState(false);
-//     const [ok, setOk] = useState(false);
+//     const [read, setRead] = useState(false);
 //     //const [countTasks, setCountTasks] = useState(tasks_by_role.length)
 
 //     let taskId = task_by_id && task_by_id.task._id
@@ -313,14 +358,14 @@ export default connect(mapStateToProps, {
 
 //     const handleReadSubmit = (e) => {
 //         e.preventDefault();
-//         TaskStatusRead(taskId, {ok})
+//         TaskStatusRead(taskId, {read})
 //         //TasksCountCreate(4)
 //     }
 
 
 //     const handleChange = () => {
 //         //setCountTasks(tasks_by_role.length)
-//         setOk(true);
+//         setRead(true);
 //         setTimeout(() => {
 //             window.location.reload()
 //         }, 5000)
@@ -404,7 +449,7 @@ export default connect(mapStateToProps, {
 //                             <div key={t._id} className='px-2'>{e._id !== t.byEmployee ? null : (<p>{t.comment}</p>) }</div>
 //                         ))}
 //                          {task_by_id && task_by_id.task.read.map((r) => (
-//                             <div className='px-2' key={r._id}>{e._id !== r.byEmployee || r.ok === false ? null : (<p className='px-2 m-3 bg-warning text-dark'>Задание принято к исполнению{r.ok}</p>)}</div>
+//                             <div className='px-2' key={r._id}>{e._id !== r.byEmployee || r.read === false ? null : (<p className='px-2 m-3 bg-warning text-dark'>Задание принято к исполнению{r.read}</p>)}</div>
 //                         )) }
 //                         {task_by_id && task_by_id.task.completed.map((c) => (
 //                             <div className='px-2' key={c._id}>{e._id !== c.byEmployee || c.done === false ? null : (<p className='px-2 m-3 bg-success text-white'>Задание выполнено{c.done}</p>)}</div>

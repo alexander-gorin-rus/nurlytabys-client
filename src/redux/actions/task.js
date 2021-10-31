@@ -205,9 +205,9 @@ export const TasksCountCreate = (variables) => async dispatch => {
     }
 }
 
-export const TasksCountUpdate = (_id, count) => async dispatch => {
+export const TasksCountUpdate = (taskId, count_tasks) => async dispatch => {
     try {
-        const res = await axios.post(`${process.env.REACT_APP_API}/task-count-update/${_id}`, count)
+        const res = await axios.post(`${process.env.REACT_APP_API}/task-count-update/${taskId}`, count_tasks)
         dispatch({
             type: UPDATE_TASKS_COUNT,
             payload: res.data
