@@ -56,8 +56,15 @@ const TaskFullInfo = ({
 
     let taskId = task_by_id && task_by_id.task._id;
 
-    let tasksCountId = tasks_count && tasks_count.map(t => t._id);
-    console.log(tasksCountId);
+    const tasksCountId = tasks_count && tasks_count.map(t => t._id);
+    const countsStringify = JSON.stringify(tasksCountId);
+    let countId = countsStringify.slice(2, 26);
+    console.log(countsStringify);
+    console.log(countId);
+    console.log(tasks_count)
+
+    const tasksCountLength = tasks_count.length
+    console.log(tasksCountLength);
 
     const history = useHistory()
 
@@ -93,16 +100,12 @@ const TaskFullInfo = ({
             employeeId
         }
 
-        const count_tasks = {
-            count
+        if (tasksCountLength === 0) {
+            TasksCountCreate(variables)
         }
 
-        TasksCountCreate(variables);
-
-        if (tasks_count === null || tasks_count === []) {
-            TasksCountCreate(variables);
-        } else {
-            TasksCountUpdate(tasksCountId, count_tasks);
+        if (tasksCountLength !== 0) {
+            TasksCountUpdate(countId, variables);
         }
 
         setTimeout(() => {
@@ -116,9 +119,9 @@ const TaskFullInfo = ({
     const handleChange = () => {
         //setCountTasks(tasks_by_role.length)
         setOk(true);
-        setTimeout(() => {
-            window.location.reload()
-        },5000)
+        // setTimeout(() => {
+        //     window.location.reload()
+        // },5000)
     }
      
     const setDoneTrue = () => {

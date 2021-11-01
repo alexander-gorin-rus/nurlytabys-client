@@ -205,16 +205,16 @@ export const TasksCountCreate = (variables) => async dispatch => {
     }
 }
 
-export const TasksCountUpdate = (taskId, count_tasks) => async dispatch => {
+export const TasksCountUpdate = (id, variables) => async dispatch => {
     try {
-        const res = await axios.post(`${process.env.REACT_APP_API}/task-count-update/${taskId}`, count_tasks)
+        const res = await axios.put(`${process.env.REACT_APP_API}/tasks-count-update/${id}`, variables)
         dispatch({
             type: UPDATE_TASKS_COUNT,
             payload: res.data
         });
-    setAlert('tasks count number was successfully updated', 'success');
+    setAlert('Количество заданий успешно изменено', 'success');
     } catch (err) {
-    setAlert('Unable to update tasks number', 'danger');
+    setAlert('Не удалось изменить количество заданий', 'danger');
         
     }
 }

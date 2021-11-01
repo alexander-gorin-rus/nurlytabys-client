@@ -29,17 +29,17 @@ const StaffDashboard = ({
     GetTasksByEmployee,
     GetTasksCount,
     employee_reducer: {employee},
-    task: {tasks_by_role}
+    task: {tasks_by_role, tasks_count}
 }) => {
 
-    //const prevTasksLength = useRef(tasks_by_role.length)
-    //const currentTasksLength = tasks_by_role.length
-    //const countTasks = prevTasksLength.current
+    const tasksByRoleLength = tasks_by_role.length;
+    const tasksCountLength = tasks_count && tasks_count.map(c => c.count);
+    const tasksCountStrigify = JSON.stringify(tasksCountLength)
+    const tasksCount = tasksCountStrigify.slice(1, 2); 
 
-    //console.log('countTasks: ', countTasks)
-    //console.log('previous tasks length: ', prevTasksLength)
-    //console.log('current tasks length: ', currentTasksLength)
-    
+    console.log(tasksByRoleLength);
+    //console.log(tasksCountStrigify);
+    console.log(tasksCount)
 
     useEffect(() => {
         GetTasksCount(employee && employee.employee._id)
@@ -47,29 +47,36 @@ const StaffDashboard = ({
     },[GetTasksByEmployee, employee, GetTasksCount])
 
 
-    // useEffect(() => {
-    //     const timer = setInterval(() => {
-    //        GetTasksByEmployee(employee && employee.employee._id)
-    //       return ()=> clearInterval(timer)
-    //     }, 10000);
+    useEffect(() => {
+        const timer = setInterval(() => {
+           GetTasksByEmployee(employee && employee.employee._id)
+          return ()=> clearInterval(timer)
+        }, 30000);
         
-    // },[GetTasksByEmployee, employee])
+    },[GetTasksByEmployee, employee])
 
 
-    // Howler.volume(1.0);
+    Howler.volume(1.0);
 
     // useEffect(()=>{
     //         const sound = new Howl({
     //             src: [SoundAlert1]
     //         })
-    //         if(countTasks !== 0 && countTasks < currentTasksLength) {
+    //         // if(tasksCount < tasksByRoleLength) {
+    //         //     sound.play()
+    //         // }
+    //         if(tasksCount !== 0 && tasksCount < tasksByRoleLength) {
     //             sound.play()
     //         }
-    // },[tasks_by_role, countTasks, currentTasksLength])
+    // },[])
 
-    // if(countTasks > currentTasksLength){
-    //     window.location.reload()
-    // }
+    const sound = new Howl({
+        src: [SoundAlert1]
+    });
+
+    if(tasksCount !== 0 && tasksCount < tasksByRoleLength) {
+        sound.play()
+    }
 
     moment.locale('ru', {week: {dow: 1}});
 
