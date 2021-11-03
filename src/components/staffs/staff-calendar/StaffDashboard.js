@@ -68,7 +68,8 @@ const StaffDashboard = ({
     const signsLength = tasksCountStrigify.length;
 
     //The final step is to create variable that gets pure numbers without "[" "]" signs
-    let tasksCount = tasks_count && tasks_count.count;
+    let tasksCount = 0;
+    //let tasksCount = tasks_count && tasks_count.map(c => c.count);
     console.log(tasksCount)
     
     //Let's cut  "["  "]" if tasks less than 10:
@@ -90,33 +91,36 @@ const StaffDashboard = ({
 
     const tasksCountId = tasks_count && tasks_count.map(t => t._id);
     const countsStringify = JSON.stringify(tasksCountId);
+
     let countId = countsStringify.slice(2, 26);
-    const [values, setValues] = useState({
-        count: tasks_by_role.length,
-        employeeId: employee && employee.employee._id
-    });
-    const { count, employeeId } = values;
 
-    const handleCountChange = e => {
-        setValues({...values, [e.target.name]: e.target.value})
-    }
+    // const [values, setValues] = useState({
+    //     count: tasks_by_role.length,
+    //     employeeId: employee && employee.employee._id
+    // });
+    // const { count, employeeId } = values;
 
-    console.log(count)
+    // const handleCountChange = e => {
+    //     setValues({...values, [e.target.name]: e.target.value})
+    // }
+
+    //console.log(count)
 
     useEffect(() => {
-        if(!GetTasksCountById){
-            return 0
-        }else{
-            GetTasksCountById(countId)
-        }
+        // if(!GetTasksCountById){
+        //     return 0
+        // }else{
+        //     GetTasksCountById(countId)
+        // }
         GetTasksCount(employee && employee.employee._id);
         GetTasksByEmployee(employee && employee.employee._id);
-        const variables = {
-            count,
-            employeeId
-        }
+        // const variables = {
+        //     count,
+        //     employeeId
+        // }
         if (tasksByRoleLength < tasksCount) {
-            TasksCountUpdate(countId, variables);
+            TasksCountUpdate(countId, tasksByRoleLength);
+            console.log('Tasks length was updated', tasksByRoleLength)
         }
     },[
         GetTasksByEmployee, 
@@ -242,7 +246,7 @@ const StaffDashboard = ({
 
     return (
         <>
-        <form 
+        {/* <form 
          //onSubmit={handleReadSubmit}
         >
                    
@@ -254,8 +258,9 @@ const StaffDashboard = ({
                 onChange={handleCountChange}
             />
                
-                {/* <button className="btn btn-outline-info mt-4">Отправить</button>  */}
-            </form>
+                <button className="btn btn-outline-info mt-4">Отправить</button> 
+            </form> 
+            */}
             {tasks_by_role && tasks_by_role.tasks ? 
                 (
                     <>
