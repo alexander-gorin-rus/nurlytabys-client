@@ -22,6 +22,8 @@ import {
     UPDATE_TASKS_COUNT,
     CREATE_TASKS_COUNT_SUCCESS,
     CREATE_TASKS_COUNT_FAIL,
+    GET_TASKS_COUNT_BY_ID_SUCCESS,
+    GET_TASKS_COUNT_BY_ID_FAIL
 } from '../types';
 
 import { setAlert } from './alert';
@@ -216,5 +218,20 @@ export const TasksCountUpdate = (id, variables) => async dispatch => {
     } catch (err) {
     setAlert('Не удалось изменить количество заданий', 'danger');
         
+    }
+}
+
+export const GetTasksCountById = (id) => async dispatch => {
+    const res = await axios.get(`${process.env.REACT_APP_API}/tasks-count-by-id/${id}`);
+    try {
+        dispatch({
+            type: GET_TASKS_COUNT_BY_ID_SUCCESS,
+            payload: res.data
+        })
+    } catch (err) {
+        dispatch({
+            type: GET_TASKS_COUNT_BY_ID_FAIL
+        })
+        console.log(err)
     }
 }

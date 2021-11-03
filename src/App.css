@@ -710,3 +710,7 @@ a{
     width: 32.5vw;
   }
 }
+
+.hidden{
+  display: none;
+}

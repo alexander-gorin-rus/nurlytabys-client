@@ -11,7 +11,9 @@ import moment from 'moment';
 import Spinner from '../../layout/Spinner';
 import { 
     GetTasksByEmployee,
-    GetTasksCount
+    GetTasksCount,
+    TasksCountUpdate,
+    GetTasksCountById
 } from '../../../redux/actions/task';
 
 import StaffDayGrid from './StaffDayGrid';
@@ -28,59 +30,125 @@ const totalMonthDays = 42
 const StaffDashboard = ({
     GetTasksByEmployee,
     GetTasksCount,
+    TasksCountUpdate,
+    GetTasksCountById,
     employee_reducer: {employee},
-    task: {tasks_by_role, tasks_count}
+    task: {
+        tasks_by_role, 
+        tasks_count,
+        tasks_count_by_id
+    }
 }) => {
 
+    //The customer (the boss of construction company) wanted me 
+    //to make a sound alert when his employee(s) recieve(s) a new task(s) from him.
+    //In order to do that I made several steps:
+    //The first one is to create a mongo TASKSCOUNT collection that stores tasks_by_role length.
+    //This collection is represented as tasks_count in redux-devtools
+    //This step is realized in TaskFullInfo component. See line 105 there.
+
+    //The second step is compare number of tasks that the employee has and tasks_count value. 
+    //In order to do that I created a variable named "tasksByRoleLength" 
+    //that gets a number form backend that represents a tasks length
     const tasksByRoleLength = tasks_by_role.length;
+    //If boss gives this employe new task, tasksByRoleLength values increases.
+    
+
+    //The third step is to get tasks_count value.
+    //In order to do that let's create a variable named tasksCountLength 
+    //that represents this value: 
     const tasksCountLength = tasks_count && tasks_count.map(c => c.count);
-    const tasksCountStrigify = JSON.stringify(tasksCountLength)
-    const tasksCount = tasksCountStrigify.slice(1, 2); 
+
+    //Let's make it as a string:
+    const tasksCountStrigify = JSON.stringify(tasksCountLength);
+
+    //The forth step is to get number of signs of tasksCountStrigify variable.
+    //To compare correctly tasksByRoleLength and tasks_count values
+    //we need to cut "[" "]" from this stringified value.
+    const signsLength = tasksCountStrigify.length;
+
+    //The final step is to create variable that gets pure numbers without "[" "]" signs
+    let tasksCount = tasks_count && tasks_count.count;
+    console.log(tasksCount)
+    
+    //Let's cut  "["  "]" if tasks less than 10:
+    if (signsLength === 3) {
+        tasksCount = tasksCountStrigify.slice(1, 2);
+    }
+
+    //Let's cut  "["  "]" if tasks more than 9, but less than 100:
+    if (signsLength === 4) {
+        tasksCount = tasksCountStrigify.slice(1, 3);
+    }
+
+    //Let's cut  "["  "]" if tasks more than 100:
+    if (signsLength === 5) {
+        tasksCount = tasksCountStrigify.slice(1, 4);
+    }    
 
     console.log(tasksByRoleLength);
-    //console.log(tasksCountStrigify);
-    console.log(tasksCount)
+
+    const tasksCountId = tasks_count && tasks_count.map(t => t._id);
+    const countsStringify = JSON.stringify(tasksCountId);
+    let countId = countsStringify.slice(2, 26);
+    const [values, setValues] = useState({
+        count: tasks_by_role.length,
+        employeeId: employee && employee.employee._id
+    });
+    const { count, employeeId } = values;
+
+    const handleCountChange = e => {
+        setValues({...values, [e.target.name]: e.target.value})
+    }
+
+    console.log(count)
 
     useEffect(() => {
-        GetTasksCount(employee && employee.employee._id)
-        GetTasksByEmployee(employee && employee.employee._id)
-    },[GetTasksByEmployee, employee, GetTasksCount])
+        if(!GetTasksCountById){
+            return 0
+        }else{
+            GetTasksCountById(countId)
+        }
+        GetTasksCount(employee && employee.employee._id);
+        GetTasksByEmployee(employee && employee.employee._id);
+        const variables = {
+            count,
+            employeeId
+        }
+        if (tasksByRoleLength < tasksCount) {
+            TasksCountUpdate(countId, variables);
+        }
+    },[
+        GetTasksByEmployee, 
+        employee, 
+        GetTasksCount,
+        tasksCount
+        ])
 
 
     useEffect(() => {
         const timer = setInterval(() => {
-           GetTasksByEmployee(employee && employee.employee._id)
-          return ()=> clearInterval(timer)
+            GetTasksByEmployee(employee && employee.employee._id);
+            return ()=> clearInterval(timer)
         }, 30000);
         
-    },[GetTasksByEmployee, employee])
+    },[GetTasksByEmployee, employee, TasksCountUpdate])
 
-
+    //Initiate sound
     Howler.volume(1.0);
-
-    // useEffect(()=>{
-    //         const sound = new Howl({
-    //             src: [SoundAlert1]
-    //         })
-    //         // if(tasksCount < tasksByRoleLength) {
-    //         //     sound.play()
-    //         // }
-    //         if(tasksCount !== 0 && tasksCount < tasksByRoleLength) {
-    //             sound.play()
-    //         }
-    // },[])
 
     const sound = new Howl({
         src: [SoundAlert1]
     });
 
-    if(tasksCount !== 0 && tasksCount < tasksByRoleLength) {
+    //Let's play sound alert!!!!!
+    if(tasksCount < tasksByRoleLength) {
         sound.play()
     }
 
     moment.locale('ru', {week: {dow: 1}});
 
-    //this section is for calendar model
+    //this section is for calendar modal
     const [isShowForm, setShowForm] = useState(false);
     const [today, setToday] = useState(moment());
     
@@ -174,6 +242,20 @@ const StaffDashboard = ({
 
     return (
         <>
+        <form 
+         //onSubmit={handleReadSubmit}
+        >
+                   
+                       
+            <input 
+                type="number"
+                name="count"
+                value={count}
+                onChange={handleCountChange}
+            />
+               
+                {/* <button className="btn btn-outline-info mt-4">Отправить</button>  */}
+            </form>
             {tasks_by_role && tasks_by_role.tasks ? 
                 (
                     <>
@@ -290,8 +372,11 @@ const StaffDashboard = ({
 StaffDashboard.propTypes = {
     GetTasksByEmployee: PropTypes.func.isRequired,
     GetTasksCount: PropTypes.func.isRequired,
+    TasksCountUpdate: PropTypes.func.isRequired,
+    GetTasksCountById: PropTypes.func.isRequired,
     business: PropTypes.object,
     employee_reducer:PropTypes.object,
+    tasks_count_by_id:PropTypes.object,
 }
 
 const mapStateToProps = state => ({
@@ -303,5 +388,7 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps,
     {
         GetTasksByEmployee,
-        GetTasksCount
+        GetTasksCount,
+        TasksCountUpdate,
+        GetTasksCountById
     })(StaffDashboard)

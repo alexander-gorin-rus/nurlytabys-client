@@ -151,7 +151,9 @@ const EmployeeList = ({
         }
 
         if(content === ""){
-            alert('Необходимо заполнить поле с текстом задания')
+            alert('Необходимо заполнить поле с текстом задания');
+        } else if (employee === '') {
+            alert('Необходимо выбрать сотрудника');
         }
         else{
             CreateTask(variables)

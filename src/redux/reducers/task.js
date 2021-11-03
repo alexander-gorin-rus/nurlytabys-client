@@ -19,6 +19,8 @@ import {
     UPDATE_TASKS_COUNT,
     CREATE_TASKS_COUNT_SUCCESS,
     CREATE_TASKS_COUNT_FAIL,
+    GET_TASKS_COUNT_BY_ID_SUCCESS,
+    GET_TASKS_COUNT_BY_ID_FAIL
 } from '../types';
 
 const initialState = {
@@ -34,6 +36,7 @@ const initialState = {
     tasks_count: null,
     tasks_count_update: null,
     tasks_count_create: null,
+    tasks_count_by_id: null,
     loading: true
 }
 
@@ -155,6 +158,18 @@ export default function(state = initialState, action){
             return {
                 ...state,
                 tasks_count_create: null,
+                loading: false
+            }
+        case GET_TASKS_COUNT_BY_ID_SUCCESS:
+            return {
+                ...state,
+                tasks_count_by_id: payload,
+                loading: false
+            }
+        case GET_TASKS_COUNT_BY_ID_FAIL:
+            return {
+                ...state,
+                tasks_count_by_id: null,
                 loading: false
             }
         case TASK_DELETE_SUCCESS:
