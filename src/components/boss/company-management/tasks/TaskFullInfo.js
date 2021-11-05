@@ -1,4 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react';
+
+import IdleTimer from 'react-idle-timer';
+
 import PropTypes from 'prop-types';
 
 import { Link, useHistory  } from 'react-router-dom';
@@ -44,6 +47,12 @@ const TaskFullInfo = ({
     match
 }) => {
 
+    const IdleTimerRef = useRef(null);
+
+    const onIdle = () => {
+        history.push('/employee-dashboard');
+    }
+
     const [done, setDone] = useState(false);
     const [ok, setOk] = useState(false);
     const [values, setValues] = useState({
@@ -61,12 +70,20 @@ const TaskFullInfo = ({
     const tasksCountId = tasks_count && tasks_count.map(t => t._id);
     const countsStringify = JSON.stringify(tasksCountId);
     let countId = countsStringify.slice(2, 26);
-    console.log(countsStringify);
-    console.log(countId);
-    console.log(tasks_count)
+    // console.log(countsStringify);
+    // console.log(countId);
+    // console.log(tasks_count)
+
+    //SECTION TO HIDE OF SHOW READ FORM
+    const _employeeId_ = employee && employee.employee._id;
+   
+    const employeeLength = task_by_id && task_by_id.task.employee.length;
+    const readLength = task_by_id && task_by_id.task.read.length;
+    console.log(employeeLength);
+    console.log(readLength);
+    
 
     //SECTION FOR UPDATING TASKS LENGTH
-    const tasksByRoleLength = tasks_by_role.length;
     const _tasksCountLength_ = tasks_count && tasks_count.map(c => c.count);
     const tasksCountStrigify = JSON.stringify(_tasksCountLength_);
     const signsLength = tasksCountStrigify.length;
@@ -90,11 +107,11 @@ const TaskFullInfo = ({
         tasksCount = tasksCountStrigify.slice(1, 4);
     }  
     
-    console.log(tasksByRoleLength);
+    //console.log(tasksByRoleLength);
     // console.log(tasksCountLength);
     // console.log(tasksCountStrigify);
-    console.log(tasksCount);
-    console.log(signsLength);
+    // console.log(tasksCount);
+    // console.log(signsLength);
     
 
 
@@ -178,6 +195,11 @@ const TaskFullInfo = ({
                 :
             (
                 <div className='main-div-content'>
+                    <IdleTimer
+                        ref={IdleTimerRef}
+                        timeout={60 * 1000}
+                        onIdle={onIdle}
+                    ></IdleTimer>
             <div>
                 <p className='text-center'>{task_by_id && task_by_id.task.title}</p>
                 {task_by_id && task_by_id.task.content}
@@ -191,30 +213,39 @@ const TaskFullInfo = ({
             {employee && employee.employee.boss === 1 ?  null : (
                 <>
                 <div>
-
-                {/* {task_by_id && task_by_id.task.read.map((r) => (
-                    <div className='px-2' key={r._id}>{r.byEmployee === employeeId && r.read === false ? 
-                            (
-                                <form onSubmit={handleReadSubmit}>
-                            <label>
-                                <input
-                                    type="checkbox"
-                                    onChange={handleChange}
-                                    className="form-check-input" 
-                                />
-                            <span><p className='px-2 bg-warning text-dark'>Отметить задание как прочитанное и принятое к исполнению</p></span>
-                            </label>
-                                <br />
-                            <button className="btn btn-outline-info mt-4">Отправить</button> 
-                        </form>
-                            ) 
-                                :
-                            (
-                                null
-                            )
+                {/* {tasks_by_role && tasks_by_role.tasks.map((task) => (
+                    <div key={task._id}>
+                        {task.employee.map((e) => (
+                            <div key={e._id}>{e._id === employee.employee._id ? 
+                                (
+                                    <form onSubmit={handleReadSubmit}>
+                                        <label>
+                                            <input
+                                                type="checkbox"
+                                                onChange={handleChange}
+                                                className="form-check-input" 
+                                            />
+                                        <span><p className='px-2 bg-warning text-dark'>Отметить задание как прочитанное и принятое к исполнению</p></span>
+                                        </label>
+                                            <input
+                                                className="hidden" 
+                                                type="number"
+                                                name="count"
+                                                value={count}
+                                                onChange={handleCountChange}
+                                            />
+                                            <br />
+                                            <button className="btn btn-outline-info mt-4">Отправить</button> 
+                                    </form> 
+                                )
+                                    :
+                                (
+                                    null
+                                )
                             }</div>
-                        )) } */}
-
+                        ))}
+                   </div>
+                ))} */}
                 <form onSubmit={handleReadSubmit}>
                     <label>
                         <input
@@ -233,9 +264,7 @@ const TaskFullInfo = ({
                         />
                         <br />
                         <button className="btn btn-outline-info mt-4">Отправить</button> 
-                </form>
-
-
+                </form> 
                     <br />
                     <hr />
                     <form onSubmit={handleSubmit}>

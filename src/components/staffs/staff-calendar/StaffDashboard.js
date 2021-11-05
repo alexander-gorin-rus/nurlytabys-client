@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import moment from 'moment';
 
@@ -12,8 +12,7 @@ import Spinner from '../../layout/Spinner';
 import { 
     GetTasksByEmployee,
     GetTasksCount,
-    TasksCountUpdate,
-    GetTasksCountById
+    TasksCountUpdate
 } from '../../../redux/actions/task';
 
 import StaffDayGrid from './StaffDayGrid';
@@ -31,15 +30,14 @@ const StaffDashboard = ({
     GetTasksByEmployee,
     GetTasksCount,
     TasksCountUpdate,
-    GetTasksCountById,
     employee_reducer: {employee},
     task: {
         tasks_by_role, 
         tasks_count,
-        tasks_count_by_id
     }
 }) => {
 
+    const history = useHistory();
     //The customer (the boss of construction company) wanted me 
     //to make a sound alert when his employee(s) recieve(s) a new task(s) from him.
     //In order to do that I made several steps:
@@ -50,7 +48,8 @@ const StaffDashboard = ({
     //The second step is compare number of tasks that the employee has and tasks_count value. 
     //In order to do that I created a variable named "tasksByRoleLength" 
     //that gets a number form backend that represents a tasks length
-    const tasksByRoleLength = tasks_by_role.length;
+    const tasksByRoleLength = tasks_by_role && tasks_by_role.length;
+    console.log(tasksByRoleLength);
     //If boss gives this employe new task, tasksByRoleLength values increases.
     
 
@@ -70,7 +69,6 @@ const StaffDashboard = ({
     //The final step is to create variable that gets pure numbers without "[" "]" signs
     let tasksCount = 0;
     //let tasksCount = tasks_count && tasks_count.map(c => c.count);
-    console.log(tasksCount)
     
     //Let's cut  "["  "]" if tasks less than 10:
     if (signsLength === 3) {
@@ -87,41 +85,11 @@ const StaffDashboard = ({
         tasksCount = tasksCountStrigify.slice(1, 4);
     }    
 
-    console.log(tasksByRoleLength);
-
-    const tasksCountId = tasks_count && tasks_count.map(t => t._id);
-    const countsStringify = JSON.stringify(tasksCountId);
-
-    let countId = countsStringify.slice(2, 26);
-
-    // const [values, setValues] = useState({
-    //     count: tasks_by_role.length,
-    //     employeeId: employee && employee.employee._id
-    // });
-    // const { count, employeeId } = values;
-
-    // const handleCountChange = e => {
-    //     setValues({...values, [e.target.name]: e.target.value})
-    // }
-
-    //console.log(count)
+    console.log(tasksCount);
 
     useEffect(() => {
-        // if(!GetTasksCountById){
-        //     return 0
-        // }else{
-        //     GetTasksCountById(countId)
-        // }
         GetTasksCount(employee && employee.employee._id);
         GetTasksByEmployee(employee && employee.employee._id);
-        // const variables = {
-        //     count,
-        //     employeeId
-        // }
-        if (tasksByRoleLength < tasksCount) {
-            TasksCountUpdate(countId, tasksByRoleLength);
-            console.log('Tasks length was updated', tasksByRoleLength)
-        }
     },[
         GetTasksByEmployee, 
         employee, 
@@ -150,10 +118,14 @@ const StaffDashboard = ({
         sound.play()
     }
 
+    if(tasksByRoleLength !== 0 && tasksByRoleLength < tasksCount) {
+        history.push('/update-tasks-length')
+    }
+
     moment.locale('ru', {week: {dow: 1}});
 
     //this section is for calendar modal
-    const [isShowForm, setShowForm] = useState(false);
+    //const [isShowForm, setShowForm] = useState(false);
     const [today, setToday] = useState(moment());
     
 
@@ -227,12 +199,6 @@ const StaffDashboard = ({
         setToday(prev => prev.clone().add(1, 'day'));
 
     }
-    
-    const openModalHandler = () => {
-        setShowForm(true)
-    }
-
-    const [open, setOpen] = useState(0)
 
     const [toggleCalendarGrid, setToggleCalendarGrid] = useState(1)
 
@@ -242,29 +208,15 @@ const StaffDashboard = ({
 
    
     const [displayMyInfo, toggleMyInfo] = useState(false);
-
+    
 
     return (
-        <>
-        {/* <form 
-         //onSubmit={handleReadSubmit}
-        >
-                   
-                       
-            <input 
-                type="number"
-                name="count"
-                value={count}
-                onChange={handleCountChange}
-            />
-               
-                <button className="btn btn-outline-info mt-4">Отправить</button> 
-            </form> 
-            */}
+        <>  
             {tasks_by_role && tasks_by_role.tasks ? 
                 (
                     <>
                     <div className='main-div-content'>
+                       
             <div className='calendar-select-header'>
                 <p 
                     onClick={() => selectCalendarGrid(1)}
@@ -286,10 +238,7 @@ const StaffDashboard = ({
                         <StaffDayGrid
                             startDay={startDay}
                             tasks_by_role={tasks_by_role}
-                            openModalHandler={openModalHandler}
                             employee={employee}
-                            setOpen={setOpen}
-                            open={open}
                         />
                     </div>
                     <div className={toggleCalendarGrid === 2 ? 'calendar-content content-active' : 'calendar-content'}>
@@ -302,7 +251,6 @@ const StaffDashboard = ({
                         <StaffWeekGrid
                             startWeek={startWeek}
                             tasks_by_role={tasks_by_role} 
-                            openModalHandler={openModalHandler}
                             employee={employee}
                         />
                     </div>
@@ -317,7 +265,6 @@ const StaffDashboard = ({
                             startMonth={startMonth} 
                             totalMonthDays={totalMonthDays} 
                             tasks_by_role={tasks_by_role} 
-                            openModalHandler={openModalHandler}
                             employee={employee}
                         />
                     </div> 
@@ -378,7 +325,6 @@ StaffDashboard.propTypes = {
     GetTasksByEmployee: PropTypes.func.isRequired,
     GetTasksCount: PropTypes.func.isRequired,
     TasksCountUpdate: PropTypes.func.isRequired,
-    GetTasksCountById: PropTypes.func.isRequired,
     business: PropTypes.object,
     employee_reducer:PropTypes.object,
     tasks_count_by_id:PropTypes.object,
@@ -394,6 +340,5 @@ export default connect(mapStateToProps,
     {
         GetTasksByEmployee,
         GetTasksCount,
-        TasksCountUpdate,
-        GetTasksCountById
+        TasksCountUpdate
     })(StaffDashboard)

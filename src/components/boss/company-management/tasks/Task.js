@@ -35,7 +35,7 @@ const EmployeeList = ({
     moment.locale('ru', {week: {dow: 1}});
 
     //this section is for calendar model
-    const [isShowForm, setShowForm] = useState(false)
+    const [isShowForm, setShowForm] = useState(false);
 
     const [today, setToday] = useState(moment())
     const startMonth = today.clone().startOf('month').startOf('week');

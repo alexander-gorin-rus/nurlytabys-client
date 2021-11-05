@@ -221,7 +221,7 @@ export const TasksCountUpdate = (id, variables) => async dispatch => {
     }
 }
 
-export const GetTasksCountById = (id) => async dispatch => {
+export const GetTaskCountById = (id) => async dispatch => {
     const res = await axios.get(`${process.env.REACT_APP_API}/tasks-count-by-id/${id}`);
     try {
         dispatch({

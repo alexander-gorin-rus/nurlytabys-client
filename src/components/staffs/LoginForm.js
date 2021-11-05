@@ -1,7 +1,9 @@
 import React, { Fragment, useState } from 'react'
 import PropTypes from 'prop-types';
-import { loginEmployee } from '../../redux/actions/employee_actions';
+
 import { connect } from 'react-redux';
+
+import { loginEmployee } from '../../redux/actions/employee_actions';
 import { 
     //useHistory, 
     Redirect 
