@@ -25,8 +25,31 @@ const UpdateTasksLength = ({
 }) => {
 
     const history = useHistory();
+
     const tasksByRoleLength = tasks_by_role && tasks_by_role.length;
     console.log(tasksByRoleLength);
+
+    const tasksCountLength = tasks_count && tasks_count.map(c => c.count);
+
+    const tasksCountStrigify = JSON.stringify(tasksCountLength);
+
+    const signsLength = tasksCountStrigify.length;
+
+    let tasksCount = 0;
+    
+    if (signsLength === 3) {
+        tasksCount = tasksCountStrigify.slice(1, 2);
+    }
+
+    if (signsLength === 4) {
+        tasksCount = tasksCountStrigify.slice(1, 3);
+    }
+
+    if (signsLength === 5) {
+        tasksCount = tasksCountStrigify.slice(1, 4);
+    }    
+
+    console.log(tasksCount);
     
     const [values, setValues] = useState({
         count: tasks_by_role.length,
@@ -54,28 +77,26 @@ const UpdateTasksLength = ({
         }, 500)
     }
 
-    // useEffect(() => {
-    //     //GetTasksCount(employee && employee.employee._id);
-    //     GetTasksByEmployee();
-    // },[
-    //     GetTasksByEmployee, 
-    //     // employee, 
-    //     // GetTasksCount,
-    //     // tasksCount
-    //     ])
+    if (tasksByRoleLength === tasksCount) {
+        setTimeout(() => {
+            history.push('/employee-dashboard')
+        }, 500)
+    }
+
     return (
         <div className='main-div-content'>
             <p className="text-center">Одно или несколько заданий было удалено. 
             Пожалуйста, обновите список</p>
             <form onSubmit={handleReadSubmit}>
                 <input 
+                    className='hidden'
                     type="number"
                     name="count"
                     value={count}
                     onChange={handleCountChange}
                 />
                 <br />
-                <button className="btn btn-outline-info mt-4">Отправить</button> 
+                <button className="btn btn-outline-info mt-4">Обновить</button> 
             </form> 
         </div>
     )
