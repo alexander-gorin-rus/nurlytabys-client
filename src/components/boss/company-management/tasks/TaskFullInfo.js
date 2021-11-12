@@ -172,9 +172,9 @@ const TaskFullInfo = ({
 
     const handleChange = () => {
         setOk(true);
-        setTimeout(() => {
-            history.push('/employee-dashboard')
-        },1000);
+        // setTimeout(() => {
+        //     history.push('/employee-dashboard')
+        // },1000);
     }
      
     const setDoneTrue = () => {
