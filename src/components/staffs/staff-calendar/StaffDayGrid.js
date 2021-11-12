@@ -1,6 +1,8 @@
 import React from 'react';
-import '../../boss/company-management/tasks/calendar/calendar.css';
+
 import { Link } from 'react-router-dom';
+
+import '../../boss/company-management/tasks/calendar/calendar.css';
 
 
 const StaffDayGrid = ({
@@ -10,19 +12,19 @@ const StaffDayGrid = ({
 }) => {
 
     return (
-        <div className='day-calendar'>
+        <div className=''>
             <ul>
                 {tasks_by_role.tasks && tasks_by_role.tasks.filter(task => task.finish.split('T', 1)[0] >= startDay.format('YYYY-MM-DD') && task.finish.split('T', 1)[0] <= startDay.clone().endOf('day').format('YYYY-MM-DD'))
                     .map((task) => 
                         (
-                            <div key={task._id}>
+                            <div className='border border-dark my-5' key={task._id}>
                                 {task.read.map((read) => (
                                 <div key={read._id}>{read.byEmployee === employee.employee._id && read.ok === true ? 
                                     (
                                         <div 
                                         className='task-day-read'
                                         >
-                                            Задание прочитано и принято к исполнению
+                                            Задание прочитано
                                         </div>
                                     ) 
                                         : 

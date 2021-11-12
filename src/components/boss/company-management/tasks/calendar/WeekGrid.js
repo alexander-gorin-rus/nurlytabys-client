@@ -1,7 +1,9 @@
 import React from 'react';
+
 import styled from 'styled-components';
-import './calendar.css'
+
 import moment from 'moment';
+
 import { Link } from 'react-router-dom';
 
 const WeekGrid = ({
@@ -9,6 +11,9 @@ const WeekGrid = ({
     all_tasks,
     openModalHandler
 }) => {
+
+    // const tasksEmployeeLength = all_tasks && all_tasks.tasks.map((e) => e.employee.length)
+    // console.log(tasksEmployeeLength)
 
     const weekDay = startWeek.clone().subtract(1, 'day')
     const daysArray = [...Array(7)].map(() => weekDay.add(1, 'day').clone());
@@ -50,7 +55,12 @@ const WeekGrid = ({
                                     <li className='' key={task._id}>
                                          <Link to={`task-full-info/${task._id}`}>
                                             <div className='task-button'>
-                                                {task.content}    
+                                                {task.content}  
+                                                {/* {all_tasks && all_tasks.tasks.map((t) => (
+                                                    <div key={t._id}>
+                                                        {t.employee.length}
+                                                    </div>
+                                                ))}   */}
                                             </div>
                                         </Link>
                                     </li>

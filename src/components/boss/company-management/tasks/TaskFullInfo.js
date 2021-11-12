@@ -47,6 +47,8 @@ const TaskFullInfo = ({
     match
 }) => {
 
+    const notRead = task_by_id && task_by_id.task.read.length
+    console.log(notRead);
     const IdleTimerRef = useRef(null);
 
     const onIdle = () => {
@@ -75,8 +77,6 @@ const TaskFullInfo = ({
     // console.log(tasks_count)
 
     //SECTION TO HIDE OF SHOW READ FORM
-    const _employeeId_ = employee && employee.employee._id;
-   
     const employeeLength = task_by_id && task_by_id.task.employee.length;
     const readLength = task_by_id && task_by_id.task.read.length;
     console.log(employeeLength);
@@ -125,7 +125,7 @@ const TaskFullInfo = ({
         GetTasksByEmployee(employee && employee.employee._id)
         GetTasksCount(employee && employee.employee._id)
         GetTaskById(match.params.id) 
-    },[GetTasksByEmployee, employee, GetTaskById, task, match.params.id]);
+    },[GetTasksByEmployee, employee, GetTaskById, task, match.params.id, GetTasksCount]);
 
     const onDelete = (id) => {
         if(window.confirm('Вы точно желаете удалить это задание?')){
@@ -171,11 +171,10 @@ const TaskFullInfo = ({
     }
 
     const handleChange = () => {
-        //setCountTasks(tasks_by_role.length)
         setOk(true);
-        // setTimeout(() => {
-        //     window.location.reload()
-        // },5000)
+        setTimeout(() => {
+            history.push('/employee-dashboard')
+        },1000);
     }
      
     const setDoneTrue = () => {
@@ -213,38 +212,41 @@ const TaskFullInfo = ({
             {employee && employee.employee.boss === 1 ?  null : (
                 <>
                 <div>
-                {/* {tasks_by_role && tasks_by_role.tasks.map((task) => (
-                    <div key={task._id}>
-                        {task.employee.map((e) => (
-                            <div key={e._id}>{e._id === employee.employee._id ? 
-                                (
+                {/* {task_by_id && task_by_id.task.employee.map((e) => (
+                    <div key={e._id}>
+                        {task_by_id && task_by_id.task.read.map((r) => (
+                            <div key={r._id}>
+                                {e._id === employee.employee._id && r.byEmployee === employee.employee._id && r.ok !== true
+                                 ? (
+                                   
                                     <form onSubmit={handleReadSubmit}>
-                                        <label>
-                                            <input
-                                                type="checkbox"
-                                                onChange={handleChange}
-                                                className="form-check-input" 
-                                            />
-                                        <span><p className='px-2 bg-warning text-dark'>Отметить задание как прочитанное и принятое к исполнению</p></span>
-                                        </label>
-                                            <input
-                                                className="hidden" 
-                                                type="number"
-                                                name="count"
-                                                value={count}
-                                                onChange={handleCountChange}
-                                            />
-                                            <br />
-                                            <button className="btn btn-outline-info mt-4">Отправить</button> 
-                                    </form> 
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        onChange={handleChange}
+                                        className="form-check-input" 
+                                    />
+                                <span><p className='px-2 bg-warning text-dark'>Отметить задание как прочитанное и принятое к исполнению</p></span>
+                                </label>
+                                    <input
+                                        className="hidden" 
+                                        type="number"
+                                        name="count"
+                                        value={count}
+                                        onChange={handleCountChange}
+                                    />
+                                    <br />
+                                    <button className="btn btn-outline-info mt-4">Отправить</button> 
+                            </form> 
+                                
+                                
                                 )
-                                    :
-                                (
-                                    null
-                                )
-                            }</div>
+                                :
+                                null
+                                }
+                            </div>
                         ))}
-                   </div>
+                    </div>
                 ))} */}
                 <form onSubmit={handleReadSubmit}>
                     <label>
@@ -265,6 +267,7 @@ const TaskFullInfo = ({
                         <br />
                         <button className="btn btn-outline-info mt-4">Отправить</button> 
                 </form> 
+               
                     <br />
                     <hr />
                     <form onSubmit={handleSubmit}>
@@ -278,7 +281,7 @@ const TaskFullInfo = ({
                         </label>
                         <br />
                         <button className="btn btn-outline-info mt-4">Отправить</button> 
-                    </form>
+                    </form> 
                     <br />
                     <hr />
                 </div>

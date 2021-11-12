@@ -102,7 +102,7 @@ const StaffDashboard = ({
         const timer = setInterval(() => {
             GetTasksByEmployee(employee && employee.employee._id);
             return ()=> clearInterval(timer)
-        }, 30000);
+        }, 60000);
         
     },[GetTasksByEmployee, employee, TasksCountUpdate])
 

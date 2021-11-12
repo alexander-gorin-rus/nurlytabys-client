@@ -197,7 +197,7 @@ const EmployeeList = ({
 
     return (
         <div className="main-div-content">
-            <div className="calendar-div  my-4">
+            <div className="  my-4">
                 <>
                     {
                         isShowForm ? 
