@@ -304,7 +304,7 @@ const StaffDashboard = ({
                              )
                          }
                          </div>
-                         <Link to={`/change-staff-info/${employee.employee._id}`} className='bg-warning p-3'>Изменить персональную информацию</Link>
+                         <Link to={`/change-staff-info/${employee.employee._id}`} className='bg-warning p-1 app-text-small'>Изменить персональную информацию</Link>
                          </>
                      )}
                    
