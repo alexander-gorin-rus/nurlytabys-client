@@ -8,7 +8,7 @@ const  ImagesSlider= (props) => {
             <Carousel autoplay>
                 {props.images.map((i, index) => (
                     <div style={{ width: "100vw", height: "100vh"}} key={index}>
-                        <img style={{ width: "100vw", height: "100vh"}} src={`${i}`} alt="info about company" />
+                        <img style={{ width: "100vw", height: "100vh"}} src={`http://localhost:5003/${i}`} alt="info about company" />
                     </div>
                 ))}
             </Carousel>

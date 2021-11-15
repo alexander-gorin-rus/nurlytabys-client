@@ -22,7 +22,7 @@ const Main = ({
 
     useEffect(() => {
         MainPageInfoShow()
-    },[MainPageInfoShow]);
+    },[]);
 
     useEffect(() => {
         GetCategories()
