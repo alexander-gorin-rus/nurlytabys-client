@@ -1,18 +1,23 @@
 import React, { useState, useEffect, Fragment } from 'react'
 import PropTypes from 'prop-types';
-import { Typography } from 'antd';
-import Dropzone from 'react-dropzone';
-import axios from 'axios';
-import { connect } from 'react-redux';
-import { 
-    MainPageInfoUpload, 
-    MainPageInfoShow,
-    MainPageInfoDelete
-} from '../../../redux/actions/main_page_info'
-import { Link, useHistory } from 'react-router-dom';
-import ImagesUpload from './ImagesUpload';
 
-const { Title } = Typography;
+import { Typography } from 'antd';
+
+import Dropzone from 'react-dropzone';
+
+import axios from 'axios';
+
+import { connect } from 'react-redux';
+
+import { Link, useHistory } from 'react-router-dom';
+
+import {
+    MainPageInfoShow,
+    MainPageInfoUpload,
+    MainPageInfoDelete
+} from '../../../redux/actions/main_page_info';
+
+import ImagesUpload from './ImagesUpload';
 
 
 
@@ -26,7 +31,7 @@ const MainPageVideo = ({
 
     useEffect(() => {
         MainPageInfoShow()
-    },[]); 
+    },[MainPageInfoShow]); 
 
     const [FilePath, setFilePath] = useState("");
     const [Duration, setDuration] = useState("");
@@ -50,10 +55,10 @@ const MainPageVideo = ({
         companyInfo,
         description,
         contacts,
-        // filePath,
-        // duration,
-        // thumbnail,
-        // images
+        filePath,
+        duration,
+        thumbnail,
+        images
     } = values;
 
     const history = useHistory();
@@ -210,19 +215,19 @@ const MainPageVideo = ({
                 </div>
             </Fragment>
             ) : (
-            <Fragment>
+            <div className='main-div-content'>
                 <p 
                     className="text-center bg-info p-3" 
-                    style={{ position: "relative", left: "10vw", width: "80vw"}}>
+                    style={{ position: "relative", left: "0", width: "60vw"}}>
                         Вы уже создали информацию для главной страницы
                 </p>
-                <div className='mb-5' style={{position: "relative", left: "10vw", width: "80vw"}}>
+                <div className='mb-5' style={{position: "relative", left: "0", width: "60vw"}}>
                     {main_page_info.video && main_page_info.video.map((c, index) =>
                     <div className="category-cart" key={index} >
                     <div className='bg-danger p-3 text-center'>
                         {c.filePath === "" ? 
                             (
-                                <img style={{width: "200px", height: "auto"}} alt='construction' src={`http://localhost:5003/${c.images[0]}`} />
+                                <img style={{width: "40vw", height: "auto"}} alt='construction' src={`http://localhost:5003/${c.images[0]}`} />
                             )
                             :
                             (
@@ -240,7 +245,7 @@ const MainPageVideo = ({
                         <Link className='d-block p-3 mt-4 bg-warning ' to='/site-management'>Вернуться на страницу управления сайтом</Link>
                 </div>
                 
-            </Fragment>)}
+            </div>)}
     </Fragment>
     )
 }

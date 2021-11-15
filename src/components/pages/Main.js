@@ -1,12 +1,17 @@
 import React, { useEffect, Fragment } from 'react';
+
 import { Link } from 'react-router-dom';
+
 import PropTypes from 'prop-types';
+
 import { connect } from 'react-redux';
-import {MainPageInfoShow} from '../../redux/actions/main_page_info';
+
 import Aos from 'aos';
 import "aos/dist/aos.css";
-import { GetCategories } from '../../redux/actions/categories';
+
 import ImagesSlider from '../forms/ImagesSlider';
+import { GetCategories } from '../../redux/actions/categories';
+import {MainPageInfoShow} from '../../redux/actions/main_page_info';
 
 const Main = ({
     MainPageInfoShow,
@@ -17,7 +22,7 @@ const Main = ({
 
     useEffect(() => {
         MainPageInfoShow()
-    },[]);
+    },[MainPageInfoShow]);
 
     useEffect(() => {
         GetCategories()
