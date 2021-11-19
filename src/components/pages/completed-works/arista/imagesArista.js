@@ -7,7 +7,7 @@ import image6 from './arista-photo/arista_6.jpg'
 import image7 from './arista-photo/arista_7.jpg'
 import image8 from './arista-photo/arista_17.jpg'
 
-export const aristaImages = [
+export const imagesArista = [
     {
         image: image1
     },
