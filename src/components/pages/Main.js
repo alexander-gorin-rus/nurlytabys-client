@@ -9,11 +9,10 @@ import { connect } from 'react-redux';
 import Aos from 'aos';
 import "aos/dist/aos.css";
 
-//mport ImagesSlider from '../forms/ImagesSlider';
+import SliderCarousel from '../forms/SliderCarousel';
+import { imagesArray } from '../../main-page-images/imagesArray'
 import { GetCategories } from '../../redux/actions/categories';
 import {MainPageInfoShow} from '../../redux/actions/main_page_info';
-import SliderCarousel from '../forms/SliderCarousel';
-import { ImagesArray } from '../../main-page-images/ImagesArray';
 
 const Main = ({
     MainPageInfoShow,
@@ -56,7 +55,7 @@ const Main = ({
                                 )
                             } */}
                             
-                                <SliderCarousel slides={ImagesArray} />
+                                <SliderCarousel slides={imagesArray} />
                         
                             <div className="main-page-content-div-absolute">
 
@@ -69,13 +68,36 @@ const Main = ({
                                 </div>
                                 <p  data-aos="flip-right" className="main-page-description">{v.description}</p>
 
-                                <p data-aos="fade-up-left" className="main-page-contacts">{v.contacts}</p> 
+                                <p data-aos="fade-up-left" className="main-page-contacts">{v.contacts}</p>
 
-                                {categories && categories.map((category, index) =>
+                                <div data-aos="fade-up-right" className="main-page-partners">
+                                    <p>Наши партнеры:</p>
+                                    <ul>
+                                        <li>ТОО "Ақ Шаһар ltd"</li>
+                                        <hr/>
+                                        <li>ТОО "Арт Климат"</li>
+                                        <hr/>
+                                        <li>ТОО "Каз вент Курылыс"</li>
+                                        <hr/>
+                                        <li>ТОО "Завод ЖБИ - 5"</li>
+                                        <hr/>
+                                        <li>ТОО "Antey"</li>
+                                        <hr/>
+                                        <li>ТОО "Проект Инжиниринг"</li>
+                                        <hr/>
+                                        <li>ТОО "Kristal Stroy"</li>
+                                        <hr/>
+                                        <li>ТОО «KAZ BUILD COMPANY» Завод металлических конструкций</li>
+                                        <hr/>
+                                        <li>ТОО "РК Метиз"</li>
+                                    </ul>    
+                                </div> 
+
+                                {/* {categories && categories.map((category, index) =>
                                     <div data-aos="fade-down-right" className="main-page-categories d-flex" key={index}>
                                         <Link to={`/category/${category.slug}`}>{category.name}</Link>
                                     </div>
-                                )}
+                                )} */}
                             </div>       
                         </div>  
                     )}

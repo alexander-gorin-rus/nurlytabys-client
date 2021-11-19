@@ -1,13 +1,16 @@
 import React, { useState, useEffect, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { useHistory } from 'react-router';
+
+import { connect } from 'react-redux';
+
+import { Link } from 'react-router-dom';
+
 import { 
     CreateAccessToRegister,
     listOfRegisters,
     DeleteRegister
 } from '../../../redux/actions/register_entry';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 
 const ExcessToRegister = ({
     CreateAccessToRegister,
@@ -39,13 +42,13 @@ const ExcessToRegister = ({
             name: "",
             password: ""
         });
-        history.push('/site-management')
+        history.push('/boss-page')
     }
 
     const onDelete = (id) => {
         if(window.confirm('Вы точно желаете удалить пароль?')){
             DeleteRegister(id);
-            history.push('/site-management')
+            history.push('/boss-page')
         }
     }
     return (

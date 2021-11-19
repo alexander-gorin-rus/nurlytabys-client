@@ -8,7 +8,6 @@ const SiteManagement = () => {
             <div className="row">
                 <div className="col-12">
                     <ul className="list-block">
-                        <li className="mt-3 app-text list-block-item bg-info p-2 rounded-3"><Link to='/excess-to-register'>Управление паролем для регистрации сотрудников</Link></li>
                         <li className="mt-3 app-text list-block-item bg-info p-2 rounded"><Link to='/main-page-info'>Управление информацией для главной страницы</Link></li>
                         <li className="mt-3 app-text list-block-item bg-info p-2 rounded"><Link to='/upload-video'>Управление видео материалами</Link></li>
                         <li className="mt-3 app-text list-block-item bg-info p-2 rounded"><Link to='/categories'>Управление категориями</Link></li>

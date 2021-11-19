@@ -23,9 +23,11 @@ const Navbar = ({ categories: {categories}, GetCategories }) => {
                 <div className="custom_navigation_rel">
                     <ul className='ul_navigation'>
                         <li className="li_navigation"><Link to="/">Главная</Link></li>
-                        {categories.map((category, index) => (
+                        <li className="li_navigation"><Link to="/completed-works">Выполненные работы</Link></li>
+                        
+                        {/* {categories.map((category, index) => (
                             <li className="li_navigation" key={index} onClick={reload} ><Link to={`/category/${category.slug}`}>{category.name}</Link></li>
-                        ))}
+                        ))} */}
                     </ul>
                     <p className="main_page_navigation">Навигация</p> 
                 </div>

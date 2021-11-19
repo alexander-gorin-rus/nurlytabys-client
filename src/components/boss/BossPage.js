@@ -22,7 +22,7 @@ const BossPage = ({
                 <div className="col-12">
                     <ul className="list-block">
                         <li className="mt-3 app-text list-block-item bg-warning p-2 rounded-3"><Link to='/company-management'>Управление компанией</Link></li>
-                        <li className="mt-3 app-text list-block-item bg-warning p-2 rounded"><Link className="link" to='/site-management'>Управление сайтом</Link></li>
+                        {/* <li className="mt-3 app-text list-block-item bg-warning p-2 rounded"><Link className="link" to='/site-management'>Управление сайтом</Link></li> */}
                     </ul>
                     
                     <section>

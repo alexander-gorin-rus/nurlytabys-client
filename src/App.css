@@ -212,6 +212,20 @@
   /* border: 2px solid green; */
 }
 
+.main-page-partners{
+  position: relative;
+  left: 50%;
+  width: 40vw;
+  margin-top: 40vh;
+  padding: 20px;
+  background: rgb(203, 203, 252);
+  color: rgb(9, 12, 15);
+  margin-bottom: 250px;
+  font-weight: bold;
+  font-size: 1rem;
+  /* border: 2px solid green; */
+}
+
 @media(max-width: 850px){
   .main-page-contacts{
     font-size: 0.7rem;
@@ -715,4 +729,9 @@ a{
 
 .hidden{
   display: none;
+}
+
+
+.image-carousel{
+  height: 70vh;
 }
