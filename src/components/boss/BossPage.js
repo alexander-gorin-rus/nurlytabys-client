@@ -26,7 +26,7 @@ const BossPage = ({
                     </ul>
                     
                     <section>
-                    <p 
+                    <span 
                         className="d-flex justify-content-center bg-success p-3 rounded-2" 
                         style={{cursor: "pointer"}} 
                         onClick={() => toggleMyInfo(!displayMyInfo)}>
@@ -39,7 +39,7 @@ const BossPage = ({
                                     <p className='app-text-small'>Показать мою персональную информацию</p>
                                 )
                             }
-                    </p>
+                    </span>
 
                          {displayMyInfo && (
                              <>

@@ -23,7 +23,7 @@ const DetailedVideo = ({
             <div style={{position: 'relative', left: "0vw", marginTop: "15vh", width: "80vw"}}>
                 <div className='row'>
                     <div col='col'>
-                        {detailed_info.video && detailed_info.video.filePath === "" ? (
+                        {detailed_info && detailed_info.video.filePath === "" ? (
                             <div>
                                 <ImagesSlider images={detailed_info.video.images}/>
                                 <div className='main-page-detailed-video'>

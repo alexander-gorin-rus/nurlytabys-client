@@ -1,13 +1,18 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import PropTypes from 'prop-types';
-import { useParams, Link, useHistory } from 'react-router-dom'
-import { 
-    GetOneCategoryToUpdate,
-    CategoryUpdate
-} from '../../../redux/actions/categories';
+
 import Dropzone from 'react-dropzone';
+
 import axios from 'axios';
+
 import { connect } from 'react-redux';
+
+import { useParams, useHistory } from 'react-router';
+
+import { Link } from 'react-router-dom'; 
+
+import { GetOneCategoryToUpdate, CategoryUpdate } from '../../../redux/actions/categories';
+
 import ImagesUpload from './ImagesUpload';
 import Spinner from '../../layout/spinner1.gif'
 
@@ -190,8 +195,8 @@ const UpdateCategory = ({
             ) 
             : 
             (
-                <Spinner />
-            // <h1 className="text-center text-warning">Загружаю</h1>
+                // <Spinner />
+            <h1 className="text-center text-warning">Загружаю</h1>
             )}
         </div>
     )

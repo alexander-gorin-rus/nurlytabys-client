@@ -9,9 +9,11 @@ import { connect } from 'react-redux';
 import Aos from 'aos';
 import "aos/dist/aos.css";
 
-import ImagesSlider from '../forms/ImagesSlider';
+//mport ImagesSlider from '../forms/ImagesSlider';
 import { GetCategories } from '../../redux/actions/categories';
 import {MainPageInfoShow} from '../../redux/actions/main_page_info';
+import SliderCarousel from '../forms/SliderCarousel';
+import { ImagesArray } from '../../main-page-images/ImagesArray';
 
 const Main = ({
     MainPageInfoShow,
@@ -22,7 +24,7 @@ const Main = ({
 
     useEffect(() => {
         MainPageInfoShow()
-    },[]);
+    },[MainPageInfoShow]);
 
     useEffect(() => {
         GetCategories()
@@ -41,7 +43,7 @@ const Main = ({
                 <Fragment>
                     {main_page_info.video && main_page_info.video.map((v, index) =>
                         <div key={index} className="main-page-video-div">
-                            {v.filePath === "" ? 
+                            {/* {v.filePath === "" ? 
                                 (
                                     <ImagesSlider images={v.images}/>
                                 )
@@ -52,7 +54,10 @@ const Main = ({
                                     >     
                                     </video>
                                 )
-                            }
+                            } */}
+                            
+                                <SliderCarousel slides={ImagesArray} />
+                        
                             <div className="main-page-content-div-absolute">
 
                                 <div data-aos="fade-zoom-in" className=" d-flex justify-content-center">
@@ -71,12 +76,7 @@ const Main = ({
                                         <Link to={`/category/${category.slug}`}>{category.name}</Link>
                                     </div>
                                 )}
-                            </div>
-
-                    
-                               
-                               
-                 
+                            </div>       
                         </div>  
                     )}
                 </Fragment>
@@ -101,11 +101,3 @@ export default connect(mapStateToProps, {
     MainPageInfoShow,
     GetCategories
 })(Main)
-
-
-
-
-
-// filePath: "uploads/1626422495966_small-mech1.mp4"
-
-// filePath: "uploadsMainPageInfo/1626626365772_Advertizement2.mp4"
