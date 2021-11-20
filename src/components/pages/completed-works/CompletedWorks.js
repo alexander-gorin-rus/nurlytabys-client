@@ -2,6 +2,7 @@ import React from 'react';
 import Abay from './abay/Abay';
 import Arista from './arista/Arista';
 import Ekibastyz from './ekibastyz/Ekibastyz';
+import Optima from './optima/Optima';
 
 const CompletedWorks = () => {
     return (
@@ -12,6 +13,8 @@ const CompletedWorks = () => {
             <hr />
             <Abay />
             <hr />
+            <Optima />
+            <br />
         </div>
     );
 };

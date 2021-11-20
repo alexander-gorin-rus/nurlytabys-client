@@ -49,6 +49,7 @@ import Task from './components/boss/company-management/tasks/Task';
 import TaskFullInfo from './components/boss/company-management/tasks/TaskFullInfo';
 import UpdateTasksLength from './components/boss/company-management/tasks/UpdateTasksLength';
 import CompletedWorks from './components/pages/completed-works/CompletedWorks';
+import HeavyMachines from './components/pages/heavy-machines/HeavyMachines';
 
 
 
@@ -89,6 +90,7 @@ const App = () => {
                 <Route path="/category/:slug" exact component={Category} />
                 <Route exact path="/video/:slug" component={DetailedVideo} />
                 <Route exact path="/completed-works" component={CompletedWorks} />
+                <Route exact path="/heavy-machines" component={HeavyMachines} />
                 <EmployeePrivateRoutes exact path="/employee-dashboard" component={StaffDashboard}/>
                 <EmployeePrivateRoutes exact path="/task-full-info/:id" component={TaskFullInfo}/>
                 <EmployeePrivateRoutes exact path="/update-tasks-length" component={UpdateTasksLength}/>
