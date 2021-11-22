@@ -36,7 +36,7 @@ const DayGrid = ({
                                     <li key={task._id}>
                                         <p className='px-3'>Исполнители:</p>
                                         
-                                        {task && task.employee.map((e) => (
+                                        {task && task.employees.map((e) => (
                                            
                                             <div className='px-3' key={e._id}>
                                                 <span >{e.name}</span>

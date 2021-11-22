@@ -12,8 +12,11 @@ import Spinner from '../../layout/Spinner';
 import { 
     GetTasksByEmployee,
     GetTasksCount,
-    TasksCountUpdate
+    TasksCountUpdate,
+    CreateTask
 } from '../../../redux/actions/task';
+
+import { GetEmployeeList } from '../../../redux/actions/employee_actions';
 
 import StaffDayGrid from './StaffDayGrid';
 import StaffDaySelect from './StaffDaySelect';
@@ -30,7 +33,9 @@ const StaffDashboard = ({
     GetTasksByEmployee,
     GetTasksCount,
     TasksCountUpdate,
-    employee_reducer: {employee},
+    GetEmployeeList,
+    CreateTask,
+    employee_reducer: {employee, employee_list},
     task: {
         tasks_by_role, 
         tasks_count,
@@ -88,6 +93,10 @@ const StaffDashboard = ({
     console.log(tasksCount);
 
     useEffect(() => {
+        GetEmployeeList();
+    },[GetEmployeeList])
+
+    useEffect(() => {
         GetTasksCount(employee && employee.employee._id);
         GetTasksByEmployee(employee && employee.employee._id);
     },[
@@ -102,7 +111,7 @@ const StaffDashboard = ({
         const timer = setInterval(() => {
             GetTasksByEmployee(employee && employee.employee._id);
             return ()=> clearInterval(timer)
-        }, 60000);
+        }, 120000);
         
     },[GetTasksByEmployee, employee, TasksCountUpdate])
 
@@ -125,7 +134,7 @@ const StaffDashboard = ({
     moment.locale('ru', {week: {dow: 1}});
 
     //this section is for calendar modal
-    //const [isShowForm, setShowForm] = useState(false);
+    const [isShowForm, setShowForm] = useState(false);
     const [today, setToday] = useState(moment());
     
 
@@ -208,10 +217,133 @@ const StaffDashboard = ({
 
    
     const [displayMyInfo, toggleMyInfo] = useState(false);
-    
+    const [checked, setChecked] = useState([]);
+    const [values, setValues] = useState({
+        fromWhom: employee.employee._id,
+        content: "",
+        employees: [],
+        finish: ""
+       
+    });
+
+    const { 
+        fromWhom,
+        content,
+        employees,
+        finish
+    } = values;
+
+    const handleChange = (e) => {
+        setValues({ ...values, [e.target.name]: e.target.value })}
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+
+        const variables = {
+            fromWhom,
+            content,
+            employees,
+            finish
+        }
+
+        if(content === ""){
+            alert('Необходимо заполнить поле с текстом задания');
+        } else if (employees === '') {
+            alert('Необходимо выбрать сотрудника');
+        }
+        else{
+            CreateTask(variables)
+            setTimeout(() => {
+                setShowForm(false)
+            },200)
+        }
+        
+        setValues({
+            fromWhom: "",
+            content: "",
+            employees: [],
+            finish: ""
+        });
+    }
+
+    const handleToggle = (value) => {
+        const currentIndex = checked.indexOf(value);
+        const newChecked = [...checked];
+
+        if(currentIndex === -1){
+            newChecked.push(value)
+        }else{
+            newChecked.splice(currentIndex, 1);
+        }
+
+        setChecked(newChecked)
+        setValues({...values, employees: newChecked})
+    }
+
+    const openModalHandler = () => {
+        setShowForm(true)
+    }
+
+    const cancelButtonHandler = () => {
+        setShowForm(false)
+    }
 
     return (
-        <>  
+        <> 
+            {
+                isShowForm ? 
+                    (
+                        <div className='form-position-wrapper'>
+                            <form onSubmit={handleSubmit}>
+                                <div className="form-group mx-4">
+                                    <input
+                                        type="text"
+                                        name="content"
+                                        className="form-control"
+                                        value={content}
+                                        onChange={handleChange}
+                                        placeholder="Текст задания"
+                                    />
+                                </div>
+                                <div>
+                                    <label>Выбрать дату</label>
+                                    <input 
+                                        type="datetime-local" 
+                                        name='finish'
+                                        value={finish}
+                                        onChange={e => handleChange(e)}
+                                    />
+                                </div>
+                                <ul>
+                                        {employee_list && employee_list.list.map((l) => (
+                                            <li key={l._id}>
+                                                <label>
+                                                    {l._id === employee.employee._id ? null : (
+                                                        <input
+                                                        type="checkbox"
+                                                        onChange={() => handleToggle(l._id)}
+                                                        value={checked.indexOf(l._id === -1)}
+                                                        className="form-check-input" 
+                                                    />
+                                                    )}
+                                                    <span className='mx-2 text-dark'>{!l.role || l._id === employee.employee._id ? null : l.role.name}</span>
+                                                    <span className='text-dark'>{l._id === employee.employee._id ? null : l.name}</span>
+                                                    <span className='mx-2 text-dark'>{l._id === employee.employee._id? null : l.lastName}</span>
+                                                </label> 
+                                            </li>
+                                        ))}
+                                    </ul>
+                                    <button className="btn btn-outline-info mt-4">Отправить</button>
+                                    <br />
+                                    <br />
+                                    <button onClick={cancelButtonHandler}  className="btn bg-warning mt-4 text-danger mb-3">Закрыть</button> 
+                                    
+                                </form>
+                            </div>
+                        ) 
+                            :
+                        null
+                    } 
             {tasks_by_role && tasks_by_role.tasks ? 
                 (
                     <>
@@ -239,6 +371,7 @@ const StaffDashboard = ({
                             startDay={startDay}
                             tasks_by_role={tasks_by_role}
                             employee={employee}
+                            openModalHandler={openModalHandler}
                         />
                     </div>
                     <div className={toggleCalendarGrid === 2 ? 'calendar-content content-active' : 'calendar-content'}>
@@ -325,6 +458,8 @@ StaffDashboard.propTypes = {
     GetTasksByEmployee: PropTypes.func.isRequired,
     GetTasksCount: PropTypes.func.isRequired,
     TasksCountUpdate: PropTypes.func.isRequired,
+    CreateTask: PropTypes.func.isRequired,
+    GetEmployeeList: PropTypes.func.isRequired,
     business: PropTypes.object,
     employee_reducer:PropTypes.object,
     tasks_count_by_id:PropTypes.object,
@@ -340,5 +475,7 @@ export default connect(mapStateToProps,
     {
         GetTasksByEmployee,
         GetTasksCount,
-        TasksCountUpdate
+        TasksCountUpdate,
+        CreateTask,
+        GetEmployeeList
     })(StaffDashboard)

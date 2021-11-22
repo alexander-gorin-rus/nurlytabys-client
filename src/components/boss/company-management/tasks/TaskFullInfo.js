@@ -77,7 +77,7 @@ const TaskFullInfo = ({
     // console.log(tasks_count)
 
     //SECTION TO HIDE OF SHOW READ FORM
-    const employeeLength = task_by_id && task_by_id.task.employee.length;
+    const employeeLength = task_by_id && task_by_id.task.employees.length;
     const readLength = task_by_id && task_by_id.task.read.length;
     console.log(employeeLength);
     console.log(readLength);
@@ -296,7 +296,7 @@ const TaskFullInfo = ({
             <div>
                 <p>Задание было поручено:</p>
                
-                {task_by_id && task_by_id.task.employee.map((e) => (
+                {task_by_id && task_by_id.task.employees.map((e) => (
                     <div className='card inline-flex' key={e._id}>
                         <div className=' px-2 bg-primary text-white'>{e.name}</div>
                         <div className=' px-2 bg-primary text-white'>{e.lastName}</div>

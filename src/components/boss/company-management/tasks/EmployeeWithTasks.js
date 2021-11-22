@@ -18,7 +18,7 @@ const EmployeeWithTasks = ({
 
     useEffect(() => {
         loadEmployeeWithTasks(id)
-    },[loadEmployeeWithTasks])
+    },[id, loadEmployeeWithTasks])
 
     const clickDelete = (id) => {
         if(window.confirm('Вы действительно хотите удалить это задание?')){

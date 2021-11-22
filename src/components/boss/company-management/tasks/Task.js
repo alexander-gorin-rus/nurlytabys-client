@@ -29,7 +29,7 @@ const EmployeeList = ({
     CreateTask,
     GetAllTasks,
     task: {all_tasks},
-    employee_reducer: {employee_list}
+    employee_reducer: {employee, employee_list}
 }) => {
 
     moment.locale('ru', {week: {dow: 1}});
@@ -124,15 +124,17 @@ const EmployeeList = ({
     }
     const [checked, setChecked] = useState([]);
     const [values, setValues] = useState({
+        fromWhom: employee.employee._id ,
         content: "",
-        employee: [],
+        employees: [],
         finish: ""
        
     });
 
     const { 
+        fromWhom,
         content,
-        employee,
+        employees,
         finish
     } = values;
 
@@ -145,14 +147,15 @@ const EmployeeList = ({
         e.preventDefault()
 
         const variables = {
+            fromWhom,
             content,
-            employee,
+            employees,
             finish
         }
 
         if(content === ""){
             alert('Необходимо заполнить поле с текстом задания');
-        } else if (employee === '') {
+        } else if (employees === '') {
             alert('Необходимо выбрать сотрудника');
         }
         else{
@@ -163,8 +166,9 @@ const EmployeeList = ({
         }
         
         setValues({
+            fromWhom: "",
             content: "",
-            employee: [],
+            employees: [],
             finish: ""
         });
 
@@ -184,8 +188,8 @@ const EmployeeList = ({
         }
 
         setChecked(newChecked)
-        setValues({...values, employee: newChecked})
-}
+        setValues({...values, employees: newChecked})
+    }
 
     const openModalHandler = () => {
         setShowForm(true)
