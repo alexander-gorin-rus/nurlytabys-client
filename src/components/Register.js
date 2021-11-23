@@ -1,8 +1,12 @@
 import React, {Fragment, useState} from 'react';
+
 import PropTypes from 'prop-types';
+
 import { connect } from 'react-redux';
-import { grantAccessToRegister } from '../redux/actions/register_entry';
+
 import { Redirect, useHistory } from 'react-router-dom';
+
+import { grantAccessToRegister } from '../redux/actions/register_entry';
 
 export const Register = ({ grantAccessToRegister, access_granted }) => {
 
@@ -25,14 +29,12 @@ export const Register = ({ grantAccessToRegister, access_granted }) => {
             name: "",
             password: ""
         });
-        history.push('/')
     }
     
-    //Redirect if logged in
-    if(access_granted){
-        return <Redirect to="/register-form" />
-    }
-
+        if(localStorage.entry_token){
+                return <Redirect to="/register-form" />
+            } 
+            
     return (
         <Fragment>
             <h4 className="text-center text-danger" style={{position: "relative", marginTop: "15vh", left: "14vw", width: "80vw"}}>Внимание! Зарегистрироваться могут только сотрудники компании</h4>
