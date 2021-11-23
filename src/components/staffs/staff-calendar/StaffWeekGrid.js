@@ -1,7 +1,9 @@
 import React from 'react';
+
 import styled from 'styled-components';
-import '../../boss/company-management/tasks/calendar/calendar.css'
+
 import moment from 'moment';
+
 import { Link } from 'react-router-dom';
 
 
@@ -33,7 +35,7 @@ const StaffWeekGrid = ({
         
                     >
                          <div className="top-row-cell">
-                         <div className='show-day-wrapper'>
+                         <div className='show-day-wrapper' onDoubleClick={() => openModalHandler()}>
                                {currentDay(dayItem) && dayItem.format('D') ? 
                                (
                                     <div className="day-wrapper">

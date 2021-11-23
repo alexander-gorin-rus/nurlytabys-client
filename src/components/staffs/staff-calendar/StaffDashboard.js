@@ -9,14 +9,13 @@ import { Link, useHistory } from 'react-router-dom';
 import moment from 'moment';
 
 import Spinner from '../../layout/Spinner';
+import { GetEmployeeList } from '../../../redux/actions/employee_actions';
 import { 
     GetTasksByEmployee,
     GetTasksCount,
     TasksCountUpdate,
     CreateTask
 } from '../../../redux/actions/task';
-
-import { GetEmployeeList } from '../../../redux/actions/employee_actions';
 
 import StaffDayGrid from './StaffDayGrid';
 import StaffDaySelect from './StaffDaySelect';
@@ -385,6 +384,7 @@ const StaffDashboard = ({
                             startWeek={startWeek}
                             tasks_by_role={tasks_by_role} 
                             employee={employee}
+                            openModalHandler={openModalHandler}
                         />
                     </div>
                     <div className={toggleCalendarGrid === 3 ? 'calendar-content content-active' : 'calendar-content'}>
@@ -399,6 +399,7 @@ const StaffDashboard = ({
                             totalMonthDays={totalMonthDays} 
                             tasks_by_role={tasks_by_role} 
                             employee={employee}
+                            openModalHandler={openModalHandler}
                         />
                     </div> 
                

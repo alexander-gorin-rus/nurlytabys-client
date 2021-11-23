@@ -4,13 +4,12 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 
-import { Redirect, useHistory } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 import { grantAccessToRegister } from '../redux/actions/register_entry';
 
 export const Register = ({ grantAccessToRegister, access_granted }) => {
 
-    const history = useHistory();
     const [values, setValues] = useState({
         name: "",
         password: ""
@@ -31,9 +30,9 @@ export const Register = ({ grantAccessToRegister, access_granted }) => {
         });
     }
     
-        if(localStorage.entry_token){
-                return <Redirect to="/register-form" />
-            } 
+    if (localStorage.entry_token) {
+        return <Redirect to="/register-form" />
+    } 
             
     return (
         <Fragment>

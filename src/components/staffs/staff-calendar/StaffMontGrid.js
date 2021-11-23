@@ -37,7 +37,7 @@ const StaffMonthGrid = ({
                         isSelectedMonth={isSelectedMonth(dayItem)}
                     >
                         <div className="top-row-cell">
-                            <div className='show-day-wrapper' onDoubleClick={() => openModalHandler('Create')}>
+                            <div className='show-day-wrapper' onDoubleClick={() => openModalHandler()}>
                                {currentDay(dayItem) && dayItem.format('D') ? 
                                (
                                     <div className="day-wrapper">
