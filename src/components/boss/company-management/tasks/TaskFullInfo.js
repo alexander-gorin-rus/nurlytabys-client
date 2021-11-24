@@ -209,8 +209,7 @@ const TaskFullInfo = ({
                 <p className="d-inline mx-1 bg-warning p-2">{new Date(task_by_id && task_by_id.task.finish).toLocaleString('ru').substr(11)}</p>
             </div>
             <hr />
-            {employee && employee.employee.boss === 1 ?  null : (
-                <>
+            
                 <div>
                 {/* {task_by_id && task_by_id.task.employee.map((e) => (
                     <div key={e._id}>
@@ -286,8 +285,7 @@ const TaskFullInfo = ({
                     <hr />
                 </div>
                 <br />
-                </>
-            )}
+                
              <CommentForm 
                 UpdateTask={UpdateTask} 
                 taskId={taskId} 

@@ -20,7 +20,9 @@ import {
     CREATE_TASKS_COUNT_SUCCESS,
     CREATE_TASKS_COUNT_FAIL,
     GET_TASKS_COUNT_BY_ID_SUCCESS,
-    GET_TASKS_COUNT_BY_ID_FAIL
+    GET_TASKS_COUNT_BY_ID_FAIL,
+    GET_TASKS_FROM_EMPLOYEE_SUCCESS,
+    GET_TASKS_FROM_EMPLOYEE_FAIL
 } from '../types';
 
 const initialState = {
@@ -37,6 +39,7 @@ const initialState = {
     tasks_count_update: null,
     tasks_count_create: null,
     tasks_count_by_id: null,
+    from_employee: null,
     loading: true
 }
 
@@ -170,6 +173,18 @@ export default function(state = initialState, action){
             return {
                 ...state,
                 tasks_count_by_id: null,
+                loading: false
+            }
+        case GET_TASKS_FROM_EMPLOYEE_SUCCESS:
+            return {
+                ...state,
+                from_employee: payload,
+                loading: false
+            }
+        case GET_TASKS_FROM_EMPLOYEE_FAIL:
+            return {
+                ...state,
+                from_employee: null,
                 loading: false
             }
         case TASK_DELETE_SUCCESS:

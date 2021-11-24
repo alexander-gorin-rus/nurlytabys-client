@@ -14,7 +14,8 @@ import {
     GetTasksByEmployee,
     GetTasksCount,
     TasksCountUpdate,
-    CreateTask
+    CreateTask,
+    GetTasksFromEmployee
 } from '../../../redux/actions/task';
 
 import StaffDayGrid from './StaffDayGrid';
@@ -34,10 +35,15 @@ const StaffDashboard = ({
     TasksCountUpdate,
     GetEmployeeList,
     CreateTask,
-    employee_reducer: {employee, employee_list},
+    GetTasksFromEmployee,
+    employee_reducer: {
+        employee, 
+        employee_list
+    },
     task: {
         tasks_by_role, 
         tasks_count,
+        from_employee
     }
 }) => {
 
@@ -92,8 +98,9 @@ const StaffDashboard = ({
     console.log(tasksCount);
 
     useEffect(() => {
+        GetTasksFromEmployee(employee && employee.employee._id)
         GetEmployeeList();
-    },[GetEmployeeList])
+    },[GetEmployeeList, GetTasksFromEmployee, employee])
 
     useEffect(() => {
         GetTasksCount(employee && employee.employee._id);
@@ -218,7 +225,7 @@ const StaffDashboard = ({
     const [displayMyInfo, toggleMyInfo] = useState(false);
     const [checked, setChecked] = useState([]);
     const [values, setValues] = useState({
-        fromWhom: employee.employee._id,
+        fromWhom: employee && employee.employee._id,
         content: "",
         employees: [],
         finish: ""
@@ -288,11 +295,13 @@ const StaffDashboard = ({
     }
 
     return (
-        <> 
+        <div className="main-div-content"> 
+            <div className=" my-4">
+                <>
             {
                 isShowForm ? 
                     (
-                        <div className='form-position-wrapper border border-danger'>
+                        <div className='form-position-wrapper'>
                             <form onSubmit={handleSubmit}>
                                 <div className="form-group mx-4">
                                     <input
@@ -304,7 +313,7 @@ const StaffDashboard = ({
                                         placeholder="Текст задания"
                                     />
                                 </div>
-                                <div>
+                                <div className="form-group mx-4">
                                     <label>Выбрать дату</label>
                                     <input 
                                         type="datetime-local" 
@@ -313,145 +322,199 @@ const StaffDashboard = ({
                                         onChange={e => handleChange(e)}
                                     />
                                 </div>
+                                <div className="form-group mx-4">
                                 <ul>
-                                        {employee_list && employee_list.list.map((l) => (
-                                            <li key={l._id}>
-                                                <label>
-                                                    {l._id === employee.employee._id ? null : (
-                                                        <input
-                                                        type="checkbox"
-                                                        onChange={() => handleToggle(l._id)}
-                                                        value={checked.indexOf(l._id === -1)}
-                                                        className="form-check-input" 
-                                                    />
-                                                    )}
-                                                    <span className='mx-2 text-dark'>{!l.role || l._id === employee.employee._id ? null : l.role.name}</span>
-                                                    <span className='text-dark'>{l._id === employee.employee._id ? null : l.name}</span>
-                                                    <span className='mx-2 text-dark'>{l._id === employee.employee._id? null : l.lastName}</span>
-                                                </label> 
-                                            </li>
-                                        ))}
-                                    </ul>
-                                    <button className="btn btn-outline-info mt-4">Отправить</button>
+                                    {employee_list && employee_list.list.map((l) => (
+                                        <li key={l._id}>
+                                            <label>
+                                                {l._id === employee.employee._id ? null : (
+                                                    <input
+                                                    type="checkbox"
+                                                    onChange={() => handleToggle(l._id)}
+                                                    value={checked.indexOf(l._id === -1)}
+                                                    className="form-check-input" 
+                                                />
+                                                )}
+                                                <span className='mx-2 text-dark'>{!l.role || l._id === employee.employee._id ? null : l.role.name}</span>
+                                                <span className='text-dark'>{l._id === employee.employee._id ? null : l.name}</span>
+                                                <span className='mx-2 text-dark'>{l._id === employee.employee._id? null : l.lastName}</span>
+                                            </label> 
+                                        </li>
+                                    ))}
+                                </ul>
+                                <button className="btn btn-outline-info mt-4">Отправить</button>
                                     <br />
                                     <br />
-                                    <button onClick={cancelButtonHandler}  className="btn bg-warning mt-4 text-danger mb-3">Закрыть</button> 
-                                    
+                                    <button onClick={cancelButtonHandler}  className="btn bg-warning mt-4 text-danger mb-3">Закрыть</button>  
+                                </div>       
                                 </form>
                             </div>
                         ) 
                             :
                         null
-                    } 
+            } 
+            <>
+            <>         
+                <div className='calendar-select-header'>
+                    <p 
+                        onClick={() => selectCalendarGrid(1)}
+                        className={toggleCalendarGrid === 1 ? 'calendar-header-content calendar-header-active' : 'calendar-header-content'} >День</p>
+                    <p 
+                        onClick={() => selectCalendarGrid(2)}
+                        className={toggleCalendarGrid === 2 ? 'calendar-header-content calendar-header-active' : 'calendar-header-content'}>Неделя</p>
+                    <p 
+                        onClick={() => selectCalendarGrid(3)}
+                        className={toggleCalendarGrid === 3 ? 'calendar-header-content calendar-header-active' : 'calendar-header-content'}>Месяц</p>
+                </div>
+                <div className={toggleCalendarGrid === 1 ? 'calendar-content content-active' : 'calendar-content'}>
+                    <StaffDaySelect 
+                        prevDay={prevDay}
+                        currentDay={currentDay}
+                        nextDay={nextDay}
+                        today={today}
+                    />
+                    <StaffDayGrid
+                        startDay={startDay}
+                        tasks_by_role={tasks_by_role}
+                        employee={employee}
+                        openModalHandler={openModalHandler}
+                    />
+                </div>
+                <div className={toggleCalendarGrid === 2 ? 'calendar-content content-active' : 'calendar-content'}>
+                    <StaffWeekSelect
+                        prevWeek={prevWeek}
+                        currentWeek={currentWeek}
+                        nextWeek={nextWeek}
+                        today={today}
+                    />
+                    <StaffWeekGrid
+                        startWeek={startWeek}
+                        tasks_by_role={tasks_by_role} 
+                        employee={employee}
+                        openModalHandler={openModalHandler}
+                    />
+                </div>
+                <div className={toggleCalendarGrid === 3 ? 'calendar-content content-active' : 'calendar-content'}>
+                    <StaffMonthSelect
+                        prevMonth={prevMonth}
+                        currentMonth={currentMonth}
+                        nextMonth={nextMonth}
+                        today={today} 
+                    />
+                    <StaffMonthGrid
+                        startMonth={startMonth} 
+                        totalMonthDays={totalMonthDays} 
+                        tasks_by_role={tasks_by_role} 
+                        employee={employee}
+                        openModalHandler={openModalHandler}
+                    />
+                </div> 
+                <p className='text-center bg-success'>Поручения заданные мною: </p>
+                {from_employee && from_employee.tasks.map((task) => (
+                    <Link to={`task-full-info/${task._id}`}>
+                    <div className='border border-dark my-5' key={task._id}>
+                        <div className='task-update-button mx-3'>
+                            {task.content}
+                            <br />
+                            <p className="app-text-small d-inline mt-5">Выполнить к:</p>
+
+                            <p className="d-inline mx-1">{new Date(task.finish).toLocaleString('ru').substr(11)}</p>
+                        </div>
+                    {/* <span className='mx-2 bg-primary text-white p-1'>Задание поручил: {task.fromWhom.name} {task.fromWhom.lastName}</span> */}
+                    <li className='day-tasks-list' key={task._id}>
+                        <p>Исполнители:</p>
+                        
+                        {task.employees.map((e) => (
+                            <div className='border border-info my-3 p-2' key={e._id}>
+                                <span>{e.name}</span>
+                                <span className=''>{e.lastName}</span>
+                                {task.read.map((read, index) => (
+                                    <div key={index}>
+                                        {e._id === read.byEmployee && read.ok === true ? <p className='bg-warning'>Задание прочитано</p> : null}
+                                    </div>
+                                ))}
+                               {task.completed.map((complete, index) => (
+                                    <div key={index}>
+                                        {e._id === complete.byEmployee && complete.done === true ? <p className='bg-success'>Задание выполнено</p> : null}
+                                    </div>
+                                ))}
+                            </div>
+                        ))}   
+                    </li>
+                   
+                    <hr />
+
+                    {task.completed.map((complete) => (
+                        <div key={complete._id}>{complete.byEmployee === employee.employee._id && complete.done === true ? 
+                            (
+                                <div 
+                                className='task-day-done'
+                                >
+                                    Задание выполнено
+                                </div>
+                            ) 
+                                : 
+                            (
+                                null
+                            )
+                            }
+                        </div>
+                        ))}
+                    </div>
+                    </Link>
+                ))}     
+            </>
             {tasks_by_role && tasks_by_role.tasks ? 
                 (
-                    <>
-                    <div className='main-div-content'>
-                       
-            <div className='calendar-select-header'>
-                <p 
-                    onClick={() => selectCalendarGrid(1)}
-                    className={toggleCalendarGrid === 1 ? 'calendar-header-content calendar-header-active' : 'calendar-header-content'} >День</p>
-                <p 
-                    onClick={() => selectCalendarGrid(2)}
-                    className={toggleCalendarGrid === 2 ? 'calendar-header-content calendar-header-active' : 'calendar-header-content'}>Неделя</p>
-                <p 
-                    onClick={() => selectCalendarGrid(3)}
-                    className={toggleCalendarGrid === 3 ? 'calendar-header-content calendar-header-active' : 'calendar-header-content'}>Месяц</p>
-                </div>
-            <div className={toggleCalendarGrid === 1 ? 'calendar-content content-active' : 'calendar-content'}>
-                        <StaffDaySelect 
-                            prevDay={prevDay}
-                            currentDay={currentDay}
-                            nextDay={nextDay}
-                            today={today}
-                        />
-                        <StaffDayGrid
-                            startDay={startDay}
-                            tasks_by_role={tasks_by_role}
-                            employee={employee}
-                            openModalHandler={openModalHandler}
-                        />
-                    </div>
-                    <div className={toggleCalendarGrid === 2 ? 'calendar-content content-active' : 'calendar-content'}>
-                        <StaffWeekSelect
-                            prevWeek={prevWeek}
-                            currentWeek={currentWeek}
-                            nextWeek={nextWeek}
-                            today={today}
-                        />
-                        <StaffWeekGrid
-                            startWeek={startWeek}
-                            tasks_by_role={tasks_by_role} 
-                            employee={employee}
-                            openModalHandler={openModalHandler}
-                        />
-                    </div>
-                    <div className={toggleCalendarGrid === 3 ? 'calendar-content content-active' : 'calendar-content'}>
-                        <StaffMonthSelect
-                            prevMonth={prevMonth}
-                            currentMonth={currentMonth}
-                            nextMonth={nextMonth}
-                            today={today} 
-                        />
-                        <StaffMonthGrid
-                            startMonth={startMonth} 
-                            totalMonthDays={totalMonthDays} 
-                            tasks_by_role={tasks_by_role} 
-                            employee={employee}
-                            openModalHandler={openModalHandler}
-                        />
-                    </div> 
-               
-        </div>
-       
-        <div className="main-div-content">
-                 <section>
-                     <div 
-                         className="d-flex justify-content-center bg-success p-3 rounded-2" 
-                        style={{cursor: "pointer"}} 
-                         onClick={() => toggleMyInfo(!displayMyInfo)}>
-                             {displayMyInfo && displayMyInfo ? 
-                                 (
-                                     <p className='app-text-small'>Свернуть</p>
-                                 )
-                                     :
-                                 (
-                                     <p className='app-text-small'>Показать мою персональную информацию</p>
-                                 )
-                             }
-                     </div>
-                          {displayMyInfo && (
-                              <>
-                         <p className='app-text'>{employee.employee.name}</p>
-                         <p className='app-text'>{employee.employee.lastName}</p>
-                         <p className='app-text'>{employee.employee.phone}</p>
-                         <p className='app-text'>{employee.employee.email}</p>
-                         <div>
-                         {employee && !employee.employee.role ? 
-                             (
-                                 null
-                             ) 
-                                 : 
-                             (
-                                 <p className='app-text'>{employee.employee.role.name}</p>
-                             )
-                         }
-                         </div>
-                         <Link to={`/change-staff-info/${employee.employee._id}`} className='bg-warning p-1 app-text-small'>Изменить персональную информацию</Link>
-                         </>
-                     )}
-                   
-                     </section>
-                </div> 
-                </>
+                    <></>
                 )
                     :
                 (
                     <Spinner />
                 )
             }
-        </>
+            </>
+
+            <section>
+                <div 
+                    className="d-flex justify-content-center bg-success p-3 rounded-2" 
+                    style={{cursor: "pointer"}} 
+                    onClick={() => toggleMyInfo(!displayMyInfo)}>
+                        {displayMyInfo && displayMyInfo ? 
+                            (
+                                <p className='app-text-small'>Свернуть</p>
+                            )
+                                :
+                            (
+                                <p className='app-text-small'>Показать мою персональную информацию</p>
+                            )
+                        }
+                </div>
+                    {displayMyInfo &&
+                    (
+                        <>
+                            <p className='app-text'>{employee.employee.name}</p>
+                            <p className='app-text'>{employee.employee.lastName}</p>
+                            <p className='app-text'>{employee.employee.phone}</p>
+                            <p className='app-text'>{employee.employee.email}</p>
+                            <div>
+                            {employee && !employee.employee.role ? 
+                                (
+                                    null
+                                ) 
+                                    : 
+                                (
+                                    <p className='app-text'>{employee.employee.role.name}</p>
+                                )
+                            }
+                            </div>
+                            <Link to={`/change-staff-info/${employee.employee._id}`} className='bg-warning p-1 app-text-small'>Изменить персональную информацию</Link>
+                        </>
+                    )}
+            </section>
+                </>
+            </div>
+        </div>
     )
 }
 
@@ -461,6 +524,7 @@ StaffDashboard.propTypes = {
     TasksCountUpdate: PropTypes.func.isRequired,
     CreateTask: PropTypes.func.isRequired,
     GetEmployeeList: PropTypes.func.isRequired,
+    GetTasksFromEmployee: PropTypes.func.isRequired,
     business: PropTypes.object,
     employee_reducer:PropTypes.object,
     tasks_count_by_id:PropTypes.object,
@@ -478,5 +542,6 @@ export default connect(mapStateToProps,
         GetTasksCount,
         TasksCountUpdate,
         CreateTask,
-        GetEmployeeList
+        GetEmployeeList,
+        GetTasksFromEmployee
     })(StaffDashboard)

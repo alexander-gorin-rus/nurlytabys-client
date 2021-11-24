@@ -23,7 +23,9 @@ import {
     CREATE_TASKS_COUNT_SUCCESS,
     CREATE_TASKS_COUNT_FAIL,
     GET_TASKS_COUNT_BY_ID_SUCCESS,
-    GET_TASKS_COUNT_BY_ID_FAIL
+    GET_TASKS_COUNT_BY_ID_FAIL,
+    GET_TASKS_FROM_EMPLOYEE_SUCCESS,
+    GET_TASKS_FROM_EMPLOYEE_FAIL
 } from '../types';
 
 import { setAlert } from './alert';
@@ -233,5 +235,19 @@ export const GetTaskCountById = (id) => async dispatch => {
             type: GET_TASKS_COUNT_BY_ID_FAIL
         })
         console.log(err)
+    }
+}
+
+export const GetTasksFromEmployee = (id) => async dispatch => {
+    const res = await axios.get(`${process.env.REACT_APP_API}/tasks-from-employee/${id}`);
+    try {
+        dispatch({
+            type: GET_TASKS_FROM_EMPLOYEE_SUCCESS,
+            payload: res.data
+        })
+    } catch (err) {
+        dispatch({
+            type: GET_TASKS_FROM_EMPLOYEE_FAIL
+        })
     }
 }

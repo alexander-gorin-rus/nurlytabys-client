@@ -201,12 +201,12 @@ const EmployeeList = ({
 
     return (
         <div className="main-div-content">
-            <div className="  my-4">
+            <div className=" my-4">
                 <>
                     {
                         isShowForm ? 
                         (
-                            <div className='form-position-wrapper border'>
+                            <div className='form-position-wrapper'>
                                 <form onSubmit={handleSubmit}>
                                     <div className="form-group mx-4">
                                         <input
@@ -218,7 +218,7 @@ const EmployeeList = ({
                                             placeholder="Текст задания"
                                         />
                                     </div>
-                                    <div>
+                                    <div className="form-group mx-4">
                                         <label>Выбрать дату</label>
                                         <input 
                                             type="datetime-local" 
@@ -227,6 +227,7 @@ const EmployeeList = ({
                                             onChange={e => handleChange(e)}
                                         />
                                     </div>
+                                    <div className="form-group mx-4">
                                     <ul>
                                         {employee_list && employee_list.list.map((l) => (
                                             <li key={l._id}>
@@ -239,7 +240,7 @@ const EmployeeList = ({
                                                         className="form-check-input" 
                                                     />
                                                     )}
-                                                    <span className='mx-2 text-dark'>{!l.role ? null : l.role.name}</span>
+                                                    <span className='mx-2 text-dark'>{!l.role || l.boss === 1 ? null : l.role.name}</span>
                                                     <span className='text-dark'>{l.boss === 1 ? null : l.name}</span>
                                                     <span className='mx-2 text-dark'>{l.boss === 1 ? null : l.lastName}</span>
                                                 </label> 
@@ -249,8 +250,8 @@ const EmployeeList = ({
                                     <button className="btn btn-outline-info mt-4">Отправить</button>
                                     <br />
                                     <br />
-                                    <button onClick={cancelButtonHandler}  className="btn bg-warning mt-4 text-danger mb-3">Закрыть</button> 
-                                    
+                                    <button onClick={cancelButtonHandler}  className="btn bg-warning mt-4 text-danger mb-3">Закрыть</button>   
+                                    </div>
                                 </form>
                             </div>
                         ) 

@@ -15,6 +15,7 @@ const StaffDayGrid = ({
     return (
         <div className=''>
             <div className='bg-info' onClick={() => openModalHandler('Create')}><p className='text-center text-dark' style={{cursor: 'pointer', fontWeight: 'bold'}}>Дать поручение</p></div>
+            <p className='text-center bg-warning'>Поручения для меня:</p>
             <ul>
                 {tasks_by_role.tasks && tasks_by_role.tasks.filter(task => task.finish.split('T', 1)[0] >= startDay.format('YYYY-MM-DD') && task.finish.split('T', 1)[0] <= startDay.clone().endOf('day').format('YYYY-MM-DD'))
                     .map((task) => 
@@ -37,11 +38,7 @@ const StaffDayGrid = ({
                                         <span>{r.name}</span>
                                         <span className='mx-2'>{r.lastName}</span>
                                     </div>
-                                ))}
-                                
-                               
-                                    
-                                
+                                ))}   
                             </li>
                             {task.read.map((read) => (
                                 <div key={read._id}>{read.byEmployee === employee.employee._id && read.ok === true ? 
