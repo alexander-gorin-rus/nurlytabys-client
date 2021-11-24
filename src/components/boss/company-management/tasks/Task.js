@@ -206,7 +206,7 @@ const EmployeeList = ({
                     {
                         isShowForm ? 
                         (
-                            <div className='form-position-wrapper'>
+                            <div className='form-position-wrapper border'>
                                 <form onSubmit={handleSubmit}>
                                     <div className="form-group mx-4">
                                         <input

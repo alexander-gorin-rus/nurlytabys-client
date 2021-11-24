@@ -292,7 +292,7 @@ const StaffDashboard = ({
             {
                 isShowForm ? 
                     (
-                        <div className='form-position-wrapper'>
+                        <div className='form-position-wrapper border border-danger'>
                             <form onSubmit={handleSubmit}>
                                 <div className="form-group mx-4">
                                     <input
