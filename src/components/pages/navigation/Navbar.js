@@ -25,6 +25,7 @@ const Navbar = ({ categories: {categories}, GetCategories }) => {
                         <li className="li_navigation"><Link to="/">Главная</Link></li>
                         <li className="li_navigation"><Link to="/completed-works">Выполненные работы</Link></li>
                         <li className="li_navigation"><Link to="/heavy-machines">Аренда спец техники</Link></li>
+                        <li className="li_navigation"><Link to="/small-mech">Маля механизация</Link></li>
                         
                         {/* {categories.map((category, index) => (
                             <li className="li_navigation" key={index} onClick={reload} ><Link to={`/category/${category.slug}`}>{category.name}</Link></li>

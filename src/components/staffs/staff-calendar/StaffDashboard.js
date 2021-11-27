@@ -427,6 +427,7 @@ const StaffDashboard = ({
                         {task.employees.map((e) => (
                             <div className='border border-info my-3 p-2' key={e._id}>
                                 <span>{e.name}</span>
+                                <br />
                                 <span className=''>{e.lastName}</span>
                                 {task.read.map((read, index) => (
                                     <div key={index}>

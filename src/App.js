@@ -39,8 +39,11 @@ import UpdateVideo from './components/boss/site-management/UpdateVideo';
 import UploadVideo from './components/boss/site-management/UploadVideo';
 import Alert from './components/forms/alert-forms/Alert';
 import Category from './components/pages/categories/Category';
+import CompletedWorks from './components/pages/completed-works/CompletedWorks';
+import HeavyMachines from './components/pages/heavy-machines/HeavyMachines';
 import Header from './components/pages/navigation/Header';
 import Navbar from './components/pages/navigation/Navbar';
+import SmallMech from './components/pages/small-mech/SmallMech';
 import DetailedVideo from './components/pages/videos/DetailedVideo';
 import StaffDashboard from './components/staffs/staff-calendar/StaffDashboard';
 import MyBusiness from './components/boss/company-management/calendar/MyBusiness';
@@ -48,8 +51,6 @@ import EmployeeWithTasks from './components/boss/company-management/tasks/Employ
 import Task from './components/boss/company-management/tasks/Task';
 import TaskFullInfo from './components/boss/company-management/tasks/TaskFullInfo';
 import UpdateTasksLength from './components/boss/company-management/tasks/UpdateTasksLength';
-import CompletedWorks from './components/pages/completed-works/CompletedWorks';
-import HeavyMachines from './components/pages/heavy-machines/HeavyMachines';
 
 
 
@@ -91,6 +92,7 @@ const App = () => {
                 <Route exact path="/video/:slug" component={DetailedVideo} />
                 <Route exact path="/completed-works" component={CompletedWorks} />
                 <Route exact path="/heavy-machines" component={HeavyMachines} />
+                <Route exact path="/small-mech" component={SmallMech} />
                 <EmployeePrivateRoutes exact path="/employee-dashboard" component={StaffDashboard}/>
                 <EmployeePrivateRoutes exact path="/task-full-info/:id" component={TaskFullInfo}/>
                 <EmployeePrivateRoutes exact path="/update-tasks-length" component={UpdateTasksLength}/>

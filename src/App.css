@@ -736,77 +736,38 @@ a{
   height: 70vh;
 }
 
-.div-excavator-absolute{
-  position: absolute;
-  /* border: 1px solid red; */
-}
-
-.div-excavator-relative{
+/* .relative{
   position: relative;
-  /* border: 1px solid green; */
+} */
+
+
+.machines{
+  width: 40vw;
+  height: 45vh;
+  display: flex;
+  justify-content: space-between;
 }
 
-.excavator, .svaeboy{
-  width: 70vw;
-  height: 90vh;
-  opacity: 1;
-  transition: 1s;
-}
-
-@media(max-width: 1000px){
-  .excavator{
-    width: 70vw;
-    height: 60vh;
-  }
-  .svaeboy{
-    width: 70vw;
-    height: 60vh;
-  }
-}
 
 
 @media(max-width: 650px){
-  .excavator{
-    width: 70vw;
-    height: 40vh;
+  .machines{
+    height: 20vh;
   }
-  .svaeboy{
-    width: 70vw;
-    height: 40vh;
-  }
+  
 }
 
-@media(max-width: 500px){
-  .excavator{
-    width: 70vw;
-    height: 30vh;
-  }
-  .svaeboy{
-    width: 70vw;
-    height: 30vh;
-  }
-}
 
-.text-excavator{
-  position: absolute;
+.text{
+  position: relative;
   top: 0%;
   padding-top: 5vh;
   font-weight: bold;
-  opacity: 0;
-  transition: 1s;
-}
-
-.text-svaeboy{
-  position: absolute;
-  top: 70vh
-}
-
-.div-excavator-absolute:hover .text-excavator{
   opacity: 1;
-  transition: 1s;
 }
 
-.div-excavator-absolute:hover .excavator{
-  opacity: 0;
-  transition: 1s;
+.pointer{
+  text-align: center;
+  cursor: pointer;
+  color: white;
 }

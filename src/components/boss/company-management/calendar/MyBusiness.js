@@ -1,21 +1,23 @@
 import React, { useState, useEffect } from 'react';
+
 import moment from 'moment';
-//import { CreateBusiness  } from '../../../../functions/calendar';
-import DaySelect from '../tasks/calendar/DaySelect';
-import WeekSelect from '../tasks/calendar/WeekSelect';
-import MonthSelect from '../tasks/calendar/MonthSelect';
-import MyBusinessWeekGrid from './MyBusinessWeekGrid';
+
 import PropTypes from 'prop-types';
-import { 
-    GetBusinessList, 
-    DeleteBusiness,
-    CreateBusiness
-} from '../../../../redux/actions/business'
+
 import { connect } from 'react-redux';
+
 import { Link } from 'react-router-dom';
+
 import { useParams } from 'react-router';
+
+import DaySelect from '../tasks/calendar/DaySelect';
+import MonthSelect from '../tasks/calendar/MonthSelect';
+import WeekSelect from '../tasks/calendar/WeekSelect';
+import { GetBusinessList, DeleteBusiness, CreateBusiness } from '../../../../redux/actions/business';
+
 import MyBusinessDayGrid from './MyBusinessDayGrid';
 import MyBusinessMonthGrid from './MyBusinessMonthGrid';
+import MyBusinessWeekGrid from './MyBusinessWeekGrid';
 
 const totalMonthDays = 42
 
@@ -144,9 +146,10 @@ const MyBusiness = ({
 
         setTimeout(() => {
             setShowForm(false)
+            GetBusinessList();
         },200);
 
-        GetBusinessList();
+        
     }
 
     const openModalHandler = () => {
@@ -220,6 +223,8 @@ const MyBusiness = ({
                             startDay={startDay}
                             business_list={business_list}
                             openModalHandler={openModalHandler}
+                            DeleteBusiness={DeleteBusiness}
+                            GetBusinessList={GetBusinessList}
                         />
                     </div>
                     <div className={toggleCalendarGrid === 2 ? 'calendar-content content-active' : 'calendar-content'}>
