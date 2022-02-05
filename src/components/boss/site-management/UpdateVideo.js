@@ -28,7 +28,7 @@ const UpdateVideo = ({
     useEffect(() => {
         GetSingleVideo(id);
         GetCategories()
-    },[GetCategories]);
+    },[GetCategories, GetSingleVideo, id]);
 
     const [FilePath, setFilePath] = useState("");
     const [Duration, setDuration] = useState("");

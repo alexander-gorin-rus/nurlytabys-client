@@ -1,11 +1,9 @@
 import React, { useEffect, Fragment } from 'react'
 import PropTypes from 'prop-types';
-
 import { connect } from 'react-redux';
-
 import { Link } from 'react-router-dom';
-
 import { GetCategories } from '../../../redux/actions/categories';
+import styles from './Navigation.module.css'
 
 const Navbar = ({ categories: {categories}, GetCategories }) => {
 
@@ -19,19 +17,19 @@ const Navbar = ({ categories: {categories}, GetCategories }) => {
 
     return (
         <Fragment>
-            <div className="custom_navigation_abs">
-                <div className="custom_navigation_rel">
-                    <ul className='ul_navigation'>
-                        <li className="li_navigation"><Link to="/">Главная</Link></li>
-                        <li className="li_navigation"><Link to="/completed-works">Выполненные работы</Link></li>
+            <div className={styles.custom_navigation_abs}>
+                <div className={styles.custom_navigation_rel}>
+                    <ul className={styles.ul_navigation}>
+                        <li className={styles.li_navigation}><Link to="/">Главная</Link></li>
+                    {/* <li className="li_navigation"><Link to="/completed-works">Выполненные работы</Link></li>
                         <li className="li_navigation"><Link to="/heavy-machines">Аренда спец техники</Link></li>
-                        <li className="li_navigation"><Link to="/small-mech">Маля механизация</Link></li>
+                        <li className="li_navigation"><Link to="/small-mech">Маля механизация</Link></li> */}
                         
-                        {/* {categories.map((category, index) => (
-                            <li className="li_navigation" key={index} onClick={reload} ><Link to={`/category/${category.slug}`}>{category.name}</Link></li>
-                        ))} */}
+                        {categories.map((category, index) => (
+                            <li className={styles.li_navigation} key={index} onClick={reload} ><Link to={`/category/${category.slug}`}>{category.name}</Link></li>
+                        ))}
                     </ul>
-                    <p className="main_page_navigation">Навигация</p> 
+                    <p className={styles.main_page_navigation}>Навигация</p> 
                 </div>
             </div>      
         </Fragment>

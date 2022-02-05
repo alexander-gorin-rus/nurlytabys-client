@@ -80,7 +80,6 @@ const UploadVideo = ({
         }
 
         SaveVideoFunction(variables);
-        //history.push('/')
         
         setValues({
             title: "", 

@@ -22,7 +22,7 @@ const MainPageInfoUpdate = ({
 
     useEffect(() => {
         GetMainPageInfoById(id)
-    },[GetMainPageInfoById]); 
+    },[GetMainPageInfoById, id]); 
 
 
     const [FilePath, setFilePath] = useState("");

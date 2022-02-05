@@ -16,7 +16,7 @@ import store from './redux/store';
 import setAuthToken from './utils/setAuthToken';
 import BossPage from './components/boss/BossPage';
 import ChangeStaffInfo from './components/boss/ChangeStaffInfo';
-import Main from './components/pages/Main';
+import Main from './components/pages/main/Main';
 import BossPrivateRoutes from './components/routing/BossPrivateRoutes';
 import EmployeePrivateRoutes from './components/routing/EmployeePrivateRoutes';
 import LoginForm from './components/staffs/LoginForm';

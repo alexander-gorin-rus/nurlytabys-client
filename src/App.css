@@ -1,13 +1,5 @@
 @import '~antd/dist/antd.css';
 
-/* .main-page-video-div{
-  position: fixed;
-  top: -10% !important;
-  left: -20%;
-  width: 100vw;
-  height: 100vh;
-  border: 2px solid red;
-} */
 
 .main-div-content{
   position: relative;
@@ -135,116 +127,11 @@
   }
 }
 
-.main-page-content-div-absolute{
-  position: absolute !important;
-  top: 60vh !important;
-  width: 100vw;
-  padding-bottom: 100px;
-  /* border: 2px solid yellow; */
-}
 
-.main-page-title{
-  font-size: 3rem;
-  color: aliceblue;
-  text-shadow: 4px 2px rgb(7, 11, 17);
-  z-index: 100;
-}
 
-@media(max-width: 850px){
-  .main-page-title{
-    text-shadow: 1px 1px rgb(7, 11, 17);
-    font-size: 1.2rem;
-  }
-}
 
-.main-page-companyInfo{
-  position: relative;
-  left: 9vw;
-  width: 60%;
-  margin-top: 25vh;
-  padding: 40px;
-  color: rgb(15, 15, 26);
-  background: rgb(219, 227, 243);
-  font-size: 1.4rem;
-  font-weight: bold;
-  text-align: center;
-  opacity: 0.7;
-  /* border: 1px solid black; */
-}
 
-@media(max-width: 850px){
-  .main-page-companyInfo{
-    font-size: 1rem;
-  }
-}
 
-.main-page-description{
-  position: relative;
-  left: 40%;
-  width: 50vw;
-  margin-top: 40vh;
-  padding: 20px;
-  background: rgb(203, 203, 252);
-  color: rgb(17, 22, 26);
-  font-size: 1.3rem;
-  opacity: 0.8;
-  font-weight: bold;
-  /* border: 2px solid green; */
-}
-
-@media(max-width: 850px){
-  .main-page-description{
-    font-size: 0.8rem;
-  }
-}
-
-.main-page-contacts{
-  position: relative;
-  left: 10%;
-  width: 40vw;
-  margin-top: 40vh;
-  padding: 20px;
-  background: rgb(203, 203, 252);
-  color: rgb(9, 12, 15);
-  margin-bottom: 250px;
-  font-weight: bold;
-  font-size: 1.1rem;
-  /* border: 2px solid green; */
-}
-
-.main-page-partners{
-  position: relative;
-  left: 50%;
-  width: 40vw;
-  margin-top: 40vh;
-  padding: 20px;
-  background: rgb(203, 203, 252);
-  color: rgb(9, 12, 15);
-  margin-bottom: 250px;
-  font-weight: bold;
-  font-size: 1rem;
-  /* border: 2px solid green; */
-}
-
-@media(max-width: 850px){
-  .main-page-contacts{
-    font-size: 0.7rem;
-  }
-}
-
-.main-page-categories{
-  position: relative;
-  left: 50%;
-  width: 40vw;
-  margin-top: 15vh;
-  padding: 20px;
-  background: rgb(12, 43, 85);
-  color: white;
-  /* border: 2px solid green; */
-}
-.main-page-categories a{
-  color: rgb(237, 241, 221) !important;
-}
 
 .main-page-detailed-video{
   position: relative;
@@ -400,105 +287,18 @@
 
 
 
-.custom_navigation_abs{
-  position: fixed;
-  top: 0%;
-  height: 100%;
-  width: 5%;
-  /* border: 3px solid green; */
-  z-index: 100;
-}
 
-@media(max-width: 750px){
-  .custom_navigation_abs{
-    width: 4%;
-  }
-}
 
-.custom_navigation_rel{
-  position: relative;
-  /* border: 1px solid red; */
-  height: 100% !important;
-  width: 100%;
-  /* border: 4px dashed yellow; */
-}
 
-.ul_navigation{
-  position: absolute;
-  top: 25%;
-  left: -220px;
-  /* border: 2px solid red; */
-  width: 200px !important;
-  vertical-align: middle !important;
-  transition: 1s ease;
-  z-index: 10;
-}
 
-.li_navigation{
-  top: 0px !important;
-  padding-top: 15px;
-  padding-bottom: 15px;
-  padding-left: 12px;
-  margin-top: 20px;
-  margin-bottom: 5px;
-  background-color: rgb(192, 188, 188);
-}
-/* .li_navigation a{
-  color: white !important;
-} */
+
+
 
 a{
   color: black !important;
 }
 
-.main_page_navigation{
-  position: fixed;
-  top: 0%;
-  height: 110vh;
-  left: -15px !important;
-  writing-mode: vertical-lr;
-  background-color: rgba(31, 31, 153, 0.918);
-  color: aliceblue;
-  text-orientation:upright;
-  padding-top: 33vh;
-  padding-bottom: 42vh;
-  padding-left: 20px;
-  padding-right: 15px;
-  display: inline-block;
-  transition: 1s ease;
-  width: 4vw;
-}
 
-@media(max-width: 1125px){
-  .main_page_navigation{
-    width: 4vw;
-    padding-left: 12px;
-  }
-}
-
-@media(max-width: 740px){
-  .main_page_navigation{
-    width: 10vw;
-    padding-left: 18px;
-  }
-}
-
-@media(max-width: 560px){
-  .main_page_navigation{
-    width: 12vw;
-    padding-left: 15px;
-  }
-}
-
-.custom_navigation_abs:hover .ul_navigation{
-  transition: 1s ease;
-  left: 20px;
-}
-
-.custom_navigation_abs:hover .main_page_navigation{
-  opacity: 0;
-  transition: 1s ease;
-}
 
 .div_cover{ 
   position: absolute;

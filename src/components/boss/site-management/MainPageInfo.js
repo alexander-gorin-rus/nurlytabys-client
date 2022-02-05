@@ -1,16 +1,9 @@
 import React, { useState, useEffect, Fragment } from 'react'
 import PropTypes from 'prop-types';
-
-import { Typography } from 'antd';
-
 import Dropzone from 'react-dropzone';
-
 import axios from 'axios';
-
 import { connect } from 'react-redux';
-
 import { Link, useHistory } from 'react-router-dom';
-
 import {
     MainPageInfoShow,
     MainPageInfoUpload,
@@ -62,7 +55,6 @@ const MainPageVideo = ({
     } = values;
 
     const history = useHistory();
-    const { slug } = useHistory
 
     const handleChange = e => {
         setValues({...values, [e.target.name]: e.target.value})
