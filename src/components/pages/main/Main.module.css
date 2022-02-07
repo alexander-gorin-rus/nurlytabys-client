@@ -1,3 +1,13 @@
+.main_page_video_video{
+    position: fixed;
+    width: 100vw;
+    height: 100% !important;
+    top: 0%;
+    object-fit: cover;
+    /* border: 2px solid red; */
+  
+  }
+
 .main_div{
     position: absolute; 
     top: 0%; 
@@ -16,7 +26,7 @@
     top: 60vh !important;
     width: 100vw;
     padding-bottom: 100px;
-    /* border: 2px solid yellow; */
+    
   }
 
 .main_page_title{
@@ -91,6 +101,23 @@
     border-top-right-radius: 45px;
   }
 
+  .main_page_categories{
+    position: relative;
+    left: 50%;
+    width: 40vw;
+    margin-top: 15vh;
+    padding: 20px;
+    background: rgb(12, 43, 85);
+    color: white;
+    text-align: center;
+    border-top-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+    margin-bottom: 150px;
+  }
+.main_page_categories a{
+    color: rgb(237, 241, 221) !important;
+  }
+
   @media(max-width: 850px){
     .main_page_companyInfo{
         font-size: 0.8rem;
@@ -119,25 +146,12 @@
         font-size: 0.8rem;
         left: 14vw;
     }
+    .main_page_categories{
+        font-size: 0.8rem;
+        padding: 10px;
+    }
 }
 
 
 
 
-.main_page_categories{
-    position: relative;
-    left: 50%;
-    width: 40vw;
-    margin-top: 15vh;
-    padding: 20px;
-    background: rgb(12, 43, 85);
-    color: white;
-    /* border: 2px solid green; */
-    display: flex;
-    border-top-left-radius: 25px;
-    border-bottom-right-radius: 25px;
-    margin-bottom: 150px;
-  }
-.main_page_categories a{
-    color: rgb(237, 241, 221) !important;
-  }

@@ -1,0 +1,55 @@
+.detailed_info_main_div{
+    position: relative; 
+    left: 0;
+    width: 100vw;
+    top: 0;
+    height: 100vh !important;
+    border: 3px solid rgb(57, 16, 168);
+}
+
+.detailed_info_video{
+    position: absolute;
+    top: 0;
+    left: 10%;
+    width: 80%;
+    height: 100vh !important;
+    border: 3px solid red;
+}
+
+.slider{
+    position: relative;
+    height: 500px !important;
+}
+
+.detailed_info_description_div{
+    position: absolute !important;
+    top: 83%;
+    height: 20%;
+    left: 10%;
+    width: 80%;
+    background-color: aliceblue;
+}
+
+.detailed_info_description_div_relative{
+    position: relative;
+}
+
+.detailed_info_description_div:hover .detailed_info_description_div_relative{
+    height: 100%;
+}
+
+.detailed_info_description{
+    padding: 10px 20px;
+    z-index: 10;
+    text-align: center;
+}
+
+
+@media(max-width: 750px){
+    .detailed_info_video{
+        left: 15%;
+    }
+    .detailed_info_description_div{
+        left: 15%;
+    }
+}

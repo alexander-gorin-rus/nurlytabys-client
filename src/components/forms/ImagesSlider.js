@@ -4,10 +4,10 @@ import { Carousel } from 'antd';
 
 const  ImagesSlider= (props) => {
     return (
-        <div className="main-page-video-video">
+        <div>
             <Carousel autoplay>
                 {props.images.map((i, index) => (
-                    <div style={{ width: "100vw", height: "100vh"}} key={index}>
+                    <div key={index}>
                         <img style={{ width: "100vw", height: "100vh"}} src={`http://localhost:5003/${i}`} alt="info about company" />
                         {/* {console.log(i)} */}
                     </div> 
