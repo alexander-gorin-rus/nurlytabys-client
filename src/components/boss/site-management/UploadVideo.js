@@ -24,12 +24,8 @@ const UploadVideo = ({
 
     useEffect(() => {
         GetCategories();
-        loadAllVideos()
-    },[GetCategories]);
-
-    const loadAllVideos = () => {
         LoadVideos();
-    }    
+    },[GetCategories, LoadVideos]);  
 
     
     const [FilePath, setFilePath] = useState("");
@@ -39,21 +35,17 @@ const UploadVideo = ({
 
     const [values, setValues] = useState({
         title: "", 
-        filePath: FilePath,
+        filePath: "",
         description: "",
-        duration: Duration,
+        duration: "",
         categories: [], 
-        thumbnail: Thumbnail,
+        thumbnail: "",
         category: "",
     });
 
     const { 
         title,
         description,
-        // filePath,
-        // duration,
-        // categories,
-        // thumbnail,
         category
     } = values;
 
@@ -62,7 +54,6 @@ const UploadVideo = ({
     }
 
     const handleCategoryChange = (e) => {
-        //console.log('the choosen category', e.target.value);
         setValues({ ...values, category: e.target.value });
     }
 
@@ -91,7 +82,7 @@ const UploadVideo = ({
             category: "",
         });
         setTimeout(() => {
-            loadAllVideos()
+            LoadVideos()
         },300)
     }
 
@@ -103,7 +94,7 @@ const UploadVideo = ({
         console.log(files)
         formData.append('file', files[0]);
 
-        axios.post(`${process.env.REACT_APP_API}/video-upload`, formData, config)
+        axios.post(`api/v1/video-upload`, formData, config)
             .then(res => {
                 if(res.data.success){
                     console.log(res)
@@ -136,13 +127,12 @@ const UploadVideo = ({
             DeleteVideo(slug)
         }
         setTimeout(() => {
-            loadAllVideos()
+            LoadVideos()
         },300);
     }
 
 
     const updateImages = (newImages) => {
-        console.log(newImages);
         setImages(newImages)
     }
 
@@ -221,8 +211,11 @@ const UploadVideo = ({
             <Link className='d-block p-3 mt-4 bg-warning app-text-small' to='/site-management'>Вернуться на страницу управления сайтом</Link>
         </form>
     </div>
-    { videos && videos.length === 0 ? (<h4 className="text-center pb-5">Вы пока не создали видео</h4>) : (
-      <>
+    { videos && videos.length === 0 ? (<h4 className="text-center pb-5">Вы пока не создали видео</h4>
+    ) 
+        : 
+    (
+        <>
         <div className='mb-5' style={{marginTop: "15vh"}}>
         <p className='text-center app-text'>Созданные видео</p>
         {videos && videos.map((c, index) =>
@@ -246,7 +239,7 @@ const UploadVideo = ({
             </div>
         )}
         </div>
-    </>
+        </>
     ) }
     </Fragment>
     )

@@ -2,10 +2,10 @@ import React, {useEffect, Fragment} from 'react';
 import PropTypes from 'prop-types';
 import { GetDetailedVideo } from '../../../redux/actions/videos';
 import { connect } from 'react-redux';
-import ImagesSlider from '../../forms/ImagesSlider';
 import Spinner from '../../layout/Spinner';
 import styles from './DetailedInfo.module.css';
 import main_styles from '../main/Main.module.css';
+import DetailedImagesSlider from '../../forms/DetailedImagesSlider';
 
 const DetailedVideo = ({
     GetDetailedVideo,
@@ -25,18 +25,12 @@ const DetailedVideo = ({
             <div className={styles.detailed_info_main_div}>
                 {detailed_info && detailed_info.video.filePath === "" ? 
                     (
-                        <>
+                        <div className={styles.detailed_info_main}>
                             <div className={styles.detailed_info_video}>
-                                <ImagesSlider images={detailed_info.video.images}/>
+                                <DetailedImagesSlider images={detailed_info.video.images}/>
                             </div>
-                            
-                            <div className={styles.detailed_info_description_div}>
-                                <div className={styles.detailed_info_description_div_relative}>
-                                    <p className={styles.detailed_info_description}>{detailed_info.video.description}</p>
-                                </div>
-                                
-                            </div>
-                        </>
+                            <p className={styles.detailed_info_description}>{detailed_info.video.description}</p>
+                        </div>
                     ) :
                     (
                         <>

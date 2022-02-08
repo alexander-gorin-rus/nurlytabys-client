@@ -555,3 +555,18 @@ a{
   cursor: pointer;
   color: white;
 }
+
+
+.border{
+  width: 50% !important;
+  border: 1px solid green;
+}
+
+.detailed_image{
+  position: relative;
+  top: 0;
+  left: 0;
+  height: 45% !important;
+  width: 100% !important;
+  /* border-radius: 30px; */
+}

@@ -9,13 +9,12 @@ import { useHistory } from 'react-router-dom';
 const RegisterForm = ({
     registerEmployee, 
     setAlert,
-    LoadAllRoles,
-    roles: {load_all_roles}
+    LoadAllRoles
 }) => {
 
     useEffect(() => {
         LoadAllRoles()
-    },[]);
+    },[LoadAllRoles]);
 
     const history = useHistory();
 
@@ -34,11 +33,6 @@ const RegisterForm = ({
     const onChange = e => {
         setValues({...values, [e.target.name]: e.target.value});
     }
-
-    const handleRoleCreate = (e) => {
-        setValues({ ...values, role: e.target.value });
-    }
-
 
     const onSubmit = async (e) => {
         e.preventDefault();
@@ -85,7 +79,6 @@ const RegisterForm = ({
                                     onChange={e => onChange(e)}  
                                     placeholder='имя'  
                                 />
-                                {/* <label >Имя</label> */}
                             </div>
                             <div className="input-field col s6">
                                 <i className="material-icons prefix">account_circle</i>
@@ -98,7 +91,6 @@ const RegisterForm = ({
                                     onChange={e => onChange(e)} 
                                     placeholder='фамилия'
                                 />
-                                {/* <label htmlFor="icon_telephone">Фамилия</label> */}
                             </div>
                         </div>
                         <div className="row">
@@ -113,7 +105,6 @@ const RegisterForm = ({
                                     onChange={e => onChange(e)}  
                                     placeholder='телефон'  
                                 />
-                                {/* <label htmlFor="icon_telephone">Телефон</label> */}
                             </div>
                             <div className="input-field col s6">
                                 <i className="material-icons prefix">email</i>
@@ -126,7 +117,6 @@ const RegisterForm = ({
                                     onChange={e => onChange(e)}  
                                     placeholder='почта'  
                                 />
-                                {/* <label htmlFor="icon_telephone">Почта</label> */}
                             </div>
                         </div>
                         <div className="row">
@@ -141,7 +131,6 @@ const RegisterForm = ({
                                     onChange={e => onChange(e)}   
                                     placeholder='пароль'     
                                 />
-                                {/* <label htmlFor="icon_telephone">Пароль</label> */}
                             </div>
                             <div className="input-field col s3">
                                 <i className="material-icons prefix">password</i>
@@ -156,24 +145,7 @@ const RegisterForm = ({
                                 />
                                 {/* <label className='app-text-small'>Повторить пароль</label> */}
                             </div>
-                        </div>
-                       
-                            {/* <label>Выбор должности</label> 
-                                <select
-                                    name="category"
-                                    className="form-control bg-primary text-light"
-                                    onChange={handleRoleCreate}
-                                >
-                                    <option>Выбрать должность</option>
-                                    {load_all_roles.roles &&
-                                        load_all_roles.roles.map((r) =>
-                                            <option
-                                                key={r._id}
-                                                value={r._id}
-                                            >{r.name}
-                                            </option>)}
-                                </select> */}
-                            
+                        </div>    
                         <input type='submit' className='my-5 btn btn-primary' value='Зарегистрироваться' />
                     </form>
                 </div>

@@ -52,9 +52,9 @@ const Category = ({
             <p  data-aos="flip-left" className={styles.category_description}>{load_category.category.description}</p> 
 
             {load_category && load_category.videos.map((v, index) =>
-                <div data-aos="fade-down-right" className={main_styles.main_page_categories} key={index}>
+                <Link to={`/detailed-info/${v.slug}`}>
+                    <div data-aos="fade-down-right" className={main_styles.main_page_categories} key={index}>
                     <p>{v.title}</p>
-                    <Link to={`/detailed-info/${v.slug}`}>
                         {v.filePath === "" ? 
                         (    
                             <img className='image-card-content' src={`http://localhost:5003/${v.images[0]}`}  alt="cool" />      
@@ -62,9 +62,9 @@ const Category = ({
                         (
                             <img className="my-3" src={`http://localhost:5003/${v.thumbnail}` } alt="construction" />
                         )
-                        }
-                    </Link>    
-                </div>
+                        }    
+                    </div>
+                </Link>    
             )}
             </div>       
         </>
