@@ -8,6 +8,8 @@ import "aos/dist/aos.css";
 import { Link } from 'react-router-dom';
 import ImagesSlider from '../../forms/ImagesSlider';
 import Spinner from '../../layout/Spinner'
+import main_styles from '../main/Main.module.css'
+import styles from './Category.module.css'
 
 const Category = ({ 
     categories: {load_category}, 
@@ -16,10 +18,10 @@ const Category = ({
 
     const {slug} = match.params
 
-
+        console.log(load_category)
     useEffect(() => {
         GetOneCategory(slug);
-    },[]);
+    },[GetOneCategory, slug]);
 
     useEffect(() => {
         Aos.init({duration: 2000});
@@ -27,50 +29,50 @@ const Category = ({
 
     return (
         <Fragment>
-        {load_category && load_category.category ? (
-            <div className="main-page-video-div">
-                {load_category.category && load_category.category.filePath === "" ? (
-                    <ImagesSlider images={load_category.category.images}/>
-                ) 
-                    : 
-                (
-                    <video className="main-page-video-video" autoPlay loop muted 
-                        src={`http://localhost:5003/${load_category.category.filePath}`}
-                    >     
-                    </video>
-                )    
-            }
-               
-                <div className="main-page-content-div-absolute">
-
-                <div data-aos="fade-zoom-in" className=" d-flex justify-content-center">
-                    <h4 className="text-center p-5 main-page-title">{load_category.category.name}</h4>
-                </div> 
-                <p  data-aos="flip-right" className="main-page-description">{load_category.category.description}</p> 
-
-               {load_category && load_category.videos.map((v, index) =>
-                    <div data-aos="fade-down-right" className="main-page-categories " key={index}>
-                        <p className='text-center text-light'>{v.title}</p>
-                        <Link to={`/video/${v.slug}`}>
-                            {v.filePath === "" ? 
-                            (    
-                                <img className='image-card-content' src={`http://localhost:5003/${v.images[0]}`}  alt="cool" />      
-                            ) : 
-                            (
-                                <img className="my-3" src={`http://localhost:5003/${v.thumbnail}` } alt="construction" />
-                            )
-                            }
-                        </Link>
-                        
-                    </div>
-                )}
-                </div>
+        {load_category && load_category.category ? 
+        (
+        <>
+            <div className={styles.images_slider}>
+                {load_category.category && load_category.category.filePath === "" ? 
+                    (
+                        <ImagesSlider className={styles.images_slider} images={load_category.category.images}/>
+                    ) 
+                        : 
+                    (
+                        <video className="main-page-video-video" autoPlay loop muted 
+                            src={`http://localhost:5003/${load_category.category.filePath}`}
+                        >     
+                        </video>
+                    )    
+                }  
             </div>
-            ) 
-            : 
-            (
-                <Spinner />
+            <div className={main_styles.main_page_content_div_absolute}>
+            <h4 className={main_styles.main_page_title}>{load_category.category.name}</h4>
+           
+            <p  data-aos="flip-left" className={styles.category_description}>{load_category.category.description}</p> 
+
+            {load_category && load_category.videos.map((v, index) =>
+                <Link to={`/detailed-info/${v.slug}`}>
+                    <div data-aos="fade-down-right" className={main_styles.main_page_categories} key={index}>
+                    <p>{v.title}</p>
+                        {v.filePath === "" ? 
+                        (    
+                            <img className='image-card-content' src={`http://localhost:5003/${v.images[0]}`}  alt="cool" />      
+                        ) : 
+                        (
+                            <img className="my-3" src={`http://localhost:5003/${v.thumbnail}` } alt="construction" />
+                        )
+                        }    
+                    </div>
+                </Link>    
             )}
+            </div>       
+        </>
+        ) 
+            : 
+        (
+            <Spinner />
+        )}
         </Fragment>
     )
 }

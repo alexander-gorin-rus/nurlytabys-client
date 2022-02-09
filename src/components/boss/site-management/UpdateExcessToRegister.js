@@ -19,7 +19,7 @@ const UpdateExcessToRegister = ({
 
     useEffect(() => {
         getSingleRegisterToUpdate(id)
-    },[]);
+    },[getSingleRegisterToUpdate, id]);
 
     useEffect(() => {
         if(single_register && single_register){

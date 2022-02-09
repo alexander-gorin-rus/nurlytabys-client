@@ -44,7 +44,7 @@ import HeavyMachines from './components/pages/heavy-machines/HeavyMachines';
 import Header from './components/pages/navigation/Header';
 import Navbar from './components/pages/navigation/Navbar';
 import SmallMech from './components/pages/small-mech/SmallMech';
-import DetailedVideo from './components/pages/videos/DetailedVideo';
+import DetailedInfo from './components/pages/detailed-info/DetailedInfo';
 import StaffDashboard from './components/staffs/staff-calendar/StaffDashboard';
 import MyBusiness from './components/boss/company-management/calendar/MyBusiness';
 import EmployeeWithTasks from './components/boss/company-management/tasks/EmployeeWithTasks';
@@ -89,7 +89,7 @@ const App = () => {
                 <Route exact path="/register-form" component={RegisterForm}/>
                 <Route exact path="/login" component={LoginForm}/>
                 <Route path="/category/:slug" exact component={Category} />
-                <Route exact path="/video/:slug" component={DetailedVideo} />
+                <Route exact path="/detailed-info/:slug" component={DetailedInfo} />
                 <Route exact path="/completed-works" component={CompletedWorks} />
                 <Route exact path="/heavy-machines" component={HeavyMachines} />
                 <Route exact path="/small-mech" component={SmallMech} />

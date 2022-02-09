@@ -1,11 +1,8 @@
 import React, { useState, useEffect, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { useHistory } from 'react-router';
-
 import { connect } from 'react-redux';
-
 import { Link } from 'react-router-dom';
-
 import { 
     CreateAccessToRegister,
     listOfRegisters,
@@ -21,7 +18,7 @@ const ExcessToRegister = ({
 
     useEffect(() => {
         listOfRegisters()
-    },[]);
+    },[listOfRegisters]);
 
     const history = useHistory();
     const [values, setValues] = useState({
@@ -97,17 +94,17 @@ const ExcessToRegister = ({
                     {register_entry.list_of_registers.list && register_entry.list_of_registers.list.map((r) => 
                         <Fragment>
                             <h4 style={{marginTop: "15vh"}} className="text-center">Пароль для регистрации сотрудников уже создан</h4>
-                                <div className="category-cart" key={r.id} style={{position: "relative", left: "10vw", width: "80vw"}}>
-                                    <h4 className='text-center bg-primary'> {r.name}</h4>
-                                    <div className='bg-danger p-3 text-center'>
-                                        <span className='delete-custom px-3' onClick={() => onDelete(r._id)}>
-                                            Удалить пароль
-                                        </span>
-                                        <Link to={`update-excess-to-register/${r._id}`}>Изменить пароль</Link>
-                                    </div>
-                                    <Link className='d-block p-3 mt-4 bg-warning ' to='/site-management'>Вернуться на страницу управления сайтом</Link>
+                            <div className="category-cart" key={r.id} style={{position: "relative", left: "10vw", width: "80vw"}}>
+                                <h4 className='text-center bg-primary'> {r.name}</h4>
+                                <div className='bg-danger p-3 text-center'>
+                                    <span className='delete-custom px-3' onClick={() => onDelete(r._id)}>
+                                        Удалить пароль
+                                    </span>
+                                    <Link to={`update-excess-to-register/${r._id}`}>Изменить пароль</Link>
                                 </div>
-                </Fragment>
+                                <Link className='d-block p-3 mt-4 bg-warning ' to='/site-management'>Вернуться на страницу управления сайтом</Link>
+                            </div>
+                        </Fragment>
                     )}
                 </Fragment> 
             )}

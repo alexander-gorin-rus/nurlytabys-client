@@ -14,7 +14,6 @@ const StaffWeekGrid = ({
     employee
 }) => {
 
-    const totalDays = 42;
     const weekDay = startWeek.clone().subtract(1, 'day')
     const daysArray = [...Array(7)].map(() => weekDay.add(1, 'day').clone());
 

@@ -87,7 +87,8 @@ const UpdateVideo = ({
             description,
             duration: Duration,
             thumbnail: Thumbnail,
-            category
+            category,
+            images: Images
         }
 
         UpdateSingleVideo(id, variables);
@@ -136,16 +137,11 @@ const UpdateVideo = ({
     }
     return (
         <Fragment>
-           
-                <div className='main-div-content'>
+            <div className='main-div-content'>
                 <p className="text-center app-text">Изменить видео</p>
-                <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-                    
-                </div>
-
                 <form onSubmit={handleSubmit}>
-                <ImagesUpload refreshFunction={updateImages} />
-                <div style={{ position: "relative", marginTop: "3vh", display: 'flex', justifyContent: 'space-between' }}>
+                    <ImagesUpload refreshFunction={updateImages} />
+                    <div style={{ position: "relative", marginTop: "3vh", display: 'flex', justifyContent: 'space-between' }}>
                         <Dropzone
                             onDrop={onDrop} 
                             multiple={false}
@@ -154,7 +150,7 @@ const UpdateVideo = ({
                                 <div className='upload-div'
                                     {...getRootProps()}
                                 >
-                                    <input {...getInputProps()} />
+                                <input {...getInputProps()} />
                                     <p className='app-text'>Выбрать видео</p>
 
                                 </div>
@@ -166,7 +162,7 @@ const UpdateVideo = ({
                                 <img src={`http://localhost:5003/${Thumbnail}`} alt="construction" />
                             </div>
                         }
-                </div>
+                    </div>
 
                     <div className="form-group">
                         <input

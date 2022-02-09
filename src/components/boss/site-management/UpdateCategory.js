@@ -14,7 +14,7 @@ import { Link } from 'react-router-dom';
 import { GetOneCategoryToUpdate, CategoryUpdate } from '../../../redux/actions/categories';
 
 import ImagesUpload from './ImagesUpload';
-import Spinner from '../../layout/spinner1.gif'
+//import Spinner from '../../layout/spinner1.gif'
 
 const UpdateCategory = ({
     GetOneCategoryToUpdate, 
@@ -27,7 +27,7 @@ const UpdateCategory = ({
     
     useEffect(() => {
         GetOneCategoryToUpdate(id)
-    },[]);
+    },[GetOneCategoryToUpdate, id]);
 
 
     const [FilePath, setFilePath] = useState("");
@@ -93,13 +93,12 @@ const UpdateCategory = ({
         const config = {
             header: {'content-type': 'multipart/form-data'}
         }
-        //console.log('Сохраненный файл:', files)
         formData.append('file', files[0]);
 
         axios.post(`${process.env.REACT_APP_API}/category-video-upload`, formData, config)
             .then(res => {
                 if(res.data.success){
-                    //console.log(res)
+                    console.log(res)
 
                     let variable = {
                         filePath: res.data.filePath,
@@ -125,7 +124,6 @@ const UpdateCategory = ({
 
 
     const updateImages = (images, newImages) => {
-        //console.log(newImages);
         setImages(images, newImages)
     }
 
@@ -138,7 +136,7 @@ const UpdateCategory = ({
                 <div className='main-div-content'>
                 <p className="text-center app-text">Изменить категорию</p>
                 {category.category.images.map((i, index) => (
-                    <img style={{width: "200px", height: "auto"}} key={index} src={`http://localhost:5003/${i}`}/>
+                    <img style={{width: "200px", height: "auto"}} alt='category' key={index} src={`http://localhost:5003/${i}`}/>
                 ))}
                 <div className="row">
                 {/* {JSON.stringify(values)} */}

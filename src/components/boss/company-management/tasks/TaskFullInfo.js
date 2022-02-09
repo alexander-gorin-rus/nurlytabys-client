@@ -1,13 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
-
 import IdleTimer from 'react-idle-timer';
-
 import PropTypes from 'prop-types';
-
 import { Link, useHistory  } from 'react-router-dom';
-
 import { connect } from 'react-redux';
-
 import Spinner from '../../../layout/Spinner';
 import { 
     GetTaskById,

@@ -37,34 +37,28 @@ const Main = ({
             ) : (
                 <Fragment>
                     {main_page_info.video && main_page_info.video.map((v, index) =>
-                    <div key={index} className="main-page-video-div">
+                    <div key={index}>
                             {/* {v.filePath === "" ? 
                                 (
                                     <ImagesSlider images={v.images}/>
                                 )
                                 :
                                 (
-                                    <video className="main-page-video-video" autoPlay loop muted 
+                                    <video className={styles.main_page_video_video} autoPlay loop muted 
                                     src={`http://localhost:5003/${v.filePath}`}
                                     >     
                                     </video>
                                 )
                             } */}
-                           
-
-                    <video className="main-page-video-video" autoPlay loop muted 
+                    <video className={styles.main_page_video_video} autoPlay loop muted 
                         src={backVideo}>     
                     </video>
                     <div className={styles.main_page_content_div_absolute}>
-                        <div data-aos="fade-zoom-in" className=" d-flex justify-content-center">
-                            <h4 className={styles.main_page_title}>{v.title}</h4>
-                        </div>
-                                
+                        <h4 className={styles.main_page_title}>{v.title}</h4>        
                         <div data-aos="flip-left" className={styles.main_page_companyInfo}>
                             <p>{v.companyInfo}</p>
                         </div>
                         <p  data-aos="flip-right" className={styles.main_page_description}>{v.description}</p>
-
                         <p data-aos="fade-up-left" className={styles.main_page_contacts}>{v.contacts}</p>
                         
                         {categories && categories.map((category, index) =>
@@ -72,6 +66,7 @@ const Main = ({
                                 <Link to={`/category/${category.slug}`}>{category.name}</Link>
                             </div>
                         )}
+                        
                         <div data-aos="flip-left" className={styles.main_page_partners}>
                             <p>Наши партнеры:</p>
                                 <ul>
