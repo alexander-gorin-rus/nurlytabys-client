@@ -11,7 +11,7 @@
 .detailed_info_main{
     position: relative;
     top: 5vh;
-    left: 15%;
+    left: 10%;
     width: 82%;
     height: 120vh !important;
     /* border: 1px solid red; */
@@ -55,6 +55,7 @@
 
 @media(max-width: 890px){
     .detailed_info_main{
+        left: 15%;
         height: 90vh !important;
     }
     .detailed_info_description{
