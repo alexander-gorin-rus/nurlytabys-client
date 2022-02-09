@@ -1,13 +1,8 @@
 import React, { useState, useEffect } from 'react';
-
 import PropTypes from 'prop-types';
-
 import { connect } from 'react-redux';
-
 import { Link, useHistory } from 'react-router-dom';
-
 import moment from 'moment';
-
 import Spinner from '../../layout/Spinner';
 import { GetEmployeeList } from '../../../redux/actions/employee_actions';
 import { 
