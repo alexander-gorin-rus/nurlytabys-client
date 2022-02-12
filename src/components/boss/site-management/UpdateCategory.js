@@ -51,7 +51,7 @@ const UpdateCategory = ({
         // filePath,
         // duration,
         // thumbnail,
-        // images
+        images
     } = values;
 
     useEffect(() => {
@@ -80,7 +80,7 @@ const UpdateCategory = ({
             filePath: FilePath,
             duration: Duration,
             thumbnail: Thumbnail,
-            images: Images
+            images
         }
         CategoryUpdate(id, varibles);
         setTimeout(() => {
@@ -100,10 +100,10 @@ const UpdateCategory = ({
                 if(res.data.success){
                     console.log(res)
 
-                    let variable = {
-                        filePath: res.data.filePath,
-                        fileName: res.data.fileName
-                    }
+                    // let variable = {
+                    //     filePath: res.data.filePath,
+                    //     fileName: res.data.fileName
+                    // }
                     setFilePath(res.data.filePath);
 
                     //generate thumbnail with this file
@@ -140,28 +140,36 @@ const UpdateCategory = ({
                     <form onSubmit={e => onSubmit(e)}>
                         <ImagesUpload refreshFunction={updateImages} images={category.category.images} />
                         <div style={{position: "relative", marginTop: "3vh", display: 'flex', justifyContent: 'space-between' }}>
-                <Dropzone
-                    onDrop={onDrop} 
-                    multiple={false}
-                    maxSize={800000000}>
-                    {({ getRootProps, getInputProps }) => (
-                        <div className='upload-div'
-                            {...getRootProps()}
-                        >
-                            <input {...getInputProps()} />
-                            <p className='app-text'>Выбрать видео</p>
+                        <Dropzone
+                            onDrop={onDrop} 
+                            multiple={false}
+                            maxSize={800000000}>
+                            {({ getRootProps, getInputProps }) => (
+                                <div className='upload-div'
+                                    {...getRootProps()}
+                                >
+                                    <input {...getInputProps()} />
+                                    <p className='app-text'>Выбрать видео</p>
 
-                        </div>
-                    )}
-                </Dropzone>
+                                </div>
+                            )}
+                        </Dropzone>
 
                 {Thumbnail !== "" &&
                     <div>
                         <img src={`http://localhost:5003/${Thumbnail}`} alt="construction" />
                     </div>
                 }
-            </div>
-
+                    </div>
+                        <div className="form-group">
+                            <input
+                                type="text"
+                                name="images"
+                                className="form-control"
+                                value={images}
+                                onChange={e => onChange(e)}
+                            />
+                        </div>
                         <div className="form-group">
                             <input
                                 type="text"

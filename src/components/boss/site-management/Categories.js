@@ -41,7 +41,7 @@ const Categories = ({
         filePath: FilePath,
         duration: Duration,
         thumbnail: Thumbnail,
-        images: Images
+        images: ""
     });
 
     const { 
@@ -50,7 +50,7 @@ const Categories = ({
         // filePath,
         // duration,
         // thumbnail,
-        // images
+        images
     } = values;
 
     const onChange = e => {
@@ -70,7 +70,7 @@ const Categories = ({
             filePath: FilePath,
             duration: Duration,
             thumbnail: Thumbnail,
-            images: Images
+            images,
         }
         CreateCategory(variables);
         setValues({
@@ -143,7 +143,9 @@ const Categories = ({
             <p className="text-center bg-info p-3 app-text-small">Создать категорию</p>
                 <div className="row">
                     <form onSubmit={handleSubmit}>
-                    <ImagesUpload refreshFunction={updateImages}/>
+                    <ImagesUpload 
+                        refreshFunction={updateImages}
+                    />
 
                     <div style={{ position: "relative", marginTop: "3vh", display: 'flex', justifyContent: 'space-between' }}>
                         <Dropzone
@@ -166,6 +168,16 @@ const Categories = ({
                                 <img src={`http://localhost:5003/${Thumbnail}`} alt="main page" />
                             </div>
                         }
+                    </div>
+                    <div className="form-group">
+                        <input
+                            type="text"
+                            name="images"
+                            className="form-control"
+                            value={images}
+                            onChange={e => onChange(e)}
+                            placeholder="Вставьте путь к изображению"
+                        />
                     </div>
                     <div className="form-group">
                         <input
