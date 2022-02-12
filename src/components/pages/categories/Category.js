@@ -40,7 +40,7 @@ const Category = ({
                         : 
                     (
                         <video className={main_styles.main_page_video_video} autoPlay loop muted 
-                            src={`http://nurlytabys.kz/${load_category.category.filePath}`}
+                            src={`http://localhost:5003/${load_category.category.filePath}`}
                         >     
                         </video>
                     )    
