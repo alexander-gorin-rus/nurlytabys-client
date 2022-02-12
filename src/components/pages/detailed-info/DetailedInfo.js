@@ -36,7 +36,7 @@ const DetailedVideo = ({
                         <div className={styles.detailed_info_main}>
                             <div className={styles.detailed_info_video}>
                             <video className={styles.video_tag} 
-                                src={`http://nurlytabys.kz/${detailed_info.video.filePath}`} autoPlay loop muted>
+                                src={`http://localhost:5003/${detailed_info.video.filePath}`} autoPlay loop muted>
                             </video>
                             {JSON.stringify(detailed_info.video.filePath)}
                             <p className={styles.detailed_info_description}>{detailed_info.video.description}</p>
