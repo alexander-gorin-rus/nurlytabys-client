@@ -33,14 +33,15 @@ const DetailedVideo = ({
                         </div>
                     ) :
                     (
-                        <>
-                            <video style={{width: '80vw'}}  
-                                src={`http://localhost:5003/${detailed_info.video.filePath}`} controls>
+                        <div className={styles.detailed_info_main}>
+                            <div className={styles.detailed_info_video}>
+                            <video className={styles.video_tag} 
+                                src={`http://nurlytabys.kz/${detailed_info.video.filePath}`} autoPlay loop muted>
                             </video>
-                            <div className={main_styles.main_page_categories}>
-                                <p>{detailed_info.video.description}</p>
+                            <p className={styles.detailed_info_description}>{detailed_info.video.description}</p>
                             </div>
-                        </>
+                            
+                        </div>
                     )
                 }
             </div>

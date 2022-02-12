@@ -100,22 +100,23 @@ const Categories = ({
                 if(res.data.success){
                     console.log(res)
 
-                    let variable = {
-                        filePath: res.data.filePath,
-                        fileName: res.data.fileName
-                    }
+                    // let variable = {
+                    //     filePath: res.data.filePath,
+                    //     fileName: res.data.fileName
+                    // }
                     setFilePath(res.data.filePath);
+                    alert('Видео успешно добавлено');
 
                     //generate thumbnail with this file
-                    axios.post(`${process.env.REACT_APP_API}/category-thumbnail`, variable)
-                        .then(res => {
-                            if(res.data.success) {
-                                setDuration(res.data.fileDuration)
-                                setThumbnail(res.data.thumbsFilePath)
-                            }else{
-                                alert('Unable to make thumbnails')
-                            }
-                        })
+                    // axios.post(`${process.env.REACT_APP_API}/category-thumbnail`, variable)
+                    //     .then(res => {
+                    //         if(res.data.success) {
+                    //             setDuration(res.data.fileDuration)
+                    //             setThumbnail(res.data.thumbsFilePath)
+                    //         }else{
+                    //             alert('Unable to make thumbnails')
+                    //         }
+                    //     })
                 }else{
                     alert('Не удалось сохранить видео')
                 }

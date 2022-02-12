@@ -115,18 +115,18 @@ const UpdateVideo = ({
                     setFilePath(res.data.filePath);
 
                     //generate thumbnail with this file
-                    axios.post(`${process.env.REACT_APP_API}/thumbnail`, variable)
-                        .then(res => {
-                            if(res.data.success) {
-                                setDuration(res.data.fileDuration)
-                                setThumbnail(res.data.thumbsFilePath)
-                            }else{
-                                alert('Unable to make thumbnails')
-                            }
-                        })
+                    // axios.post(`${process.env.REACT_APP_API}/thumbnail`, variable)
+                    //     .then(res => {
+                    //         if(res.data.success) {
+                    //             setDuration(res.data.fileDuration)
+                    //             setThumbnail(res.data.thumbsFilePath)
+                    //         }else{
+                    //             alert('Unable to make thumbnails')
+                    //         }
+                    //     })
 
                 }else{
-                    alert('unable to save video')
+                    alert('Не удалось загрузить видео')
                 }
             })
     }

@@ -107,15 +107,15 @@ const UpdateCategory = ({
                     setFilePath(res.data.filePath);
 
                     //generate thumbnail with this file
-                    axios.post(`${process.env.REACT_APP_API}/category-thumbnail`, variable)
-                        .then(res => {
-                            if(res.data.success) {
-                                setDuration(res.data.fileDuration)
-                                setThumbnail(res.data.thumbsFilePath)
-                            }else{
-                                alert('Unable to make thumbnails')
-                            }
-                        })
+                    // axios.post(`${process.env.REACT_APP_API}/category-thumbnail`, variable)
+                    //     .then(res => {
+                    //         if(res.data.success) {
+                    //             setDuration(res.data.fileDuration)
+                    //             setThumbnail(res.data.thumbsFilePath)
+                    //         }else{
+                    //             alert('Unable to make thumbnails')
+                    //         }
+                    //     })
                 }else{
                     alert('Не удалось сохранить видео')
                 }
@@ -135,9 +135,6 @@ const UpdateCategory = ({
                 <Fragment>
                 <div className='main-div-content'>
                 <p className="text-center app-text">Изменить категорию</p>
-                {category.category.images.map((i, index) => (
-                    <img style={{width: "200px", height: "auto"}} alt='category' key={index} src={`http://localhost:5003/${i}`}/>
-                ))}
                 <div className="row">
                 {/* {JSON.stringify(values)} */}
                     <form onSubmit={e => onSubmit(e)}>

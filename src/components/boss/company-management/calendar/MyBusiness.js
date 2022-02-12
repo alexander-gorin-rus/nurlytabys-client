@@ -6,10 +6,6 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 
-import { Link } from 'react-router-dom';
-
-import { useParams } from 'react-router';
-
 import DaySelect from '../tasks/calendar/DaySelect';
 import MonthSelect from '../tasks/calendar/MonthSelect';
 import WeekSelect from '../tasks/calendar/WeekSelect';
