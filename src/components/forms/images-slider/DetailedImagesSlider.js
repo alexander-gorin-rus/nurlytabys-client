@@ -1,13 +1,13 @@
 import React from 'react';
-
 import { Carousel } from 'antd';
+import styles from './ImagesSlider.module.css';
 
-const  DetailedImagesSlider= (props) => {
+const  DetailedImagesSlider= ({images}) => {
     return (
         <Carousel autoplay>
-            {props.images.map((i, index) => (
+            {images.map((i, index) => (
                 <div key={index}>
-                    <img className='detailed_image' src={`http://localhost:5003/${i}`} alt="detailed info" />
+                    <img className={styles.detailed_images} src={`${i}`} alt="detailed info" />
                 </div> 
             ))}
         </Carousel> 

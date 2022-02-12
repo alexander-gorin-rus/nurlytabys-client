@@ -53,11 +53,12 @@ const Category = ({
 
             {load_category && load_category.videos.map((v, index) =>
                 <Link to={`/detailed-info/${v.slug}`}>
+                    {console.log(v)}
                     <div data-aos="fade-down-right" className={main_styles.main_page_categories} key={index}>
                     <p>{v.title}</p>
                         {v.filePath === "" ? 
                         (    
-                            <img className='image-card-content' src={`http://localhost:5003/${v.images[0]}`}  alt="cool" />      
+                            <img className='image-card-content' src={`http://localhost:5003/${v.images[0]}`}  alt="card" />      
                         ) : 
                         (
                             <img className="my-3" src={`http://localhost:5003/${v.thumbnail}` } alt="construction" />

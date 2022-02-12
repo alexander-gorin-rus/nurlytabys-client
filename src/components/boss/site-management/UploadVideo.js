@@ -31,7 +31,7 @@ const UploadVideo = ({
     const [FilePath, setFilePath] = useState("");
     const [Duration, setDuration] = useState("");
     const [Thumbnail, setThumbnail] = useState("");
-    const [Images, setImages] = useState([])
+    //const [Images, setImages] = useState([])
 
     const [values, setValues] = useState({
         title: "", 
@@ -41,12 +41,14 @@ const UploadVideo = ({
         categories: [], 
         thumbnail: "",
         category: "",
+        images: ""
     });
 
     const { 
         title,
         description,
-        category
+        category,
+        images
     } = values;
 
     const handleChange = e => {
@@ -67,7 +69,7 @@ const UploadVideo = ({
             duration: Duration,
             thumbnail: Thumbnail,
             category,
-            images: Images
+            images
         }
 
         SaveVideoFunction(variables);
@@ -80,6 +82,7 @@ const UploadVideo = ({
             categories: [], 
             thumbnail: "",
             category: "",
+            images: ""
         });
         setTimeout(() => {
             LoadVideos()
@@ -132,9 +135,9 @@ const UploadVideo = ({
     }
 
 
-    const updateImages = (newImages) => {
-        setImages(newImages)
-    }
+    // const updateImages = (newImages) => {
+    //     setImages(newImages)
+    // }
 
 
     return (
@@ -145,7 +148,9 @@ const UploadVideo = ({
         <p className="text-center bg-info p-3 app-text-small">Страница управления видео материалами и изображениями</p>
 
         <form onSubmit={handleSubmit}>
-        <ImagesUpload refreshFunction={updateImages}/>
+        <ImagesUpload 
+            //refreshFunction={updateImages}
+        />
 
         <div style={{position: "relative", marginTop: "3vh", display: 'flex', justifyContent: 'space-between' }}>
                 <Dropzone
@@ -169,7 +174,16 @@ const UploadVideo = ({
                     </div>
                 }
             </div>
-
+            <div className="form-group">
+                <input
+                    type="text"
+                    name="images"
+                    className="form-control"
+                    value={images}
+                    onChange={handleChange}
+                    placeholder="Выбрать путь к файлу"
+                />
+            </div>
             <div className="form-group">
                 <input
                     type="text"
