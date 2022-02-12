@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import Spinner from '../../layout/Spinner';
 import styles from './DetailedInfo.module.css';
 import main_styles from '../main/Main.module.css';
-import DetailedImagesSlider from '../../forms/DetailedImagesSlider';
+import DetailedImagesSlider from '../../forms/images-slider/DetailedImagesSlider';
 
 const DetailedVideo = ({
     GetDetailedVideo,

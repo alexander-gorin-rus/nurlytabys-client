@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import Aos from 'aos';
 import "aos/dist/aos.css";
 import { Link } from 'react-router-dom';
-import ImagesSlider from '../../forms/ImagesSlider';
+import ImagesSlider from '../../forms/images-slider/ImagesSlider';
 import Spinner from '../../layout/Spinner'
 import main_styles from '../main/Main.module.css'
 import styles from './Category.module.css'

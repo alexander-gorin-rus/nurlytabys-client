@@ -1,0 +1,22 @@
+.images{
+    width: 100vw;
+    height: 100vh;
+}
+
+@media(max-width: 750px) {
+    .images{
+        width: 140vw;
+    }
+}
+
+@media(max-width: 630px) {
+    .images{
+        width: 160vw;
+    }
+}
+
+@media(max-width: 400px) {
+    .images{
+        width: 180vw;
+    }
+}
