@@ -38,7 +38,7 @@ const DetailedVideo = ({
                             <video className={styles.video_tag} 
                                 src={`http://localhost:5003/${detailed_info.video.filePath}`} autoPlay loop muted>
                             </video>
-                            {console.log(detailed_info.video.filePath)}
+                            {JSON.stringify(detailed_info.video.filePath)}
                             <p className={styles.detailed_info_description}>{detailed_info.video.description}</p>
                             </div>
                             
