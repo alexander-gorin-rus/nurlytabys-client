@@ -52,10 +52,10 @@ const Category = ({
            
             <p  data-aos="flip-left" className={styles.category_description}>{load_category.category.description}</p> 
 
-            {load_category && load_category.videos.map((v, index) =>
-                <Link to={`/detailed-info/${v.slug}`}>
+            {load_category && load_category.videos.map((v, id) =>
+                <Link key={id} to={`/detailed-info/${v.slug}`}>
                     {console.log(v)}
-                    <div data-aos="fade-down-right" className={main_styles.main_page_categories} key={index}>
+                    <div data-aos="fade-down-right" className={main_styles.main_page_categories} >
                     <p>{v.title}</p>
                         {v.filePath === "" ? 
                         (    

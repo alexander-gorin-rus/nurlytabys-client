@@ -95,7 +95,8 @@ const Categories = ({
         console.log('Сохраненный файл:', files)
         formData.append('file', files[0]);
 
-        axios.post(`${process.env.REACT_APP_API}/category-video-upload`, formData, config)
+        //axios.post(`${process.env.REACT_APP_API}/category-video-upload`, formData, config)
+        axios.post(`http://localhost:5003/api/v1/category-video-upload`, formData, config)
             .then(res => {
                 if(res.data.success){
                     console.log(res)
