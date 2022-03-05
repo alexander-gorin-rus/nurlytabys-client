@@ -16,7 +16,7 @@ function ImagesUpload(props) {
         //console.log(files)
         formData.append('file', files[0]);
 
-        axios.post(`${process.env.REACT_APP_API}/images-upload`, formData, config)
+        axios.post(`http://localhost:5003/api/v1/images-upload`, formData, config)
             .then(res => {
                 if(res.data.success){
                     setImages([...Images, res.data.image]);
