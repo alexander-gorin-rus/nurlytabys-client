@@ -14,7 +14,7 @@
     position: relative;
     width: 70%;
     height: 80% !important;
-    /* border: 1px solid red; */
+    border: 1px solid red;
 }
 
 .detailed_info_video{

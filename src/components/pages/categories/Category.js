@@ -35,7 +35,8 @@ const Category = ({
             <div className={styles.images_slider}>
                 {load_category.category && load_category.category.filePath === "" ? 
                     (
-                        <ImagesSlider className={styles.images_slider} images={load_category.category.images}/>
+                        <></>
+                        // <ImagesSlider className={styles.images_slider} images={load_category.category.images}/>
                     ) 
                         : 
                     (
