@@ -35,13 +35,14 @@ const Category = ({
             <div className={styles.images_slider}>
                 {load_category.category && load_category.category.filePath === "" ? 
                     (
-                        <></>
-                        // <ImagesSlider className={styles.images_slider} images={load_category.category.images}/>
+                        
+                        <ImagesSlider className={styles.images_slider} images={load_category.category.images}/>
                     ) 
                         : 
                     (
                         <video className={main_styles.main_page_video_video} autoPlay loop muted 
-                            src={`http://localhost:5003/${load_category.category.filePath}`}
+                            src={`https://nurlytabys.kz/${load_category.category.filePath}`}
+                            type='video/mp4'
                         >     
                         </video>
                     )    

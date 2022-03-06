@@ -22,7 +22,7 @@ const Employee = ({
     useEffect(() => {
         GetEmployeeById(id);
          LoadAllRoles()
-    },[GetEmployeeById]);
+    },[GetEmployeeById, LoadAllRoles, id]);
 
     const [values, setValues] = useState({
         role: ""

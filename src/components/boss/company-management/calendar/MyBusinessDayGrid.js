@@ -1,7 +1,4 @@
 import React from 'react';
-
-import { Link } from 'react-router-dom';
-
 import '../tasks/calendar/calendar.css';
 import Spinner from '../../../layout/Spinner';
 

@@ -21,7 +21,7 @@ const UpdateRole = ({
 
     useEffect(() => {
         LoadRoleById(id)
-    },[]);
+    },[LoadRoleById, id]);
 
     const [values, setValues] = useState({
         name: ""

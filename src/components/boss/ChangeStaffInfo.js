@@ -20,7 +20,7 @@ const ChangeStaffInfo = ({
 
     useEffect(() => {
         GetEmployeeById(id)
-    },[GetEmployeeById])
+    },[GetEmployeeById, id])
 
     const [values, setValues] = useState({
         name: "",
@@ -46,8 +46,7 @@ const ChangeStaffInfo = ({
                 name: employee_by_id.employee.name,
                 lastName: employee_by_id.employee.lastName,
                 phone: employee_by_id.employee.phone,
-                email: employee_by_id.employee.email,
-                phone: employee_by_id.employee.phone
+                email: employee_by_id.employee.email
             })
         }
     },[employee_by_id]);

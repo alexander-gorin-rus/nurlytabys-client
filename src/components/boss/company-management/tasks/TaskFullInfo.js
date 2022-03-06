@@ -67,9 +67,6 @@ const TaskFullInfo = ({
     const tasksCountId = tasks_count && tasks_count.map(t => t._id);
     const countsStringify = JSON.stringify(tasksCountId);
     let countId = countsStringify.slice(2, 26);
-    // console.log(countsStringify);
-    // console.log(countId);
-    // console.log(tasks_count)
 
     //SECTION TO HIDE OF SHOW READ FORM
     const employeeLength = task_by_id && task_by_id.task.employees.length;
@@ -102,14 +99,6 @@ const TaskFullInfo = ({
         tasksCount = tasksCountStrigify.slice(1, 4);
     }  
     
-    //console.log(tasksByRoleLength);
-    // console.log(tasksCountLength);
-    // console.log(tasksCountStrigify);
-    // console.log(tasksCount);
-    // console.log(signsLength);
-    
-
-
     //The meaning of this variable is to check if tasks_count object exists.
     const tasksCountLength = tasks_count && tasks_count.length
     //console.log(tasksCountLength);
